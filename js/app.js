@@ -464,6 +464,18 @@
       badge: 'New'
     },
     {
+      id: 'product-research',
+      name: 'Winning Product Research & Dropshipping Spy Tool',
+      description: 'Find trending winning products by country & category, spy on live competitor Meta ads, TikTok trends & calculate profit margins',
+      category: 'seo',
+      categoryLabel: 'E-Commerce & Marketing',
+      icon: '🛍️',
+      iconBg: 'calc-tools',
+      url: 'tools/product-research.html',
+      keywords: ['product research', 'dropshipping product finder', 'winning products', 'meta ad library spy', 'tiktok creative center', 'ecommerce tools', 'dropshipping profit calculator', 'trending products india usa'],
+      badge: 'New'
+    },
+    {
       id: 'website-analyzer',
       name: 'All-in-One Website Analyzer & Auditor',
       description: '360° verified audit: active Meta & Facebook ads, social profiles, Google Maps, contact details, tech stack & DNS',

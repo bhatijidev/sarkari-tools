@@ -354,6 +354,7 @@
 
   // Chronological hierarchy of recently added tools (newest first)
   const NEWEST_TOOL_IDS = [
+    'product-research',
     'url-safety-checker',
     'internet-speed-test',
     'quick-notes',
