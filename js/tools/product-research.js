@@ -883,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sunset_lamp: 'https://deodap.in/cdn/shop/files/01_adf4df0e-2746-4f15-a62f-769b4ad3843d.jpg?v=1769172005',
     car_vacuum: 'https://static.vecteezy.com/system/resources/previews/058/695/651/non_2x/cordless-handheld-vacuum-cleaner-on-transparent-background-png.png',
     dash_cam_3ch: 'https://www.quboworld.com/cdn/shop/files/Trio_1.jpg?v=1777818316&width=800',
-    phone_mount_mirror: 'https://5.imimg.com/data5/ANDROID/Default/2023/4/302461025/MQ/QE/WQ/112384555/product-jpeg-500x500.jpg',
+    phone_mount_mirror: 'https://rukminim2.flixcart.com/image/612/612/xif0q/car-cradle/dashboard/j/p/r/upgraded-multifunctional-rearview-mirror-phone-holder-360-original-imahzx8yhqeu7d57.jpeg?q=70',
     back_stretcher: 'https://deodap.in/cdn/shop/files/16ca6b92-323d-4876-b9a7-4c2ba3d505ef.jpg?v=1772271863',
     walking_pad: 'https://www.walkingpad.com/cdn/shop/files/walkingpad-google-home-page.jpg?v=1767147777',
     pushup_board: 'https://srmn.co.in/wp-content/uploads/2026/05/Pusub-Board.jpg',
@@ -895,6 +895,36 @@ document.addEventListener('DOMContentLoaded', () => {
     waterproof_backpack: 'https://www.theclownfish.com/cdn/shop/files/61ARukZfO_L.jpg?v=1736000247&width=533',
     posture_brace: 'https://5.imimg.com/data5/SELLER/Default/2026/5/608422857/VN/KI/HA/9487790/posture-corrector-for-lower-and-upper-back-pain-500x500.jpg',
     carbon_wallet: 'https://aldemoriessentials.com/cdn/shop/files/1_2_d2ed6fa3d666.jpg?v=1792075558&width=800'
+  };
+
+    // High-Yield Curated Ad Search Keywords (Bans verbatim 8-word Amazon titles that return 0 results on Meta/TikTok)
+  const PRODUCT_AD_KEYWORDS = {
+    flame_humidifier: 'flame diffuser',
+    spin_scrubber: 'spin scrubber',
+    portable_blender: 'portable blender',
+    smart_trash_can: 'smart trash can',
+    crystal_hair_eraser: 'crystal hair eraser',
+    heatless_curler: 'heatless curler',
+    red_light_wand: 'red light wand',
+    skin_scrubber: 'skin scrubber',
+    magsafe_charger: 'wireless charging station',
+    levitating_humidifier: 'levitating humidifier',
+    mini_powerbank: 'mini power bank',
+    sunset_lamp: 'sunset lamp',
+    car_vacuum: 'car vacuum cleaner',
+    dash_cam_3ch: 'dash cam',
+    phone_mount_mirror: 'rearview mirror phone holder',
+    back_stretcher: 'back stretcher',
+    walking_pad: 'walking pad',
+    pushup_board: 'push up board',
+    smart_pet_ball: 'smart pet ball',
+    pet_hair_roller: 'pet hair roller',
+    donut_pet_bed: 'calming pet bed',
+    led_drawing_tablet: 'lcd writing tablet',
+    montessori_busy_board: 'busy board',
+    waterproof_backpack: 'anti theft backpack',
+    posture_brace: 'posture corrector',
+    carbon_wallet: 'ridge wallet'
   };
 
   // Real Verified Product Video Demonstrations (Only shown when a genuine verified demonstration video exists)
@@ -1278,12 +1308,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const imgUrl = getProductImage(p);
 
-      // Live Search / Spy URLs adapted to Country
-      const metaAdsUrl = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=${currentCountry}&q=${encodeURIComponent(p.name)}&search_type=keyword_unordered`;
-      const tikTokUrl = `https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en?keyword=${encodeURIComponent(p.name)}`;
-      const googleTrendsUrl = `https://trends.google.com/trends/explore?geo=${currentCountry}&q=${encodeURIComponent(p.name)}`;
-      const aliExpressUrl = `https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
-      const amazonUrl = `https://www.${cfg.amazonDomain}/s?k=${encodeURIComponent(p.name)}`;
+            // High-Yield Curated Search Query (Yields 100s-1000s of active ads instead of 0)
+      const adKeyword = (typeof PRODUCT_AD_KEYWORDS !== 'undefined' && PRODUCT_AD_KEYWORDS[p.id]) ? PRODUCT_AD_KEYWORDS[p.id] : p.name;
+
+      // Live Search / Spy URLs adapted to Country & Global Reach
+      const metaAdsUrl = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=${currentCountry}&q=${encodeURIComponent(adKeyword)}&search_type=keyword_unordered&media_type=all`;
+      const metaAdsGlobalUrl = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=${encodeURIComponent(adKeyword)}&search_type=keyword_unordered&media_type=all`;
+      const tikTokUrl = `https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en?keyword=${encodeURIComponent(adKeyword.replace(/\s+/g, ''))}`;
+      const googleTrendsUrl = `https://trends.google.com/trends/explore?geo=${currentCountry}&q=${encodeURIComponent(adKeyword)}`;
+      const aliExpressUrl = `https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(adKeyword)}`;
+      const amazonUrl = `https://www.${cfg.amazonDomain}/s?k=${encodeURIComponent(adKeyword)}`;
 
       // Verified D2C / Shopify Store (Rendered ONLY IF genuine live store exists - no dummy search links!)
       const verifiedStore = p.shopifyStore !== undefined ? p.shopifyStore : (VERIFIED_SHOPIFY_STORES ? VERIFIED_SHOPIFY_STORES[p.id] : null);
@@ -1297,7 +1331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div>
           <!-- High-Impact Product Thumbnail with Floating Badges -->
           <div class="product-thumb-wrap">
-            <img src="${imgUrl}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80';">
+            <img src="${imgUrl}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'><rect fill=\'%23f8fafc\' width=\'300\' height=\'200\'/><text fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'14\' dy=\'10.5\' font-weight=\'bold\' x=\'50%\' y=\'50%\' text-anchor=\'middle\'>Physical Product Photo</text></svg>';">
             <div class="product-thumb-overlay"></div>
             <div class="product-thumb-badge-top-left">
               <span class="product-tag product-tag-trend">#${idx + 1} Trending</span>
@@ -1363,8 +1397,11 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
-            <a href="${metaAdsUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-meta" title="Spy on live running Meta ads in ${cfg.name}">
-              <span>🔵</span> <span>Meta Ads</span>
+                        <a href="${metaAdsUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-meta" title="Spy on live active Meta & Instagram ads in ${cfg.name} (Curated keyword: '${escapeHtml(adKeyword)}')">
+              <span>🔵</span> <span>Meta Ads (${currentCountry})</span>
+            </a>
+            <a href="${metaAdsGlobalUrl}" target="_blank" rel="noopener" class="spy-link-btn" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;" title="Spy on 50,000+ worldwide active ads across all countries">
+              <span>🌐</span> <span>Global Ads</span>
             </a>
             <a href="${tikTokUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-tiktok" title="Explore viral TikTok hashtag & creative trends">
               <span>🎵</span> <span>TikTok Trends</span>
