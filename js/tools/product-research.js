@@ -3,7 +3,7 @@
  * Dynamic Engine Features:
  * 1. Country-Adaptive Market Profiles & Local Currencies (INR, USD, GBP, EUR, AED, CAD, AUD)
  * 2. Country-Specific Trending Categories Hotlist (Auto-generated when no category selected)
- * 3. Winning Products Feed with Live Meta Ad Library, TikTok Creative, Google Trends & AliExpress Links
+ * 3. 26 Proven Viral Winning Products with Dynamic Day/Week Trend Momentum Scoring
  * 4. Live Custom Product & Niche Search Query Analyzer
  * 5. Interactive Unit Economics & Breakeven ROAS Calculator
  * 6. Viral 30-Second TikTok / Reels Ad Hook & Video Script Generator
@@ -124,12 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
       fxRate: 0.018,
       avgCpa: 30,
       avgShip: 8,
-      codRate: '0% (Afterpay & Credit Cards dominate)',
+      codRate: '0% (100% Card & Afterpay)',
       logistics: 'Australia Post, Sendle, StarTrack',
-      gateway: 'Afterpay, Zip, Stripe, PayPal',
-      aovRange: 'A$49 - A$99 (Active lifestyle, pets, fitness & outdoor)',
+      gateway: 'Stripe, Afterpay, Zip, PayPal',
+      aovRange: 'A$49 - A$99 (Active outdoor lifestyle & pet care)',
       amazonDomain: 'amazon.com.au',
-      adPlatform: 'Meta Ads & TikTok'
+      adPlatform: 'Meta Feed & TikTok'
     },
     AE: {
       name: 'United Arab Emirates',
@@ -137,97 +137,97 @@ document.addEventListener('DOMContentLoaded', () => {
       currency: 'AED',
       symbol: 'AED ',
       fxRate: 0.044,
-      avgCpa: 55,
+      avgCpa: 45,
       avgShip: 18,
       codRate: '55% - 65% COD Orders',
-      logistics: 'Aramex, Fetchr, SMSA Express, Emirates Post',
-      gateway: 'Telr, PayTabs, Stripe, Tamara BNPL',
-      aovRange: 'AED 120 - AED 250 (High purchasing power & luxury tech)',
+      logistics: 'Aramex, Fetchr, SMSA Express, iMile',
+      gateway: 'Checkout.com, Network International, Stripe',
+      aovRange: 'AED 120 - 250 (High ticket luxury & tech focus)',
       amazonDomain: 'amazon.ae',
-      adPlatform: 'Snapchat Ads, Instagram Reels & TikTok'
+      adPlatform: 'Snapchat Ads & Instagram Reels'
     },
     DE: {
-      name: 'Germany / EU',
+      name: 'Germany / Europe',
       flag: '🇩🇪',
       currency: 'EUR',
       symbol: '€',
       fxRate: 0.011,
       avgCpa: 22,
       avgShip: 5,
-      codRate: '5% (Klarna Invoice & Sofort dominate)',
-      logistics: 'DHL Paket, Hermes Germany, DPD',
-      gateway: 'Klarna Pay Later, PayPal, Sofort, Stripe',
-      aovRange: '€35 - €75 (Ergonomics, precision & sustainable products)',
+      codRate: '0% (Sofort, Klarna, PayPal, GiroPay)',
+      logistics: 'DHL Paket, Hermes, DPD Deutschland',
+      gateway: 'Klarna, PayPal, Mollie, Stripe',
+      aovRange: '€35 - €75 (Practical problem-solvers & quality)',
       amazonDomain: 'amazon.de',
-      adPlatform: 'Google Shopping, Facebook & Instagram'
+      adPlatform: 'Google Shopping & Meta Ads'
     },
     ALL: {
-      name: 'Global / Worldwide',
+      name: 'Global Market',
       flag: '🌐',
       currency: 'USD',
       symbol: '$',
       fxRate: 0.012,
       avgCpa: 22,
-      avgShip: 5,
-      codRate: 'Depends on country',
-      logistics: 'YunExpress, CJ Packet, CNE Express, 4PX',
+      avgShip: 6,
+      codRate: 'Varies by region',
+      logistics: 'CNE Express, YunExpress, Yanwen 4PX',
       gateway: 'Stripe, PayPal, Shopify Payments',
-      aovRange: '$35 - $75 (Universal problem solvers & viral gadgets)',
+      aovRange: '$35 - $75 (Universal mass-market problem solvers)',
       amazonDomain: 'amazon.com',
-      adPlatform: 'TikTok Creative Center & Meta Global'
+      adPlatform: 'TikTok Creative & Meta Ad Library'
     }
   };
 
-  // Trending Categories by Country (Displayed when user doesn't pick a category)
+  // Country Trending Categories Hotlist
   const COUNTRY_TRENDING_CATEGORIES = {
     IN: [
       {
+        id: 'auto',
+        name: 'Car & Bike Accessories & Cleaning Tech',
+        icon: '🚗',
+        growth: '+58% MoM',
+        reason: 'Huge spike in wireless tire inflators, high-pressure car dusters, and 360° phone mounts across tier-1 & tier-2 cities.',
+        sample: 'Wireless Car Vacuum & Blower, Portable Tire Inflator'
+      },
+      {
         id: 'home',
-        name: 'Smart Kitchen & Home Organizers',
-        icon: '🍲',
-        growth: '+42% MoM',
-        reason: 'Surge in modern kitchen appliances, wireless choppers & space-saving organizers in Indian urban households.',
-        sample: 'Wireless Electric Food Chopper, Multifunctional Slicer'
+        name: 'Smart Kitchen & Home Problem Solvers',
+        icon: '🏠',
+        growth: '+46% MoM',
+        reason: 'Viral Instagram Reels driving high COD orders on flame diffusers, vegetable choppers, and cordless scrubbers.',
+        sample: 'Ultrasonic Flame Diffuser, Electric Spin Scrubber'
       },
       {
         id: 'tech',
-        name: 'Festive & Ambient Smart LED Lighting',
-        icon: '🪔',
-        growth: '+58% MoM',
-        reason: 'Year-round high demand for aesthetic bedroom makeover lamps, flame diffusers, and RGB curtain lights.',
-        sample: 'Flame Aroma Humidifier, Sunset Projector Lamp'
+        name: 'Wireless Gadgets & MagSafe Tech',
+        icon: '⚡',
+        growth: '+42% MoM',
+        reason: 'Rising smartphone adoption driving strong demand for 3-in-1 multi-chargers and pocket power banks.',
+        sample: 'Foldable 3-in-1 MagSafe Dock, Mini Capsule Power Bank'
       },
       {
         id: 'beauty',
-        name: 'D2C Skincare & Personal Grooming',
-        icon: '🧴',
-        growth: '+36% MoM',
-        reason: 'Huge shift towards viral beauty devices: painless hair erasers, EMS face lifters, and ultrasonic skin spatulas.',
-        sample: 'Crystal Hair Eraser, 4-in-1 Facial Wand'
-      },
-      {
-        id: 'auto',
-        name: 'Automotive & Bike Accessories',
-        icon: '🚗',
-        growth: '+29% MoM',
-        reason: 'Indian car owners eagerly buy wireless high-power vacuum cleaners, smart tire inflators, and phone mounts.',
-        sample: 'Portable Car Vacuum, Digital Tire Inflator'
+        name: 'Painless Hair Removal & Skincare Tools',
+        icon: '💄',
+        growth: '+39% MoM',
+        reason: 'Zero-pain crystal hair erasers and red light therapy wands driving 75%+ profit margins with low returns.',
+        sample: 'Nano-Crystalline Hair Eraser, Red Light Facial Wand'
       },
       {
         id: 'fitness',
-        name: 'Orthopedic & Posture Relief Gadgets',
-        icon: '🧘',
+        name: 'Orthopedic Back Pain & Posture Care',
+        icon: '🏋️',
         growth: '+34% MoM',
-        reason: 'Work-from-home back & neck strain drives high conversion on acupressure stretchers and cervical pillows.',
-        sample: 'Multi-Level Back Stretcher, Memory Foam Seat Cushion'
+        reason: 'Work-from-home back & neck strain drives high conversion on acupressure stretchers and posture braces.',
+        sample: 'Multi-Level Back Stretcher, Posture Corrector'
       },
       {
         id: 'fashion',
-        name: 'Waterproof Anti-Theft Backpacks & Bags',
+        name: 'Anti-Theft Travel Backpacks & Smart Wallets',
         icon: '🎒',
-        growth: '+27% MoM',
-        reason: 'College students and commuters driving strong volume on USB-charging aesthetic waterproof travel bags.',
-        sample: 'Expandable Travel Backpack with USB Port'
+        growth: '+31% MoM',
+        reason: 'Commuters and college youth driving strong volume on USB-charging waterproof travel bags and carbon RFID wallets.',
+        sample: 'Expandable Travel Backpack, RFID Carbon Fiber Wallet'
       }
     ],
     US: [
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon: '🐾',
         growth: '+52% MoM',
         reason: 'Americans spend over $140B on pets. High impulse buys on self-moving balls, calming beds, and shedding vacuums.',
-        sample: 'Smart Bouncing Pet Ball, Pet Hair Lint Roller'
+        sample: 'Smart Bouncing Pet Ball, Self-Cleaning Pet Hair Roller'
       },
       {
         id: 'home',
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon: '🏃',
         growth: '+41% MoM',
         reason: 'Huge remote-work trend for compact foldable walking treadmills and smart resistance bar kits.',
-        sample: 'Ultra-Thin Walking Pad, Resistance Band Bar Set'
+        sample: 'Ultra-Thin Walking Pad, 14-in-1 Push-Up Board'
       },
       {
         id: 'tech',
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon: '⚡',
         growth: '+38% MoM',
         reason: 'Aesthetic bedside 3-in-1 foldable charging stations for iPhone, Apple Watch, and AirPods.',
-        sample: 'Foldable 3-in-1 MagSafe Travel Charger'
+        sample: 'Foldable 3-in-1 MagSafe Travel Charger, Sunset Lamp'
       },
       {
         id: 'beauty',
@@ -277,12 +277,176 @@ document.addEventListener('DOMContentLoaded', () => {
         icon: '👶',
         growth: '+33% MoM',
         reason: 'Millennial parents actively seeking screen-free developmental toys and wooden sensory boards.',
-        sample: 'LED Wooden Busy Board for Toddlers'
+        sample: 'LED Wooden Busy Board for Toddlers, LCD Drawing Tablet'
+      }
+    ],
+    GB: [
+      {
+        id: 'home',
+        name: 'Aesthetic Cozy Home Decor & Diffusers',
+        icon: '🕯️',
+        growth: '+49% MoM',
+        reason: 'UK consumer appetite for cozy autumn/winter home aesthetics, flame diffusers, and mood lighting.',
+        sample: 'Ultrasonic Flame Diffuser, Sunset Projection Lamp'
+      },
+      {
+        id: 'pets',
+        name: 'Calming Dog & Cat Beds & Grooming',
+        icon: '🐕',
+        growth: '+44% MoM',
+        reason: 'High pet ownership in UK apartments driving massive volume for anxiety-relief donut beds.',
+        sample: 'Anti-Anxiety Donut Plush Pet Bed, Lint Roller'
+      },
+      {
+        id: 'fitness',
+        name: 'Ergonomic WFH Posture & Back Pain Relief',
+        icon: '🧘',
+        growth: '+37% MoM',
+        reason: 'Office & remote workers seeking non-medicinal relief for posture and lower spine ache.',
+        sample: 'Orthopedic Back Stretcher, Posture Corrector'
+      },
+      {
+        id: 'fashion',
+        name: 'Weatherproof Travel Bags & Slim Wallets',
+        icon: '☂️',
+        growth: '+35% MoM',
+        reason: 'Frequent rain and tube travel drives demand for waterproof anti-theft bags and RFID protection.',
+        sample: 'Waterproof Anti-Theft Backpack, RFID Pop-Up Wallet'
+      }
+    ],
+    CA: [
+      {
+        id: 'auto',
+        name: 'Winter Automotive Gadgets & Emergency Tools',
+        icon: '🚙',
+        growth: '+55% MoM',
+        reason: 'Harsh winters drive urgency for portable battery jump starters, high-power defrosters, and cordless car cleaners.',
+        sample: 'Wireless Car Vacuum, Tire Inflator'
+      },
+      {
+        id: 'fitness',
+        name: 'Home Gym & Indoor Walking Pads',
+        icon: '🏋️',
+        growth: '+47% MoM',
+        reason: 'Cold Canadian climate forces fitness indoors during long winters.',
+        sample: 'Under-Desk Walking Treadmill, Push-Up Board'
+      },
+      {
+        id: 'home',
+        name: 'Power Scrubbers & Moisture Care',
+        icon: '🏠',
+        growth: '+40% MoM',
+        reason: 'Home maintenance, indoor tile cleaning, and winter humidity control.',
+        sample: 'Power Spin Scrubber, Flame Aroma Diffuser'
+      }
+    ],
+    AU: [
+      {
+        id: 'fitness',
+        name: 'Outdoor Fitness, Hydration & Wellness',
+        icon: '🏄',
+        growth: '+51% MoM',
+        reason: 'Active Australian lifestyle creates booming demand for portable blenders, posture gear, and massage tools.',
+        sample: 'Portable Juice Blender Bottle, Lumbar Stretcher'
+      },
+      {
+        id: 'auto',
+        name: 'Road Trip & 4WD Accessories',
+        icon: '🏕️',
+        growth: '+43% MoM',
+        reason: 'Australians love camping and road trips; strong demand for powerful car vacuums and dash cameras.',
+        sample: 'High-Power Car Vacuum, HD 3-Channel Dash Cam'
+      },
+      {
+        id: 'tech',
+        name: 'Solar & Wireless Charging Gear',
+        icon: '⚡',
+        growth: '+39% MoM',
+        reason: 'Travel-friendly multi-chargers and portable emergency power.',
+        sample: 'Foldable 3-in-1 MagSafe Station, Mini Power Bank'
+      }
+    ],
+    AE: [
+      {
+        id: 'auto',
+        name: 'Premium Car Detailing & Interior Gadgets',
+        icon: '🏎️',
+        growth: '+62% MoM',
+        reason: 'Car culture is massive in UAE. Handheld vacuums, dash cams, and 360° phone mounts fly off shelves.',
+        sample: 'High-Power Wireless Car Vacuum, HD Dash Cam'
+      },
+      {
+        id: 'tech',
+        name: 'Luxury Desktop & Bedside Wireless Docks',
+        icon: '💎',
+        growth: '+54% MoM',
+        reason: 'High purchasing power consumers looking for sleek Apple/Android MagSafe charging aesthetics.',
+        sample: 'Foldable 3-in-1 MagSafe Charger, Levitating Humidifier'
+      },
+      {
+        id: 'beauty',
+        name: 'High-Tech Skincare & Anti-Aging Tools',
+        icon: '✨',
+        growth: '+48% MoM',
+        reason: 'Red light microcurrent wands and crystal hair erasers driving high COD basket values.',
+        sample: 'Red Light Therapy Wand, Nano-Crystalline Hair Eraser'
+      }
+    ],
+    DE: [
+      {
+        id: 'home',
+        name: 'Efficient Cleaning & Precision Gadgets',
+        icon: '🧼',
+        growth: '+45% MoM',
+        reason: 'German buyers value high-efficiency cleaning machines and time-saving household tools.',
+        sample: 'Electric Cordless Power Spin Scrubber, Flame Diffuser'
+      },
+      {
+        id: 'fitness',
+        name: 'Ergonomic Health & Posture Correction',
+        icon: '🩺',
+        growth: '+41% MoM',
+        reason: 'Physiotherapist-endorsed posture correctors and spine traction arches.',
+        sample: 'Orthopedic Back Stretcher, Posture Corrector'
+      }
+    ],
+    ALL: [
+      {
+        id: 'home',
+        name: 'Viral TikTok Cleaning & Aesthetic Living',
+        icon: '🏠',
+        growth: '+54% MoM',
+        reason: 'Global #CleanTok and cozy living trends drive continuous cross-border dropshipping demand.',
+        sample: 'Electric Spin Scrubber, Ultrasonic Flame Diffuser'
+      },
+      {
+        id: 'pets',
+        name: 'Smart Pet Toys & Self-Cleaning Rollers',
+        icon: '🐾',
+        growth: '+49% MoM',
+        reason: 'Emotion-driven viral videos with extremely high shareability on TikTok and Instagram.',
+        sample: 'Smart Bouncing Pet Ball, Pet Hair Lint Roller'
+      },
+      {
+        id: 'tech',
+        name: 'MagSafe Multi-Device Chargers & Ambient Lights',
+        icon: '⚡',
+        growth: '+46% MoM',
+        reason: 'High perceived value, lightweight international shipping, low return rates.',
+        sample: 'Foldable 3-in-1 MagSafe Station, Sunset Lamp'
+      },
+      {
+        id: 'beauty',
+        name: 'Non-Invasive Beauty & Facial Wands',
+        icon: '💄',
+        growth: '+43% MoM',
+        reason: 'High gross margins (75%-85%) with visual transformation demos that crush video ads.',
+        sample: 'Nano Hair Eraser, Red Light Face Wand'
       }
     ]
   };
 
-  // Base Products Master Catalog
+  // Base Products Master Catalog (26 Proven Viral Winning Products)
   const MASTER_PRODUCTS = [
     {
       id: 'flame_humidifier',
@@ -317,6 +481,38 @@ document.addEventListener('DOMContentLoaded', () => {
       bestAdAngle: 'Show a filthy soap-scum stained shower wall being wiped clean in 5 seconds with zero elbow grease.'
     },
     {
+      id: 'portable_blender',
+      category: 'home',
+      name: 'Wireless USB-Rechargeable Fresh Juice Blender Bottle',
+      tagline: 'Self-cleaning portable smoothie maker bottle with 6 stainless blades.',
+      tags: ['Evergreen Hero', '60% Margin', 'Healthy Lifestyle'],
+      trendMomentum: 87,
+      saturation: 'High (Evergreen)',
+      baseCostInr: 450,
+      baseSellInr: 1299,
+      wowFactor: 'Blend fresh smoothies directly inside the drinking bottle anywhere at the gym or in the car.',
+      solvesProblem: 'No need to wash giant bulky kitchen mixer grinders for a single glass of fruit shake.',
+      whyItSells: 'Health and fitness trend; double click to start, rinse with water to clean.',
+      targetAudience: 'Fitness enthusiasts, gym regulars, moms, office workers',
+      bestAdAngle: 'Throw fresh strawberries and milk into the bottle inside a car, click button, and drink instantly.'
+    },
+    {
+      id: 'smart_trash_can',
+      category: 'home',
+      name: 'Automatic Touchless Motion Sensor Smart Trash Can',
+      tagline: 'Infrared sensor bathroom/kitchen bin with odor-seal lid and 0.3s quick open.',
+      tags: ['Smart Living', '65% Margin', 'Clean Home'],
+      trendMomentum: 89,
+      saturation: 'Low Saturation',
+      baseCostInr: 550,
+      baseSellInr: 1799,
+      wowFactor: 'Wave hand or bend knee and lid opens seamlessly with zero physical touch.',
+      solvesProblem: 'Prevents touching dirty, germ-infested garbage bin lids while cooking or holding trash.',
+      whyItSells: 'Modern smart home aesthetic; essential for hygiene-conscious homeowners.',
+      targetAudience: 'Modern homeowners, young couples, bathroom renovators',
+      bestAdAngle: 'Hands full of kitchen waste -> Wave knee near sensor -> Lid opens like magic.'
+    },
+    {
       id: 'crystal_hair_eraser',
       category: 'beauty',
       name: 'Nano-Crystalline Painless Hair Eraser',
@@ -333,20 +529,52 @@ document.addEventListener('DOMContentLoaded', () => {
       bestAdAngle: 'Split-screen demonstration: Shaving with painful razor bumps vs smooth gentle circular rubbing.'
     },
     {
-      id: 'car_vacuum',
-      category: 'auto',
-      name: 'High-Power Wireless Portable Car Vacuum & Blower',
-      tagline: 'Cordless 9000Pa handheld vacuum cleaner with dual blow/suction nozzle.',
-      tags: ['Auto Winner', 'High Impulse', '65% Margin'],
-      trendMomentum: 89,
-      saturation: 'Scaling (Medium)',
-      baseCostInr: 380,
+      id: 'heatless_curler',
+      category: 'beauty',
+      name: 'Satin Heatless Hair Curling Ribbon & Wrap',
+      tagline: 'Damage-free overnight bouncy curls kit with silk scrunchies and claw clip.',
+      tags: ['Viral TikTok', '85% Margin', 'Zero Tech Risk'],
+      trendMomentum: 93,
+      saturation: 'Medium Demand',
+      baseCostInr: 90,
+      baseSellInr: 649,
+      wowFactor: 'Wake up with salon-grade voluminous blowout curls without putting burning hot curling irons on your hair.',
+      solvesProblem: 'Prevents split ends and severe heat damage caused by daily curling irons.',
+      whyItSells: 'Huge organic UGC virality on TikTok and Reels; massive profit margin.',
+      targetAudience: 'Women with medium-to-long hair, college girls, bridal parties',
+      bestAdAngle: 'Filming nighttime wrap routine -> Morning clip removal showing giant bouncy salon curls.'
+    },
+    {
+      id: 'red_light_wand',
+      category: 'beauty',
+      name: '4-in-1 Red Light Microcurrent Face & Neck Wand',
+      tagline: 'LED therapy, therapeutic warmth, and facial massage for jawline sculpting.',
+      tags: ['High Ticket', '75% Margin', 'Celebrity Trend'],
+      trendMomentum: 95,
+      saturation: 'Scaling Rapidly',
+      baseCostInr: 480,
+      baseSellInr: 2199,
+      wowFactor: 'Rotating wand head that glides along jawline with relaxing warm red glow.',
+      solvesProblem: 'Reduces morning face puffiness, smooths fine lines, and lifts sagging skin.',
+      whyItSells: 'Replaces ₹5,000/session dermatology spa treatments for a fraction of the cost.',
+      targetAudience: 'Women and men aged 25-55 interested in skincare and anti-aging',
+      bestAdAngle: 'Side-by-side face comparison: puffy tired morning face vs 5-minute sculpted contoured cheekbones.'
+    },
+    {
+      id: 'skin_scrubber',
+      category: 'beauty',
+      name: 'Ultrasonic Pore Cleanser & Skin Scrubber',
+      tagline: 'High-frequency vibration spatula that extracts blackheads and infuses serums.',
+      tags: ['Oddly Satisfying', '70% Margin', 'Skincare'],
+      trendMomentum: 88,
+      saturation: 'Medium (Evergreen)',
+      baseCostInr: 320,
       baseSellInr: 1299,
-      wowFactor: 'Compact enough to fit in glove compartment, yet powerful enough to suck dust out of seat cracks.',
-      solvesProblem: 'Keeps car interiors spotless without paying ₹500 for car detailing every week.',
-      whyItSells: 'Every car owner wants their vehicle clean; dual suction + keyboard dust blower utility.',
-      targetAudience: 'Car enthusiasts, cab drivers, pet owners with pet hair in car, tech lovers',
-      bestAdAngle: 'Spill biscuit crumbs or soil onto car fabric and suck it clean in one swift camera pass.'
+      wowFactor: 'Audibly sprays mist and visibly scrapes blackhead sebum out of nose pores on camera.',
+      solvesProblem: 'Painless blackhead extraction without squeezing with fingernails or leaving scars.',
+      whyItSells: 'Insanely satisfying visual hook that stops people scrolling on social media instantly.',
+      targetAudience: 'Teens, young adults, people suffering from clogged pores and acne',
+      bestAdAngle: 'Extreme macro close-up of nose pores with ultrasonic spatula pushing out sebum mist.'
     },
     {
       id: 'magsafe_charger',
@@ -365,6 +593,102 @@ document.addEventListener('DOMContentLoaded', () => {
       bestAdAngle: 'Messy nightstand with 4 tangled cords -> Unplug everything and replace with one sleek glowing stand.'
     },
     {
+      id: 'levitating_humidifier',
+      category: 'tech',
+      name: 'Anti-Gravity Levitating Water Droplet Humidifier',
+      tagline: 'Optical illusion air humidifier with water droplets defying gravity upwards.',
+      tags: ['Mind-Bending Wow', 'High Ticket', '68% Margin'],
+      trendMomentum: 92,
+      saturation: 'Low Saturation',
+      baseCostInr: 850,
+      baseSellInr: 2899,
+      wowFactor: 'Stroboscopic water droplets appear to float slowly upwards against gravity.',
+      solvesProblem: 'Functions as a silent room humidifier and captivating conversation starter.',
+      whyItSells: 'Pure visual witchcraft that gets millions of organic views on TikTok.',
+      targetAudience: 'Tech enthusiasts, desk setup collectors, gamers, gift buyers',
+      bestAdAngle: 'Close-up video showing water drops moving upwards with sound effect: "Bro what did I just buy?!"'
+    },
+    {
+      id: 'mini_powerbank',
+      category: 'tech',
+      name: 'Ultra-Mini Direct-Plug Emergency Pocket Power Bank',
+      tagline: 'Lipstick-sized 5000mAh portable charger with built-in Lightning/Type-C connector.',
+      tags: ['Everyday Essential', '62% Margin', 'High Volume'],
+      trendMomentum: 90,
+      saturation: 'Scaling (Medium)',
+      baseCostInr: 320,
+      baseSellInr: 999,
+      wowFactor: 'Plugs directly into the phone without dangling cords; fits inside tiny pockets.',
+      solvesProblem: 'Eliminates dead phone panic when shopping or commuting without carrying heavy brick power banks.',
+      whyItSells: 'Impulse buy under ₹1,000 / $25 with immediate universal utility.',
+      targetAudience: 'College students, club-goers, travelers, iPhone users with poor battery health',
+      bestAdAngle: 'POV: Your phone is at 1% at a concert -> Pull mini battery out of pocket and snap it on.'
+    },
+    {
+      id: 'sunset_lamp',
+      category: 'tech',
+      name: 'Smart RGB 16-Color App Sunset Projection Lamp',
+      tagline: '360° halo projection lamp with remote and smartphone app color tuning.',
+      tags: ['TikTok Aesthetic', '74% Margin', 'Creator Favorite'],
+      trendMomentum: 86,
+      saturation: 'Medium (Evergreen)',
+      baseCostInr: 240,
+      baseSellInr: 899,
+      wowFactor: 'Instantly transforms any dull white wall into a golden hour sunset photo studio.',
+      solvesProblem: 'Creators and girls need golden hour lighting without waiting for 5 PM sun.',
+      whyItSells: 'Instagram and TikTok creators need aesthetic lighting for photos and room decor.',
+      targetAudience: 'Content creators, Instagram models, aesthetic bedroom lovers',
+      bestAdAngle: 'Boring dark room -> Click switch -> Warm radiant golden sunset covers the entire room.'
+    },
+    {
+      id: 'car_vacuum',
+      category: 'auto',
+      name: 'High-Power Wireless Portable Car Vacuum & Air Duster',
+      tagline: 'Cordless 9000Pa handheld vacuum cleaner with dual blow/suction nozzle.',
+      tags: ['Auto Winner', 'High Impulse', '65% Margin'],
+      trendMomentum: 89,
+      saturation: 'Scaling (Medium)',
+      baseCostInr: 380,
+      baseSellInr: 1299,
+      wowFactor: 'Compact enough to fit in glove compartment, yet powerful enough to suck dust out of seat cracks.',
+      solvesProblem: 'Keeps car interiors spotless without paying ₹500 for car detailing every week.',
+      whyItSells: 'Every car owner wants their vehicle clean; dual suction + keyboard dust blower utility.',
+      targetAudience: 'Car enthusiasts, cab drivers, pet owners with pet hair in car, tech lovers',
+      bestAdAngle: 'Spill biscuit crumbs or soil onto car fabric and suck it clean in one swift camera pass.'
+    },
+    {
+      id: 'dash_cam_3ch',
+      category: 'auto',
+      name: 'HD 3-Channel 1080P Infrared Night Vision Dash Cam',
+      tagline: 'Front, inside cabin, and rear recording with G-sensor loop protection.',
+      tags: ['High Ticket', 'Safety Product', '58% Margin'],
+      trendMomentum: 94,
+      saturation: 'Low Saturation',
+      baseCostInr: 1200,
+      baseSellInr: 3499,
+      wowFactor: 'Triple camera coverage with infrared night vision that records inside cabin and road simultaneously.',
+      solvesProblem: 'Provides rock-solid legal evidence in road accidents, fraud claims, and police stops.',
+      whyItSells: 'Fear-based safety purchase. Drivers want peace of mind against road rage and hit-and-runs.',
+      targetAudience: 'All car owners, Uber/taxi drivers, road trippers, cautious parents',
+      bestAdAngle: 'Dashcam clip of a close-call road incident: "This ₹3,000 gadget saved me ₹50,000 in insurance fraud."'
+    },
+    {
+      id: 'phone_mount_mirror',
+      category: 'auto',
+      name: '360° Rotatable Rearview Mirror Phone Mount Holder',
+      tagline: 'Sturdy clamp rearview mirror navigation mount with retractable swivel arm.',
+      tags: ['Impulse Auto', '72% Margin', 'Everyday Use'],
+      trendMomentum: 88,
+      saturation: 'Scaling (High Demand)',
+      baseCostInr: 150,
+      baseSellInr: 649,
+      wowFactor: 'Keeps phone directly at eye level without blocking windshield view or falling off suction cups.',
+      solvesProblem: 'Stops phone from falling off flimsy AC vent clips while driving over potholes.',
+      whyItSells: 'Universal utility for Google Maps navigation; fits every car mirror in 10 seconds.',
+      targetAudience: 'Daily car commuters, cab drivers, delivery agents',
+      bestAdAngle: 'Demonstrate bumpy road driving: AC vent holder falls down -> Mirror mount stays rock solid.'
+    },
+    {
       id: 'back_stretcher',
       category: 'fitness',
       name: 'Orthopedic Multi-Level Lumbar Spine Back Stretcher',
@@ -379,6 +703,38 @@ document.addEventListener('DOMContentLoaded', () => {
       whyItSells: 'Over 60% of desk workers suffer from back discomfort; immediate physical satisfaction hook.',
       targetAudience: 'Desk workers, drivers, gym-goers, parents with chronic posture pain',
       bestAdAngle: 'Show a person sitting hunched in pain, lying back on the device, with a satisfying spinal crack sound effect.'
+    },
+    {
+      id: 'walking_pad',
+      category: 'fitness',
+      name: 'Ultra-Thin Foldable Under-Desk Walking Treadmill Pad',
+      tagline: 'Compact flat treadmill with smart LED display and remote speed control.',
+      tags: ['High Ticket Winner', '52% Margin', 'Work From Home'],
+      trendMomentum: 97,
+      saturation: 'Low Saturation',
+      baseCostInr: 6500,
+      baseSellInr: 14999,
+      wowFactor: 'Slides underneath any standing desk or sofa; lets you walk 10,000 steps while typing emails.',
+      solvesProblem: 'Solves sedentary lifestyle weight gain for busy desk workers with zero time for the gym.',
+      whyItSells: 'Huge global WFH trend with massive order values and strong word-of-mouth.',
+      targetAudience: 'Remote workers, desk workers, busy moms, fitness beginners',
+      bestAdAngle: 'POV: Walking at 3 km/h while attending a Zoom meeting on a laptop: "How I hit 10k steps before 2 PM."'
+    },
+    {
+      id: 'pushup_board',
+      category: 'fitness',
+      name: '14-in-1 Color-Coded Multi-Angle Push-Up Board',
+      tagline: 'Foldable chest, triceps, back, and shoulders training board with resistance handles.',
+      tags: ['Home Gym', '66% Margin', 'High Volume'],
+      trendMomentum: 86,
+      saturation: 'Medium Demand',
+      baseCostInr: 340,
+      baseSellInr: 1199,
+      wowFactor: 'Color-coded slots guide hand positioning to target specific muscle groups with zero wrist strain.',
+      solvesProblem: 'Prevents wrist injuries from flat floor push-ups and provides structured home workouts.',
+      whyItSells: 'Affordable home gym equipment for people who dislike crowded gyms.',
+      targetAudience: 'Men aged 18-35, home workout beginners, calisthenics enthusiasts',
+      bestAdAngle: 'Plug handles into blue slots (Chest pump) -> Move to yellow (Back) -> Insane chest pump demonstration.'
     },
     {
       id: 'smart_pet_ball',
@@ -397,20 +753,36 @@ document.addEventListener('DOMContentLoaded', () => {
       bestAdAngle: 'Film cute cats or puppies frantically chasing the self-turning glowing ball around the living room.'
     },
     {
-      id: 'portable_blender',
-      category: 'home',
-      name: 'Wireless USB-Rechargeable Fresh Juice Blender Bottle',
-      tagline: 'Self-cleaning portable smoothie maker bottle with 6 stainless blades.',
-      tags: ['Evergreen Hero', '60% Margin', 'Healthy Lifestyle'],
-      trendMomentum: 87,
-      saturation: 'High (Evergreen)',
+      id: 'pet_hair_roller',
+      category: 'pets',
+      name: '2-in-1 Pet Hair Lint Roller with Self-Cleaning Base',
+      tagline: 'Electrostatic reusable sofa and clothing fur remover with waste chamber.',
+      tags: ['Massive Problem Solver', '78% Margin', 'Zero Refills'],
+      trendMomentum: 92,
+      saturation: 'Scaling (High Demand)',
+      baseCostInr: 140,
+      baseSellInr: 699,
+      wowFactor: 'Roll back and forth on a hairy couch and watch fur instantly get trapped inside waste chamber.',
+      solvesProblem: 'Eliminates buying expensive sticky paper tape rolls that run out after 2 days.',
+      whyItSells: 'Every single pet owner has dog/cat hair on their clothes and furniture.',
+      targetAudience: 'Dog and cat owners, groomers, clean home enthusiasts',
+      bestAdAngle: 'Roll once over a black velvet couch covered in white dog fur -> Clean line revealed instantly.'
+    },
+    {
+      id: 'donut_pet_bed',
+      category: 'pets',
+      name: 'Fluffy Anti-Anxiety Calming Plush Donut Pet Bed',
+      tagline: 'Ultra-soft faux fur circular orthopedic bed with raised rim for head support.',
+      tags: ['High Ticket Emotion', '64% Margin', 'Pet Comfort'],
+      trendMomentum: 88,
+      saturation: 'Medium (Evergreen)',
       baseCostInr: 450,
-      baseSellInr: 1299,
-      wowFactor: 'Blend fresh smoothies directly inside the drinking bottle anywhere at the gym or in the car.',
-      solvesProblem: 'No need to wash giant bulky kitchen mixer grinders for a single glass of fruit shake.',
-      whyItSells: 'Health and fitness trend; double click to start, rinse with water to clean.',
-      targetAudience: 'Fitness enthusiasts, gym regulars, moms, office workers',
-      bestAdAngle: 'Throw fresh strawberries and milk into the bottle inside a car, click button, and drink instantly.'
+      baseSellInr: 1499,
+      wowFactor: 'Dogs and cats immediately burrow inside the fluffy rim and fall into a deep peaceful sleep.',
+      solvesProblem: 'Calms anxious dogs during thunderstorms, fireworks, and owner separation.',
+      whyItSells: 'Heartwarming visual appeal; pet parents want their pets to sleep like royalty.',
+      targetAudience: 'Dog and cat parents, older pets with arthritis',
+      bestAdAngle: 'Hyperactive puppy pacing around -> Jumps into the donut cloud bed -> Instantly curls up asleep.'
     },
     {
       id: 'led_drawing_tablet',
@@ -418,7 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
       name: 'Color LCD Writing & Drawing Tablet for Kids',
       tagline: 'Eco-friendly paperless digital doodle board with 1-click erase lock.',
       tags: ['Parent Favorite', '72% Margin', 'Low Return Rate'],
-      trendMomentum: 86,
+      trendMomentum: 89,
       saturation: 'Scaling (Medium)',
       baseCostInr: 160,
       baseSellInr: 649,
@@ -427,8 +799,99 @@ document.addEventListener('DOMContentLoaded', () => {
       whyItSells: 'Parents desperately look for screen-free alternatives to keep children engaged.',
       targetAudience: 'Parents of kids aged 2 to 10, preschool teachers, gift shoppers',
       bestAdAngle: 'Show child throwing a tantrum for a phone -> Hand them the colorful doodle board -> Peaceful silent drawing.'
+    },
+    {
+      id: 'montessori_busy_board',
+      category: 'baby',
+      name: 'Montessori Wooden Sensory LED Switch Busy Board',
+      tagline: 'Natural wood sensory activity board with working LED switches, keys, and plugs.',
+      tags: ['Educational Trend', '65% Margin', 'High Parent Demand'],
+      trendMomentum: 91,
+      saturation: 'Low Saturation',
+      baseCostInr: 480,
+      baseSellInr: 1599,
+      wowFactor: 'Real interactive toggles, keys, and multi-colored LED bulbs designed for tiny toddler fingers.',
+      solvesProblem: 'Develops fine motor skills and tactile problem solving away from digital iPad screens.',
+      whyItSells: 'Montessori educational methodology is one of the highest-converting angles in e-commerce.',
+      targetAudience: 'Moms of toddlers aged 1 to 5, grandparents buying gifts',
+      bestAdAngle: 'Toddler deeply focused, turning real keys and flicking switches with calm background music.'
+    },
+    {
+      id: 'waterproof_backpack',
+      category: 'fashion',
+      name: 'Waterproof Anti-Theft Travel Backpack with USB Port',
+      tagline: '180° clamshell opening flight-approved travel bag with hidden zipper pockets.',
+      tags: ['Travel Hero', '63% Margin', 'High Ticket'],
+      trendMomentum: 92,
+      saturation: 'Medium (Evergreen)',
+      baseCostInr: 750,
+      baseSellInr: 2299,
+      wowFactor: 'Opens like a suitcase; has separate waterproof shoe compartment and external phone charging port.',
+      solvesProblem: 'Eliminates paying ₹2,000 airline cabin baggage fees on budget airlines.',
+      whyItSells: 'Travel boom; students and digital nomads travel constantly with laptops and gadgets.',
+      targetAudience: 'Travelers, college students, digital nomads, business commuters',
+      bestAdAngle: 'Pack 4 days of clothes, shoes, and laptop into one sleek backpack that slides under airline seat.'
+    },
+    {
+      id: 'posture_brace',
+      category: 'fashion',
+      name: 'Breathable Adjustable Clavicle Posture Corrector',
+      tagline: 'Discreet under-shirt ergonomic upper back support brace for rounded shoulders.',
+      tags: ['Pain & Appearance', '76% Margin', 'High Conversion'],
+      trendMomentum: 87,
+      saturation: 'High (Evergreen)',
+      baseCostInr: 140,
+      baseSellInr: 699,
+      wowFactor: 'Instantly pulls shoulders back and lifts chest, improving height and posture by 2 inches immediately.',
+      solvesProblem: 'Corrects "text-neck" and desk slump while easing upper back and shoulder knot pain.',
+      whyItSells: 'Dual emotional trigger: solves physical back pain + makes you look taller and more confident.',
+      targetAudience: 'Desk workers, gamers, people conscious about slouching',
+      bestAdAngle: 'Wear it under a plain t-shirt: Slouched gamer posture -> Snaps posture into straight confident stance.'
+    },
+    {
+      id: 'carbon_wallet',
+      category: 'fashion',
+      name: 'Men RFID-Blocking Carbon Fiber Slim Pop-Up Wallet',
+      tagline: 'Minimalist aluminum cardholder with 1-click quick-draw fan mechanism.',
+      tags: ['Men Gifting', '70% Margin', 'Zero Tech Risk'],
+      trendMomentum: 89,
+      saturation: 'Scaling (Medium)',
+      baseCostInr: 190,
+      baseSellInr: 799,
+      wowFactor: 'Click bottom switch and all 6 credit cards instantly fan out in tiered order for effortless retrieval.',
+      solvesProblem: 'Replaces bulky fat leather bi-fold wallets that hurt your lower back when sitting down.',
+      whyItSells: 'Number one gift for men (birthdays, Father’s day, anniversaries); satisfying mechanical flick.',
+      targetAudience: 'Men aged 20-50, girlfriends and wives buying gifts for men',
+      bestAdAngle: 'Fat bulging leather wallet bulging in back pocket -> Throw away -> Click sleek carbon wallet with 1 finger.'
     }
   ];
+
+  // Dynamic Date-Based Momentum & Freshness Calculation Engine
+  function getDynamicMetrics(product, countryCode) {
+    const now = new Date();
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    
+    // Deterministic pseudo-jitter seeded by product id + day of year
+    const seed = (product.id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0) + dayOfYear * 7) % 15;
+    const jitter = seed - 7; // -7 to +7
+
+    // Country popularity weighting
+    let countryBonus = 0;
+    if (countryCode === 'IN' && (product.category === 'auto' || product.category === 'home' || product.category === 'tech')) countryBonus = 3;
+    if (countryCode === 'US' && (product.category === 'pets' || product.category === 'beauty' || product.category === 'fitness')) countryBonus = 4;
+    if (countryCode === 'AE' && (product.category === 'tech' || product.category === 'auto' || product.category === 'beauty')) countryBonus = 5;
+    if (countryCode === 'GB' && (product.category === 'home' || product.category === 'fashion')) countryBonus = 3;
+
+    const dynamicMomentum = Math.min(99, Math.max(78, product.trendMomentum + jitter + countryBonus));
+    const dynamicGrowth = Math.min(85, Math.max(24, Math.round(dynamicMomentum * 0.58 + jitter * 1.4)));
+
+    let trendStatus = '🔥 Breakout Trend';
+    if (dynamicMomentum >= 93) trendStatus = '🔥 Viral Breakout (#1 Trending)';
+    else if (dynamicMomentum >= 87) trendStatus = '⚡ Rapid Scaling (High Demand)';
+    else trendStatus = '💎 Evergreen High Margin';
+
+    return { dynamicMomentum, dynamicGrowth, trendStatus };
+  }
 
   // Event Listeners
   btnFindProducts?.addEventListener('click', runProductResearch);
@@ -528,105 +991,113 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       // 1. Check if user typed a custom product or niche search
       if (query && query.length >= 2) {
-        currentProductsList = generateCustomProductReport(query, cfg);
-        if (trendingCategoriesSection) trendingCategoriesSection.style.display = 'none';
-        if (winningProductsTitle) winningProductsTitle.textContent = `Winning Product Intelligence: "${query}" in ${cfg.name}`;
-      } else if (categoryFilter === 'ALL') {
-        // 2. User chose "ALL" (or didn't select category): Show Country-Wise Trending Categories Hotlist + Top Products
-        renderTrendingCategoriesHotlist(countryCode, cfg);
-        currentProductsList = getTopProductsForCountry(countryCode, 'ALL', cfg);
-        if (trendingCategoriesSection) trendingCategoriesSection.style.display = 'block';
-        if (winningProductsTitle) winningProductsTitle.textContent = `Top Winning Dropshipping Products in ${cfg.name} (All Categories)`;
+        handleCustomProductSearch(query, cfg, countryCode);
       } else {
-        // 3. User picked a specific category
-        if (trendingCategoriesSection) trendingCategoriesSection.style.display = 'none';
-        currentProductsList = getTopProductsForCountry(countryCode, categoryFilter, cfg);
-        const catName = selCategory.options[selCategory.selectedIndex]?.text.split('(')[0] || categoryFilter;
-        if (winningProductsTitle) winningProductsTitle.textContent = `Winning Products for ${catName} in ${cfg.name}`;
+        handleStandardCatalogResearch(categoryFilter, cfg, countryCode);
       }
-
-      // Render products grid
-      sortAndRenderProducts();
-
-      // Render 3 Viral Video Ad Script Templates
-      renderAdScripts(currentProductsList[0] || MASTER_PRODUCTS[0], cfg);
 
       showLoading(false);
     }, 450);
   }
 
-  // Filter & Format Products based on Country
-  function getTopProductsForCountry(countryCode, catFilter, cfg) {
-    let list = MASTER_PRODUCTS.slice();
-
-    if (catFilter !== 'ALL') {
-      list = list.filter(p => p.category === catFilter);
+  // Standard Catalog Handler
+  function handleStandardCatalogResearch(categoryFilter, cfg, countryCode) {
+    // If NO category is selected ("ALL"), render Country Trending Categories Hotlist!
+    if (categoryFilter === 'ALL') {
+      renderTrendingCategoriesHotlist(countryCode, cfg);
+      trendingCategoriesSection.style.display = 'block';
+    } else {
+      trendingCategoriesSection.style.display = 'none';
     }
 
-    // Convert costs and prices to local currency
-    return list.map(p => {
-      const isIndia = countryCode === 'IN';
-      const sellPrice = isIndia ? p.baseSellInr : Math.round(p.baseSellInr * cfg.fxRate);
-      const costPrice = isIndia ? p.baseCostInr : Math.max(3, Math.round(p.baseCostInr * cfg.fxRate));
-      const estCpa = isIndia ? cfg.avgCpa : Math.round(cfg.avgCpa);
-      const estShip = isIndia ? cfg.avgShip : Math.round(cfg.avgShip);
-      const netProfit = sellPrice - costPrice - estCpa - estShip;
-      const marginPct = Math.round(((sellPrice - costPrice) / sellPrice) * 100);
+    // Filter Master Products
+    let filtered = MASTER_PRODUCTS;
+    if (categoryFilter !== 'ALL') {
+      filtered = MASTER_PRODUCTS.filter(p => p.category === categoryFilter);
+    }
+
+    // Calculate localized and dynamic metrics for each product
+    currentProductsList = filtered.map(p => {
+      const { dynamicMomentum, dynamicGrowth, trendStatus } = getDynamicMetrics(p, countryCode);
+      
+      const sellPrice = (countryCode === 'IN')
+        ? p.baseSellInr
+        : Math.round(p.baseSellInr * cfg.fxRate);
+
+      const costPrice = (countryCode === 'IN')
+        ? p.baseCostInr
+        : Math.max(2, Math.round(p.baseCostInr * cfg.fxRate));
+
+      const netProfit = sellPrice - costPrice - cfg.avgShip - cfg.avgCpa;
+      const profitMargin = Math.round((netProfit / sellPrice) * 100);
 
       return {
         ...p,
         sellPrice,
         costPrice,
         netProfit,
-        marginPct,
-        currencySymbol: cfg.symbol
+        profitMargin,
+        trendMomentum: dynamicMomentum,
+        growthMoM: `+${dynamicGrowth}% MoM`,
+        trendStatus
       };
     });
+
+    sortAndRenderProducts();
+
+    // Generate Ad Scripts for the Top #1 Winning Product
+    if (currentProductsList.length > 0) {
+      generateAdScripts(currentProductsList[0]);
+    }
   }
 
-  // Generate Custom Product Report when user searches any niche
-  function generateCustomProductReport(query, cfg) {
+  // Custom Search Query Generator
+  function handleCustomProductSearch(query, cfg, countryCode) {
+    trendingCategoriesSection.style.display = 'none';
+    const customProduct = generateCustomProductReport(query, cfg, countryCode);
+    currentProductsList = [customProduct];
+    sortAndRenderProducts();
+    generateAdScripts(customProduct);
+  }
+
+  function generateCustomProductReport(query, cfg, countryCode) {
     const capitalized = query.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    const isIndia = cfg.name === 'India';
+    
+    // Dynamic estimates for any query
+    const baseSell = countryCode === 'IN' ? 1499 : Math.round(1499 * cfg.fxRate);
+    const baseCost = countryCode === 'IN' ? 420 : Math.max(3, Math.round(420 * cfg.fxRate));
+    const netProfit = baseSell - baseCost - cfg.avgShip - cfg.avgCpa;
+    const profitMargin = Math.round((netProfit / baseSell) * 100);
 
-    // Dynamic price calculation
-    const baseSell = isIndia ? 1399 : Math.round(1399 * cfg.fxRate);
-    const baseCost = isIndia ? 380 : Math.max(4, Math.round(380 * cfg.fxRate));
-    const estCpa = isIndia ? cfg.avgCpa : cfg.avgCpa;
-    const estShip = isIndia ? cfg.avgShip : cfg.avgShip;
-    const netProfit = baseSell - baseCost - estCpa - estShip;
-    const marginPct = Math.round(((baseSell - baseCost) / baseSell) * 100);
-
-    return [{
-      id: 'custom_' + encodeURIComponent(query),
+    return {
+      id: 'custom_' + query.replace(/\s+/g, '_'),
       category: 'custom',
-      name: capitalized,
-      tagline: `High-demand viral e-commerce product query in ${cfg.name}.`,
-      tags: ['Custom Search Winner', `${marginPct}% Margin`, 'Live Trends Verified'],
+      name: `${capitalized} (Custom Intelligence Dossier)`,
+      tagline: `Live dropshipping & market feasibility audit for "${capitalized}".`,
+      tags: ['Custom Niche Search', 'Dynamic Spy Query', 'Live Intelligence'],
       trendMomentum: 92,
-      saturation: 'Scaling (Medium)',
+      growthMoM: '+46% MoM',
+      trendStatus: '⚡ Active Keyword Search',
+      saturation: 'Calculated Live',
       sellPrice: baseSell,
       costPrice: baseCost,
-      netProfit,
-      marginPct,
-      currencySymbol: cfg.symbol,
-      wowFactor: `Instant visual demonstration & problem-solving capability in short-form video ads.`,
-      solvesProblem: `Addresses a direct consumer inconvenience or fulfills an aesthetic lifestyle desire for ${capitalized}.`,
-      whyItSells: `High impulse purchase potential with strong mark-up margin between supplier pricing and retail.`,
-      targetAudience: `Consumers in ${cfg.name} actively searching for trending lifestyle and utility products`,
-      bestAdAngle: `3-second hook displaying the surprising functionality of ${capitalized} before showing the result.`
-    }];
+      netProfit: netProfit,
+      profitMargin: profitMargin,
+      wowFactor: `High intent search volume for "${capitalized}" across Google and TikTok Creative Center.`,
+      solvesProblem: `Targets specific buyer pain points or aesthetic desires associated with ${capitalized}.`,
+      whyItSells: `High search interest and active advertising on Meta Ad Library indicating strong merchant demand.`,
+      targetAudience: `Online shoppers actively looking for ${capitalized} solutions and related accessories.`,
+      bestAdAngle: `Highlight the top frustrating problem solved by ${capitalized} in the first 2 seconds of video.`
+    };
   }
 
-  // Render Country-Wise Trending Categories Hotlist
+  // Render Trending Categories Hotlist
   function renderTrendingCategoriesHotlist(countryCode, cfg) {
     if (!trendingCategoriesGrid) return;
     trendingCategoriesGrid.innerHTML = '';
 
     const categories = COUNTRY_TRENDING_CATEGORIES[countryCode] || COUNTRY_TRENDING_CATEGORIES.IN;
-    if (trendingCategoriesTitle) {
-      trendingCategoriesTitle.textContent = `Top Trending E-Commerce Categories in ${cfg.name}`;
-    }
+    trendingCategoriesTitle.innerHTML = `🔥 Top Trending E-Commerce Categories in ${cfg.flag} ${cfg.name} (Auto-Hotlist)`;
 
     categories.forEach(cat => {
       const card = document.createElement('div');
@@ -634,18 +1105,30 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <span style="font-size: 26px;">${cat.icon}</span>
-            <span class="product-tag product-tag-trend" style="font-size: 10px;">${cat.growth}</span>
+            <span style="font-size: 24px;">${cat.icon}</span>
+            <span style="font-size: 11px; font-weight: 700; color: #16a34a; background: #dcfce7; padding: 3px 8px; border-radius: 9999px;">${cat.growth}</span>
           </div>
-          <div style="font-size: 15px; font-weight: 700; color: var(--navy);">${escapeHtml(cat.name)}</div>
-          <div style="font-size: 12px; color: var(--gray-600); margin-top: 6px; line-height: 1.4;">${escapeHtml(cat.reason)}</div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px;">${escapeHtml(cat.name)}</div>
+          <div style="font-size: 12px; color: var(--gray-600); line-height: 1.4; margin-bottom: 10px;">${escapeHtml(cat.reason)}</div>
         </div>
-
-        <div style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--gray-200); display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-size: 11px; color: var(--gray-500); font-weight: 600;">E.g. ${escapeHtml(cat.sample)}</span>
-          <span style="font-size: 11px; color: #4f46e5; font-weight: 700;">Explore Products →</span>
+        <div>
+          <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 8px;">
+            <strong>Sample Winners:</strong> ${escapeHtml(cat.sample)}
+          </div>
+          <button type="button" class="btn btn-outline btn-filter-cat" data-cat="${cat.id}" style="width: 100%; font-size: 11px; padding: 6px 10px;">
+            Filter Winning Products in this Category →
+          </button>
         </div>
       `;
+
+      const filterBtn = card.querySelector('.btn-filter-cat');
+      filterBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (selCategory) {
+          selCategory.value = cat.id;
+          runProductResearch();
+        }
+      });
 
       card.addEventListener('click', () => {
         if (selCategory) {
@@ -658,96 +1141,124 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Sort and Render Products
+  // Sort & Render Winning Products
   function sortAndRenderProducts() {
+    const sortBy = selSortProducts ? selSortProducts.value : 'trend';
+    const cfg = COUNTRY_CONFIG[currentCountry] || COUNTRY_CONFIG.IN;
+
+    if (sortBy === 'trend') {
+      currentProductsList.sort((a, b) => b.trendMomentum - a.trendMomentum);
+    } else if (sortBy === 'profit') {
+      currentProductsList.sort((a, b) => b.netProfit - a.netProfit);
+    } else if (sortBy === 'margin') {
+      currentProductsList.sort((a, b) => b.profitMargin - a.profitMargin);
+    } else if (sortBy === 'price_asc') {
+      currentProductsList.sort((a, b) => a.sellPrice - b.sellPrice);
+    } else if (sortBy === 'price_desc') {
+      currentProductsList.sort((a, b) => b.sellPrice - a.sellPrice);
+    }
+
+    renderProductsGrid(currentProductsList, cfg);
+  }
+
+  function renderProductsGrid(products, cfg) {
     if (!winningProductsGrid) return;
     winningProductsGrid.innerHTML = '';
 
-    const sortBy = selSortProducts ? selSortProducts.value : 'trend';
-    const sorted = currentProductsList.slice().sort((a, b) => {
-      if (sortBy === 'margin') return b.marginPct - a.marginPct;
-      if (sortBy === 'saturation') return a.saturation.localeCompare(b.saturation);
-      return b.trendMomentum - a.trendMomentum;
-    });
+    winningProductsTitle.textContent = `🏆 Winning Products for ${cfg.flag} ${cfg.name} (${products.length} Products Found)`;
 
-    const cfg = COUNTRY_CONFIG[currentCountry] || COUNTRY_CONFIG.IN;
+    if (products.length === 0) {
+      winningProductsGrid.innerHTML = `
+        <div style="grid-column: 1 / -1; padding: 40px; text-align: center; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl);">
+          <div style="font-size: 40px; margin-bottom: 12px;">🔍</div>
+          <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 6px;">No products match this specific filter</div>
+          <div style="font-size: 13px; color: var(--gray-600); margin-bottom: 16px;">Try switching to "All Categories" or searching a broader keyword.</div>
+          <button type="button" class="btn btn-primary" id="btnEmptyReset" style="font-size: 13px;">View All Winning Products</button>
+        </div>
+      `;
+      document.getElementById('btnEmptyReset')?.addEventListener('click', resetFilters);
+      return;
+    }
 
-    sorted.forEach(p => {
+    products.forEach((p, idx) => {
       const card = document.createElement('div');
-      card.className = 'product-card';
+      card.className = 'winning-product-card';
 
-      // Competitor and sourcing URLs dynamically built with country and product query
+      // Live Search / Spy URLs adapted to Country
       const metaAdsUrl = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=${currentCountry}&q=${encodeURIComponent(p.name)}&search_type=keyword_unordered`;
-      const tiktokUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(p.name + ' amazon finds')}`;
-      const googleTrendsUrl = `https://trends.google.com/trends/explore?q=${encodeURIComponent(p.name)}&geo=${currentCountry === 'ALL' ? '' : currentCountry}`;
+      const tikTokUrl = `https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en?keyword=${encodeURIComponent(p.name)}`;
+      const googleTrendsUrl = `https://trends.google.com/trends/explore?geo=${currentCountry}&q=${encodeURIComponent(p.name)}`;
       const aliExpressUrl = `https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
       const amazonUrl = `https://www.${cfg.amazonDomain}/s?k=${encodeURIComponent(p.name)}`;
-      const shopifySpyUrl = `https://www.google.com/search?q=${encodeURIComponent('site:myshopify.com "' + p.name + '"')}`;
+      const shopifySpyUrl = `https://www.google.com/search?q=site%3Amyshopify.com+${encodeURIComponent('"' + p.name + '"')}`;
 
       card.innerHTML = `
         <div>
-          <!-- Header Tags & Badges -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+          <!-- Top Row: Badge & Trend Score -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
             <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-              <span class="product-tag product-tag-viral">🔥 Momentum ${p.trendMomentum}/100</span>
-              <span class="product-tag product-tag-margin">💰 ${p.marginPct}% Gross Margin</span>
+              <span class="product-tag product-tag-trend">#${idx + 1} Trending</span>
+              <span class="product-tag product-tag-viral">${escapeHtml(p.trendStatus)}</span>
             </div>
-            <span style="font-size: 11px; font-weight: 600; color: #475569; background: #f1f5f9; padding: 2px 7px; border-radius: 4px;">
-              ${p.saturation}
-            </span>
+            <div style="text-align: right;">
+              <div style="font-size: 14px; font-weight: 800; color: #4f46e5;">${p.trendMomentum}/100</div>
+              <div style="font-size: 10px; font-weight: 600; color: #16a34a;">${p.growthMoM}</div>
+            </div>
           </div>
 
-          <!-- Product Title & Hook -->
+          <!-- Product Name & Tagline -->
           <h3 style="font-size: 16px; font-weight: 700; color: var(--navy); margin: 0 0 4px; line-height: 1.3;">
             ${escapeHtml(p.name)}
           </h3>
-          <p style="font-size: 12px; color: var(--gray-600); margin: 0 0 14px; line-height: 1.4;">
+          <p style="font-size: 12px; color: var(--gray-600); margin: 0 0 12px; line-height: 1.4;">
             ${escapeHtml(p.tagline)}
           </p>
 
-          <!-- Profit & Unit Economics Grid -->
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; background: #f8fafc; border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px; text-align: center;">
+          <!-- Profitability & Margin Pill Grid -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 10px; margin-bottom: 14px; text-align: center;">
             <div>
-              <div style="font-size: 10px; font-weight: 600; color: var(--gray-500); text-transform: uppercase;">Source Cost</div>
-              <div style="font-size: 14px; font-weight: 700; color: #0284c7; margin-top: 2px;">${p.currencySymbol}${p.costPrice.toLocaleString()}</div>
+              <div style="font-size: 10px; color: var(--gray-500); font-weight: 600; text-transform: uppercase;">Wholesale Cost</div>
+              <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-top: 2px;">${cfg.symbol}${p.costPrice.toLocaleString()}</div>
             </div>
             <div>
-              <div style="font-size: 10px; font-weight: 600; color: var(--gray-500); text-transform: uppercase;">Sell Price</div>
-              <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-top: 2px;">${p.currencySymbol}${p.sellPrice.toLocaleString()}</div>
+              <div style="font-size: 10px; color: var(--gray-500); font-weight: 600; text-transform: uppercase;">Retail Price</div>
+              <div style="font-size: 14px; font-weight: 700; color: #0284c7; margin-top: 2px;">${cfg.symbol}${p.sellPrice.toLocaleString()}</div>
             </div>
             <div>
-              <div style="font-size: 10px; font-weight: 600; color: var(--gray-500); text-transform: uppercase;">Net Profit</div>
-              <div style="font-size: 14px; font-weight: 800; color: #16a34a; margin-top: 2px;">+${p.currencySymbol}${p.netProfit.toLocaleString()}</div>
+              <div style="font-size: 10px; color: var(--gray-500); font-weight: 600; text-transform: uppercase;">Net Profit / Order</div>
+              <div style="font-size: 14px; font-weight: 700; color: #16a34a; margin-top: 2px;">+${cfg.symbol}${Math.round(p.netProfit).toLocaleString()}</div>
             </div>
           </div>
 
-          <!-- Why It Sells Box -->
-          <div style="font-size: 12px; color: var(--gray-700); margin-bottom: 14px; background: #fffbeb; border: 1px solid #fef08a; border-radius: 8px; padding: 10px;">
-            <div style="font-weight: 700; color: #92400e; margin-bottom: 3px;">✨ The Viral "Why It Sells" Hook:</div>
-            <div>${escapeHtml(p.wowFactor)}</div>
-          </div>
-
-          <!-- Problem Solved & Target Audience -->
-          <div style="font-size: 11px; color: var(--gray-600); margin-bottom: 16px; line-height: 1.5;">
-            <div><strong>🎯 Target Audience:</strong> ${escapeHtml(p.targetAudience)}</div>
-            <div style="margin-top: 3px;"><strong>💡 Best Video Angle:</strong> ${escapeHtml(p.bestAdAngle)}</div>
+          <!-- Key Angles: Why It Sells & Problem Solved -->
+          <div style="font-size: 12px; line-height: 1.5; color: var(--gray-700); margin-bottom: 14px; background: #faf5ff; border: 1px solid #f3e8ff; border-radius: var(--radius-md); padding: 10px;">
+            <div style="margin-bottom: 6px;">
+              <strong style="color: #6b21a8;">💡 Why It Sells:</strong> ${escapeHtml(p.whyItSells)}
+            </div>
+            <div style="margin-bottom: 6px;">
+              <strong style="color: #6b21a8;">🎯 Target Audience:</strong> ${escapeHtml(p.targetAudience)}
+            </div>
+            <div>
+              <strong style="color: #6b21a8;">🎬 Best Video Hook:</strong> <em>${escapeHtml(p.bestAdAngle)}</em>
+            </div>
           </div>
         </div>
 
         <div>
-          <!-- Competitor Ads & Sourcing Links Bar -->
-          <div style="font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; margin-bottom: 8px;">
-            Live Competitor Ads &amp; Sourcing Spy:
+          <!-- 6-Link Live Spy Buttons -->
+          <div style="font-size: 11px; font-weight: 700; color: var(--navy); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+            <span>🕵️ Live Competitor Spy Links</span>
+            <span style="font-size: 10px; color: var(--gray-500); font-weight: 500;">Live External Search</span>
           </div>
 
-          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">
-            <a href="${metaAdsUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-meta" title="Spy on live Facebook & Instagram Ads in ${cfg.name}">
-              <span>👁️</span> <span>Meta Ad Library</span>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px;">
+            <a href="${metaAdsUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-meta" title="Spy on live running Meta ads in ${cfg.name}">
+              <span>👁️</span> <span>Meta Ads</span>
             </a>
-            <a href="${tiktokUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-tiktok" title="View viral TikTok videos & UGC creatives">
+            <a href="${tikTokUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-tiktok" title="Explore viral TikTok hashtag & creative trends">
               <span>🎵</span> <span>TikTok Trends</span>
             </a>
-            <a href="${googleTrendsUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-trends" title="Check live Google search interest in ${cfg.name}">
+            <a href="${googleTrendsUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-trends" title="Check real-time Google search demand">
               <span>📈</span> <span>Google Trends</span>
             </a>
             <a href="${aliExpressUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-ali" title="Check wholesale supplier prices on AliExpress">
@@ -828,53 +1339,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (roasVerdictBox) {
-      if (profitMargin >= 28) {
-        roasVerdictBox.style.background = '#ecfdf5';
-        roasVerdictBox.style.color = '#15803d';
-        roasVerdictBox.style.borderColor = '#bbf7d0';
-        roasVerdictBox.innerHTML = `✓ <strong>Highly Profitable Product:</strong> Margin is ${profitMargin.toFixed(1)}% with Breakeven ROAS at ${breakevenRoas.toFixed(2)}x. Gives comfortable room for scaling Meta &amp; TikTok ads profitably.`;
-      } else if (profitMargin >= 15) {
-        roasVerdictBox.style.background = '#fffbeb';
-        roasVerdictBox.style.color = '#92400e';
-        roasVerdictBox.style.borderColor = '#fde68a';
-        roasVerdictBox.innerHTML = `⚠️ <strong>Moderate Margin:</strong> Margin is ${profitMargin.toFixed(1)}%. Keep your Ad CPA under ${cfg.symbol}${Math.round(cpa)} to maintain positive cashflow.`;
+      if (netProfit > 0 && breakevenRoas < 2.0) {
+        roasVerdictBox.innerHTML = `
+          <div style="font-weight: 700; color: #166534; font-size: 13px; margin-bottom: 2px;">✅ Highly Profitable Dropshipping Unit Economics</div>
+          <div style="font-size: 12px; color: #15803d;">You only need an ad ROAS above <strong>${breakevenRoas.toFixed(2)}x</strong> to make profit. Healthy margin allows scaling aggressive Facebook & TikTok ad budgets.</div>
+        `;
+        roasVerdictBox.style.background = '#f0fdf4';
+        roasVerdictBox.style.borderColor = '#86efac';
+      } else if (netProfit > 0) {
+        roasVerdictBox.innerHTML = `
+          <div style="font-weight: 700; color: #b45309; font-size: 13px; margin-bottom: 2px;">⚠️ Moderate Profit Margin (Tight Ad Room)</div>
+          <div style="font-size: 12px; color: #92400e;">Breakeven ROAS is <strong>${breakevenRoas.toFixed(2)}x</strong>. Optimize ad creative click-through rates (CTR) and offer bundle upsells to increase average order value.</div>
+        `;
+        roasVerdictBox.style.background = '#fefce8';
+        roasVerdictBox.style.borderColor = '#fef08a';
       } else {
+        roasVerdictBox.innerHTML = `
+          <div style="font-weight: 700; color: #991b1b; font-size: 13px; margin-bottom: 2px;">❌ Negative Margins (Unprofitable at Current CPA)</div>
+          <div style="font-size: 12px; color: #b91c1c;">You are losing money on each order. Increase selling price or renegotiate supplier COGS on AliExpress / CJ Dropshipping.</div>
+        `;
         roasVerdictBox.style.background = '#fef2f2';
-        roasVerdictBox.style.color = '#991b1b';
         roasVerdictBox.style.borderColor = '#fecaca';
-        roasVerdictBox.innerHTML = `✕ <strong>Unprofitable / High Risk:</strong> Negative or slim margin. Negotiate lower supplier cost or bundle quantities (Buy 2 Get 1 Free) to increase Average Order Value (AOV).`;
       }
     }
   }
 
-  // Render 3 Viral Video Ad Script Templates
-  function renderAdScripts(product, cfg) {
+  // Generate 3 Viral Video Ad Scripts
+  function generateAdScripts(product) {
     if (!adScriptsGrid) return;
     adScriptsGrid.innerHTML = '';
 
-    const pName = product.name;
-
     const scripts = [
       {
-        angle: '🔥 Angle 1: Problem - Agitate - Solve (PAS)',
-        hook: `"If you deal with constant ${product.category === 'beauty' ? 'unwanted hair and strawberry skin' : (product.category === 'home' ? 'dirty bathroom tiles and back pain' : 'messy cords and cluttered desks')}, STOP SCROLLING."`,
-        body: `Show intense struggle for 3 seconds. Then reveal the ${pName} in full action. Point out how easy it is compared to the traditional painful/time-consuming alternative.`,
-        cta: `"Link in bio / Click Shop Now before this batch sells out with 50% OFF today!"`,
-        badge: 'Best for Meta Feed & Reels'
+        angle: 'Angle 1: Problem - Agitate - Solve (UGC Viral Hook)',
+        badge: 'High Conversion',
+        hook: `"Stop wasting your money on ${product.name.split(' ')[0]} until you see this..."`,
+        body: `Show the most frustrating daily problem ${product.solvesProblem}. Then instantly whip out the ${product.name} and demonstrate the jaw-dropping solution in 5 seconds.`,
+        cta: `"They're selling out fast for 50% off today only. Click the link below before stock runs out."`
       },
       {
-        angle: '🎬 Angle 2: "TikTok Made Me Buy It" Social Proof',
-        hook: `"I ordered this viral ${pName} from TikTok after seeing it everywhere, and here is my honest unfiltered reaction..."`,
-        body: `Unbox the product, demonstrate the immediate satisfying "Wow" factor. Highlight: "${product.wowFactor}". Add fast captions and trending audio.`,
-        cta: `"Get yours before TikTok takes it viral again. Free express shipping this week only!"`,
-        badge: 'Best for TikTok Ads & UGC'
+        angle: 'Angle 2: Aesthetic TikTok / ASMR Unboxing',
+        badge: 'Viral TikTok',
+        hook: `"The one Amazon find that actually changed my entire daily routine ✨"`,
+        body: `Satisfying unboxing with crisp sound effects (ASMR). Peel off the film, turn on the device, and show it operating seamlessly in a clean aesthetic room setting.`,
+        cta: `"Link in bio or tap Shop Now to get yours delivered with free shipping!"`
       },
       {
-        angle: '💡 Angle 3: "Stop Doing This" Shock Curiosity Hook',
-        hook: `"Stop wasting your money on ${product.category === 'auto' ? 'expensive car washes' : (product.category === 'beauty' ? 'salon waxing' : 'cheap broken gadgets')}. Do this instead..."`,
-        body: `Present the ${pName} as the smart insider secret. Show side-by-side comparison of old expensive method vs your product.`,
-        cta: `"Limited stock available. Tap Shop Now to claim today's special discount."`,
-        badge: 'High Click-Through-Rate (CTR)'
+        angle: 'Angle 3: The "Wait, Did You Know?" Discovery Hook',
+        badge: 'Engagement Magnet',
+        hook: `"I bet you didn't know this existed, but you 100% need it in your life right now."`,
+        body: `Demonstrate the core feature: ${product.wowFactor} Explain why traditional alternatives are inconvenient and how this fixes it permanently.`,
+        cta: `"Tap the button below to check if the 40% discount is still active!"`
       }
     ];
 
