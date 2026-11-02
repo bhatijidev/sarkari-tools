@@ -916,6 +916,36 @@ document.addEventListener('DOMContentLoaded', () => {
     return 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80';
   }
 
+  // Real Verified D2C / Shopify Benchmark Brands (Only shown when a genuine live store exists)
+  const VERIFIED_SHOPIFY_STORES = {
+    flame_humidifier: { name: 'Kinscoter D2C', url: 'https://kinscoter.com' },
+    spin_scrubber: { name: 'Synoshi Brand', url: 'https://synoshi.com' },
+    portable_blender: { name: 'BlendJet Official', url: 'https://blendjet.com' },
+    smart_trash_can: { name: 'Townew Direct', url: 'https://townew.us' },
+    crystal_hair_eraser: { name: 'Bleame D2C', url: 'https://bleame.com' },
+    heatless_curler: { name: 'Kitsch Beauty', url: 'https://www.mykitsch.com' },
+    red_light_wand: { name: 'SolaWave Skin', url: 'https://www.solawave.com' },
+    skin_scrubber: { name: 'Dermaflash', url: 'https://dermaflash.com' },
+    magsafe_charger: { name: 'Zeera Wireless', url: 'https://zeerawireless.com' },
+    levitating_humidifier: null, // No official verified single D2C brand -> DO NOT RENDER BUTTON
+    mini_powerbank: { name: 'iWalk Official', url: 'https://iwalkonline.com' },
+    sunset_lamp: { name: 'The Sunset Lamp Co', url: 'https://thesunsetlamp.com' },
+    car_vacuum: { name: 'Fanttik Auto', url: 'https://fanttik.com' },
+    dash_cam_3ch: { name: 'Vantrue Dashcam', url: 'https://vantrue.com' },
+    phone_mount_mirror: { name: 'Quad Lock D2C', url: 'https://quadlockcase.com' },
+    back_stretcher: { name: 'Chirp Official', url: 'https://gochirp.com' },
+    walking_pad: { name: 'WalkingPad D2C', url: 'https://www.walkingpad.com' },
+    pushup_board: { name: 'Iron Chest Master', url: 'https://ironchestmaster.com' },
+    smart_pet_ball: { name: 'Cheerble Pets', url: 'https://www.cheerble.com' },
+    pet_hair_roller: { name: 'ChomChom Roller', url: 'https://chomchomroller.com' },
+    donut_pet_bed: { name: 'Pupnaps Cloud Bed', url: 'https://pupnaps.com' },
+    led_drawing_tablet: null, // Generic factory product, no verified D2C store -> DO NOT RENDER BUTTON
+    montessori_busy_board: { name: 'Monti Kids', url: 'https://montikids.com' },
+    waterproof_backpack: { name: 'Nordace Travel', url: 'https://nordace.com' },
+    posture_brace: { name: 'Forme Science', url: 'https://forme.science' },
+    carbon_wallet: { name: 'The Ridge Wallet', url: 'https://ridge.com' }
+  };
+
   // Dynamic Date-Based Momentum & Freshness Calculation Engine
   function getDynamicMetrics(product, countryCode) {
     const now = new Date();
@@ -1138,7 +1168,8 @@ document.addEventListener('DOMContentLoaded', () => {
       whyItSells: `High search interest and active advertising on Meta Ad Library indicating strong merchant demand.`,
       targetAudience: `Online shoppers actively looking for ${capitalized} solutions and related accessories.`,
       bestAdAngle: `Highlight the top frustrating problem solved by ${capitalized} in the first 2 seconds of video.`,
-      imageUrl: getProductImage({ category: 'tech' })
+      imageUrl: getProductImage({ category: 'tech' }),
+      shopifyStore: null
     };
   }
 
@@ -1243,7 +1274,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const googleTrendsUrl = `https://trends.google.com/trends/explore?geo=${currentCountry}&q=${encodeURIComponent(p.name)}`;
       const aliExpressUrl = `https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
       const amazonUrl = `https://www.${cfg.amazonDomain}/s?k=${encodeURIComponent(p.name)}`;
-      const shopifySpyUrl = `https://www.google.com/search?q=site%3Amyshopify.com+${encodeURIComponent('"' + p.name + '"')}`;
+
+      // Verified D2C / Shopify Store (Rendered ONLY IF genuine live store exists - no dummy search links!)
+      const verifiedStore = p.shopifyStore !== undefined ? p.shopifyStore : (VERIFIED_SHOPIFY_STORES ? VERIFIED_SHOPIFY_STORES[p.id] : null);
+      const shopifyBtnHtml = (verifiedStore && verifiedStore.url)
+        ? `<a href="${verifiedStore.url}" target="_blank" rel="noopener" class="spy-link-btn spy-link-shopify" title="Verified live benchmark D2C brand: ${escapeHtml(verifiedStore.name)}">
+            <span>🛍️</span> <span>${escapeHtml(verifiedStore.name)} ↗</span>
+          </a>`
+        : '';
 
       card.innerHTML = `
         <div>
@@ -1302,15 +1340,15 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div>
-          <!-- 6-Link Live Spy Buttons -->
+          <!-- Live Research & Verified Competitor Spy Links -->
           <div style="font-size: 11px; font-weight: 700; color: var(--navy); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
-            <span>🕵️ Live Competitor Spy Links</span>
-            <span style="font-size: 10px; color: var(--gray-500); font-weight: 500;">Live External Search</span>
+            <span>🔍 Live Market Intelligence</span>
+            <span style="font-size: 10px; color: var(--gray-500); font-weight: 500;">Direct Feeds</span>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
             <a href="${metaAdsUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-meta" title="Spy on live running Meta ads in ${cfg.name}">
-              <span>👁️</span> <span>Meta Ads</span>
+              <span>🔵</span> <span>Meta Ads</span>
             </a>
             <a href="${tikTokUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-tiktok" title="Explore viral TikTok hashtag & creative trends">
               <span>🎵</span> <span>TikTok Trends</span>
@@ -1324,9 +1362,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="${amazonUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-amazon" title="Compare customer reviews & ratings on Amazon ${cfg.name}">
               <span>🛒</span> <span>Amazon</span>
             </a>
-            <a href="${shopifySpyUrl}" target="_blank" rel="noopener" class="spy-link-btn spy-link-shopify" title="Find Shopify stores selling this product via Google Dorks">
-              <span>🏬</span> <span>Shopify Stores</span>
-            </a>
+            ${shopifyBtnHtml}
           </div>
 
           <button type="button" class="btn btn-outline btn-load-calc" data-sell="${p.sellPrice}" data-cost="${p.costPrice}" style="width: 100%; font-size: 12px; padding: 7px 12px; display: flex; align-items: center; justify-content: center; gap: 6px;">

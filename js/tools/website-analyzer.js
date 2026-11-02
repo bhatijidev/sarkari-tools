@@ -739,6 +739,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const tiktok = html.match(/ttq\.load\s*\(\s*['"]([^'"]+)['"]/i) || html.match(/analytics\.tiktok\.com.*?id=([A-Z0-9]+)/i);
     if (tiktok) ids.tiktok = tiktok[1];
 
+    // Google Ads Conversion, Remarketing & AdSense
+    const gads = html.match(/AW-[0-9]{8,12}/i) || 
+                 html.match(/google_conversion_id\s*=\s*['"]?(\d+)['"]?/i) ||
+                 html.match(/googleadservices\.com\/pagead\/conversion/i);
+    if (gads) ids.googleAds = gads[1] || gads[0];
+
+    const adsense = html.match(/ca-pub-\d{16}/i);
+    if (adsense) ids.adsense = adsense[0];
+
     // Copyright
     const copy = html.match(/©\s*(\d{4})\s*[-–]\s*(\d{4})/i) || html.match(/©\s*(\d{4})/i);
     if (copy) ids.copyright = copy[0];
@@ -1691,18 +1700,59 @@ document.addEventListener('DOMContentLoaded', () => {
     scoreSocialCount.textContent = socCount;
     scoreMapsFound.textContent = data.maps.found ? 'Physical Location' : 'Online Store';
 
-    // Meta Ads Banner Buttons
+    // Paid Ads Banner & Verified Button Controls
+    const hasGoogleAds = !!(data.trackingIds.googleAds || data.trackingIds.adsense);
+    const analyzerAdsBanner = document.querySelector('.analyzer-ads-banner');
+
     if (btnMetaAdLibrary) {
-      btnMetaAdLibrary.href = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=${encodeURIComponent(data.domain)}&search_type=keyword_unordered`;
+      if (hasMeta) {
+        btnMetaAdLibrary.style.display = 'inline-flex';
+        btnMetaAdLibrary.href = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=${encodeURIComponent(data.domain)}&search_type=keyword_unordered`;
+      } else {
+        // DO NOT show Meta Ad Library button if Meta Pixel is NOT installed!
+        btnMetaAdLibrary.style.display = 'none';
+      }
     }
     if (btnGoogleAdCenter) {
-      btnGoogleAdCenter.href = `https://adstransparency.google.com/?region=anywhere&domain=${encodeURIComponent(data.domain)}`;
+      if (hasGoogleAds) {
+        btnGoogleAdCenter.style.display = 'inline-flex';
+        btnGoogleAdCenter.href = `https://adstransparency.google.com/?region=anywhere&domain=${encodeURIComponent(data.domain)}`;
+      } else {
+        // DO NOT show Google Ad Center button if Google Ads is NOT running!
+        btnGoogleAdCenter.style.display = 'none';
+      }
     }
     if (pixelIdBadge) {
-      pixelIdBadge.textContent = data.pixels.metaPixelFound ? `Meta Pixel: ${data.pixels.metaPixelId || 'Active'}` : 'Meta Pixel: Not Installed';
+      pixelIdBadge.textContent = hasMeta ? `Meta Pixel: ${data.pixels.metaPixelId || 'Active'}` : 'Meta Pixel: Not Installed';
+      pixelIdBadge.className = hasMeta ? 'ocr-badge status-ready' : 'ocr-badge';
+      if (!hasMeta) {
+        pixelIdBadge.style.background = '#f1f5f9';
+        pixelIdBadge.style.color = '#64748b';
+      }
     }
     if (googleAdsBadge) {
-      googleAdsBadge.textContent = data.trackingIds.gtm ? `GTM Tag: ${data.trackingIds.gtm}` : (data.trackingIds.ga4 ? `GA4 Tag: ${data.trackingIds.ga4}` : 'Google Tag: Inactive');
+      googleAdsBadge.textContent = hasGoogleAds ? `Google Ads: ${data.trackingIds.googleAds || 'Active'}` : 'Google Ads: Not Detected';
+      googleAdsBadge.className = hasGoogleAds ? 'ocr-badge status-ready' : 'ocr-badge';
+      if (!hasGoogleAds) {
+        googleAdsBadge.style.background = '#f1f5f9';
+        googleAdsBadge.style.color = '#64748b';
+      }
+    }
+
+    if (analyzerAdsBanner) {
+      const bannerTitle = analyzerAdsBanner.querySelector('.analyzer-ads-title');
+      const bannerDesc = analyzerAdsBanner.querySelector('.analyzer-ads-desc');
+      if (!hasMeta && !hasGoogleAds) {
+        analyzerAdsBanner.style.background = '#f8fafc';
+        analyzerAdsBanner.style.border = '1px solid #e2e8f0';
+        if (bannerTitle) bannerTitle.innerHTML = '⚪ Paid Advertising Status: No Active Campaigns Detected';
+        if (bannerDesc) bannerDesc.textContent = 'Page source scan confirmed no Meta Pixel or Google Ads tracking codes are installed on this domain. Ad library buttons are hidden to prevent empty or misleading searches.';
+      } else {
+        analyzerAdsBanner.style.background = '';
+        analyzerAdsBanner.style.border = '';
+        if (bannerTitle) bannerTitle.innerHTML = '🎯 Active Paid Advertising Discovered';
+        if (bannerDesc) bannerDesc.textContent = 'Verified ad tracking scripts were detected in page source. Click below to inspect running creatives.';
+      }
     }
 
     // -------------------------------------------------------------
@@ -1875,6 +1925,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { key: 'ga4', name: 'Google Analytics 4 (GA4)', id: data.trackingIds.ga4, icon: '📊', desc: 'Google next-gen web & app event stream' },
       { key: 'gtm', name: 'Google Tag Manager (GTM)', id: data.trackingIds.gtm, icon: '🏷️', desc: 'Centralized enterprise tag manager container' },
       { key: 'meta', name: 'Meta / Facebook Ads Pixel', id: data.pixels.metaPixelId, icon: '🎯', desc: 'Meta conversions API & retargeting pixel' },
+      { key: 'googleAds', name: 'Google Ads Conversion Tag', id: data.trackingIds.googleAds, icon: '📢', desc: 'Google Ads remarketing & conversion tracker' },
       { key: 'clarity', name: 'Microsoft Clarity', id: data.trackingIds.clarity, icon: '🔍', desc: 'Session recording & user behavior heatmaps' },
       { key: 'tiktok', name: 'TikTok Ads Pixel', id: data.trackingIds.tiktok, icon: '🎵', desc: 'TikTok conversion tracker & retargeting' },
       { key: 'hotjar', name: 'Hotjar Behavioral Heatmaps', id: data.trackingIds.hotjar, icon: '🔥', desc: 'Visitor clicks & scroll depth heatmaps' }
@@ -2041,7 +2092,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const activePixelCount = [
       data.trackingIds.ga4, data.trackingIds.gtm, data.pixels.metaPixelId,
-      data.trackingIds.clarity, data.trackingIds.tiktok, data.trackingIds.hotjar
+      data.trackingIds.googleAds, data.trackingIds.clarity, data.trackingIds.tiktok, data.trackingIds.hotjar
     ].filter(Boolean).length;
 
     if (snapAdPixels) {
@@ -2160,14 +2211,19 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     } else {
       mapsContainer.innerHTML = `
-        <div style="padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px; color: var(--gray-600); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-          <span>🌐 <strong>Online-Only Business:</strong> No physical store or Google Maps embed detected in page source.</span>
-          <a href="https://www.google.com/maps/search/${encodeURIComponent(domain)}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size: 11px; padding: 4px 10px;">Search Maps ↗</a>
+        <div style="padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px; color: var(--gray-600);">
+          <span>🌐 <strong>Online-Only Presence:</strong> No physical store address or Google Maps embed detected in page source.</span>
         </div>
       `;
     }
     if (btnSearchMaps) {
-      btnSearchMaps.href = `https://www.google.com/maps/search/${encodeURIComponent(maps.address || domain)}`;
+      if (maps.found || maps.address) {
+        btnSearchMaps.style.display = 'inline-flex';
+        btnSearchMaps.href = `https://www.google.com/maps/search/${encodeURIComponent(maps.address || domain)}`;
+      } else {
+        // DO NOT show Google Maps button if no physical location exists!
+        btnSearchMaps.style.display = 'none';
+      }
     }
   }
 
