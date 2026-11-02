@@ -108,69 +108,148 @@
         <p class="tool-description">Inspect live DNS records (A, AAAA, MX, TXT, NS, CNAME), domain registrar details, domain age, SSL security, and email authentication (SPF &amp; DMARC) in real time.</p>
       </div>
 
-      <div class="tool-workspace">
-
-        <div class="tool-split">
-        <div class="tool-split-inputs">
+            <div class="tool-workspace" style="padding: 24px; margin-bottom: 24px;">
 
         <!-- Search Input Form -->
         <div class="settings-group" style="margin-bottom: var(--space-4);">
-          <label class="form-label" for="domainInput" style="font-weight: 600;">Enter Domain Name or Website URL *</label>
+          <label class="form-label" for="domainInput" style="font-weight: 600; font-size: 15px;">Enter Domain Name or Website URL *</label>
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <div style="flex: 1; min-width: 0; position: relative;">
-              <input type="text" id="domainInput" class="form-input" placeholder="e.g. sarkariresult.com, flipkart.com, google.com" style="padding-left: 38px; font-size: 15px; height: 46px;">
-              <span style="position: absolute; left: 12px; top: 13px; color: var(--gray-400); font-size: 16px;">🔍</span>
+            <div style="flex: 1; min-width: 240px; position: relative;">
+              <input type="text" id="domainInput" class="form-input" placeholder="e.g. sarkariresult.com, flipkart.com, google.com, nic.in" style="padding-left: 38px; font-size: 15px; height: 48px;">
+              <span style="position: absolute; left: 12px; top: 14px; color: var(--gray-400); font-size: 16px;">🔍</span>
             </div>
-            <button type="button" id="btnLookup" class="btn btn-primary" style="height: 46px; min-width: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+            <button type="button" id="btnLookup" class="btn btn-primary" style="height: 48px; min-width: 140px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600;">
               <span>Lookup Domain</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
           </div>
-          <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-            <span style="font-size: 12px; color: var(--gray-500);">Quick Samples:</span>
-            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="sarkariresult.com" style="padding: 2px 8px; font-size: 11px;">sarkariresult.com</button>
-            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="flipkart.com" style="padding: 2px 8px; font-size: 11px;">flipkart.com</button>
-            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="github.com" style="padding: 2px 8px; font-size: 11px;">github.com</button>
-            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="wikipedia.org" style="padding: 2px 8px; font-size: 11px;">wikipedia.org</button>
+          <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+            <span style="font-size: 12px; color: var(--gray-500); font-weight: 500;">Quick Samples:</span>
+            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="sarkariresult.com" style="padding: 3px 10px; font-size: 11px;">sarkariresult.com</button>
+            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="flipkart.com" style="padding: 3px 10px; font-size: 11px;">flipkart.com</button>
+            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="google.com" style="padding: 3px 10px; font-size: 11px;">google.com</button>
+            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="wikipedia.org" style="padding: 3px 10px; font-size: 11px;">wikipedia.org</button>
+            <button type="button" class="quick-sample-btn btn btn-outline" data-domain="nic.in" style="padding: 3px 10px; font-size: 11px;">nic.in</button>
           </div>
         </div>
 
-        </div>
-
-        <div class="tool-split-output">
-
         <!-- Loader -->
-        <div id="lookupLoading" style="display: none; text-align: center; padding: 40px 20px;">
+        <div id="lookupLoading" style="display: none; text-align: center; padding: 48px 20px; background: var(--gray-50); border: 1px dashed var(--gray-300); border-radius: var(--radius-xl); margin-top: 20px;">
           <div class="spinner" style="margin: 0 auto 16px; width: 44px; height: 44px; border: 4px solid var(--gray-200); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
-          <div style="font-size: 15px; font-weight: 600; color: var(--navy);">Querying Cloudflare DNS &amp; Registry Servers...</div>
-          <div style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Checking A, MX, TXT, NS records and security policies</div>
+          <div style="font-size: 16px; font-weight: 700; color: var(--navy);">Querying Registry RDAP &amp; Cloudflare DNS Servers...</div>
+          <div style="font-size: 13px; color: var(--gray-500); margin-top: 6px;">Fetching domain registrar, expiration date, owner status, and DNS records in real time</div>
         </div>
 
         <!-- Results Workspace -->
-        <div id="lookupResults" style="display: none;">
+        <div id="lookupResults" style="display: none; margin-top: 24px;">
 
-          <!-- Overview Cards -->
-          <div class="seo-metrics-grid">
-            <div class="seo-metric-card">
-              <div class="seo-metric-title">Domain Name</div>
-              <div id="resDomainName" style="font-size: 18px; font-weight: 700; color: var(--navy); word-break: break-all;">-</div>
-              <div id="resTld" class="seo-metric-desc" style="margin-top: 4px;">TLD: -</div>
+          <!-- 4 Overview Metric Cards -->
+          <div class="seo-metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 22px;">
+            <div class="seo-metric-card" style="text-align: left; padding: 18px 20px;">
+              <div class="seo-metric-title" style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Domain Name</div>
+              <div id="resDomainName" style="font-size: 18px; font-weight: 700; color: var(--navy); word-break: break-all; margin-top: 4px;">-</div>
+              <div id="resTld" class="seo-metric-desc" style="margin-top: 6px; font-size: 12px; font-weight: 500; color: #0284c7;">TLD: -</div>
             </div>
-            <div class="seo-metric-card">
-              <div class="seo-metric-title">Domain Status</div>
-              <div id="resDomainStatus" style="font-size: 15px; font-weight: 600; color: #16a34a; margin-top: 4px;">Active ✓</div>
-              <div id="resIpAddress" class="seo-metric-desc" style="margin-top: 4px; font-family: monospace;">IP: -</div>
+
+            <div class="seo-metric-card" style="text-align: left; padding: 18px 20px;">
+              <div class="seo-metric-title" style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Purchased From / Registrar</div>
+              <div id="resRegistrar" style="font-size: 16px; font-weight: 700; color: var(--navy); word-break: break-word; margin-top: 4px;">-</div>
+              <div id="resRegistrarBadge" class="seo-metric-desc" style="margin-top: 6px; font-size: 12px; color: var(--gray-600);">-</div>
             </div>
-            <div class="seo-metric-card">
-              <div class="seo-metric-title">Estimated Age / Host</div>
-              <div id="resHostingProvider" style="font-size: 15px; font-weight: 600; color: var(--navy);">-</div>
-              <div id="resAge" class="seo-metric-desc" style="margin-top: 4px;">-</div>
+
+            <div class="seo-metric-card" style="text-align: left; padding: 18px 20px;">
+              <div class="seo-metric-title" style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Domain Expiry Date</div>
+              <div id="resExpiryDate" style="font-size: 17px; font-weight: 700; color: var(--navy); margin-top: 4px;">-</div>
+              <div id="resExpiryCountdown" class="seo-metric-desc" style="margin-top: 6px; font-size: 12px; font-weight: 600;">-</div>
             </div>
-            <div class="seo-metric-card">
-              <div class="seo-metric-title">Security &amp; Auth</div>
-              <div id="resSecurityScore" style="font-size: 18px; font-weight: 700; color: #16a34a;">-</div>
-              <div id="resEmailSec" class="seo-metric-desc" style="margin-top: 4px;">SPF &amp; DMARC: Checking</div>
+
+            <div class="seo-metric-card" style="text-align: left; padding: 18px 20px;">
+              <div class="seo-metric-title" style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Domain Age &amp; Created</div>
+              <div id="resDomainAge" style="font-size: 16px; font-weight: 700; color: var(--navy); margin-top: 4px;">-</div>
+              <div id="resCreatedDate" class="seo-metric-desc" style="margin-top: 6px; font-size: 12px; color: var(--gray-600);">-</div>
             </div>
+          </div>
+
+          <!-- Dedicated WHOIS & Ownership Profile Card -->
+          <div id="whoisCard" style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--gray-200); padding-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span>📋 Domain WHOIS &amp; Registration Record</span>
+                </h3>
+                <p style="font-size: 12px; color: var(--gray-500); margin: 4px 0 0;">Official registry data queried from authoritative ICANN RDAP endpoints</p>
+              </div>
+              <span id="whoisSourceBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #e0f2fe; color: #0369a1; display: inline-flex; align-items: center; gap: 5px;">
+                <span>●</span> Authoritative Registry RDAP
+              </span>
+            </div>
+
+            <!-- WHOIS Key-Value Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px 24px; font-size: 13px;">
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🏢 Sponsoring Registrar</div>
+                <div id="whoisRegistrar" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">-</div>
+                <div id="whoisIanaId" style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">IANA ID: -</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">⏳ Expiration Date &amp; Remaining Time</div>
+                <div id="whoisExpires" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">-</div>
+                <div id="whoisExpiresCountdown" style="font-size: 12px; margin-top: 2px; font-weight: 600;">-</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">📅 Registration / Creation Date</div>
+                <div id="whoisCreated" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">-</div>
+                <div id="whoisDomainAgeDetail" style="font-size: 12px; color: var(--gray-600); margin-top: 2px;">-</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🔄 Last Updated / Renewed On</div>
+                <div id="whoisUpdated" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">-</div>
+                <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Registry database timestamp</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">👤 Registrant / Domain Owner</div>
+                <div id="whoisRegistrant" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">-</div>
+                <div id="whoisRegistrantNotice" style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Masked via GDPR / ICANN WHOIS Privacy Specification</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">📍 Registrant Location &amp; Country</div>
+                <div id="whoisLocation" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">-</div>
+                <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Country / Jurisdiction of Registration</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🔒 Domain Transfer Status</div>
+                <div id="whoisStatus" style="font-weight: 600; color: #16a34a; font-size: 13px; margin-top: 4px;">-</div>
+                <div id="whoisStatusNotice" style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">EPP Transfer Status</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🛡️ DNSSEC &amp; Abuse Contact</div>
+                <div id="whoisDnssec" style="font-weight: 600; color: var(--navy); font-size: 13px; margin-top: 4px;">-</div>
+                <div id="whoisAbuse" style="font-size: 11px; color: var(--gray-600); margin-top: 2px; word-break: break-all;">-</div>
+              </div>
+            </div>
+
+            <!-- Authoritative Registry Nameservers -->
+            <div style="margin-top: 16px; padding: 12px 16px; background: #f8fafc; border: 1px solid var(--gray-200); border-radius: var(--radius-md);">
+              <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">🌐 Official Registry Nameservers</div>
+              <div id="whoisNameservers" style="font-family: var(--font-mono, monospace); font-size: 12px; color: var(--navy); display: flex; flex-wrap: wrap; gap: 8px;">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- DNS Records Header & Filter Tabs -->
+          <div style="margin-top: 28px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>⚡ Live DNS Zone Records</span>
+            </h3>
+            <span style="font-size: 12px; color: var(--gray-500);">Direct Cloudflare &amp; Google Anycast DNS</span>
           </div>
 
           <!-- DNS Record Tabs -->
@@ -188,10 +267,10 @@
             <table class="dns-table">
               <thead>
                 <tr>
-                  <th style="width: 90px;">Type</th>
-                  <th style="width: 180px;">Host / Name</th>
+                  <th style="width: 100px;">Type</th>
+                  <th style="width: 220px;">Host / Name</th>
                   <th>Value / Target Record</th>
-                  <th style="width: 80px;">TTL</th>
+                  <th style="width: 90px;">TTL</th>
                 </tr>
               </thead>
               <tbody id="dnsTableBody">
@@ -202,8 +281,8 @@
 
           <!-- Email Security & DMARC Audit Section -->
           <div style="margin-top: 24px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px;">
-            <div style="font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-              <span>🛡️ Email Authentication &amp; Spam Protection Audit</span>
+            <div style="font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <span>🛡️ Email Authentication &amp; Anti-Spam Security Audit</span>
             </div>
             <div class="seo-audit-list" id="authAuditList">
               <!-- Injected via JS -->
@@ -212,13 +291,10 @@
 
           <!-- Actions -->
           <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; flex-wrap: wrap;">
-            <button type="button" id="btnCopyDns" class="btn btn-outline" style="font-size: 13px;">📋 Copy DNS Records</button>
-            <button type="button" id="btnDownloadDns" class="btn btn-primary" style="font-size: 13px;">⬇️ Download Report (.txt)</button>
+            <button type="button" id="btnCopyDns" class="btn btn-outline" style="font-size: 13px;">📋 Copy Full WHOIS &amp; DNS Report</button>
+            <button type="button" id="btnDownloadDns" class="btn btn-primary" style="font-size: 13px;">⬇️ Download Full Report (.txt)</button>
           </div>
 
-        </div>
-
-        </div>
         </div>
 
       </div>
