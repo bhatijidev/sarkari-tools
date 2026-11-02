@@ -451,7 +451,19 @@
       keywords: ['whois', 'domain', 'dns', 'mx', 'txt', 'ns', 'a record', 'ssl', 'spf', 'dmarc', 'domain age', 'registrar', 'host', 'seo'],
       badge: 'New'
     },
-            {
+    {
+      id: 'url-safety-checker',
+      name: 'URL Safety Checker & Scam Link Detector',
+      description: 'Scan links for phishing, WhatsApp/SMS scams, fake bank KYC fraud, malware downloads & Cloudflare threat blocklists',
+      category: 'seo',
+      categoryLabel: 'Security & Utility',
+      icon: '🛡️',
+      iconBg: 'utility-tools',
+      url: 'tools/url-safety-checker.html',
+      keywords: ['url safety checker', 'safe link checker', 'scam link detector', 'phishing checker', 'is link safe', 'malicious url', 'fraud link detector', 'whatsapp scam link', 'virus link checker'],
+      badge: 'New'
+    },
+    {
       id: 'website-analyzer',
       name: 'All-in-One Website Analyzer & Auditor',
       description: '360° verified audit: active Meta & Facebook ads, social profiles, Google Maps, contact details, tech stack & DNS',
