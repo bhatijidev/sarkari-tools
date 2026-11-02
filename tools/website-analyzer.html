@@ -376,39 +376,82 @@
           </div>
         </div>
 
-        <!-- Tab 2: AI Website Builder Detection -->
+        <!-- Tab 2: AI Website Builder & LLM Audit -->
         <div class="tab-panel" id="tabAi" style="display: none;">
           <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
-              🤖 AI Website Generator &amp; Builder Audit
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 4px;">
+              <div style="font-size: 17px; font-weight: 700; color: var(--navy);">
+                🤖 AI Website Generator &amp; LLM Code Audit
+              </div>
+              <span id="aiAuditCategoryBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #f3e8ff; color: #7e22ce;">Multi-Layer Audit</span>
             </div>
             <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">
-              Scans for digital code signatures of AI website builders (v0, Lovable, Bolt.new, Framer AI, Durable, 10Web, Hostinger AI, Mixo, Wix ADI, etc.):
+              Scans for managed AI platforms (v0, Lovable, Bolt.new, Framer AI, Durable, 10Web, Mixo) and raw Claude / ChatGPT artifact boilerplates:
             </div>
 
             <!-- AI Verdict Card -->
             <div id="aiVerdictBox" style="padding: 18px 20px; border-radius: var(--radius-lg); background: #faf5ff; border: 1px solid #e9d5ff; margin-bottom: 18px;">
               <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                 <span id="aiVerdictIcon" style="font-size: 32px;">🤖</span>
-                <div>
+                <div style="flex: 1; min-width: 240px;">
                   <div style="font-size: 16px; font-weight: 700; color: var(--navy);" id="aiVerdictTitle">Analyzing code fingerprints...</div>
                   <div style="font-size: 13px; color: var(--gray-600); margin-top: 3px;" id="aiVerdictDesc">Checking script URLs, meta tags, and component footprints...</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; font-weight: 600;">Detection Confidence</div>
+                  <div id="aiVerdictConfidence" style="font-size: 14px; font-weight: 700; color: var(--navy); margin-top: 2px;">--</div>
                 </div>
               </div>
             </div>
 
-            <!-- Matched AI Signals & Chatbots -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+            <!-- 3 Detailed Signal Columns -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 18px;">
+              
+              <!-- 1. Managed Platform Builders -->
               <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
-                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🔍 Matched Code Signals</div>
-                <div id="aiMatchedSignals" style="font-size: 13px; color: var(--navy); font-weight: 600; margin-top: 6px;">--</div>
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🏢 Managed AI Builder Footprints</div>
+                <div id="aiPlatformStatus" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 6px;">Scanning...</div>
+                <div id="aiPlatformDesc" style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">v0, Lovable, Bolt.new, Framer AI, Durable, 10Web, Hostinger AI, Mixo</div>
               </div>
 
+              <!-- 2. Claude & LLM Heuristic Artifacts -->
               <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
-                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">💬 Embedded AI Chatbots &amp; Assistants</div>
-                <div id="aiChatbotsDetected" style="font-size: 13px; color: var(--navy); font-weight: 600; margin-top: 6px;">--</div>
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">⚡ Claude &amp; LLM Code Heuristics</div>
+                <div id="aiLlmStatus" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 6px;">Scanning...</div>
+                <div id="aiLlmDesc" style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">Tailwind CDN, Babel standalone, developer prompt comments &amp; AI dummy data</div>
+              </div>
+
+              <!-- 3. Embedded AI Chatbots -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">💬 Embedded AI Chatbots &amp; Agents</div>
+                <div id="aiChatbotsDetected" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 6px;">Scanning...</div>
+                <div style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">Tidio AI, Intercom Fin, Chatbase, Botpress, Voiceflow</div>
+              </div>
+
+            </div>
+
+            <!-- Matched Code Signals Detailed Box -->
+            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 16px;">
+              <div style="color: var(--gray-600); font-size: 11px; font-weight: 700; text-transform: uppercase;">🔍 Exact Digital Fingerprints Discovered:</div>
+              <div id="aiMatchedSignals" style="font-family: var(--font-mono, monospace); font-size: 12px; color: var(--navy); font-weight: 600; margin-top: 4px;">--</div>
+            </div>
+
+            <!-- Transparent Truth Callout Box (Answering the Claude/ChatGPT question) -->
+            <div style="padding: 16px 18px; background: #fefce8; border: 1px solid #fef08a; border-radius: var(--radius-md); font-size: 13px; color: #713f12; line-height: 1.6;">
+              <div style="font-weight: 700; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span>💡</span> <span>Can Claude, ChatGPT or Cursor Code Be 100% Detected?</span>
+              </div>
+              <p style="margin: 0 0 6px;">
+                <strong>1. Managed AI Platforms (v0, Lovable, Bolt.new, Framer AI):</strong> Ye platforms DOM me vendor scripts, custom CDN links aur metadata chhodte hain, jinko <strong>100% certainty ke sath identify</strong> kiya ja sakta hai.
+              </p>
+              <p style="margin: 0 0 6px;">
+                <strong>2. Raw LLMs (Claude 3.5/3.7, ChatGPT, Cursor, GitHub Copilot):</strong> Jab koi developer Claude ya ChatGPT se raw HTML, CSS ya React code likhwaye aur use standard bundler (Next.js, Vite, Webpack) se deploy kare (bina kisi comment ya Tailwind CDN ke), toh wo code <strong>human-written code ke sath 100% identical</strong> hota hai. Duniya ka koi bhi tool compiled code me se LLM involvement ko 100% guarantee nahi de sakta agar vendor footprints sanitize kar diye gaye hon.
+              </p>
+              <div style="font-size: 12px; color: #854d0e; font-weight: 600; margin-top: 6px;">
+                ✓ Hamara auditor <strong>Managed AI Platforms</strong> ko 100% track karta hai aur unbundled <strong>Claude Artifact patterns</strong> (Tailwind CDN + Babel + Lucide) ko alag se highlight karta hai.
               </div>
             </div>
+
           </div>
         </div>
 
