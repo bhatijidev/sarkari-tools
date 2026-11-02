@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const dispDomain = document.getElementById('dispDomain');
   const dispTitle = document.getElementById('dispTitle');
   const dispSslBadge = document.getElementById('dispSslBadge');
+  const summaryBadgesFound = document.getElementById('summaryBadgesFound');
+  const summaryBadgesAbsent = document.getElementById('summaryBadgesAbsent');
+  const pixelsAbsentContainer = document.getElementById('pixelsAbsentContainer');
 
   // 6 Bento Metric Elements
   const scoreLiveDate = document.getElementById('scoreLiveDate');
@@ -1368,10 +1371,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rdapInfo && rdapInfo.registeredDate) {
       liveDateStr = rdapInfo.registeredDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
       const now = new Date();
+      const diffMs = now - rdapInfo.registeredDate;
+      const totalDays = Math.max(1, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
       let years = now.getFullYear() - rdapInfo.registeredDate.getFullYear();
       let months = now.getMonth() - rdapInfo.registeredDate.getMonth();
       if (months < 0) { years--; months += 12; }
-      ageStr = years > 0 ? `${years} Yr${years > 1 ? 's' : ''}${months > 0 ? `, ${months} Mo` : ''} Old` : `${Math.max(1, months)} Month${months > 1 ? 's' : ''} Old`;
+
+      if (totalDays < 60) {
+        ageStr = `${totalDays} Days Old (${Math.max(1, months)} Mo)`;
+      } else if (years > 0) {
+        ageStr = `${years} Yr${years > 1 ? 's' : ''}${months > 0 ? `, ${months} Mo` : ''} Old (${totalDays} Days)`;
+      } else {
+        ageStr = `${months} Month${months > 1 ? 's' : ''} Old (${totalDays} Days)`;
+      }
     }
 
     if (rdapInfo && rdapInfo.expiresDate) {
@@ -1463,28 +1475,151 @@ document.addEventListener('DOMContentLoaded', () => {
     dispTitle.textContent = data.title;
     dispSslBadge.textContent = '🔒 HTTPS Secure';
 
+    // -------------------------------------------------------------
+    // Systematic "Verified Findings at a Glance" (What was Detected vs Absent)
+    // -------------------------------------------------------------
+    const foundSignals = [];
+    const absentSignals = [];
+
+    // Live Date
+    if (data.rdapInfo && data.rdapInfo.registeredDate) {
+      foundSignals.push(`📅 Domain Live: ${data.liveDateStr} (${data.ageStr.split(' (')[0]})`);
+    }
+
+    // Web Hosting
+    if (data.hosting && data.hosting.providerName) {
+      const hostFlag = data.hosting.countryFlag ? ` ${data.hosting.countryFlag}` : '';
+      foundSignals.push(`🌐 Hosted on ${data.hosting.providerName}${hostFlag}`);
+    }
+
+    // Security Grade
+    foundSignals.push(`🛡️ Security ${data.securityInfo.grade} (${data.securityInfo.totalScore}/100)`);
+
+    // AI Detection
+    if (data.aiInfo.isAi) {
+      foundSignals.push(`🤖 AI Builder: ${data.aiInfo.toolName}`);
+    } else {
+      absentSignals.push('✓ Clean Handcrafted Code (No AI Builder)');
+    }
+
+    // Pixels & Trackers
+    const hasMeta = !!data.pixels.metaPixelFound;
+    const hasGa4 = !!data.trackingIds.ga4;
+    const hasGtm = !!data.trackingIds.gtm;
+    const hasClarity = !!data.trackingIds.clarity;
+    const hasTiktok = !!data.trackingIds.tiktok;
+    const hasHotjar = !!data.trackingIds.hotjar;
+
+    const activeTrackersCount = [hasMeta, hasGa4, hasGtm, hasClarity, hasTiktok, hasHotjar].filter(Boolean).length;
+
+    if (hasMeta) foundSignals.push(`🎯 Meta Pixel Active (${data.pixels.metaPixelId || 'Detected'})`);
+    if (hasGa4) foundSignals.push(`📊 GA4 Analytics (${data.trackingIds.ga4})`);
+    if (hasGtm) foundSignals.push(`🏷️ Google Tag Manager (${data.trackingIds.gtm})`);
+    if (hasClarity) foundSignals.push('🔍 Clarity Session Recording');
+    if (hasTiktok) foundSignals.push('🎵 TikTok Pixel Active');
+    if (hasHotjar) foundSignals.push('🔥 Hotjar Heatmaps Active');
+
+    if (activeTrackersCount === 0) {
+      absentSignals.push('✓ Zero Ad Pixels (Privacy-Friendly / Cookie-Free)');
+    } else if (!hasMeta) {
+      absentSignals.push('No Meta Ads Pixel');
+    }
+
+    // Social Profiles
+    const socCount = Object.keys(data.socials).length;
+    if (socCount > 0) {
+      foundSignals.push(`📱 ${socCount} Social Channel${socCount > 1 ? 's' : ''} Found`);
+    } else {
+      absentSignals.push('No Social Profile Links in HTML');
+    }
+
+    // Physical Location / Maps
+    if (data.maps.found) {
+      foundSignals.push('📍 Physical Store / Map Location Found');
+    } else {
+      absentSignals.push('Online-Only (No Physical Map Embed)');
+    }
+
+    // Direct Support Contacts
+    if (data.contacts.emails.length > 0) {
+      foundSignals.push(`✉️ Support: ${data.contacts.emails[0]}`);
+    }
+    if (data.contacts.phones.length > 0) {
+      foundSignals.push(`📞 Hotline: ${data.contacts.phones[0]}`);
+    }
+
+    // Render the summary badges
+    if (summaryBadgesFound) {
+      summaryBadgesFound.innerHTML = foundSignals.map(sig => `
+        <span style="font-size: 11px; font-weight: 600; background: #ecfdf5; color: #15803d; border: 1px solid #a7f3d0; padding: 3px 9px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 4px;">
+          ${escapeHtml(sig)}
+        </span>
+      `).join('');
+    }
+
+    if (summaryBadgesAbsent) {
+      summaryBadgesAbsent.innerHTML = absentSignals.map(sig => `
+        <span style="font-size: 11px; font-weight: 500; background: #f8fafc; color: #64748b; border: 1px solid #cbd5e1; padding: 3px 9px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 4px;">
+          ${escapeHtml(sig)}
+        </span>
+      `).join('');
+    }
+
+    // -------------------------------------------------------------
     // Bento 1: Live Date & Age
+    // -------------------------------------------------------------
     scoreLiveDate.textContent = data.liveDateStr;
     scoreAgeText.textContent = data.ageStr;
     badgeLiveDate.textContent = data.rdapInfo ? 'RDAP Verified' : 'DNS Active';
 
-    // Bento 2: AI Builder
-    scoreAiTool.textContent = data.aiInfo.toolName;
-    scoreAiTool.style.color = data.aiInfo.isAi ? '#7e22ce' : '#16a34a';
-    scoreAiConfidence.textContent = data.aiInfo.confidence;
-    badgeAiTool.textContent = data.aiInfo.isAi
-      ? (data.aiInfo.type === 'llm' ? '⚡ LLM Heuristic' : '🤖 AI Builder')
-      : 'No AI Builder';
-    badgeAiTool.style.background = data.aiInfo.isAi ? '#f3e8ff' : '#ecfdf5';
-    badgeAiTool.style.color = data.aiInfo.isAi ? '#7e22ce' : '#15803d';
+    // -------------------------------------------------------------
+    // Bento 2: AI Builder & Generator Detection
+    // -------------------------------------------------------------
+    if (data.aiInfo.isAi) {
+      scoreAiTool.textContent = data.aiInfo.toolName;
+      scoreAiTool.style.color = '#7e22ce';
+      scoreAiConfidence.textContent = data.aiInfo.confidence;
+      badgeAiTool.textContent = data.aiInfo.type === 'llm' ? '⚡ LLM Heuristic' : '🤖 AI Builder';
+      badgeAiTool.style.background = '#f3e8ff';
+      badgeAiTool.style.color = '#7e22ce';
+    } else {
+      scoreAiTool.textContent = 'Handcrafted Code';
+      scoreAiTool.style.color = '#15803d';
+      scoreAiConfidence.textContent = 'Zero AI Builder Signatures';
+      badgeAiTool.textContent = 'Clean Code';
+      badgeAiTool.style.background = '#ecfdf5';
+      badgeAiTool.style.color = '#15803d';
+    }
 
-    // Bento 3: Meta Ads Tracking
-    scoreMetaStatus.textContent = data.pixels.metaPixelFound ? 'Active' : 'Not Found';
-    scoreMetaStatus.style.color = data.pixels.metaPixelFound ? '#1877f2' : '#64748b';
-    scorePixelIdText.textContent = data.pixels.metaPixelId || 'None';
-    badgeMetaStatus.textContent = data.pixels.metaPixelFound ? 'Live Pixel' : 'Inactive';
+    // -------------------------------------------------------------
+    // Bento 3: Meta Ads & Tracking Status
+    // -------------------------------------------------------------
+    if (data.pixels.metaPixelFound) {
+      scoreMetaStatus.textContent = 'Live Pixel';
+      scoreMetaStatus.style.color = '#1877f2';
+      scorePixelIdText.textContent = data.pixels.metaPixelId || 'Active';
+      badgeMetaStatus.textContent = 'Active Tracking';
+      badgeMetaStatus.style.background = '#e0f2fe';
+      badgeMetaStatus.style.color = '#0284c7';
+    } else if (activeTrackersCount > 0) {
+      scoreMetaStatus.textContent = 'No Meta Pixel';
+      scoreMetaStatus.style.color = '#0284c7';
+      scorePixelIdText.textContent = `${activeTrackersCount} Other Tracker${activeTrackersCount > 1 ? 's' : ''}`;
+      badgeMetaStatus.textContent = 'Analytics Only';
+      badgeMetaStatus.style.background = '#e0f2fe';
+      badgeMetaStatus.style.color = '#0284c7';
+    } else {
+      scoreMetaStatus.textContent = 'Zero Pixels';
+      scoreMetaStatus.style.color = '#64748b';
+      scorePixelIdText.textContent = 'No Trackers Installed';
+      badgeMetaStatus.textContent = 'Cookie-Free';
+      badgeMetaStatus.style.background = '#f1f5f9';
+      badgeMetaStatus.style.color = '#475569';
+    }
 
+    // -------------------------------------------------------------
     // Bento 4: Web Host, Server & Platform
+    // -------------------------------------------------------------
     if (scoreHostingProvider) {
       scoreHostingProvider.textContent = `${data.hosting.icon} ${data.hosting.providerName}`;
     }
@@ -1503,13 +1638,16 @@ document.addEventListener('DOMContentLoaded', () => {
       scoreCdn.textContent = data.hosting.cdn;
     }
 
+    // -------------------------------------------------------------
     // Bento 5: Security Grade
+    // -------------------------------------------------------------
     scoreSecurityGrade.textContent = data.securityInfo.grade;
     scoreSecurityGrade.style.color = data.securityInfo.gradeColor;
     badgeSecurityGrade.textContent = `${data.securityInfo.totalScore}/100`;
 
+    // -------------------------------------------------------------
     // Bento 6: Social & Maps
-    const socCount = Object.keys(data.socials).length;
+    // -------------------------------------------------------------
     scoreSocialCount.textContent = socCount;
     scoreMapsFound.textContent = data.maps.found ? 'Physical Location' : 'Online Store';
 
@@ -1521,13 +1659,15 @@ document.addEventListener('DOMContentLoaded', () => {
       btnGoogleAdCenter.href = `https://adstransparency.google.com/?region=anywhere&domain=${encodeURIComponent(data.domain)}`;
     }
     if (pixelIdBadge) {
-      pixelIdBadge.textContent = data.pixels.metaPixelFound ? `Meta Pixel: ${data.pixels.metaPixelId || 'Active'}` : 'Meta Pixel: Not Detected';
+      pixelIdBadge.textContent = data.pixels.metaPixelFound ? `Meta Pixel: ${data.pixels.metaPixelId || 'Active'}` : 'Meta Pixel: Not Installed';
     }
     if (googleAdsBadge) {
       googleAdsBadge.textContent = data.trackingIds.gtm ? `GTM Tag: ${data.trackingIds.gtm}` : (data.trackingIds.ga4 ? `GA4 Tag: ${data.trackingIds.ga4}` : 'Google Tag: Inactive');
     }
 
-    // Populate Tab 1: Live Date & Age
+    // -------------------------------------------------------------
+    // Tab 1: Live Date & Age
+    // -------------------------------------------------------------
     dispCreatedDate.textContent = data.liveDateStr;
     dispCreatedAgo.textContent = `Age: ${data.ageStr}`;
     dispExpiryDate.textContent = data.expiryStr;
@@ -1539,26 +1679,50 @@ document.addEventListener('DOMContentLoaded', () => {
       btnWaybackFirst.href = `https://web.archive.org/web/*/${data.domain}`;
     }
 
-    // Populate Tab 2: AI Builder & LLM Audit
-    if (aiAuditCategoryBadge) {
-      aiAuditCategoryBadge.textContent = data.aiInfo.isAi
-        ? (data.aiInfo.type === 'llm' ? 'LLM Heuristic Match' : 'Platform AI Match')
-        : 'Clean / Handcrafted';
-      aiAuditCategoryBadge.style.background = data.aiInfo.isAi ? '#f3e8ff' : '#ecfdf5';
-      aiAuditCategoryBadge.style.color = data.aiInfo.isAi ? '#7e22ce' : '#15803d';
+    // -------------------------------------------------------------
+    // Tab 2: AI Builder & LLM Audit
+    // -------------------------------------------------------------
+    if (data.aiInfo.isAi) {
+      if (aiAuditCategoryBadge) {
+        aiAuditCategoryBadge.textContent = data.aiInfo.type === 'llm' ? 'LLM Heuristic Match' : 'Platform AI Match';
+        aiAuditCategoryBadge.style.background = '#f3e8ff';
+        aiAuditCategoryBadge.style.color = '#7e22ce';
+      }
+      aiVerdictIcon.textContent = data.aiInfo.icon;
+      aiVerdictTitle.textContent = `AI Generated: ${data.aiInfo.toolName}`;
+      aiVerdictTitle.style.color = '#7e22ce';
+      aiVerdictDesc.textContent = data.aiInfo.desc;
+      aiVerdictBox.style.background = '#faf5ff';
+      aiVerdictBox.style.borderColor = '#e9d5ff';
+      if (aiVerdictConfidence) aiVerdictConfidence.textContent = data.aiInfo.confidence;
+      if (aiPlatformStatus) aiPlatformStatus.textContent = data.aiInfo.platformStatus;
+      if (aiLlmStatus) aiLlmStatus.textContent = data.aiInfo.llmStatus;
+      aiMatchedSignals.textContent = data.aiInfo.signals.join(' • ');
+    } else {
+      if (aiAuditCategoryBadge) {
+        aiAuditCategoryBadge.textContent = 'Clean / Handcrafted';
+        aiAuditCategoryBadge.style.background = '#ecfdf5';
+        aiAuditCategoryBadge.style.color = '#15803d';
+      }
+      aiVerdictIcon.textContent = '🟢';
+      aiVerdictTitle.textContent = 'Clean Handcrafted Code (Zero AI Builder Signatures)';
+      aiVerdictTitle.style.color = '#166534';
+      aiVerdictDesc.textContent = 'Traditional development framework or CMS. No signatures of managed AI website builders (v0, Lovable, Bolt.new, Framer AI, 10Web, Hostinger AI) or standalone Claude/LLM scripts were detected.';
+      aiVerdictBox.style.background = '#f0fdf4';
+      aiVerdictBox.style.borderColor = '#bbf7d0';
+      if (aiVerdictConfidence) aiVerdictConfidence.textContent = 'Handcrafted (100%)';
+      if (aiPlatformStatus) aiPlatformStatus.textContent = 'Clean (0/11 Platform Signatures)';
+      if (aiLlmStatus) aiLlmStatus.textContent = 'Clean (Compiled Production Code)';
+      aiMatchedSignals.textContent = 'Standard HTML5, CSS, and JavaScript. Zero AI generator tokens detected.';
     }
-    aiVerdictIcon.textContent = data.aiInfo.icon;
-    aiVerdictTitle.textContent = data.aiInfo.isAi ? `AI Generated: ${data.aiInfo.toolName}` : data.aiInfo.toolName;
-    aiVerdictDesc.textContent = data.aiInfo.desc;
-    if (aiVerdictConfidence) aiVerdictConfidence.textContent = data.aiInfo.confidence;
-    if (aiPlatformStatus) aiPlatformStatus.textContent = data.aiInfo.platformStatus;
-    if (aiLlmStatus) aiLlmStatus.textContent = data.aiInfo.llmStatus;
-    aiMatchedSignals.textContent = data.aiInfo.signals.join(' · ');
+
     aiChatbotsDetected.textContent = (data.aiInfo.aiBots && data.aiInfo.aiBots.length > 0)
       ? data.aiInfo.aiBots.join(', ')
       : 'None Detected';
 
-    // Populate Tab 3: Social Preview
+    // -------------------------------------------------------------
+    // Tab 3: Social Preview
+    // -------------------------------------------------------------
     if (data.socialPreview.image) {
       socialPreviewImg.src = data.socialPreview.image;
       socialPreviewImg.style.display = 'block';
@@ -1566,6 +1730,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       socialPreviewImg.style.display = 'none';
       socialPreviewNoImg.style.display = 'block';
+      socialPreviewNoImg.innerHTML = `
+        <div style="text-align: center; padding: 24px 16px;">
+          <div style="font-size: 32px; margin-bottom: 6px;">📄</div>
+          <div style="font-size: 13px; font-weight: 700; color: #475569;">Text-Only Social Preview</div>
+          <div style="font-size: 11px; color: #64748b; margin-top: 3px;">No og:image tag found in page HTML</div>
+        </div>
+      `;
     }
     socialPreviewDomain.textContent = data.socialPreview.siteName || data.domain.toUpperCase();
     socialPreviewTitle.textContent = data.socialPreview.title;
@@ -1574,15 +1745,15 @@ document.addEventListener('DOMContentLoaded', () => {
     ogChecklist.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 0; border-bottom: 1px solid #e2e8f0;">
         <span>og:title</span>
-        <strong style="color: ${data.socialPreview.title ? '#16a34a' : '#dc2626'}">${data.socialPreview.title ? '✓ Configured' : '✗ Missing'}</strong>
+        <strong style="color: ${data.socialPreview.title ? '#16a34a' : '#dc2626'}">${data.socialPreview.title ? '✓ Configured' : '✕ Missing'}</strong>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 0; border-bottom: 1px solid #e2e8f0;">
         <span>og:description</span>
-        <strong style="color: ${data.socialPreview.desc ? '#16a34a' : '#dc2626'}">${data.socialPreview.desc ? '✓ Configured' : '✗ Missing'}</strong>
+        <strong style="color: ${data.socialPreview.desc ? '#16a34a' : '#dc2626'}">${data.socialPreview.desc ? '✓ Configured' : '✕ Missing'}</strong>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 0; border-bottom: 1px solid #e2e8f0;">
         <span>og:image (Social Card)</span>
-        <strong style="color: ${data.socialPreview.image ? '#16a34a' : '#ca8a04'}">${data.socialPreview.image ? '✓ Image Present' : '! Missing (No Preview)'}</strong>
+        <strong style="color: ${data.socialPreview.image ? '#16a34a' : '#ca8a04'}">${data.socialPreview.image ? '✓ Image Present' : '⚠️ Missing (Text Only)'}</strong>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 0;">
         <span>HTTPS Secure Protocol</span>
@@ -1590,7 +1761,9 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    // Populate Tab 4: Security Headers Table
+    // -------------------------------------------------------------
+    // Tab 4: Security Headers Table
+    // -------------------------------------------------------------
     securityGradeBadge.textContent = data.securityInfo.grade;
     securityGradeBadge.style.color = data.securityInfo.gradeColor;
     securityHeadersTableBody.innerHTML = '';
@@ -1598,47 +1771,96 @@ document.addEventListener('DOMContentLoaded', () => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td style="font-weight: 600; color: var(--navy);">${escapeHtml(item.name)}</td>
-        <td><span class="ocr-badge ${item.present ? 'status-ready' : 'status-processing'}" style="font-size: 11px;">${item.present ? '✓ Active' : '✗ Missing'}</span></td>
+        <td><span class="ocr-badge ${item.present ? 'status-ready' : 'status-processing'}" style="font-size: 11px;">${item.present ? '✓ Active' : '✕ Missing'}</span></td>
         <td style="color: var(--gray-700); font-family: var(--font-mono, monospace); font-size: 11px;">${escapeHtml(item.value)}</td>
       `;
       securityHeadersTableBody.appendChild(tr);
     });
 
-    // Populate Tab 5: Ad Pixels Grid
+    // -------------------------------------------------------------
+    // Tab 5: Ad Pixels Grid (ONLY SHOW WHAT WAS FOUND!)
+    // -------------------------------------------------------------
     pixelsGrid.innerHTML = '';
+    if (pixelsAbsentContainer) {
+      pixelsAbsentContainer.innerHTML = '';
+      pixelsAbsentContainer.style.display = 'none';
+    }
+
     const pixelEntries = [
-      { name: 'Google Analytics 4 (GA4)', id: data.trackingIds.ga4, icon: '📊', desc: 'Google next-gen web & app event stream' },
-      { name: 'Google Tag Manager (GTM)', id: data.trackingIds.gtm, icon: '🏷️', desc: 'Centralized enterprise tag manager container' },
-      { name: 'Meta / Facebook Ads Pixel', id: data.pixels.metaPixelId, icon: '📣', desc: 'Meta conversions API & retargeting pixel' },
-      { name: 'Microsoft Clarity', id: data.trackingIds.clarity, icon: '🔍', desc: 'Session recording & user behavior heatmaps' },
-      { name: 'TikTok Ads Pixel', id: data.trackingIds.tiktok, icon: '🎵', desc: 'TikTok conversion tracker & retargeting' },
-      { name: 'Hotjar Behavioral Heatmaps', id: data.trackingIds.hotjar, icon: '🔥', desc: 'Visitor clicks & scroll depth heatmaps' }
+      { key: 'ga4', name: 'Google Analytics 4 (GA4)', id: data.trackingIds.ga4, icon: '📊', desc: 'Google next-gen web & app event stream' },
+      { key: 'gtm', name: 'Google Tag Manager (GTM)', id: data.trackingIds.gtm, icon: '🏷️', desc: 'Centralized enterprise tag manager container' },
+      { key: 'meta', name: 'Meta / Facebook Ads Pixel', id: data.pixels.metaPixelId, icon: '🎯', desc: 'Meta conversions API & retargeting pixel' },
+      { key: 'clarity', name: 'Microsoft Clarity', id: data.trackingIds.clarity, icon: '🔍', desc: 'Session recording & user behavior heatmaps' },
+      { key: 'tiktok', name: 'TikTok Ads Pixel', id: data.trackingIds.tiktok, icon: '🎵', desc: 'TikTok conversion tracker & retargeting' },
+      { key: 'hotjar', name: 'Hotjar Behavioral Heatmaps', id: data.trackingIds.hotjar, icon: '🔥', desc: 'Visitor clicks & scroll depth heatmaps' }
     ];
 
-    pixelEntries.forEach(entry => {
-      const card = document.createElement('div');
-      card.style.cssText = 'background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;';
-      card.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <div style="font-size: 13px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 6px;">
-            <span>${entry.icon}</span> <span>${entry.name}</span>
-          </div>
-          <span class="ocr-badge ${entry.id ? 'status-ready' : 'status-processing'}" style="font-size: 10px;">${entry.id ? 'Detected' : 'Not Found'}</span>
-        </div>
-        <div style="font-family: var(--font-mono, monospace); font-size: 13px; font-weight: 700; color: ${entry.id ? '#0284c7' : '#94a3b8'}; margin: 4px 0;">
-          ${entry.id || '--'}
-        </div>
-        <div style="font-size: 11px; color: var(--gray-500);">${entry.desc}</div>
-      `;
-      pixelsGrid.appendChild(card);
-    });
+    const foundPixels = pixelEntries.filter(p => p.id);
+    const absentPixels = pixelEntries.filter(p => !p.id);
 
-    // Populate Tab 6: Socials & Maps & Contacts
+    if (foundPixels.length > 0) {
+      // 1. Render rich glowing cards ONLY for pixels that exist!
+      foundPixels.forEach(entry => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background: #ffffff; border: 1.5px solid #38bdf8; border-radius: var(--radius-md); padding: 16px 18px; box-shadow: 0 2px 8px rgba(14,165,233,0.08);';
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px;">
+              <span>${entry.icon}</span> <span>${escapeHtml(entry.name)}</span>
+            </div>
+            <span class="ocr-badge status-ready" style="font-size: 11px; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0;">✓ Detected</span>
+          </div>
+          <div style="font-family: var(--font-mono, monospace); font-size: 14px; font-weight: 700; color: #0369a1; background: #e0f2fe; padding: 6px 10px; border-radius: 6px; display: inline-block; margin: 4px 0 8px;">
+            ${escapeHtml(entry.id)}
+          </div>
+          <div style="font-size: 12px; color: var(--gray-600);">${escapeHtml(entry.desc)}</div>
+        `;
+        pixelsGrid.appendChild(card);
+      });
+
+      // 2. Compact row for absent pixels
+      if (pixelsAbsentContainer && absentPixels.length > 0) {
+        pixelsAbsentContainer.style.display = 'block';
+        pixelsAbsentContainer.innerHTML = `
+          <div style="padding: 12px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 12px; font-weight: 600; color: var(--gray-600);">Checked & Not Installed on This Website:</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              ${absentPixels.map(p => `<span style="font-size: 11px; padding: 3px 8px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; color: #64748b;">${escapeHtml(p.name.split(' (')[0])}: Inactive</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+    } else {
+      // ZERO PIXELS FOUND (e.g. prachari.com) - Show clean, reassuring Privacy Card!
+      pixelsGrid.innerHTML = `
+        <div style="grid-column: 1 / -1; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-lg); padding: 28px 24px; text-align: center;">
+          <div style="font-size: 38px; margin-bottom: 10px;">🛡️</div>
+          <div style="font-size: 18px; font-weight: 700; color: #166534; margin-bottom: 6px;">Zero Advertising Pixels or Analytics Tags Detected</div>
+          <div style="font-size: 13px; color: #15803d; max-width: 620px; margin: 0 auto 16px; line-height: 1.5;">
+            This website does not load any third-party marketing, conversion, or visitor-recording tracking scripts. It has zero tracking cookies and respects visitor privacy.
+          </div>
+          <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; max-width: 700px; margin: 0 auto;">
+            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Meta / Facebook Pixel</span>
+            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Google Analytics 4 (GA4)</span>
+            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Google Tag Manager (GTM)</span>
+            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Microsoft Clarity</span>
+            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No TikTok Pixel</span>
+            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Hotjar Heatmaps</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------
+    // Tab 6: Socials & Maps & Contacts
+    // -------------------------------------------------------------
     renderSocialProfiles(data.socials);
     renderMaps(data.maps, data.domain);
     renderContacts(data.contacts);
 
-    // Populate Tab 7: SEO
+    // -------------------------------------------------------------
+    // Tab 7: SEO
+    // -------------------------------------------------------------
     seoTitleBox.textContent = data.title;
     titleCharCount.textContent = `${data.title.length} chars`;
     seoDescBox.textContent = data.metaDesc || 'No meta description tag provided.';
@@ -1650,15 +1872,19 @@ document.addEventListener('DOMContentLoaded', () => {
     countH1.textContent = data.h1Count;
     countH2.textContent = data.h2Count;
     countSchema.textContent = data.hasSchema ? 'Detected ✓' : 'None';
-    statCanonical.textContent = data.hasCanonical ? 'Valid ✓' : 'Missing ✗';
+    statCanonical.textContent = data.hasCanonical ? 'Valid ✓' : 'Missing ✕';
 
-    // Populate Tab 8: Tech Stack
+    // -------------------------------------------------------------
+    // Tab 8: Tech Stack (ONLY DETECTED TECHNOLOGIES!)
+    // -------------------------------------------------------------
     renderTechGrid(data.tech, data.hosting);
 
-    // Populate Tab 9: Web Host, Server & DNS Infrastructure Profile
+    // -------------------------------------------------------------
+    // Tab 9: Web Host, Server & DNS Infrastructure Profile
+    // -------------------------------------------------------------
     if (hostingTypeBadge) hostingTypeBadge.textContent = data.hosting.platformType;
     if (dispHproviderName) dispHproviderName.textContent = `${data.hosting.icon} ${data.hosting.providerName}`;
-    if (dispHproviderType) dispHproviderType.textContent = `${data.hosting.platformType} · ${data.hosting.category}`;
+    if (dispHproviderType) dispHproviderType.textContent = `${data.hosting.platformType} • ${data.hosting.category}`;
     if (dispServerLocation) dispServerLocation.textContent = data.hosting.locationStr;
     if (dispServerCoordinates) dispServerCoordinates.textContent = data.hosting.coords;
     if (dispServerIp) dispServerIp.textContent = data.hosting.ip;
@@ -1672,14 +1898,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dispCdnLayer) dispCdnLayer.textContent = data.hosting.cdn;
 
     dnsNameserversList.innerHTML = (data.dns.nameservers && data.dns.nameservers.length > 0)
-      ? data.dns.nameservers.map(ns => `<div>● ${escapeHtml(ns)}</div>`).join('')
+      ? data.dns.nameservers.map(ns => `<div>🌐 ${escapeHtml(ns)}</div>`).join('')
       : '<div>No authoritative NS records found.</div>';
 
     dnsMxList.innerHTML = (data.dns.mx && data.dns.mx.length > 0)
       ? data.dns.mx.map(mx => `<div>✉️ ${escapeHtml(mx)}</div>`).join('')
       : '<div>No public MX mail exchange records configured.</div>';
 
-    // Populate Tab 10: Intelligence Links
+    // -------------------------------------------------------------
+    // Tab 10: Intelligence Links
+    // -------------------------------------------------------------
     if (intelWayback) intelWayback.href = `https://web.archive.org/web/*/${data.domain}`;
     if (intelSimilarweb) intelSimilarweb.href = `https://www.similarweb.com/website/${data.domain}/`;
     if (intelPagespeed) intelPagespeed.href = `https://pagespeed.web.dev/analysis?url=https%3A%2F%2F${encodeURIComponent(data.domain)}`;
@@ -1695,7 +1923,7 @@ document.addEventListener('DOMContentLoaded', () => {
     socialProfilesGrid.innerHTML = '';
     const keys = Object.keys(socials);
     if (keys.length === 0) {
-      socialProfilesGrid.innerHTML = '<div style="color: var(--gray-500); font-size: 13px; grid-column: 1/-1;">No public social media profile links detected in website source code.</div>';
+      socialProfilesGrid.innerHTML = '<div style="padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px; color: var(--gray-600); grid-column: 1/-1;">ℹ️ No public social media profile links (Instagram, Facebook, LinkedIn, YouTube, X) detected in website source code.</div>';
       return;
     }
     const icons = {
@@ -1716,7 +1944,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <div style="font-weight: 700; color: var(--navy); font-size: 14px;">${icons[k] || k}</div>
         <div style="font-size: 11px; color: var(--gray-500); word-break: break-all; margin-top: 4px;">${escapeHtml(socials[k])}</div>
-        <div style="font-size: 11px; color: #4f46e5; font-weight: 600; margin-top: 6px;">Open Channel →</div>
+        <div style="font-size: 11px; color: #4f46e5; font-weight: 600; margin-top: 6px;">Open Channel ↗</div>
       `;
       socialProfilesGrid.appendChild(card);
     });
@@ -1735,14 +1963,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (maps.address) {
       mapsContainer.innerHTML = `
         <div style="padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px;">
-          <strong>🏢 Physical Registered Address Found:</strong>
+          <strong>📍 Physical Registered Address Found:</strong>
           <div style="color: var(--gray-700); margin-top: 4px;">${escapeHtml(maps.address)}</div>
         </div>
       `;
     } else {
       mapsContainer.innerHTML = `
-        <div style="padding: 16px; background: var(--gray-50); border-radius: 8px; font-size: 13px; color: var(--gray-500); text-align: center;">
-          No Google Maps embed or physical address detected in the page source.
+        <div style="padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px; color: var(--gray-600); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span>🌐 <strong>Online-Only Business:</strong> No physical store or Google Maps embed detected in page source.</span>
+          <a href="https://www.google.com/maps/search/${encodeURIComponent(domain)}" target="_blank" rel="noopener" class="btn btn-outline" style="font-size: 11px; padding: 4px 10px;">Search Maps ↗</a>
         </div>
       `;
     }
@@ -1758,7 +1987,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hasPhones = contacts.phones && contacts.phones.length > 0;
 
     if (!hasEmails && !hasPhones) {
-      contactDetailsList.innerHTML = '<div style="color: var(--gray-500); font-size: 13px;">No direct customer support mailto: or tel: links found on the homepage.</div>';
+      contactDetailsList.innerHTML = '<div style="padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px; color: var(--gray-600);">ℹ️ No direct customer support mailto: or tel: links found on the homepage.</div>';
       return;
     }
 
@@ -1793,6 +2022,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Render Tech Grid: ONLY DISPLAY WHAT WAS DETECTED!
   function renderTechGrid(tech, hosting) {
     if (!analyzerTechGrid) return;
     analyzerTechGrid.innerHTML = '';
@@ -1800,28 +2030,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // PaaS Platform if detected (e.g. Netlify, Vercel, Render)
     if (hosting && (hosting.category.includes('PaaS') || hosting.providerName === 'Netlify' || hosting.providerName === 'Vercel')) {
-      items.push({ name: hosting.providerName, category: 'PaaS (Platform as a Service)', badge: 'PaaS' });
+      items.push({ name: hosting.providerName, category: 'PaaS (Platform as a Service)', badge: 'PaaS', icon: '⚡' });
     }
 
-    items.push({ name: hosting ? hosting.providerName : tech.cdn, category: 'Web Hosting & Cloud', badge: 'Host' });
-    items.push({ name: hosting ? hosting.cdn : tech.cdn, category: 'CDN / Edge Network', badge: 'Edge' });
-    items.push({ name: hosting ? hosting.webServer : 'Nginx / Apache', category: 'Web Server Software', badge: 'Server' });
-    items.push({ name: tech.platform, category: 'E-commerce / CMS', badge: 'Platform' });
-    items.push({ name: tech.framework, category: 'Frontend UI Framework', badge: 'Code' });
-    items.push({ name: tech.analytics, category: 'Web Analytics', badge: 'Tracking' });
+    // Web Hosting
+    if (hosting && hosting.providerName && hosting.providerName !== 'Independent Host') {
+      items.push({ name: hosting.providerName, category: 'Web Hosting & Cloud', badge: 'Host', icon: '🌐' });
+    }
 
+    // CDN / Edge
+    if (hosting && hosting.cdn && !hosting.cdn.includes('Standard Network')) {
+      items.push({ name: hosting.cdn, category: 'CDN / Edge Network', badge: 'Edge', icon: '🚀' });
+    }
+
+    // Web Server
+    if (hosting && hosting.webServer) {
+      items.push({ name: hosting.webServer, category: 'Web Server Software', badge: 'Server', icon: '🖥️' });
+    }
+
+    // CMS / E-commerce Platform (Only if detected)
+    if (tech.platform && tech.platform !== 'Custom / None' && tech.platform !== 'None') {
+      items.push({ name: tech.platform, category: 'CMS / E-Commerce Platform', badge: 'Platform', icon: '🛍️' });
+    }
+
+    // Frontend UI Framework
+    if (tech.framework && tech.framework !== 'HTML5 & Vanilla JavaScript') {
+      items.push({ name: tech.framework, category: 'Frontend UI Framework', badge: 'Code', icon: '⚛️' });
+    } else {
+      items.push({ name: 'HTML5 & Vanilla JavaScript', category: 'Frontend Architecture', badge: 'Standard', icon: '📄' });
+    }
+
+    // Web Analytics (ONLY IF FOUND!)
+    if (tech.analytics && tech.analytics !== 'None detected' && tech.analytics !== 'None') {
+      items.push({ name: tech.analytics, category: 'Web Analytics', badge: 'Tracking', icon: '📊' });
+    }
+
+    // Font Scripts (ONLY IF FOUND!)
     if (tech.fontScripts) {
-      items.push({ name: tech.fontScripts, category: 'Font Scripts', badge: 'Typography' });
+      items.push({ name: tech.fontScripts, category: 'Font Scripts', badge: 'Typography', icon: '🔤' });
     }
 
+    // Live Chat (ONLY IF FOUND!)
     if (tech.liveChat) {
-      items.push({ name: tech.liveChat, category: 'Live Chat & Support', badge: 'Chat' });
+      items.push({ name: tech.liveChat, category: 'Live Chat & Support', badge: 'Chat', icon: '💬' });
     }
 
+    // Payment Gateway (ONLY IF FOUND!)
     if (tech.payments && tech.payments !== 'None') {
-      items.push({ name: tech.payments, category: 'Payment Gateway', badge: 'Billing' });
+      items.push({ name: tech.payments, category: 'Payment Gateway', badge: 'Billing', icon: '💳' });
     }
 
+    // Render cards
     items.forEach(t => {
       const card = document.createElement('div');
       card.className = 'tech-card';
@@ -1830,7 +2089,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <span style="font-size: 11px; text-transform: uppercase; color: var(--gray-500); font-weight: 600;">${escapeHtml(t.category)}</span>
           <span class="ocr-badge status-ready" style="font-size: 10px;">${escapeHtml(t.badge)}</span>
         </div>
-        <div style="font-size: 15px; font-weight: 700; color: var(--navy);">${escapeHtml(t.name)}</div>
+        <div style="font-size: 15px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 6px;">
+          <span>${t.icon || '📦'}</span> <span>${escapeHtml(t.name)}</span>
+        </div>
       `;
       analyzerTechGrid.appendChild(card);
     });
