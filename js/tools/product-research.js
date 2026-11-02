@@ -860,11 +860,61 @@ document.addEventListener('DOMContentLoaded', () => {
       baseSellInr: 799,
       wowFactor: 'Click bottom switch and all 6 credit cards instantly fan out in tiered order for effortless retrieval.',
       solvesProblem: 'Replaces bulky fat leather bi-fold wallets that hurt your lower back when sitting down.',
-      whyItSells: 'Number one gift for men (birthdays, Father’s day, anniversaries); satisfying mechanical flick.',
+      whyItSells: "Number one gift for men (birthdays, Father's day, anniversaries); satisfying mechanical flick.",
       targetAudience: 'Men aged 20-50, girlfriends and wives buying gifts for men',
       bestAdAngle: 'Fat bulging leather wallet bulging in back pocket -> Throw away -> Click sleek carbon wallet with 1 finger.'
     }
   ];
+
+  // Tested, verified high-resolution product thumbnails (Fast CDN & zero rate-limit)
+  const PRODUCT_IMAGES = {
+    flame_humidifier: 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?w=600&auto=format&fit=crop&q=80',
+    spin_scrubber: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&auto=format&fit=crop&q=80',
+    portable_blender: 'https://images.unsplash.com/photo-1556911073-38141963c9e0?w=600&auto=format&fit=crop&q=80',
+    smart_trash_can: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&auto=format&fit=crop&q=80',
+    crystal_hair_eraser: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80',
+    heatless_curler: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&auto=format&fit=crop&q=80',
+    red_light_wand: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&auto=format&fit=crop&q=80',
+    skin_scrubber: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&auto=format&fit=crop&q=80',
+    magsafe_charger: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&auto=format&fit=crop&q=80',
+    levitating_humidifier: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80',
+    mini_powerbank: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&auto=format&fit=crop&q=80',
+    sunset_lamp: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=600&auto=format&fit=crop&q=80',
+    car_vacuum: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&auto=format&fit=crop&q=80',
+    dash_cam_3ch: 'https://images.unsplash.com/photo-1508974239320-0a029497e820?w=600&auto=format&fit=crop&q=80',
+    phone_mount_mirror: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=600&auto=format&fit=crop&q=80',
+    back_stretcher: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&auto=format&fit=crop&q=80',
+    walking_pad: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80',
+    pushup_board: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&auto=format&fit=crop&q=80',
+    smart_pet_ball: 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=600&auto=format&fit=crop&q=80',
+    pet_hair_roller: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80',
+    donut_pet_bed: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&auto=format&fit=crop&q=80',
+    led_drawing_tablet: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&auto=format&fit=crop&q=80',
+    montessori_busy_board: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&auto=format&fit=crop&q=80',
+    waterproof_backpack: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80',
+    posture_brace: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80',
+    carbon_wallet: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&auto=format&fit=crop&q=80'
+  };
+
+  const CATEGORY_DEFAULT_IMAGES = {
+    tech: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
+    home: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80',
+    beauty: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80',
+    auto: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&auto=format&fit=crop&q=80',
+    fitness: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80',
+    pets: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80',
+    baby: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&auto=format&fit=crop&q=80',
+    fashion: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80'
+  };
+
+  function getProductImage(product) {
+    if (product.imageUrl) return product.imageUrl;
+    if (PRODUCT_IMAGES[product.id]) return PRODUCT_IMAGES[product.id];
+    if (product.category && CATEGORY_DEFAULT_IMAGES[product.category]) {
+      return CATEGORY_DEFAULT_IMAGES[product.category];
+    }
+    return 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80';
+  }
 
   // Dynamic Date-Based Momentum & Freshness Calculation Engine
   function getDynamicMetrics(product, countryCode) {
@@ -1087,7 +1137,8 @@ document.addEventListener('DOMContentLoaded', () => {
       solvesProblem: `Targets specific buyer pain points or aesthetic desires associated with ${capitalized}.`,
       whyItSells: `High search interest and active advertising on Meta Ad Library indicating strong merchant demand.`,
       targetAudience: `Online shoppers actively looking for ${capitalized} solutions and related accessories.`,
-      bestAdAngle: `Highlight the top frustrating problem solved by ${capitalized} in the first 2 seconds of video.`
+      bestAdAngle: `Highlight the top frustrating problem solved by ${capitalized} in the first 2 seconds of video.`,
+      imageUrl: getProductImage({ category: 'tech' })
     };
   }
 
@@ -1184,6 +1235,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'winning-product-card';
 
+      const imgUrl = getProductImage(p);
+
       // Live Search / Spy URLs adapted to Country
       const metaAdsUrl = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=${currentCountry}&q=${encodeURIComponent(p.name)}&search_type=keyword_unordered`;
       const tikTokUrl = `https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en?keyword=${encodeURIComponent(p.name)}`;
@@ -1194,15 +1247,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       card.innerHTML = `
         <div>
-          <!-- Top Row: Badge & Trend Score -->
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
-            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <!-- High-Impact Product Thumbnail with Floating Badges -->
+          <div class="product-thumb-wrap">
+            <img src="${imgUrl}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80';">
+            <div class="product-thumb-overlay"></div>
+            <div class="product-thumb-badge-top-left">
               <span class="product-tag product-tag-trend">#${idx + 1} Trending</span>
               <span class="product-tag product-tag-viral">${escapeHtml(p.trendStatus)}</span>
             </div>
-            <div style="text-align: right;">
-              <div style="font-size: 14px; font-weight: 800; color: #4f46e5;">${p.trendMomentum}/100</div>
-              <div style="font-size: 10px; font-weight: 600; color: #16a34a;">${p.growthMoM}</div>
+            <div class="product-thumb-badge-top-right">
+              <span class="product-score-pill">⚡ ${p.trendMomentum}/100</span>
+            </div>
+            <div class="product-thumb-badge-bottom-right">
+              <span class="product-growth-pill">${p.growthMoM}</span>
             </div>
           </div>
 
