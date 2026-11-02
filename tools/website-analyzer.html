@@ -239,17 +239,20 @@
             </div>
           </div>
 
-          <!-- Bento 4: Core Platform & E-commerce -->
+          <!-- Bento 4: Web Hosting, Server & Platform -->
           <div class="analyzer-bento-card">
             <div class="analyzer-bento-header">
-              <span class="analyzer-bento-title">E-commerce / CMS</span>
-              <span class="analyzer-score-badge" id="badgePlatform" style="background: #ecfdf5; color: #15803d;">Verified</span>
+              <span class="analyzer-bento-title">🏢 Web Host &amp; Platform</span>
+              <span class="analyzer-score-badge" id="badgeHosting" style="background: #e0f2fe; color: #0369a1;">PaaS / Cloud</span>
             </div>
             <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;">
-              <span class="analyzer-score-num" id="scorePlatform" style="font-size: 20px; color: var(--navy);">Custom</span>
+              <span class="analyzer-score-num" id="scoreHostingProvider" style="font-size: 18px; color: var(--navy);">Detecting...</span>
             </div>
-            <div style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">
-              CDN / Host: <strong id="scoreCdn" style="color: var(--navy);">Cloudflare</strong>
+            <div style="font-size: 12px; color: #0284c7; font-weight: 600; margin-top: 4px;" id="scoreServerLocation">
+              📍 Location: Resolving...
+            </div>
+            <div style="font-size: 11px; color: var(--gray-500); margin-top: 6px;">
+              Platform: <strong id="scorePlatform" style="color: var(--navy);">Custom</strong> · <span id="scoreCdn" style="color: var(--gray-600);">CDN</span>
             </div>
           </div>
 
@@ -316,7 +319,7 @@
           <button type="button" class="tool-tab" data-tab="tabSocials">📱 Socials &amp; Maps</button>
           <button type="button" class="tool-tab" data-tab="tabSeo">🚀 SEO &amp; Meta</button>
           <button type="button" class="tool-tab" data-tab="tabTech">🛠️ Tech Stack</button>
-          <button type="button" class="tool-tab" data-tab="tabDns">☁️ DNS &amp; Mail</button>
+          <button type="button" class="tool-tab" data-tab="tabDns">☁️ Host, Server &amp; DNS</button>
           <button type="button" class="tool-tab" data-tab="tabIntelligence">🌐 Traffic &amp; Wayback</button>
         </div>
 
@@ -630,6 +633,66 @@
 
         <!-- Tab 5: DNS & Infrastructure -->
         <div class="tab-panel" id="tabDns" style="display: none;">
+          
+          <!-- Hosting Provider & Server Infrastructure Profile -->
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--gray-200); padding-bottom: 12px;">
+              <div>
+                <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span>🏢 Where Is This Website Hosted?</span>
+                </h3>
+                <p style="font-size: 12px; color: var(--gray-500); margin: 3px 0 0;">Hosting provider, PaaS platform, physical data center location, server IP &amp; ASN network</p>
+              </div>
+              <span id="hostingTypeBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #e0f2fe; color: #0369a1;">PaaS Platform</span>
+            </div>
+
+            <!-- Key Infrastructure Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; font-size: 13px;">
+              
+              <!-- 1. Hosting Provider & PaaS -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🏢 Sponsoring Hosting Provider</div>
+                <div id="dispHproviderName" style="font-weight: 700; color: var(--navy); font-size: 16px; margin-top: 4px;">Checking...</div>
+                <div id="dispHproviderType" style="font-size: 11px; color: #0284c7; font-weight: 600; margin-top: 2px;">--</div>
+              </div>
+
+              <!-- 2. Physical Server Geolocation -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">📍 Server Physical Location &amp; Data Center</div>
+                <div id="dispServerLocation" style="font-weight: 700; color: var(--navy); font-size: 15px; margin-top: 4px;">Checking...</div>
+                <div id="dispServerCoordinates" style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">--</div>
+              </div>
+
+              <!-- 3. Server IPv4 Address -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🌐 Server IPv4 Address</div>
+                <div id="dispServerIp" style="font-family: var(--font-mono, monospace); font-weight: 700; color: #4f46e5; font-size: 15px; margin-top: 4px;">--</div>
+                <div id="dispServerDnsType" style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Authoritative Live DNS (A Record)</div>
+              </div>
+
+              <!-- 4. Server IPv6 Address -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🌐 Server IPv6 Address</div>
+                <div id="dispServerIpv6" style="font-family: var(--font-mono, monospace); font-weight: 600; color: var(--navy); font-size: 12px; margin-top: 4px; word-break: break-all;">--</div>
+                <div id="dispServerIpv6Status" style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">AAAA Record (IPv6 Ready)</div>
+              </div>
+
+              <!-- 5. Network ASN & Transit Carrier -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🏷️ Autonomous System (ASN &amp; ISP)</div>
+                <div id="dispServerAsn" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">--</div>
+                <div id="dispServerOrg" style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">--</div>
+              </div>
+
+              <!-- 6. Web Server & CDN Layer -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">⚡ Web Server Software &amp; CDN</div>
+                <div id="dispWebServer" style="font-weight: 700; color: var(--navy); font-size: 15px; margin-top: 4px;">--</div>
+                <div id="dispCdnLayer" style="font-size: 11px; color: #16a34a; font-weight: 600; margin-top: 2px;">--</div>
+              </div>
+
+            </div>
+          </div>
           <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px;">
             <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">
               ☁️ DNS Servers, Mail Configuration &amp; Security
@@ -715,6 +778,7 @@
           <li><strong>Google Maps &amp; Headquarters Location:</strong> Live Google Maps embed detection and physical business address extraction.</li>
           <li><strong>Shopify &amp; Technology Stack:</strong> CMS, Shopify apps, React/Vue frameworks, payment gateways (Razorpay, Stripe), and cloud hosting/CDN.</li>
           <li><strong>SEO &amp; Google SERP Simulator:</strong> Live Google search snippet simulator, title and meta description pixel lengths, H1/H2 tags, and Schema.org rich markup.</li>
+          <li><strong>Web Hosting &amp; Server Infrastructure:</strong> Discover where the website is hosted (Netlify PaaS, Vercel, Shopify, Hostinger, AWS, Cloudflare), live server IPv4 &amp; IPv6 addresses, physical data center location (country, city, coordinates), ASN transit network, and web server software.</li>
           <li><strong>Cloud DNS &amp; Mail Servers:</strong> Live Google Public DNS resolution for MX mail providers (Google Workspace, Microsoft 365, Zoho) and Authoritative Nameservers.</li>
         </ul>
       </div>
@@ -727,5 +791,4 @@
   <script src="../js/app.js" defer></script>
   <script src="../js/tools/website-analyzer.js" defer></script>
 </body>
-</html
 </html>

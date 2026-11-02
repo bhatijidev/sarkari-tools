@@ -1,7 +1,8 @@
 /**
  * AllToolsInOne - All-in-One Website Analyzer & Intelligence Auditor
  * 360° Audit: Live Date & Age, AI Builder Detection, Security Grade, Social Preview,
- * Meta Ads, Tracking Pixels, Social Handles, Google Maps, Tech Stack & Cloud DNS.
+ * Meta Ads, Tracking Pixels, Social Handles, Google Maps, Tech Stack,
+ * Web Hosting Provider & Server Location (Netlify, Vercel, Shopify, Hostinger, AWS), Cloud DNS.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,9 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const scorePixelIdText = document.getElementById('scorePixelIdText');
   const badgeMetaStatus = document.getElementById('badgeMetaStatus');
 
+  // Bento 4 (Web Host, Server & Platform)
+  const scoreHostingProvider = document.getElementById('scoreHostingProvider');
+  const badgeHosting = document.getElementById('badgeHosting');
+  const scoreServerLocation = document.getElementById('scoreServerLocation');
   const scorePlatform = document.getElementById('scorePlatform');
   const scoreCdn = document.getElementById('scoreCdn');
-  const badgePlatform = document.getElementById('badgePlatform');
 
   const scoreSecurityGrade = document.getElementById('scoreSecurityGrade');
   const scoreSecuritySub = document.getElementById('scoreSecuritySub');
@@ -118,7 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tab 8: Tech Stack
   const analyzerTechGrid = document.getElementById('analyzerTechGrid');
 
-  // Tab 9: DNS
+  // Tab 9: Web Host, Server & DNS Infrastructure
+  const hostingTypeBadge = document.getElementById('hostingTypeBadge');
+  const dispHproviderName = document.getElementById('dispHproviderName');
+  const dispHproviderType = document.getElementById('dispHproviderType');
+  const dispServerLocation = document.getElementById('dispServerLocation');
+  const dispServerCoordinates = document.getElementById('dispServerCoordinates');
+  const dispServerIp = document.getElementById('dispServerIp');
+  const dispServerDnsType = document.getElementById('dispServerDnsType');
+  const dispServerIpv6 = document.getElementById('dispServerIpv6');
+  const dispServerIpv6Status = document.getElementById('dispServerIpv6Status');
+  const dispServerAsn = document.getElementById('dispServerAsn');
+  const dispServerOrg = document.getElementById('dispServerOrg');
+  const dispWebServer = document.getElementById('dispWebServer');
+  const dispCdnLayer = document.getElementById('dispCdnLayer');
   const dnsNameserversList = document.getElementById('dnsNameserversList');
   const dnsMxList = document.getElementById('dnsMxList');
 
@@ -145,6 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
   <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/boat-banner.jpg">
   <meta property="og:site_name" content="boAt Lifestyle">
   <link rel="icon" href="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/boat-favicon.png">
+
+  <!-- Fonts & Chat -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
 
   <!-- Meta Pixel Code -->
   <script>
@@ -204,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <h3>Customer Care</h3>
       <p>Email: <a href="mailto:info@imaginemarketingindia.com">info@imaginemarketingindia.com</a></p>
       <p>Phone: <a href="tel:+912269181920">+91 022 6918 1920</a></p>
+      <p><a href="https://wa.me/9102269181920">Chat with WhatsApp Support</a></p>
       <p>Registered Office: Imagine Marketing Limited, Unit No. 201 &amp; 202, D-Wing, Corporate Avenue, Andheri Ghatkopar Link Road, Mumbai, Maharashtra 400093, India</p>
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.754!2d72.889!3d19.112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c87c9:0xboAtCorporate!2sImagine+Marketing+boAt!5e0!3m2!1sen!2sin!4v1" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
@@ -491,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check for AI Assistants / Chatbots
     const aiBots = [];
-    if (h.includes('tidio.com')) aiBots.push('Tidio AI Customer Support');
+    if (h.includes('tidio.com') || h.includes('tidio.co')) aiBots.push('Tidio AI Customer Support');
     if (h.includes('intercom.com') && h.includes('fin')) aiBots.push('Intercom Fin AI');
     if (h.includes('chatbase.co')) aiBots.push('Chatbase Custom AI');
     if (h.includes('botpress.com')) aiBots.push('Botpress Conversational AI');
@@ -677,28 +698,45 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Proxy 2 (Jina) failed:', e);
     }
 
-    // Attempt 3: AllOrigins Raw
-    try {
-      const controller = new AbortController();
-      const tid = setTimeout(() => controller.abort(), 5000);
-      const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`, {
-        signal: controller.signal
-      });
-      clearTimeout(tid);
-      if (res.ok) {
-        const text = await res.text();
-        if (text && text.length > 50) {
-          return { html: text, headers: res.headers.get('content-type') || '' };
-        }
-      }
-    } catch (e) {}
-
     throw new Error('Bot shield or network timeout prevented live HTML extraction.');
   }
 
-  // Fetch DNS DoH Records
+  // Fetch Comprehensive DNS DoH Records (A, AAAA, CNAME, NS, MX)
   async function fetchDnsRecords(domain) {
-    const dns = { nameservers: [], mx: [] };
+    const dns = { nameservers: [], mx: [], aRecords: [], aaaaRecords: [], cnames: [] };
+    
+    // 1. A Records (IPv4 Server Address)
+    try {
+      const aRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=A`);
+      if (aRes.ok) {
+        const data = await aRes.json();
+        dns.aRecords = (data.Answer || [])
+          .map(a => a.data)
+          .filter(ip => /^\d+\.\d+\.\d+\.\d+$/.test(ip));
+      }
+    } catch (e) {}
+
+    // 2. AAAA Records (IPv6 Server Address)
+    try {
+      const aaaaRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=AAAA`);
+      if (aaaaRes.ok) {
+        const data = await aaaaRes.json();
+        dns.aaaaRecords = (data.Answer || [])
+          .map(a => a.data)
+          .filter(ip => ip && ip.includes(':'));
+      }
+    } catch (e) {}
+
+    // 3. CNAME Records
+    try {
+      const cnameRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=CNAME`);
+      if (cnameRes.ok) {
+        const data = await cnameRes.json();
+        dns.cnames = (data.Answer || []).map(a => a.data.replace(/\.$/, ''));
+      }
+    } catch (e) {}
+
+    // 4. NS Records (Nameservers)
     try {
       const nsRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=NS`);
       if (nsRes.ok) {
@@ -707,6 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {}
 
+    // 5. MX Records (Mail)
     try {
       const mxRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=MX`);
       if (mxRes.ok) {
@@ -716,6 +755,419 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {}
 
     return dns;
+  }
+
+  // Geolocation and ASN Resolver for Server IP
+  async function fetchServerGeolocation(ip) {
+    if (!ip) return null;
+    // Primary: freeipapi.com
+    try {
+      const controller = new AbortController();
+      const tid = setTimeout(() => controller.abort(), 4500);
+      const res = await fetch(`https://freeipapi.com/api/json/${encodeURIComponent(ip)}`, { signal: controller.signal });
+      clearTimeout(tid);
+      if (res.ok) {
+        const d = await res.json();
+        if (d && (d.countryName || d.cityName || d.asnOrganization)) {
+          return {
+            cityName: d.cityName || '',
+            regionName: d.regionName || '',
+            countryName: d.countryName || '',
+            countryCode: d.countryCode || '',
+            latitude: d.latitude,
+            longitude: d.longitude,
+            asn: d.asn || '',
+            asnOrganization: d.asnOrganization || ''
+          };
+        }
+      }
+    } catch (e) {}
+
+    // Fallback: ipapi.co
+    try {
+      const controller = new AbortController();
+      const tid = setTimeout(() => controller.abort(), 4500);
+      const res = await fetch(`https://ipapi.co/${encodeURIComponent(ip)}/json/`, { signal: controller.signal });
+      clearTimeout(tid);
+      if (res.ok) {
+        const d = await res.json();
+        if (d && (d.country_name || d.city || d.org)) {
+          return {
+            cityName: d.city || '',
+            regionName: d.region || '',
+            countryName: d.country_name || '',
+            countryCode: d.country_code || '',
+            latitude: d.latitude,
+            longitude: d.longitude,
+            asn: d.asn ? String(d.asn).replace(/^AS/i, '') : '',
+            asnOrganization: d.org || ''
+          };
+        }
+      }
+    } catch (e) {}
+
+    return null;
+  }
+
+  // Country Flag Emoji Generator
+  function getCountryFlag(countryCode) {
+    if (!countryCode || countryCode.length !== 2) return '🌐';
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map(c => 127397 + c.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+  }
+
+  // Format Server Geolocation String
+  function formatLocation(geo) {
+    if (!geo) return { locationStr: 'Location Protected / Anycast', countryFlag: '🌐', coords: 'Distributed Cloud Network' };
+    const flag = getCountryFlag(geo.countryCode);
+    const parts = [];
+    if (geo.cityName) parts.push(geo.cityName);
+    if (geo.regionName && geo.regionName !== geo.cityName) parts.push(geo.regionName);
+    if (geo.countryName) parts.push(geo.countryName);
+
+    const locationStr = parts.length > 0 ? `${parts.join(', ')} ${flag}` : `Global Cloud Data Center ${flag}`;
+    const coords = (geo.latitude != null && geo.longitude != null)
+      ? `Latitude: ${Number(geo.latitude).toFixed(4)}, Longitude: ${Number(geo.longitude).toFixed(4)}`
+      : 'Anycast Cloud Edge Network';
+
+    return { locationStr, countryFlag: flag, coords };
+  }
+
+  // Authoritative Hosting Provider & PaaS Classifier
+  function classifyHosting(info) {
+    const { domain, ip, ipv6, cnames = [], ns = [], geo = null, html = '', headers = '' } = info;
+    const cnameStr = cnames.join(' ').toLowerCase();
+    const nsStr = ns.join(' ').toLowerCase();
+    const h = (html || '').toLowerCase();
+    const head = (typeof headers === 'string' ? headers : JSON.stringify(headers)).toLowerCase();
+    const asnOrg = (geo?.asnOrganization || '').toLowerCase();
+    const asn = String(geo?.asn || '');
+
+    // 1. Netlify (PaaS)
+    if (
+      head.includes('netlify') ||
+      head.includes('x-nf-') ||
+      cnameStr.includes('netlify.app') ||
+      cnameStr.includes('netlify.com') ||
+      nsStr.includes('p01.nsone.net') ||
+      nsStr.includes('netlify.com') ||
+      h.includes('data-netlify') ||
+      h.includes('netlify-identity') ||
+      h.includes('name="netlify"') ||
+      ['75.2.60.5', '99.83.190.102', '100.24.208.97'].includes(ip)
+    ) {
+      return {
+        providerName: 'Netlify',
+        platformType: 'PaaS (Platform as a Service)',
+        category: 'PaaS',
+        webServer: 'Netlify Edge',
+        cdn: 'Netlify Global Edge CDN',
+        icon: '⚡',
+        badge: 'PaaS Verified'
+      };
+    }
+
+    // 2. Vercel (PaaS)
+    if (
+      head.includes('vercel') ||
+      head.includes('x-vercel') ||
+      cnameStr.includes('vercel-dns') ||
+      cnameStr.includes('vercel.app') ||
+      nsStr.includes('vercel-dns.com') ||
+      ip === '76.76.21.21'
+    ) {
+      return {
+        providerName: 'Vercel',
+        platformType: 'PaaS (Platform as a Service)',
+        category: 'PaaS',
+        webServer: 'Vercel Edge',
+        cdn: 'Vercel Global Edge Network',
+        icon: '▲',
+        badge: 'PaaS Verified'
+      };
+    }
+
+    // 3. Shopify Managed Cloud
+    if (
+      h.includes('cdn.shopify.com') ||
+      h.includes('myshopify.com') ||
+      cnameStr.includes('myshopify.com') ||
+      head.includes('x-shopid') ||
+      ['23.227.38.32', '23.227.38.65', '23.227.38.74'].includes(ip)
+    ) {
+      return {
+        providerName: 'Shopify Managed Cloud',
+        platformType: 'Managed E-commerce Cloud',
+        category: 'E-commerce Cloud',
+        webServer: 'Shopify Edge Server',
+        cdn: 'Shopify Global Cloudflare Edge',
+        icon: '🛍️',
+        badge: 'Managed Cloud'
+      };
+    }
+
+    // 4. GitHub Pages
+    if (
+      head.includes('github.com') ||
+      cnameStr.includes('github.io') ||
+      ['185.199.108.153', '185.199.109.153', '185.199.110.153', '185.199.111.153'].includes(ip)
+    ) {
+      return {
+        providerName: 'GitHub Pages',
+        platformType: 'Static Cloud Hosting',
+        category: 'Static Hosting',
+        webServer: 'GitHub.com Pages',
+        cdn: 'Fastly Anycast CDN',
+        icon: '🐙',
+        badge: 'Static Host'
+      };
+    }
+
+    // 5. Hostinger
+    if (
+      asn.includes('47583') ||
+      asnOrg.includes('hostinger') ||
+      nsStr.includes('dns-parking.com') ||
+      nsStr.includes('hostinger') ||
+      head.includes('hostinger')
+    ) {
+      return {
+        providerName: 'Hostinger International',
+        platformType: 'Cloud Web Hosting & VPS',
+        category: 'Cloud Hosting',
+        webServer: head.includes('litespeed') ? 'LiteSpeed Web Server' : 'Hostinger Cloud Server',
+        cdn: 'Hostinger Global CDN',
+        icon: '🚀',
+        badge: 'Cloud Host'
+      };
+    }
+
+    // 6. Cloudflare Pages / Workers
+    if (cnameStr.includes('pages.dev') || cnameStr.includes('workers.dev')) {
+      return {
+        providerName: 'Cloudflare Pages / Workers',
+        platformType: 'PaaS / Serverless Edge',
+        category: 'PaaS',
+        webServer: 'Cloudflare Edge',
+        cdn: 'Cloudflare Global Anycast CDN',
+        icon: '☁️',
+        badge: 'Serverless Edge'
+      };
+    }
+
+    // 7. Amazon Web Services (AWS)
+    if (
+      asn.includes('16509') ||
+      asn.includes('14618') ||
+      asnOrg.includes('amazon') ||
+      cnameStr.includes('cloudfront.net') ||
+      cnameStr.includes('s3.amazonaws.com') ||
+      nsStr.includes('awsdns') ||
+      head.includes('x-amz-') ||
+      head.includes('cloudfront')
+    ) {
+      const isCf = cnameStr.includes('cloudfront.net') || head.includes('cloudfront');
+      return {
+        providerName: 'Amazon Web Services (AWS)',
+        platformType: isCf ? 'AWS CloudFront & S3 Cloud' : 'AWS Cloud Infrastructure (EC2 / Route 53)',
+        category: 'Public Cloud',
+        webServer: 'AWS Hyperplane / Nginx',
+        cdn: 'Amazon CloudFront CDN',
+        icon: '📦',
+        badge: 'AWS Cloud'
+      };
+    }
+
+    // 8. Google Cloud Platform (GCP) / Firebase
+    if (
+      asn.includes('15169') ||
+      asnOrg.includes('google') ||
+      cnameStr.includes('web.app') ||
+      cnameStr.includes('firebaseapp.com') ||
+      cnameStr.includes('googlehosted.com') ||
+      nsStr.includes('googledomains.com')
+    ) {
+      const isFb = cnameStr.includes('web.app') || cnameStr.includes('firebaseapp.com');
+      return {
+        providerName: isFb ? 'Google Firebase Hosting' : 'Google Cloud Platform (GCP)',
+        platformType: isFb ? 'Firebase Serverless' : 'Google Compute Engine / GKE',
+        category: 'Public Cloud',
+        webServer: 'Google Frontend (GSE)',
+        cdn: 'Google Global Edge CDN',
+        icon: '🌐',
+        badge: 'Google Cloud'
+      };
+    }
+
+    // 9. DigitalOcean
+    if (asn.includes('14061') || asnOrg.includes('digitalocean') || cnameStr.includes('ondigitalocean.app')) {
+      return {
+        providerName: 'DigitalOcean',
+        platformType: cnameStr.includes('ondigitalocean.app') ? 'DigitalOcean App Platform' : 'DigitalOcean Cloud Droplets',
+        category: 'Cloud VPS',
+        webServer: 'Nginx / Cloud Droplet',
+        cdn: 'DigitalOcean Spaces CDN',
+        icon: '🌊',
+        badge: 'Cloud VPS'
+      };
+    }
+
+    // 10. Hetzner
+    if (asn.includes('24940') || asnOrg.includes('hetzner') || nsStr.includes('hetzner')) {
+      return {
+        providerName: 'Hetzner Online',
+        platformType: 'Hetzner Cloud & Dedicated Servers',
+        category: 'Dedicated Server',
+        webServer: 'Linux Dedicated Server',
+        cdn: 'Hetzner Edge',
+        icon: '🇩🇪',
+        badge: 'Dedicated Server'
+      };
+    }
+
+    // 11. GoDaddy
+    if (asn.includes('26496') || asnOrg.includes('go-daddy') || nsStr.includes('domaincontrol.com')) {
+      return {
+        providerName: 'GoDaddy Hosting',
+        platformType: 'GoDaddy Web Hosting / cPanel',
+        category: 'Web Hosting',
+        webServer: 'Apache / Nginx',
+        cdn: 'GoDaddy CDN',
+        icon: '🏢',
+        badge: 'Web Hosting'
+      };
+    }
+
+    // 12. Bluehost
+    if (asn.includes('46606') || asnOrg.includes('bluehost') || nsStr.includes('bluehost')) {
+      return {
+        providerName: 'Bluehost / Newfold Digital',
+        platformType: 'Bluehost Cloud Hosting',
+        category: 'Web Hosting',
+        webServer: 'Apache / LiteSpeed',
+        cdn: 'Bluehost CDN',
+        icon: '🟦',
+        badge: 'Web Hosting'
+      };
+    }
+
+    // 13. WP Engine
+    if (cnameStr.includes('wpengine.com') || head.includes('wp engine')) {
+      return {
+        providerName: 'WP Engine',
+        platformType: 'Managed WordPress Cloud',
+        category: 'Managed WordPress',
+        webServer: 'WP Engine Nginx',
+        cdn: 'WP Engine Global CDN',
+        icon: '⚙️',
+        badge: 'Managed WP'
+      };
+    }
+
+    // 14. Kinsta
+    if (head.includes('kinsta') || cnameStr.includes('kinsta.cloud')) {
+      return {
+        providerName: 'Kinsta',
+        platformType: 'Premium Cloud Hosting (GCP C2)',
+        category: 'Managed Cloud',
+        webServer: 'Kinsta Edge',
+        cdn: 'Kinsta Cloudflare CDN',
+        icon: '⚡',
+        badge: 'Managed Cloud'
+      };
+    }
+
+    // 15. Render
+    if (cnameStr.includes('onrender.com') || head.includes('rndr-id')) {
+      return {
+        providerName: 'Render',
+        platformType: 'Unified Cloud PaaS',
+        category: 'PaaS',
+        webServer: 'Render Edge',
+        cdn: 'Render Global CDN',
+        icon: '🚀',
+        badge: 'PaaS Platform'
+      };
+    }
+
+    // 16. Heroku
+    if (cnameStr.includes('herokudns.com') || head.includes('cowboy')) {
+      return {
+        providerName: 'Heroku (Salesforce)',
+        platformType: 'Container PaaS (Dynos)',
+        category: 'PaaS',
+        webServer: 'Cowboy HTTP Router',
+        cdn: 'Heroku Edge',
+        icon: '🟣',
+        badge: 'PaaS Platform'
+      };
+    }
+
+    // 17. Webflow
+    if (h.includes('webflow.com') || ['75.2.70.75', '99.83.190.102'].includes(ip)) {
+      return {
+        providerName: 'Webflow Cloud Hosting',
+        platformType: 'Visual CMS & Edge Hosting',
+        category: 'Visual CMS Cloud',
+        webServer: 'AWS / Fastly Edge',
+        cdn: 'Fastly Anycast CDN',
+        icon: '📐',
+        badge: 'CMS Cloud'
+      };
+    }
+
+    // 18. Wix
+    if (h.includes('wix.com') || nsStr.includes('wixdns.net') || cnameStr.includes('pointdns.wix.com')) {
+      return {
+        providerName: 'Wix Cloud Infrastructure',
+        platformType: 'Wix Managed Platform',
+        category: 'CMS Cloud',
+        webServer: 'Wix Edge',
+        cdn: 'Wix Multi-Cloud CDN',
+        icon: '✨',
+        badge: 'CMS Cloud'
+      };
+    }
+
+    // 19. Squarespace
+    if (h.includes('squarespace.com') || cnameStr.includes('squarespace.com')) {
+      return {
+        providerName: 'Squarespace Cloud',
+        platformType: 'Managed Website Platform',
+        category: 'CMS Cloud',
+        webServer: 'Squarespace Edge',
+        cdn: 'Squarespace Fastly CDN',
+        icon: '⬛',
+        badge: 'CMS Cloud'
+      };
+    }
+
+    // 20. Cloudflare Protected
+    if (asn.includes('13335') || asnOrg.includes('cloudflare') || nsStr.includes('cloudflare')) {
+      return {
+        providerName: 'Cloudflare Protected Host',
+        platformType: 'Cloudflare Global Anycast Edge',
+        category: 'Reverse Proxy & Security Cloud',
+        webServer: 'Cloudflare Edge Proxy',
+        cdn: 'Cloudflare Global CDN',
+        icon: '🛡️',
+        badge: 'Cloudflare Edge'
+      };
+    }
+
+    // Fallback
+    return {
+      providerName: geo?.asnOrganization || 'Independent Cloud Host',
+      platformType: 'Dedicated Server / VPS',
+      category: 'Cloud / VPS Hosting',
+      webServer: 'Nginx / Apache Web Server',
+      cdn: 'Standard Network',
+      icon: '🖥️',
+      badge: 'Independent Host'
+    };
   }
 
   // Main Analysis Flow
@@ -748,8 +1200,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       updateLoading(
-        `Querying Official Registry RDAP & DNS for ${domain}...`,
-        'Verifying first live date, domain age, expiry countdown, and nameservers...'
+        `Resolving DNS & Server Infrastructure for ${domain}...`,
+        'Detecting hosting provider, PaaS platform, server IP, data center location, and registry WHOIS...'
       );
 
       const [dns, rawRdap] = await Promise.all([
@@ -758,11 +1210,22 @@ document.addEventListener('DOMContentLoaded', () => {
       ]);
 
       updateLoading(
+        `Auditing Server Geolocation & IP Network for ${domain}...`,
+        'Pinpointing physical data center location, ASN transit carrier, and security grade...'
+      );
+
+      const serverIp = (dns.aRecords && dns.aRecords[0]) || null;
+      let serverGeo = null;
+      if (serverIp) {
+        serverGeo = await fetchServerGeolocation(serverIp);
+      }
+
+      updateLoading(
         `Auditing AI Builders, Meta Ads & Security Grade...`,
         'Detecting v0/Lovable/Bolt signatures, Meta Pixels, and OWASP security headers...'
       );
 
-      const audit = analyzeWebsite(domain, htmlResult.html, htmlResult.headers, dns, rawRdap);
+      const audit = analyzeWebsite(domain, htmlResult.html, htmlResult.headers, dns, rawRdap, serverGeo);
 
       currentAuditData = audit;
       renderDashboard(audit);
@@ -790,12 +1253,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     domain = domain.replace(/^https?:\/\//i, '').replace(/\/.*$/, '').toLowerCase();
 
-    showLoading(true, `Auditing pasted HTML for ${domain}...`, 'Detecting AI builder, Meta pixels, social links...');
+    showLoading(true, `Auditing pasted HTML for ${domain}...`, 'Detecting AI builder, Meta pixels, social links, and hosting...');
 
     setTimeout(async () => {
       const dns = await fetchDnsRecords(domain);
       const rawRdap = await fetchWhoisRdap(domain);
-      const audit = analyzeWebsite(domain, code, '', dns, rawRdap);
+      const serverIp = (dns.aRecords && dns.aRecords[0]) || null;
+      let serverGeo = null;
+      if (serverIp) {
+        serverGeo = await fetchServerGeolocation(serverIp);
+      }
+      const audit = analyzeWebsite(domain, code, '', dns, rawRdap, serverGeo);
       currentAuditData = audit;
       renderDashboard(audit);
       showLoading(false);
@@ -809,7 +1277,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Comprehensive Website Analysis Engine
-  function analyzeWebsite(domain, html, rawHeaders, dns, rawRdap) {
+  function analyzeWebsite(domain, html, rawHeaders, dns, rawRdap, serverGeo = null) {
     const parser = new DOMParser();
     const doc = html ? parser.parseFromString(html, 'text/html') : null;
 
@@ -854,7 +1322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hasSchema = html.includes('application/ld+json') || html.includes('schema.org');
     const hasCanonical = !!doc?.querySelector('link[rel="canonical"]');
 
-    // 3. Socials
+    // 3. Socials & Maps & Contacts
     const socials = extractSocialProfiles(html, doc);
     const maps = extractMapsInfo(html, doc, domain);
     const contacts = { emails: extractEmails(html), phones: extractPhones(html) };
@@ -862,8 +1330,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Advertising & Pixels
     const pixels = extractAdvertisingPixels(html);
 
-    // 5. Tech Stack
-    const tech = extractTechStack(html, rawHeaders, dns);
+    // 5. Hosting & Infrastructure Classification
+    const ip = (dns.aRecords && dns.aRecords[0]) || null;
+    const ipv6 = (dns.aaaaRecords && dns.aaaaRecords[0]) || null;
+    const hostingClass = classifyHosting({
+      domain,
+      ip,
+      ipv6,
+      cnames: dns.cnames || [],
+      ns: dns.nameservers || [],
+      geo: serverGeo,
+      html,
+      headers: rawHeaders
+    });
+    const locationInfo = formatLocation(serverGeo);
+
+    const hosting = {
+      ...hostingClass,
+      ...locationInfo,
+      ip: ip || 'Unresolved (Private / CDN)',
+      ipv6: ipv6 || 'Not Configured',
+      asn: serverGeo?.asn ? `AS${serverGeo.asn}` : 'Unassigned',
+      asnOrg: serverGeo?.asnOrganization || 'Global Internet Carrier'
+    };
+
+    // 6. Tech Stack
+    const tech = extractTechStack(html, rawHeaders, dns, hosting);
 
     return {
       domain,
@@ -886,6 +1378,7 @@ document.addEventListener('DOMContentLoaded', () => {
       maps,
       contacts,
       pixels,
+      hosting,
       tech,
       dns
     };
@@ -899,11 +1392,12 @@ document.addEventListener('DOMContentLoaded', () => {
     dispTitle.textContent = data.title;
     dispSslBadge.textContent = '🔒 HTTPS Secure';
 
-    // 6 Bento Cards
+    // Bento 1: Live Date & Age
     scoreLiveDate.textContent = data.liveDateStr;
     scoreAgeText.textContent = data.ageStr;
     badgeLiveDate.textContent = data.rdapInfo ? 'RDAP Verified' : 'DNS Active';
 
+    // Bento 2: AI Builder
     scoreAiTool.textContent = data.aiInfo.isAi ? data.aiInfo.toolName : 'Human / Custom';
     scoreAiTool.style.color = data.aiInfo.isAi ? '#7e22ce' : '#16a34a';
     scoreAiConfidence.textContent = data.aiInfo.confidence;
@@ -911,24 +1405,42 @@ document.addEventListener('DOMContentLoaded', () => {
     badgeAiTool.style.background = data.aiInfo.isAi ? '#f3e8ff' : '#ecfdf5';
     badgeAiTool.style.color = data.aiInfo.isAi ? '#7e22ce' : '#15803d';
 
+    // Bento 3: Meta Ads Tracking
     scoreMetaStatus.textContent = data.pixels.metaPixelFound ? 'Active' : 'Not Found';
     scoreMetaStatus.style.color = data.pixels.metaPixelFound ? '#1877f2' : '#64748b';
     scorePixelIdText.textContent = data.pixels.metaPixelId || 'None';
     badgeMetaStatus.textContent = data.pixels.metaPixelFound ? 'Live Pixel' : 'Inactive';
 
-    scorePlatform.textContent = data.tech.platform;
-    scoreCdn.textContent = data.tech.cdn;
+    // Bento 4: Web Host, Server & Platform
+    if (scoreHostingProvider) {
+      scoreHostingProvider.textContent = `${data.hosting.icon} ${data.hosting.providerName}`;
+    }
+    if (badgeHosting) {
+      badgeHosting.textContent = data.hosting.badge;
+      badgeHosting.style.background = data.hosting.category.includes('PaaS') ? '#f3e8ff' : '#e0f2fe';
+      badgeHosting.style.color = data.hosting.category.includes('PaaS') ? '#7e22ce' : '#0369a1';
+    }
+    if (scoreServerLocation) {
+      scoreServerLocation.textContent = `📍 ${data.hosting.locationStr} (${data.hosting.ip})`;
+    }
+    if (scorePlatform) {
+      scorePlatform.textContent = data.tech.platform;
+    }
+    if (scoreCdn) {
+      scoreCdn.textContent = data.hosting.cdn;
+    }
 
+    // Bento 5: Security Grade
     scoreSecurityGrade.textContent = data.securityInfo.grade;
     scoreSecurityGrade.style.color = data.securityInfo.gradeColor;
     badgeSecurityGrade.textContent = `${data.securityInfo.totalScore}/100`;
 
+    // Bento 6: Social & Maps
     const socCount = Object.keys(data.socials).length;
     scoreSocialCount.textContent = socCount;
     scoreMapsFound.textContent = data.maps.found ? 'Physical Location' : 'Online Store';
 
     // Meta Ads Banner Buttons
-    const cleanBrandName = data.domain.replace(/\.[a-z]+$/, '');
     if (btnMetaAdLibrary) {
       btnMetaAdLibrary.href = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=${encodeURIComponent(data.domain)}&search_type=keyword_unordered`;
     }
@@ -1058,9 +1570,24 @@ document.addEventListener('DOMContentLoaded', () => {
     statCanonical.textContent = data.hasCanonical ? 'Valid ✓' : 'Missing ✗';
 
     // Populate Tab 8: Tech Stack
-    renderTechGrid(data.tech);
+    renderTechGrid(data.tech, data.hosting);
 
-    // Populate Tab 9: DNS
+    // Populate Tab 9: Web Host, Server & DNS Infrastructure Profile
+    if (hostingTypeBadge) hostingTypeBadge.textContent = data.hosting.platformType;
+    if (dispHproviderName) dispHproviderName.textContent = `${data.hosting.icon} ${data.hosting.providerName}`;
+    if (dispHproviderType) dispHproviderType.textContent = `${data.hosting.platformType} · ${data.hosting.category}`;
+    if (dispServerLocation) dispServerLocation.textContent = data.hosting.locationStr;
+    if (dispServerCoordinates) dispServerCoordinates.textContent = data.hosting.coords;
+    if (dispServerIp) dispServerIp.textContent = data.hosting.ip;
+    if (dispServerIpv6) dispServerIpv6.textContent = data.hosting.ipv6;
+    if (dispServerIpv6Status) {
+      dispServerIpv6Status.textContent = (data.hosting.ipv6 && data.hosting.ipv6 !== 'Not Configured') ? '✓ IPv6 Enabled' : 'IPv4 Only';
+    }
+    if (dispServerAsn) dispServerAsn.textContent = data.hosting.asn;
+    if (dispServerOrg) dispServerOrg.textContent = data.hosting.asnOrg;
+    if (dispWebServer) dispWebServer.textContent = data.hosting.webServer;
+    if (dispCdnLayer) dispCdnLayer.textContent = data.hosting.cdn;
+
     dnsNameserversList.innerHTML = (data.dns.nameservers && data.dns.nameservers.length > 0)
       ? data.dns.nameservers.map(ns => `<div>● ${escapeHtml(ns)}</div>`).join('')
       : '<div>No authoritative NS records found.</div>';
@@ -1183,15 +1710,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function renderTechGrid(tech) {
+  function renderTechGrid(tech, hosting) {
     if (!analyzerTechGrid) return;
     analyzerTechGrid.innerHTML = '';
-    const items = [
-      { name: tech.platform, category: 'E-commerce / CMS', badge: 'Core' },
-      { name: tech.cdn, category: 'CDN / Cloud Hosting', badge: 'Hosting' },
-      { name: tech.framework, category: 'Frontend UI Framework', badge: 'Code' },
-      { name: tech.analytics, category: 'Web Analytics', badge: 'Tracking' }
-    ];
+    const items = [];
+
+    // PaaS Platform if detected (e.g. Netlify, Vercel, Render)
+    if (hosting && (hosting.category.includes('PaaS') || hosting.providerName === 'Netlify' || hosting.providerName === 'Vercel')) {
+      items.push({ name: hosting.providerName, category: 'PaaS (Platform as a Service)', badge: 'PaaS' });
+    }
+
+    items.push({ name: hosting ? hosting.providerName : tech.cdn, category: 'Web Hosting & Cloud', badge: 'Host' });
+    items.push({ name: hosting ? hosting.cdn : tech.cdn, category: 'CDN / Edge Network', badge: 'Edge' });
+    items.push({ name: hosting ? hosting.webServer : 'Nginx / Apache', category: 'Web Server Software', badge: 'Server' });
+    items.push({ name: tech.platform, category: 'E-commerce / CMS', badge: 'Platform' });
+    items.push({ name: tech.framework, category: 'Frontend UI Framework', badge: 'Code' });
+    items.push({ name: tech.analytics, category: 'Web Analytics', badge: 'Tracking' });
+
+    if (tech.fontScripts) {
+      items.push({ name: tech.fontScripts, category: 'Font Scripts', badge: 'Typography' });
+    }
+
+    if (tech.liveChat) {
+      items.push({ name: tech.liveChat, category: 'Live Chat & Support', badge: 'Chat' });
+    }
 
     if (tech.payments && tech.payments !== 'None') {
       items.push({ name: tech.payments, category: 'Payment Gateway', badge: 'Billing' });
@@ -1202,8 +1744,8 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'tech-card';
       card.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <span style="font-size: 11px; text-transform: uppercase; color: var(--gray-500); font-weight: 600;">${t.category}</span>
-          <span class="ocr-badge status-ready" style="font-size: 10px;">${t.badge}</span>
+          <span style="font-size: 11px; text-transform: uppercase; color: var(--gray-500); font-weight: 600;">${escapeHtml(t.category)}</span>
+          <span class="ocr-badge status-ready" style="font-size: 10px;">${escapeHtml(t.badge)}</span>
         </div>
         <div style="font-size: 15px; font-weight: 700; color: var(--navy);">${escapeHtml(t.name)}</div>
       `;
@@ -1281,8 +1823,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return res;
   }
 
-  function extractTechStack(html, rawHeaders, dns) {
+  function extractTechStack(html, rawHeaders, dns, hosting = null) {
     const h = (html || '').toLowerCase();
+    
+    // E-commerce / CMS
     let platform = 'Custom Built Website';
     if (h.includes('cdn.shopify.com') || h.includes('myshopify.com')) platform = 'Shopify Store';
     else if (h.includes('wp-content') || h.includes('wp-includes')) platform = 'WordPress / WooCommerce';
@@ -1290,26 +1834,45 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (h.includes('squarespace.com')) platform = 'Squarespace';
     else if (h.includes('webflow.com')) platform = 'Webflow';
 
-    let cdn = 'Standard Cloud';
-    const ns = (dns.nameservers || []).join(' ').toLowerCase();
-    if (ns.includes('cloudflare') || h.includes('cloudflare')) cdn = 'Cloudflare Global CDN';
-    else if (ns.includes('awsdns') || h.includes('cloudfront')) cdn = 'Amazon CloudFront (AWS)';
-    else if (ns.includes('google')) cdn = 'Google Cloud Infrastructure';
+    // CDN
+    let cdn = hosting ? hosting.cdn : 'Standard Cloud';
+    if (!hosting) {
+      const ns = (dns.nameservers || []).join(' ').toLowerCase();
+      if (ns.includes('cloudflare') || h.includes('cloudflare')) cdn = 'Cloudflare Global CDN';
+      else if (ns.includes('awsdns') || h.includes('cloudfront')) cdn = 'Amazon CloudFront (AWS)';
+      else if (ns.includes('google')) cdn = 'Google Cloud Infrastructure';
+    }
 
+    // Frontend UI Framework
     let framework = 'HTML5 & Vanilla JavaScript';
     if (h.includes('__next') || h.includes('next.js')) framework = 'Next.js (React)';
     else if (h.includes('react') || h.includes('reactdom')) framework = 'React.js SPA';
     else if (h.includes('vue') || h.includes('nuxt')) framework = 'Vue.js / Nuxt';
 
+    // Web Analytics
     let analytics = 'None detected';
     if (h.includes('googletagmanager.com') || h.includes('google-analytics.com')) analytics = 'Google Analytics 4 & GTM';
 
+    // Payment Gateway
     let payments = 'None';
     if (h.includes('razorpay')) payments = 'Razorpay Payment Gateway';
     else if (h.includes('stripe')) payments = 'Stripe Payments';
     else if (h.includes('cashfree')) payments = 'Cashfree Payments';
 
-    return { platform, cdn, framework, analytics, payments };
+    // Font Scripts
+    let fontScripts = null;
+    if (h.includes('fonts.googleapis.com') || h.includes('fonts.gstatic.com')) fontScripts = 'Google Font API';
+    else if (h.includes('use.typekit.net')) fontScripts = 'Adobe Typekit Fonts';
+
+    // Live Chat & Support
+    let liveChat = null;
+    if (h.includes('wa.me') || h.includes('api.whatsapp.com') || h.includes('whatsapp')) liveChat = 'WhatsApp Business Chat';
+    else if (h.includes('tidio.co') || h.includes('tidio.com')) liveChat = 'Tidio Live Chat';
+    else if (h.includes('intercom.io') || h.includes('intercomcdn.com')) liveChat = 'Intercom Live Chat';
+    else if (h.includes('zendesk.com') || h.includes('zopim.com')) liveChat = 'Zendesk Chat';
+    else if (h.includes('crisp.chat')) liveChat = 'Crisp Live Chat';
+
+    return { platform, cdn, framework, analytics, payments, fontScripts, liveChat };
   }
 
   // Copy Full Report
@@ -1324,10 +1887,18 @@ document.addEventListener('DOMContentLoaded', () => {
     r += `First Live Date      : ${d.liveDateStr} (Age: ${d.ageStr})\n`;
     r += `Domain Expiry        : ${d.expiryStr} (${d.expirySub})\n`;
     r += `Registrar            : ${d.rdapInfo?.registrar || 'Not Disclosed'}\n`;
+    r += `Hosting Provider     : ${d.hosting.providerName} (${d.hosting.platformType})\n`;
+    r += `Server Location      : ${d.hosting.locationStr}\n`;
+    r += `Server IP (IPv4)     : ${d.hosting.ip}\n`;
+    if (d.hosting.ipv6 && d.hosting.ipv6 !== 'Not Configured') r += `Server IP (IPv6)     : ${d.hosting.ipv6}\n`;
+    r += `Autonomous System    : ${d.hosting.asn} (${d.hosting.asnOrg})\n`;
+    r += `Web Server & CDN     : ${d.hosting.webServer} · ${d.hosting.cdn}\n`;
     r += `AI Builder Verdict   : ${d.aiInfo.isAi ? d.aiInfo.toolName : 'Human / Custom Developer Code'} (${d.aiInfo.confidence})\n`;
     r += `Security Grade       : ${d.securityInfo.grade} (${d.securityInfo.totalScore}/100)\n`;
     r += `Meta Ads Tracking    : ${d.pixels.metaPixelFound ? 'Active Pixel (ID: ' + (d.pixels.metaPixelId || 'Detected') + ')' : 'None'}\n`;
-    r += `E-commerce / CMS     : ${d.tech.platform} on ${d.tech.cdn}\n`;
+    r += `E-commerce / CMS     : ${d.tech.platform} on ${d.hosting.cdn}\n`;
+    if (d.tech.fontScripts) r += `Font Scripts         : ${d.tech.fontScripts}\n`;
+    if (d.tech.liveChat)    r += `Live Chat Support    : ${d.tech.liveChat}\n`;
     if (d.trackingIds.ga4) r += `Google Analytics 4   : ${d.trackingIds.ga4}\n`;
     if (d.trackingIds.gtm) r += `Google Tag Manager   : ${d.trackingIds.gtm}\n`;
     r += `Social Media Profiles: ${Object.keys(d.socials).length} Found\n`;
