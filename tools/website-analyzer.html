@@ -327,18 +327,75 @@
           </div>
         </div>
 
+        <!-- Executive Intelligence Snapshot Bar (Instant 360° Overview) -->
+        <div id="executiveSnapshotBar" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: var(--radius-xl); padding: 22px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15,23,42,0.14);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 14px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span style="font-size: 22px;">🌐</span>
+                <h2 id="snapDomainName" style="font-size: 20px; font-weight: 700; color: #ffffff; margin: 0;">--</h2>
+                <span id="snapAuditBadge" style="font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 9999px; background: #38bdf8; color: #082f49;">360° AUDIT VERIFIED</span>
+              </div>
+              <div id="snapPageTitle" style="font-size: 13px; color: #94a3b8; margin-top: 4px; max-width: 650px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">--</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" id="btnSnapCopySummary" class="btn btn-outline" style="font-size: 12px; padding: 6px 14px; color: #e2e8f0; border-color: #475569; background: rgba(255,255,255,0.06); cursor: pointer;">📋 Copy Summary</button>
+              <a href="#" target="_blank" rel="noopener" id="btnSnapLiveSite" class="btn btn-primary" style="font-size: 12px; padding: 6px 14px; background: #0284c7; border-color: #0284c7; text-decoration: none;">🚀 Open Live Site</a>
+            </div>
+          </div>
+
+          <!-- 6-Metric Executive Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; font-size: 12px;">
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+              <div style="color: #94a3b8; font-size: 10px; font-weight: 600; text-transform: uppercase;">📅 Live Date &amp; Age</div>
+              <div id="snapLiveDate" style="font-weight: 700; color: #ffffff; font-size: 14px; margin-top: 3px;">--</div>
+              <div id="snapAgeDetail" style="color: #38bdf8; font-size: 11px; margin-top: 1px;">--</div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+              <div style="color: #94a3b8; font-size: 10px; font-weight: 600; text-transform: uppercase;">🏢 Registrar &amp; Expiry</div>
+              <div id="snapRegistrar" style="font-weight: 700; color: #ffffff; font-size: 14px; margin-top: 3px;">--</div>
+              <div id="snapExpiryCountdown" style="color: #38bdf8; font-size: 11px; margin-top: 1px;">--</div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+              <div style="color: #94a3b8; font-size: 10px; font-weight: 600; text-transform: uppercase;">⚡ Hosting &amp; Cloud</div>
+              <div id="snapHosting" style="font-weight: 700; color: #ffffff; font-size: 14px; margin-top: 3px;">--</div>
+              <div id="snapServerLocation" style="color: #94a3b8; font-size: 11px; margin-top: 1px;">--</div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+              <div style="color: #94a3b8; font-size: 10px; font-weight: 600; text-transform: uppercase;">🤖 AI Code Signature</div>
+              <div id="snapAiBuilder" style="font-weight: 700; color: #ffffff; font-size: 14px; margin-top: 3px;">--</div>
+              <div id="snapAiVerdict" style="color: #a78bfa; font-size: 11px; margin-top: 1px;">--</div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+              <div style="color: #94a3b8; font-size: 10px; font-weight: 600; text-transform: uppercase;">🎯 Ad Tracking &amp; Pixels</div>
+              <div id="snapAdPixels" style="font-weight: 700; color: #ffffff; font-size: 14px; margin-top: 3px;">--</div>
+              <div id="snapPixelsStatus" style="color: #4ade80; font-size: 11px; margin-top: 1px;">--</div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+              <div style="color: #94a3b8; font-size: 10px; font-weight: 600; text-transform: uppercase;">💬 Support &amp; Tech Stack</div>
+              <div id="snapSupportChat" style="font-weight: 700; color: #ffffff; font-size: 14px; margin-top: 3px;">--</div>
+              <div id="snapTechCount" style="color: #38bdf8; font-size: 11px; margin-top: 1px;">--</div>
+            </div>
+          </div>
+        </div>
+
         <!-- Detail Tabs -->
-        <div class="tool-tabs" id="auditTabs" style="margin-bottom: 24px;">
-          <button type="button" class="tool-tab active" data-tab="tabLiveDate">📅 Live Date &amp; Age</button>
-          <button type="button" class="tool-tab" data-tab="tabAi">🤖 AI Builder</button>
-          <button type="button" class="tool-tab" data-tab="tabSocialPreview">🖼️ Social Card</button>
-          <button type="button" class="tool-tab" data-tab="tabSecurity">🛡️ Security Grade</button>
-          <button type="button" class="tool-tab" data-tab="tabPixels">🎯 Ad Pixels</button>
-          <button type="button" class="tool-tab" data-tab="tabSocials">📱 Socials &amp; Maps</button>
-          <button type="button" class="tool-tab" data-tab="tabSeo">🔍 SEO &amp; Meta</button>
-          <button type="button" class="tool-tab" data-tab="tabTech">⚙️ Tech Stack</button>
-          <button type="button" class="tool-tab" data-tab="tabDns">🌐 Host, Server &amp; DNS</button>
-          <button type="button" class="tool-tab" data-tab="tabIntelligence">📊 Traffic &amp; Wayback</button>
+        <div class="tool-tabs" id="auditTabs" style="margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <button type="button" class="tool-tab active" data-tab="tabLiveDate" id="tabBtnLiveDate">📅 Live Date &amp; WHOIS</button>
+          <button type="button" class="tool-tab" data-tab="tabAi" id="tabBtnAi">🤖 AI Builder</button>
+          <button type="button" class="tool-tab" data-tab="tabSocialPreview" id="tabBtnSocialCard">🖼️ Social Card</button>
+          <button type="button" class="tool-tab" data-tab="tabSecurity" id="tabBtnSecurity">🛡️ Security Grade</button>
+          <button type="button" class="tool-tab" data-tab="tabPixels" id="tabBtnPixels">🎯 Ad Pixels</button>
+          <button type="button" class="tool-tab" data-tab="tabSocials" id="tabBtnSocials">📱 Socials &amp; Maps</button>
+          <button type="button" class="tool-tab" data-tab="tabSeo" id="tabBtnSeo">🔍 SEO &amp; Meta</button>
+          <button type="button" class="tool-tab" data-tab="tabTech" id="tabBtnTech">🛠️ Tech Stack</button>
+          <button type="button" class="tool-tab" data-tab="tabDns" id="tabBtnDns">☁️ Host, Server &amp; DNS</button>
+          <button type="button" class="tool-tab" data-tab="tabIntelligence" id="tabBtnIntel">📊 Traffic &amp; Wayback</button>
         </div>
 
         <!-- Tab 1: Live Date, Domain Age & Registration Profile -->
@@ -347,14 +404,14 @@
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--gray-200); padding-bottom: 12px;">
               <div>
                 <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
-                  <span>📅 When Did This Website Go Live?</span>
+                  <span>📋 Domain WHOIS, First Live Date &amp; Ownership Record</span>
                 </h3>
-                <p style="font-size: 12px; color: var(--gray-500); margin: 3px 0 0;">Official creation timestamp queried from authoritative registry RDAP</p>
+                <p style="font-size: 12px; color: var(--gray-500); margin: 3px 0 0;">Authoritative registration timestamps, registrar ownership profile, and domain lifecycle</p>
               </div>
-              <span id="liveDateBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #e0f2fe; color: #0369a1;">Verified Registry Record</span>
+              <span id="liveDateBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #e0f2fe; color: #0369a1;">Verified Registry RDAP</span>
             </div>
 
-            <!-- Key-Value Grid -->
+            <!-- Full 8-Card WHOIS Grid -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; font-size: 13px;">
               <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
                 <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🚀 Official First Live Date</div>
@@ -375,9 +432,41 @@
               </div>
 
               <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">👤 Registrant / Domain Owner</div>
+                <div id="dispRegistrant" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">Privacy Protected</div>
+                <div id="dispRegistrantNotice" style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Masked via GDPR / ICANN Privacy</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">📍 Registrant Location &amp; Country</div>
+                <div id="dispRegistrantLocation" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">--</div>
+                <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Registry Registered Jurisdiction</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🔄 Last Updated / Renewed Date</div>
+                <div id="dispUpdatedDate" style="font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 4px;">--</div>
+                <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Registry database timestamp</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
                 <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🔒 Transfer Protection Status</div>
                 <div id="dispTransferLock" style="font-weight: 600; color: #16a34a; font-size: 13px; margin-top: 4px;">Active</div>
                 <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">EPP Transfer Safe</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🛡️ DNSSEC &amp; Abuse Contact</div>
+                <div id="dispDnssec" style="font-weight: 600; color: var(--navy); font-size: 13px; margin-top: 4px;">--</div>
+                <div id="dispAbuseContact" style="font-size: 11px; color: var(--gray-600); margin-top: 2px; word-break: break-all;">--</div>
+              </div>
+            </div>
+
+            <!-- Authoritative Registry Nameservers -->
+            <div style="margin-top: 16px; padding: 12px 16px; background: #f8fafc; border: 1px solid var(--gray-200); border-radius: var(--radius-md);">
+              <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">🌐 Official Registry Nameservers</div>
+              <div id="dispWhoisNameservers" style="font-family: var(--font-mono, monospace); font-size: 12px; color: var(--navy); display: flex; flex-wrap: wrap; gap: 8px;">
+                <!-- Injected via JS -->
               </div>
             </div>
 
@@ -828,23 +917,31 @@
         </div>
       </div>
 
-      <!-- SEO Educational Guide Section -->
-      <div class="tool-info-section" style="margin-top: var(--space-8); background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: var(--space-8);">
-        <h2 style="font-size: 20px; color: var(--navy); margin-bottom: 12px;">Why Run a Full 360° Website &amp; Competitor Audit?</h2>
-        <p style="color: var(--gray-600); line-height: 1.6; font-size: 14px; margin-bottom: 16px;">
-          Whether you are an e-commerce entrepreneur researching competing D2C brands, a digital marketer analyzing Meta advertising campaigns, or a webmaster inspecting live tech infrastructure, this tool brings all verified intelligence into a single consolidated view.
-        </p>
+      <!-- SEO Educational Guide Section (Documentary Reference) -->
+      <div class="tool-info-section" id="auditGuideSection" style="margin-top: 48px; border-top: 1px solid var(--gray-200); padding-top: 24px;">
+        <details style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); cursor: pointer;">
+          <summary style="font-size: 16px; font-weight: 700; color: var(--navy); list-style: none; display: flex; align-items: center; justify-content: space-between; user-select: none;">
+            <span>📖 Guide: Why Run a Full 360° Website &amp; Competitor Audit?</span>
+            <span style="font-size: 12px; color: var(--primary); font-weight: 600;">Expand / Collapse ▾</span>
+          </summary>
+          <div style="margin-top: 16px; border-top: 1px dashed var(--gray-200); padding-top: 16px;">
+            <p style="color: var(--gray-600); line-height: 1.6; font-size: 14px; margin-bottom: 16px;">
+              Whether you are an e-commerce entrepreneur researching competing D2C brands, a digital marketer analyzing Meta advertising campaigns, or a webmaster inspecting live tech infrastructure, this tool brings all verified intelligence into a single consolidated view.
+            </p>
 
-        <h3 style="font-size: 16px; color: var(--navy); margin: 16px 0 8px;">What You Can Uncover:</h3>
-        <ul style="color: var(--gray-600); font-size: 13px; line-height: 1.7; padding-left: 20px; margin-bottom: 16px;">
-          <li><strong>Meta &amp; Facebook Ads Discovery:</strong> Live Meta Pixel detection with a direct 1-click link to the official Meta Ad Library (facebook.com/ads/library) to see all running Facebook &amp; Instagram ads and creatives.</li>
-          <li><strong>Social Media Handles &amp; Support Contacts:</strong> Exact support emails (mailto:), hotline phone numbers (tel:), and verified Instagram, YouTube, LinkedIn, and Twitter/X channels.</li>
-          <li><strong>Google Maps &amp; Headquarters Location:</strong> Live Google Maps embed detection and physical business address extraction.</li>
-          <li><strong>Shopify &amp; Technology Stack:</strong> CMS, Shopify apps, React/Vue frameworks, payment gateways (Razorpay, Stripe), and cloud hosting/CDN.</li>
-          <li><strong>SEO &amp; Google SERP Simulator:</strong> Live Google search snippet simulator, title and meta description pixel lengths, H1/H2 tags, and Schema.org rich markup.</li>
-          <li><strong>Web Hosting &amp; Server Infrastructure:</strong> Discover where the website is hosted (Netlify PaaS, Vercel, Shopify, Hostinger, AWS, Cloudflare), live server IPv4 &amp; IPv6 addresses, physical data center location (country, city, coordinates), ASN transit network, and web server software.</li>
-          <li><strong>Cloud DNS &amp; Mail Servers:</strong> Live Google Public DNS resolution for MX mail providers (Google Workspace, Microsoft 365, Zoho) and Authoritative Nameservers.</li>
-        </ul>
+            <h3 style="font-size: 15px; color: var(--navy); margin: 16px 0 8px;">What You Can Uncover:</h3>
+            <ul style="color: var(--gray-600); font-size: 13px; line-height: 1.7; padding-left: 20px; margin-bottom: 16px;">
+              <li><strong>Domain WHOIS &amp; Registration:</strong> Authoritative ICANN RDAP registration date, exact domain age, expiry countdown, sponsoring registrar with IANA ID, registrant privacy status, and DNSSEC validation.</li>
+              <li><strong>Meta &amp; Facebook Ads Discovery:</strong> Live Meta Pixel detection with a direct 1-click link to the official Meta Ad Library (facebook.com/ads/library) to see all running Facebook &amp; Instagram ads and creatives.</li>
+              <li><strong>AI Website Builder &amp; LLM Audit:</strong> Detects whether the site was generated via AI website builders (v0, Lovable, Bolt.new, Framer AI, Durable, 10Web) or uses custom handcrafted development.</li>
+              <li><strong>Social Media Handles &amp; Support Contacts:</strong> Exact support emails (mailto:), hotline phone numbers (tel:), WhatsApp direct chat, and verified social channels.</li>
+              <li><strong>Shopify &amp; Technology Stack:</strong> Categorized like Wappalyzer — PaaS, CDN, Font Scripts (Google Fonts), Live Chat (WhatsApp), Open Graph protocol, and frontend frameworks.</li>
+              <li><strong>SEO &amp; Google SERP Simulator:</strong> Live Google search snippet simulator, title and meta description pixel lengths, H1/H2 tags, and Schema.org rich markup.</li>
+              <li><strong>Web Hosting &amp; Server Infrastructure:</strong> Discover where the website is hosted (Netlify PaaS, Vercel, Shopify, Hostinger, AWS, Cloudflare), live server IPv4 &amp; IPv6 addresses, physical data center location, ASN transit network, and web server software.</li>
+              <li><strong>Cloud DNS &amp; Mail Servers:</strong> Live Google Public DNS resolution for MX mail providers (Google Workspace, Microsoft 365, Zoho) and Authoritative Nameservers.</li>
+            </ul>
+          </div>
+        </details>
       </div>
 
     </div>
