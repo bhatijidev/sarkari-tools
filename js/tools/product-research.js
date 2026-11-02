@@ -1654,4 +1654,63 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+
+  // -------------------------------------------------------------
+  // Calculator Position Manager (User-Controlled: Top vs Bottom)
+  // -------------------------------------------------------------
+  const calcTopSlot = document.getElementById('calcTopSlot');
+  const calcBottomSlot = document.getElementById('calcBottomSlot');
+  const unitCalcSection = document.getElementById('unitCalculatorSection');
+  const btnSetCalcTop = document.getElementById('btnSetCalcTop');
+  const btnSetCalcBottom = document.getElementById('btnSetCalcBottom');
+  const btnJumpToCalc = document.getElementById('btnJumpToCalc');
+  const txtJumpCalc = document.getElementById('txtJumpCalc');
+
+  function setCalculatorPosition(pos, smoothScroll = false) {
+    if (!unitCalcSection || !calcTopSlot || !calcBottomSlot) return;
+
+    if (pos === 'top') {
+      calcTopSlot.appendChild(unitCalcSection);
+      if (btnSetCalcTop) {
+        btnSetCalcTop.style.background = '#4f46e5';
+        btnSetCalcTop.style.color = '#ffffff';
+      }
+      if (btnSetCalcBottom) {
+        btnSetCalcBottom.style.background = 'transparent';
+        btnSetCalcBottom.style.color = '#475569';
+      }
+      if (txtJumpCalc) txtJumpCalc.textContent = 'Profit Calculator (At Top)';
+      localStorage.setItem('dropship_calc_pos', 'top');
+    } else {
+      calcBottomSlot.appendChild(unitCalcSection);
+      if (btnSetCalcBottom) {
+        btnSetCalcBottom.style.background = '#4f46e5';
+        btnSetCalcBottom.style.color = '#ffffff';
+      }
+      if (btnSetCalcTop) {
+        btnSetCalcTop.style.background = 'transparent';
+        btnSetCalcTop.style.color = '#475569';
+      }
+      if (txtJumpCalc) txtJumpCalc.textContent = 'Profit Calculator (At Bottom)';
+      localStorage.setItem('dropship_calc_pos', 'bottom');
+    }
+
+    if (smoothScroll) {
+      unitCalcSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast(`Profit Calculator placed at ${pos.toUpperCase()}!`, 'success');
+    }
+  }
+
+  btnSetCalcTop?.addEventListener('click', () => setCalculatorPosition('top', true));
+  btnSetCalcBottom?.addEventListener('click', () => setCalculatorPosition('bottom', true));
+  btnJumpToCalc?.addEventListener('click', () => {
+    if (unitCalcSection) {
+      unitCalcSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+
+  // Default to 'top' as requested by user (or restore saved preference)
+  const currentCalcPos = localStorage.getItem('dropship_calc_pos') || 'top';
+  setCalculatorPosition(currentCalcPos, false);
+
 });
