@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Tab Switching across all 10 tabs
+    // Tab Switching
     if (auditTabs) {
       auditTabs.addEventListener('click', (e) => {
         const btn = e.target.closest('.tool-tab');
@@ -280,9 +280,15 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.classList.add('active');
 
         const targetId = btn.dataset.tab;
-        document.querySelectorAll('.tab-panel').forEach(p => {
-          p.style.display = p.id === targetId ? 'block' : 'none';
-        });
+        if (targetId === 'tabAll') {
+          document.querySelectorAll('.tab-panel').forEach(p => {
+            p.style.display = 'block';
+          });
+        } else {
+          document.querySelectorAll('.tab-panel').forEach(p => {
+            p.style.display = p.id === targetId ? 'block' : 'none';
+          });
+        }
       });
     }
 
@@ -1913,78 +1919,71 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // Tab 5: Ad Pixels Grid (ONLY SHOW WHAT WAS FOUND!)
+    // Ad Pixels Grid (ONLY SHOW WHAT WAS FOUND!)
     // -------------------------------------------------------------
-    pixelsGrid.innerHTML = '';
-    if (pixelsAbsentContainer) {
-      pixelsAbsentContainer.innerHTML = '';
-      pixelsAbsentContainer.style.display = 'none';
-    }
+    const pixelsSectionWrap = document.getElementById('pixelsSectionWrap');
+    if (pixelsGrid) {
+      pixelsGrid.innerHTML = '';
+      if (pixelsAbsentContainer) {
+        pixelsAbsentContainer.innerHTML = '';
+        pixelsAbsentContainer.style.display = 'none';
+      }
 
-    const pixelEntries = [
-      { key: 'ga4', name: 'Google Analytics 4 (GA4)', id: data.trackingIds.ga4, icon: '📊', desc: 'Google next-gen web & app event stream' },
-      { key: 'gtm', name: 'Google Tag Manager (GTM)', id: data.trackingIds.gtm, icon: '🏷️', desc: 'Centralized enterprise tag manager container' },
-      { key: 'meta', name: 'Meta / Facebook Ads Pixel', id: data.pixels.metaPixelId, icon: '🎯', desc: 'Meta conversions API & retargeting pixel' },
-      { key: 'googleAds', name: 'Google Ads Conversion Tag', id: data.trackingIds.googleAds, icon: '📢', desc: 'Google Ads remarketing & conversion tracker' },
-      { key: 'clarity', name: 'Microsoft Clarity', id: data.trackingIds.clarity, icon: '🔍', desc: 'Session recording & user behavior heatmaps' },
-      { key: 'tiktok', name: 'TikTok Ads Pixel', id: data.trackingIds.tiktok, icon: '🎵', desc: 'TikTok conversion tracker & retargeting' },
-      { key: 'hotjar', name: 'Hotjar Behavioral Heatmaps', id: data.trackingIds.hotjar, icon: '🔥', desc: 'Visitor clicks & scroll depth heatmaps' }
-    ];
+      const pixelEntries = [
+        { key: 'ga4', name: 'Google Analytics 4 (GA4)', id: data.trackingIds.ga4, icon: '📊', desc: 'Google next-gen web & app event stream' },
+        { key: 'gtm', name: 'Google Tag Manager (GTM)', id: data.trackingIds.gtm, icon: '🏷️', desc: 'Centralized enterprise tag manager container' },
+        { key: 'meta', name: 'Meta / Facebook Ads Pixel', id: data.pixels.metaPixelId, icon: '🎯', desc: 'Meta conversions API & retargeting pixel' },
+        { key: 'googleAds', name: 'Google Ads Conversion Tag', id: data.trackingIds.googleAds, icon: '📢', desc: 'Google Ads remarketing & conversion tracker' },
+        { key: 'clarity', name: 'Microsoft Clarity', id: data.trackingIds.clarity, icon: '🔍', desc: 'Session recording & user behavior heatmaps' },
+        { key: 'tiktok', name: 'TikTok Ads Pixel', id: data.trackingIds.tiktok, icon: '🎵', desc: 'TikTok conversion tracker & retargeting' },
+        { key: 'hotjar', name: 'Hotjar Behavioral Heatmaps', id: data.trackingIds.hotjar, icon: '🔥', desc: 'Visitor clicks & scroll depth heatmaps' }
+      ];
 
-    const foundPixels = pixelEntries.filter(p => p.id);
-    const absentPixels = pixelEntries.filter(p => !p.id);
+      const foundPixels = pixelEntries.filter(p => p.id);
+      const absentPixels = pixelEntries.filter(p => !p.id);
 
-    if (foundPixels.length > 0) {
-      // 1. Render rich glowing cards ONLY for pixels that exist!
-      foundPixels.forEach(entry => {
-        const card = document.createElement('div');
-        card.style.cssText = 'background: #ffffff; border: 1.5px solid #38bdf8; border-radius: var(--radius-md); padding: 16px 18px; box-shadow: 0 2px 8px rgba(14,165,233,0.08);';
-        card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <div style="font-size: 14px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px;">
-              <span>${entry.icon}</span> <span>${escapeHtml(entry.name)}</span>
+      if (foundPixels.length > 0) {
+        if (pixelsSectionWrap) pixelsSectionWrap.style.display = 'block';
+        // 1. Render rich glowing cards ONLY for pixels that exist!
+        foundPixels.forEach(entry => {
+          const card = document.createElement('div');
+          card.style.cssText = 'background: #ffffff; border: 1.5px solid #38bdf8; border-radius: var(--radius-md); padding: 16px 18px; box-shadow: 0 2px 8px rgba(14,165,233,0.08);';
+          card.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="font-size: 14px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px;">
+                <span>${entry.icon}</span> <span>${escapeHtml(entry.name)}</span>
+              </div>
+              <span class="ocr-badge status-ready" style="font-size: 11px; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0;">✓ Detected</span>
             </div>
-            <span class="ocr-badge status-ready" style="font-size: 11px; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0;">✓ Detected</span>
-          </div>
-          <div style="font-family: var(--font-mono, monospace); font-size: 14px; font-weight: 700; color: #0369a1; background: #e0f2fe; padding: 6px 10px; border-radius: 6px; display: inline-block; margin: 4px 0 8px;">
-            ${escapeHtml(entry.id)}
-          </div>
-          <div style="font-size: 12px; color: var(--gray-600);">${escapeHtml(entry.desc)}</div>
-        `;
-        pixelsGrid.appendChild(card);
-      });
-
-      // 2. Compact row for absent pixels
-      if (pixelsAbsentContainer && absentPixels.length > 0) {
-        pixelsAbsentContainer.style.display = 'block';
-        pixelsAbsentContainer.innerHTML = `
-          <div style="padding: 12px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-            <div style="font-size: 12px; font-weight: 600; color: var(--gray-600);">Checked & Not Installed on This Website:</div>
-            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-              ${absentPixels.map(p => `<span style="font-size: 11px; padding: 3px 8px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; color: #64748b;">${escapeHtml(p.name.split(' (')[0])}: Inactive</span>`).join('')}
+            <div style="font-family: var(--font-mono, monospace); font-size: 14px; font-weight: 700; color: #0369a1; background: #e0f2fe; padding: 6px 10px; border-radius: 6px; display: inline-block; margin: 4px 0 8px;">
+              ${escapeHtml(entry.id)}
             </div>
+            <div style="font-size: 12px; color: var(--gray-600);">${escapeHtml(entry.desc)}</div>
+          `;
+          pixelsGrid.appendChild(card);
+        });
+
+        // 2. Compact row for absent pixels
+        if (pixelsAbsentContainer && absentPixels.length > 0) {
+          pixelsAbsentContainer.style.display = 'block';
+          pixelsAbsentContainer.innerHTML = `
+            <div style="padding: 12px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--gray-600);">Checked & Not Installed on This Website:</div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                ${absentPixels.map(p => `<span style="font-size: 11px; padding: 3px 8px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; color: #64748b;">${escapeHtml(p.name.split(' (')[0])}: Inactive</span>`).join('')}
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        // ZERO PIXELS FOUND (e.g. prachari.com) - Show compact clean privacy notice, or hide
+        pixelsGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 18px;">🛡️</span>
+            <span style="font-size: 13px; font-weight: 600; color: #166534;">Zero Tracking Pixels or Ad Scripts Detected (Privacy-respecting site)</span>
           </div>
         `;
       }
-    } else {
-      // ZERO PIXELS FOUND (e.g. prachari.com) - Show clean, reassuring Privacy Card!
-      pixelsGrid.innerHTML = `
-        <div style="grid-column: 1 / -1; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-lg); padding: 28px 24px; text-align: center;">
-          <div style="font-size: 38px; margin-bottom: 10px;">🛡️</div>
-          <div style="font-size: 18px; font-weight: 700; color: #166534; margin-bottom: 6px;">Zero Advertising Pixels or Analytics Tags Detected</div>
-          <div style="font-size: 13px; color: #15803d; max-width: 620px; margin: 0 auto 16px; line-height: 1.5;">
-            This website does not load any third-party marketing, conversion, or visitor-recording tracking scripts. It has zero tracking cookies and respects visitor privacy.
-          </div>
-          <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; max-width: 700px; margin: 0 auto;">
-            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Meta / Facebook Pixel</span>
-            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Google Analytics 4 (GA4)</span>
-            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Google Tag Manager (GTM)</span>
-            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Microsoft Clarity</span>
-            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No TikTok Pixel</span>
-            <span style="background: #dcfce7; color: #166534; font-size: 12px; padding: 5px 12px; border-radius: 9999px; font-weight: 600; border: 1px solid #bbf7d0;">✓ No Hotjar Heatmaps</span>
-          </div>
-        </div>
-      `;
     }
 
     // -------------------------------------------------------------
@@ -2130,30 +2129,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // Dynamic Badges on Tab Navigation Buttons
+    // Set tabAll as active by default so all verified panels are visible together
     // -------------------------------------------------------------
-    const tabBtnLiveDate = document.getElementById('tabBtnLiveDate');
-    const tabBtnAi = document.getElementById('tabBtnAi');
-    const tabBtnSocialCard = document.getElementById('tabBtnSocialCard');
-    const tabBtnSecurity = document.getElementById('tabBtnSecurity');
-    const tabBtnPixels = document.getElementById('tabBtnPixels');
-    const tabBtnSocials = document.getElementById('tabBtnSocials');
-    const tabBtnSeo = document.getElementById('tabBtnSeo');
+    if (auditTabs) {
+      auditTabs.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
+      const tabBtnAll = document.getElementById('tabBtnAll');
+      if (tabBtnAll) tabBtnAll.classList.add('active');
+    }
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      p.style.display = 'block';
+    });
+
+    // Update tab button labels with real counts
+    const tabBtnAll = document.getElementById('tabBtnAll');
     const tabBtnTech = document.getElementById('tabBtnTech');
+    const tabBtnLiveDate = document.getElementById('tabBtnLiveDate');
     const tabBtnDns = document.getElementById('tabBtnDns');
+    const tabBtnSocials = document.getElementById('tabBtnSocials');
+    const tabBtnSecurity = document.getElementById('tabBtnSecurity');
+    const tabBtnSeo = document.getElementById('tabBtnSeo');
     const tabBtnIntel = document.getElementById('tabBtnIntel');
 
-    if (tabBtnLiveDate) tabBtnLiveDate.innerHTML = `📅 Live Date &amp; WHOIS <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">${data.rdapInfo?.registeredDate ? data.liveDateStr.split(' ')[2] : 'Active'}</span>`;
-    if (tabBtnAi) tabBtnAi.innerHTML = `🤖 AI Builder <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">${data.aiInfo.isAi ? 'AI' : 'Human'}</span>`;
-    if (tabBtnSocialCard) tabBtnSocialCard.innerHTML = `🖼️ Social Card <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">${data.socialPreview.image ? '✓' : 'OG'}</span>`;
-    if (tabBtnSecurity) tabBtnSecurity.innerHTML = `🛡️ Security <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">Grade ${data.securityInfo.grade}</span>`;
-    if (tabBtnPixels) tabBtnPixels.innerHTML = `🎯 Ad Pixels <span style="font-size: 10px; background: ${activePixelCount > 0 ? '#e0f2fe' : '#dcfce7'}; color: ${activePixelCount > 0 ? '#0369a1' : '#166534'}; padding: 2px 6px; border-radius: 9999px; margin-left: 4px; font-weight: 700;">${activePixelCount > 0 ? activePixelCount + ' Active' : '0 (Clean)'}</span>`;
-    const totalSoc = Object.keys(data.socials).length + (data.tech.liveChat ? 1 : 0);
-    if (tabBtnSocials) tabBtnSocials.innerHTML = `📱 Socials &amp; Maps <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">${totalSoc > 0 ? totalSoc : '0'}</span>`;
-    if (tabBtnSeo) tabBtnSeo.innerHTML = `🔍 SEO &amp; Meta <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">H1: ${data.h1Count}</span>`;
-    if (tabBtnTech) tabBtnTech.innerHTML = `🛠️ Tech Stack <span style="font-size: 10px; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 9999px; margin-left: 4px; font-weight: 700;">${detectedTechCount > 0 ? detectedTechCount : 'Verified'}</span>`;
-    if (tabBtnDns) tabBtnDns.innerHTML = `☁️ Host &amp; DNS <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">${data.hosting.providerName.split(' ')[0]}</span>`;
-    if (tabBtnIntel) tabBtnIntel.innerHTML = `📊 Traffic &amp; Wayback <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">Live</span>`;
+    if (tabBtnTech) tabBtnTech.innerHTML = `🛠️ Tech Stack <span style="font-size: 10px; background: #e0f2fe; color: #0369a1; padding: 2px 7px; border-radius: 9999px; margin-left: 4px; font-weight: 700;">${detectedTechCount}</span>`;
+    if (tabBtnLiveDate) tabBtnLiveDate.innerHTML = `📅 Domain WHOIS <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">${data.liveDateStr ? data.liveDateStr.split(' ')[2] || 'Active' : 'RDAP'}</span>`;
+    if (tabBtnDns) tabBtnDns.innerHTML = `🏢 Web Hosting &amp; Server`;
+    if (tabBtnSocials) tabBtnSocials.innerHTML = `🎯 Ads &amp; Socials <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">${Object.keys(data.socials).length}</span>`;
+    if (tabBtnSecurity) tabBtnSecurity.innerHTML = `🛡️ Code &amp; Security <span style="font-size: 10px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 9999px; margin-left: 4px;">Grade ${data.securityInfo.grade}</span>`;
+    if (tabBtnSeo) tabBtnSeo.innerHTML = `🔍 SEO &amp; Meta`;
+    if (tabBtnIntel) tabBtnIntel.innerHTML = `📊 Traffic &amp; Wayback`;
 
     analyzerDashboard.style.display = 'block';
     analyzerDashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2269,9 +2272,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  
+  // Official Brand SVGs for Wappalyzer-grade categorized technology display (Image 1 Style)
+  function getTechLogoSvg(name) {
+    const n = (name || '').toLowerCase();
+    if (n.includes('google font') || n.includes('fonts.google')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>`;
+    }
+    if (n.includes('whatsapp')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#25D366"/><path d="M17.5 14.3c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.5.1-.1.2-.6.7-.7.9-.1.1-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.6-1.1-1.3-1.2-1.5-.1-.2 0-.3.1-.5.1-.1.2-.2.3-.4.1-.1.1-.2.2-.3 0-.1 0-.2 0-.3 0-.1-.4-1.1-.6-1.5-.2-.4-.4-.3-.5-.3h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2 0 1.2.9 2.3 1 2.5.1.2 1.7 2.6 4.1 3.6.6.3 1 .4 1.4.5.6.2 1.2.2 1.7.1.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3z" fill="#fff"/></svg>`;
+    }
+    if (n.includes('open graph')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="12" r="3.5" fill="#3b82f6"/><circle cx="18" cy="6" r="3" fill="#6366f1"/><circle cx="18" cy="18" r="3" fill="#06b6d4"/><path d="M9 10.5l6-3M9 13.5l6 3" stroke="#64748b" stroke-width="2" stroke-linecap="round"/></svg>`;
+    }
+    if (n.includes('netlify')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M16.9 14.6l-4.5 4.5c-.3.3-.8.3-1.1 0l-4.5-4.5c-.3-.3-.3-.8 0-1.1l4.5-4.5c.3-.3.8-.3 1.1 0l4.5 4.5c.3.3.3.8 0 1.1z" fill="#00C7B7"/><circle cx="5" cy="5" r="2" fill="#00C7B7"/><circle cx="19" cy="5" r="2" fill="#00C7B7"/><circle cx="19" cy="19" r="2" fill="#00C7B7"/><path d="M6.5 6.5l3.5 3.5m4 4l3.5 3.5m0-11l-3.5 3.5" stroke="#00C7B7" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+    }
+    if (n.includes('vercel')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20h20L12 2z" fill="#000"/></svg>`;
+    }
+    if (n.includes('shopify')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18.8 4.8c-.1-.1-.3-.1-.4 0l-1.3.4c-.4-.9-1-1.6-1.7-2.1-.8-.6-1.7-.8-2.6-.7-.2 0-.4 0-.5.1-.2-.6-.6-1.1-1.1-1.4-.6-.4-1.4-.5-2.2-.4-1.7.3-3.1 1.7-3.5 3.4l-2.1.7c-.4.1-.6.5-.5.9l2.7 13.9c.1.4.5.7.9.7h9.6c.4 0 .8-.3.9-.7l2-14.3c.1-.2 0-.4-.3-.5z" fill="#95BF47"/><path d="M12.7 6.1c-1.3.4-2.5 1.5-2.8 2.8l3.9-1.2c-.3-.7-.6-1.2-1.1-1.6z" fill="#5E8E3E"/><path d="M12 9.5l-2.8.9 2.5 10.6h5.8l-1.6-11.5h-3.9z" fill="#7AB55C"/></svg>`;
+    }
+    if (n.includes('wordpress')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#21759B"/><path d="M3.5 12c0 3.8 2.5 7.1 6 8.3L5.3 8.8C4.2 9.7 3.5 10.8 3.5 12zm13.7-.6c0-1.1-.4-1.9-.7-2.5-.5-.8-.9-1.5-.9-2.3 0-.9.7-1.7 1.7-1.7.1 0 .2 0 .3.1C16 3.7 14.1 3 12 3 8.6 3 5.6 4.7 4 7.4l4.9 13.4 3-8.8-.4-.6h.7zm-2.4 9c.7-.2 1.4-.5 2-.9l-2.8-8.1-2.9 8.6c1.2.3 2.5.4 3.7.4z" fill="#fff"/></svg>`;
+    }
+    if (n.includes('react')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="#61DAFB" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="#61DAFB" stroke-width="1.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="#61DAFB" stroke-width="1.5" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.8" fill="#61DAFB"/></svg>`;
+    }
+    if (n.includes('tailwind')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6.5 10.5C7.2 7.7 9 6.3 12 6.3c3.8 0 4.8 2.7 6.1 4.5.9 1.2 1.9 2 3.9 2 2.7 0 4.5-1.4 5.2-4.2-1.5 2.1-3.3 2.8-5.2 2.8-3.8 0-4.8-2.7-6.1-4.5-.9-1.2-1.9-2-3.9-2-2.7 0-4.5 1.4-5.5 5.1zm-5.5 7C1.7 14.7 3.5 13.3 6.5 13.3c3.8 0 4.8 2.7 6.1 4.5.9 1.2 1.9 2 3.9 2 2.7 0 4.5-1.4 5.2-4.2-1.5 2.1-3.3 2.8-5.2 2.8-3.8 0-4.8-2.7-6.1-4.5-.9-1.2-1.9-2-3.9-2-2.7 0-4.5 1.4-5.5 5.1z" fill="#06B6D4"/></svg>`;
+    }
+    if (n.includes('meta') || n.includes('facebook')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#1877F2"/><path d="M16 11.5c-.8 0-1.5.3-2 .8-.5-.5-1.2-.8-2-.8-1.5 0-2.8 1.2-2.8 2.7s1.3 2.7 2.8 2.7c.8 0 1.5-.3 2-.8.5.5 1.2.8 2 .8 1.5 0 2.8-1.2 2.8-2.7s-1.3-2.7-2.8-2.7zm-4 4c-.7 0-1.3-.6-1.3-1.3s.6-1.3 1.3-1.3 1.3.6 1.3 1.3-.6 1.3-1.3 1.3zm4 0c-.7 0-1.3-.6-1.3-1.3s.6-1.3 1.3-1.3 1.3.6 1.3 1.3-.6 1.3-1.3 1.3z" fill="#fff"/></svg>`;
+    }
+    if (n.includes('google analytics') || n.includes('ga4') || n.includes('tag manager')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="13" width="4" height="8" rx="2" fill="#F9AB00"/><rect x="10" y="8" width="4" height="13" rx="2" fill="#E37400"/><rect x="17" y="3" width="4" height="18" rx="2" fill="#EA4335"/></svg>`;
+    }
+    if (n.includes('cloudflare')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18.5 10c-.3-2.5-2.4-4.5-5-4.5-2 0-3.8 1.2-4.5 3-.5-.3-1.1-.5-1.8-.5-1.9 0-3.5 1.6-3.5 3.5 0 .3 0 .5.1.8-1.7.4-2.8 1.9-2.8 3.7 0 2.2 1.8 4 4 4h13.5c2.2 0 4-1.8 4-4 0-2.1-1.6-3.8-3.7-4-.1-.7-.1-1.4-.3-2z" fill="#F38020"/></svg>`;
+    }
+    if (n.includes('amazon') || n.includes('aws')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#232F3E"/><path d="M7 16c3 2 7 2 10 0" stroke="#FF9900" stroke-width="2" stroke-linecap="round"/></svg>`;
+    }
+    if (n.includes('razorpay')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14.5 3L8 13.5h4.5L10 21l8-10.5h-4.5L14.5 3z" fill="#0C2340"/><path d="M13 5l-4.5 7h3.5L10.5 17l5.5-7h-3.5L13 5z" fill="#3395FF"/></svg>`;
+    }
+    if (n.includes('stripe')) {
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#635BFF"/><path d="M13.8 10.4c0-.6-.5-.9-1.3-.9-.9 0-1.8.3-2.6.7V8c.9-.4 1.9-.6 2.8-.6 2.2 0 3.7 1.1 3.7 3.2 0 3.1-4.2 2.6-4.2 3.9 0 .7.6 1 1.5 1 1.1 0 2.2-.4 3.1-.9v2.2c-1 .5-2.2.7-3.3.7-2.3 0-3.9-1.1-3.9-3.2-.1-3.2 4.2-2.7 4.2-3.9z" fill="#fff"/></svg>`;
+    }
+    return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#4f46e5" stroke-width="1.8"/><path d="M8 12h8M12 8v8" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+  }
+
   // Render Tech Grid: ONLY DISPLAY WHAT WAS DETECTED!
+    // Render Tech Grid: ONLY DISPLAY WHAT WAS DETECTED (Image 1 Style)
   function renderTechGrid(tech, hosting) {
-    if (!analyzerTechGrid) return;
+    if (!analyzerTechGrid) return 0;
     analyzerTechGrid.innerHTML = '';
 
     const categories = [];
@@ -2280,143 +2336,131 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tech.fontScripts) {
       categories.push({
         title: 'Font scripts',
-        icon: '🔤',
-        items: [{ name: tech.fontScripts, badge: 'Typography', icon: '🔤' }]
+        name: tech.fontScripts,
+        badge: 'Typography'
       });
     }
 
     // 2. Live Chat & Support (Wappalyzer matched)
     if (tech.liveChat) {
       categories.push({
-        title: 'Live chat & Customer Support',
-        icon: '💬',
-        items: [{ name: tech.liveChat, badge: 'Live Chat', icon: '💬' }]
+        title: 'Live chat',
+        name: tech.liveChat,
+        badge: 'Customer Support'
       });
     }
 
     // 3. Miscellaneous & Social Protocol (Wappalyzer matched)
     if (tech.openGraph) {
       categories.push({
-        title: 'Miscellaneous & Social Cards',
-        icon: '🏷️',
-        items: [{ name: tech.openGraph, badge: 'Social Meta', icon: '🌐' }]
+        title: 'Miscellaneous',
+        name: 'Open Graph Protocol',
+        badge: 'Social Meta'
       });
     }
 
     // 4. PaaS (Platform as a Service)
     if (hosting && (hosting.category.includes('PaaS') || hosting.providerName === 'Netlify' || hosting.providerName === 'Vercel')) {
       categories.push({
-        title: 'PaaS (Platform as a Service)',
-        icon: '⚡',
-        items: [{ name: hosting.providerName, badge: 'PaaS Verified', icon: '⚡' }]
+        title: 'PaaS',
+        name: hosting.providerName,
+        badge: 'Verified PaaS'
       });
     }
 
     // 5. CDN (Content Delivery Network)
     if (hosting && hosting.cdn && !hosting.cdn.includes('Standard Network')) {
       categories.push({
-        title: 'CDN (Content Delivery Network)',
-        icon: '🚀',
-        items: [{ name: hosting.cdn, badge: 'Anycast Edge', icon: '🚀' }]
+        title: 'CDN',
+        name: hosting.cdn,
+        badge: 'Anycast Edge'
       });
     } else if (tech.cdn) {
       categories.push({
-        title: 'CDN (Content Delivery Network)',
-        icon: '🚀',
-        items: [{ name: tech.cdn, badge: 'Edge CDN', icon: '🚀' }]
+        title: 'CDN',
+        name: tech.cdn,
+        badge: 'Edge Network'
       });
     }
 
     // 6. Web Hosting & Cloud Server
     if (hosting && hosting.providerName && hosting.providerName !== 'Independent Host' && !hosting.category.includes('PaaS')) {
       categories.push({
-        title: 'Web Hosting & Cloud Server',
-        icon: '🏢',
-        items: [{ name: hosting.providerName, badge: 'Cloud Host', icon: '🌐' }]
+        title: 'Web hosting',
+        name: hosting.providerName,
+        badge: 'Cloud Host'
       });
     }
 
     // 7. Web Server Software
     if (hosting && hosting.webServer) {
       categories.push({
-        title: 'Web Server Software',
-        icon: '🖥️',
-        items: [{ name: hosting.webServer, badge: 'Server', icon: '🖥️' }]
+        title: 'Web server',
+        name: hosting.webServer,
+        badge: 'Server'
       });
     }
 
     // 8. CMS / E-Commerce Platform
-    if (tech.platform) {
+    if (tech.platform && tech.platform !== 'Custom Stack') {
       categories.push({
-        title: 'CMS / E-Commerce Platform',
-        icon: '🛍️',
-        items: [{ name: tech.platform, badge: 'Platform', icon: '🛍️' }]
+        title: 'CMS / E-Commerce',
+        name: tech.platform,
+        badge: 'Platform'
       });
     }
 
     // 9. Frontend Framework & Architecture
     if (tech.framework) {
       categories.push({
-        title: 'Frontend Framework & Architecture',
-        icon: '⚛️',
-        items: [{ name: tech.framework, badge: 'Frontend', icon: '⚛️' }]
+        title: 'JavaScript framework',
+        name: tech.framework,
+        badge: 'Frontend'
       });
     }
 
-    // 10. Web Analytics & Tag Management
+    // 10. Web Analytics & Tracking (ONLY IF FOUND!)
     if (tech.analytics) {
       categories.push({
-        title: 'Web Analytics & Tag Management',
-        icon: '📊',
-        items: [{ name: tech.analytics, badge: 'Tracking', icon: '📊' }]
+        title: 'Analytics & Tracking',
+        name: tech.analytics,
+        badge: 'Analytics'
       });
     }
 
     // 11. Payment Gateways
     if (tech.payments) {
       categories.push({
-        title: 'Payment Gateways & Checkout',
-        icon: '💳',
-        items: [{ name: tech.payments, badge: 'Billing', icon: '💳' }]
+        title: 'Payment processor',
+        name: tech.payments,
+        badge: 'Billing'
       });
     }
 
-    const totalTechs = categories.reduce((sum, c) => sum + c.items.length, 0);
+    const techBadge = document.getElementById('techVerifiedCountBadge');
+    if (techBadge) techBadge.textContent = `${categories.length} Verified Technologies`;
 
-    // Summary banner at top
-    const summaryBanner = document.createElement('div');
-    summaryBanner.style.cssText = 'margin-bottom: 20px; padding: 12px 18px; background: #f0fdf4; border: 1px solid #86efac; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;';
-    summaryBanner.innerHTML = `
-      <div style="font-size: 14px; font-weight: 700; color: #166534; display: flex; align-items: center; gap: 8px;">
-        <span>✅</span> <span>${totalTechs} Technologies Discovered &amp; Verified</span>
-      </div>
-      <span style="font-size: 11px; color: #15803d; font-weight: 600; background: #dcfce7; padding: 4px 10px; border-radius: 9999px;">Wappalyzer / BuiltWith Standard</span>
-    `;
-    analyzerTechGrid.appendChild(summaryBanner);
-
-    // Render grouped categories
-    categories.forEach(cat => {
-      const groupDiv = document.createElement('div');
-      groupDiv.style.cssText = 'margin-bottom: 22px; width: 100%;';
-      groupDiv.innerHTML = `
-        <div style="font-size: 12px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
-          <span>${cat.icon}</span> <span>${escapeHtml(cat.title)}</span>
+    // Render cards exactly like Image 1
+    categories.forEach(item => {
+      const card = document.createElement('div');
+      card.style.cssText = 'background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); transition: all 0.2s ease;';
+      card.innerHTML = `
+        <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: capitalize; letter-spacing: 0.3px;">
+          ${escapeHtml(item.title)}
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
-          ${cat.items.map(it => `
-            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-              <div style="font-size: 14px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px;">
-                <span>${it.icon}</span> <span>${escapeHtml(it.name)}</span>
-              </div>
-              <span class="ocr-badge status-ready" style="font-size: 10px; padding: 3px 8px;">${escapeHtml(it.badge)}</span>
-            </div>
-          `).join('')}
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+            ${getTechLogoSvg(item.name)}
+          </div>
+          <span style="font-size: 14px; font-weight: 600; color: #1e293b; word-break: break-word;">
+            ${escapeHtml(item.name)}
+          </span>
         </div>
       `;
-      analyzerTechGrid.appendChild(groupDiv);
+      analyzerTechGrid.appendChild(card);
     });
 
-    return totalTechs;
+    return categories.length;
   }
 
   // Social Extractors

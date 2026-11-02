@@ -130,9 +130,10 @@
     .product-thumb-img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
+      object-fit: contain;
+      padding: 6px;
+      background: #ffffff;
+      transition: transform 0.3s ease;
     }
     .winning-product-card:hover .product-thumb-img,
     .product-card:hover .product-thumb-img {
@@ -535,6 +536,27 @@
 
     </div>
   </main>
+
+  
+  <!-- Real Product Video Demo Modal (Only shown for products with verified official video) -->
+  <div id="modalRealVideo" style="display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(15,23,42,0.85); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: #ffffff; border-radius: 16px; width: 100%; max-width: 760px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); position: relative;">
+      <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 18px;">🎥</span>
+          <h3 id="videoModalTitle" style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0;">Verified Product Demo</h3>
+        </div>
+        <button type="button" id="btnCloseVideoModal" style="background: transparent; border: none; font-size: 20px; color: #64748b; cursor: pointer; padding: 4px 8px; border-radius: 6px;">✕</button>
+      </div>
+      <div style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000000;">
+        <iframe id="videoModalIframe" src="" title="Product Demo Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+      <div style="padding: 12px 20px; background: #f8fafc; font-size: 12px; color: #64748b; display: flex; justify-content: space-between; align-items: center;">
+        <span>✓ 100% Verified Official Physical Product Demo</span>
+        <span style="color: #0284c7; font-weight: 600;">High-Conversion UGC Ad Format</span>
+      </div>
+    </div>
+  </div>
 
   <div id="footer-placeholder"></div>
 

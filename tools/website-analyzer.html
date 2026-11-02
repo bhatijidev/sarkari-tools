@@ -384,23 +384,40 @@
           </div>
         </div>
 
-        <!-- Detail Tabs -->
+        <!-- Detail Tabs (Systematic Category Jump & Complete 360 View) -->
         <div class="tool-tabs" id="auditTabs" style="margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 8px;">
-          <button type="button" class="tool-tab active" data-tab="tabLiveDate" id="tabBtnLiveDate">📅 Live Date &amp; WHOIS</button>
-          <button type="button" class="tool-tab" data-tab="tabAi" id="tabBtnAi">🤖 AI Builder</button>
-          <button type="button" class="tool-tab" data-tab="tabSocialPreview" id="tabBtnSocialCard">🖼️ Social Card</button>
-          <button type="button" class="tool-tab" data-tab="tabSecurity" id="tabBtnSecurity">🛡️ Security Grade</button>
-          <button type="button" class="tool-tab" data-tab="tabPixels" id="tabBtnPixels">🎯 Ad Pixels</button>
-          <button type="button" class="tool-tab" data-tab="tabSocials" id="tabBtnSocials">📱 Socials &amp; Maps</button>
+          <button type="button" class="tool-tab active" data-tab="tabAll" id="tabBtnAll">⚡ Complete 360° Audit</button>
+          <button type="button" class="tool-tab" data-tab="tabTech" id="tabBtnTech">🛠️ Detected Tech Stack</button>
+          <button type="button" class="tool-tab" data-tab="tabLiveDate" id="tabBtnLiveDate">📅 Domain WHOIS &amp; Age</button>
+          <button type="button" class="tool-tab" data-tab="tabDns" id="tabBtnDns">🏢 Web Hosting &amp; Server</button>
+          <button type="button" class="tool-tab" data-tab="tabSocials" id="tabBtnSocials">🎯 Ads, Socials &amp; Support</button>
+          <button type="button" class="tool-tab" data-tab="tabSecurity" id="tabBtnSecurity">🛡️ Code, Security &amp; AI</button>
           <button type="button" class="tool-tab" data-tab="tabSeo" id="tabBtnSeo">🔍 SEO &amp; Meta</button>
-          <button type="button" class="tool-tab" data-tab="tabTech" id="tabBtnTech">🛠️ Tech Stack</button>
-          <button type="button" class="tool-tab" data-tab="tabDns" id="tabBtnDns">☁️ Host, Server &amp; DNS</button>
           <button type="button" class="tool-tab" data-tab="tabIntelligence" id="tabBtnIntel">📊 Traffic &amp; Wayback</button>
         </div>
 
-        <!-- Tab 1: Live Date, Domain Age & Registration Profile -->
-        <div class="tab-panel active" id="tabLiveDate">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+        <!-- Panel 1: Tech Stack & Detected Technologies (Wappalyzer Standard - Image 1 Style!) -->
+        <div class="tab-panel active" id="tabTech">
+          <div style="background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-xl); padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; border-bottom: 1px solid var(--gray-200); padding-bottom: 14px;">
+              <div>
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span>🛠️</span> <span>Verified Technology Stack &amp; Infrastructure</span>
+                </h3>
+                <p style="font-size: 12px; color: var(--gray-500); margin: 3px 0 0;">Categorized software, cloud PaaS, CDN, typography, and live chat discovered in page source (Wappalyzer Standard):</p>
+              </div>
+              <span id="techVerifiedCountBadge" style="font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0;">
+                Wappalyzer Standard
+              </span>
+            </div>
+            <div id="analyzerTechGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px;">
+              <!-- Populated via JS with exact Image 1 style -->
+            </div>
+          </div>
+        </div>
+<!-- Panel 2: Live Date, Domain Age & Registration Profile -->
+        <div class="tab-panel" id="tabLiveDate">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--gray-200); padding-bottom: 12px;">
               <div>
                 <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
@@ -462,330 +479,9 @@
               </div>
             </div>
 
-            <!-- Authoritative Registry Nameservers -->
-            <div style="margin-top: 16px; padding: 12px 16px; background: #f8fafc; border: 1px solid var(--gray-200); border-radius: var(--radius-md);">
-              <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">🌐 Official Registry Nameservers</div>
-              <div id="dispWhoisNameservers" style="font-family: var(--font-mono, monospace); font-size: 12px; color: var(--navy); display: flex; flex-wrap: wrap; gap: 8px;">
-                <!-- Injected via JS -->
-              </div>
-            </div>
-
-            <!-- Big CTA Wayback Machine Link -->
-            <div style="margin-top: 18px; padding: 16px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-              <div>
-                <div style="font-size: 14px; font-weight: 700; color: var(--navy);">⏳ Explore First Live Historical Version</div>
-                <div style="font-size: 12px; color: var(--gray-600); margin-top: 2px;">See what this website looked like on the day it launched via Wayback Machine snapshots.</div>
-              </div>
-              <a href="#" target="_blank" rel="noopener" id="btnWaybackFirst" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px; text-decoration: none; background: #0284c7; border-color: #0284c7;">
-                🏛️ Open Historical Archives
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 2: AI Website Builder & LLM Audit -->
-        <div class="tab-panel" id="tabAi" style="display: none;">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 4px;">
-              <div style="font-size: 17px; font-weight: 700; color: var(--navy);">
-                🤖 AI Website Generator &amp; LLM Code Audit
-              </div>
-              <span id="aiAuditCategoryBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #f3e8ff; color: #7e22ce;">Multi-Layer Audit</span>
-            </div>
-            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">
-              Scans for managed AI platforms (v0, Lovable, Bolt.new, Framer AI, Durable, 10Web, Mixo) and raw Claude / ChatGPT artifact boilerplates:
-            </div>
-
-            <!-- AI Verdict Card -->
-            <div id="aiVerdictBox" style="padding: 18px 20px; border-radius: var(--radius-lg); background: #faf5ff; border: 1px solid #e9d5ff; margin-bottom: 18px;">
-              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                <span id="aiVerdictIcon" style="font-size: 32px;">🤖</span>
-                <div style="flex: 1; min-width: 240px;">
-                  <div style="font-size: 16px; font-weight: 700; color: var(--navy);" id="aiVerdictTitle">Analyzing code fingerprints...</div>
-                  <div style="font-size: 13px; color: var(--gray-600); margin-top: 3px;" id="aiVerdictDesc">Checking script URLs, meta tags, and component footprints...</div>
-                </div>
-                <div style="text-align: right;">
-                  <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; font-weight: 600;">Detection Confidence</div>
-                  <div id="aiVerdictConfidence" style="font-size: 14px; font-weight: 700; color: var(--navy); margin-top: 2px;">--</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3 Detailed Signal Columns -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 18px;">
-              
-              <!-- 1. Managed Platform Builders -->
-              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
-                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🏢 Managed AI Builder Footprints</div>
-                <div id="aiPlatformStatus" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 6px;">Scanning...</div>
-                <div id="aiPlatformDesc" style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">v0, Lovable, Bolt.new, Framer AI, Durable, 10Web, Hostinger AI, Mixo</div>
-              </div>
-
-              <!-- 2. Claude & LLM Heuristic Artifacts -->
-              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
-                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">⚡ Claude &amp; LLM Code Heuristics</div>
-                <div id="aiLlmStatus" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 6px;">Scanning...</div>
-                <div id="aiLlmDesc" style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">Tailwind CDN, Babel standalone, developer prompt comments &amp; AI dummy data</div>
-              </div>
-
-              <!-- 3. Embedded AI Chatbots -->
-              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
-                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">💬 Embedded AI Chatbots &amp; Agents</div>
-                <div id="aiChatbotsDetected" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 6px;">Scanning...</div>
-                <div style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">Tidio AI, Intercom Fin, Chatbase, Botpress, Voiceflow</div>
-              </div>
-
-            </div>
-
-            <!-- Matched Code Signals Detailed Box -->
-            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 16px;">
-              <div style="color: var(--gray-600); font-size: 11px; font-weight: 700; text-transform: uppercase;">🔍 Exact Digital Fingerprints Discovered:</div>
-              <div id="aiMatchedSignals" style="font-family: var(--font-mono, monospace); font-size: 12px; color: var(--navy); font-weight: 600; margin-top: 4px;">--</div>
-            </div>
-
-            <!-- Transparent Truth Callout Box (Answering the Claude/ChatGPT question) -->
-            <div style="padding: 16px 18px; background: #fefce8; border: 1px solid #fef08a; border-radius: var(--radius-md); font-size: 13px; color: #713f12; line-height: 1.6;">
-              <div style="font-weight: 700; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span>💡</span> <span>Can Claude, ChatGPT or Cursor Code Be 100% Detected?</span>
-              </div>
-              <p style="margin: 0 0 6px;">
-                <strong>1. Managed AI Platforms (v0, Lovable, Bolt.new, Framer AI):</strong> Ye platforms DOM me vendor scripts, custom CDN links aur metadata chhodte hain, jinko <strong>100% certainty ke sath identify</strong> kiya ja sakta hai.
-              </p>
-              <p style="margin: 0 0 6px;">
-                <strong>2. Raw LLMs (Claude 3.5/3.7, ChatGPT, Cursor, GitHub Copilot):</strong> Jab koi developer Claude ya ChatGPT se raw HTML, CSS ya React code likhwaye aur use standard bundler (Next.js, Vite, Webpack) se deploy kare (bina kisi comment ya Tailwind CDN ke), toh wo code <strong>human-written code ke sath 100% identical</strong> hota hai. Duniya ka koi bhi tool compiled code me se LLM involvement ko 100% guarantee nahi de sakta agar vendor footprints sanitize kar diye gaye hon.
-              </p>
-              <div style="font-size: 12px; color: #854d0e; font-weight: 600; margin-top: 6px;">
-                ✓ Hamara auditor <strong>Managed AI Platforms</strong> ko 100% track karta hai aur unbundled <strong>Claude Artifact patterns</strong> (Tailwind CDN + Babel + Lucide) ko alag se highlight karta hai.
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Tab 3: Social Share Card Link Simulator -->
-        <div class="tab-panel" id="tabSocialPreview" style="display: none;">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
-              🖼️ Social Share Link Simulator
-            </div>
-            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 18px;">
-              Visual preview of how this website link looks when shared on WhatsApp, Facebook, iMessage, and Twitter/X:
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: start;">
-              <!-- WhatsApp / Social Card Preview Container -->
-              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); max-width: 440px;">
-                <div id="socialPreviewImgWrap" style="width: 100%; height: 210px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                  <img id="socialPreviewImg" src="" alt="Social Preview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                  <span id="socialPreviewNoImg" style="font-size: 13px; color: var(--gray-500);">No og:image detected</span>
-                </div>
-                <div style="padding: 14px 16px; background: #f8fafc;">
-                  <div id="socialPreviewDomain" style="font-size: 11px; text-transform: uppercase; color: var(--gray-500); font-weight: 600; letter-spacing: 0.5px;">EXAMPLE.COM</div>
-                  <div id="socialPreviewTitle" style="font-size: 14px; font-weight: 700; color: #0f172a; margin-top: 4px; line-height: 1.3;">Page Title</div>
-                  <div id="socialPreviewDesc" style="font-size: 12px; color: #475569; margin-top: 4px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Page description snippet...</div>
-                </div>
-              </div>
-
-              <!-- Open Graph Tags Audit -->
-              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px;">
-                <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">📋 Open Graph (OG) Tag Checklist</div>
-                <div id="ogChecklist" style="display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
-                  <!-- Injected via JS -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 4: Security Headers & OWASP Safety Grade -->
-        <div class="tab-panel" id="tabSecurity" style="display: none;">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
-              <div>
-                <div style="font-size: 17px; font-weight: 700; color: var(--navy);">
-                  🛡️ HTTP Security Headers &amp; Safety Audit
-                </div>
-                <div style="font-size: 13px; color: var(--gray-500);">
-                  Evaluates defense against Clickjacking, Cross-Site Scripting (XSS), and MITM attacks:
-                </div>
-              </div>
-              <div id="securityGradeBadge" style="font-size: 18px; font-weight: 800; padding: 6px 16px; border-radius: 8px; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0;">
-                Grade A
-              </div>
-            </div>
-
-            <!-- Security Headers Table -->
-            <div class="dns-table-container">
-              <table class="dns-table">
-                <thead>
-                  <tr>
-                    <th style="width: 220px;">Security Header</th>
-                    <th style="width: 110px;">Status</th>
-                    <th>Value / Protection Directive</th>
-                  </tr>
-                </thead>
-                <tbody id="securityHeadersTableBody">
-                  <!-- Injected via JS -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 5: Ad Pixels & Analytics Tracking IDs -->
-        <div class="tab-panel" id="tabPixels" style="display: none;">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
-              🎯 Extracted Ad Pixels &amp; Analytics IDs
-            </div>
-            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">
-              Direct marketing measurement tags discovered in page source:
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;" id="pixelsGrid">
-              <!-- Injected via JS -->
-            </div>
-            <div id="pixelsAbsentContainer" style="margin-top: 16px; display: none;">
-              <!-- Compact Inactive summary injected via JS -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 6: Socials, Google Maps & Contact Info -->
-        <div class="tab-panel" id="tabSocials">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
-              📱 Detected Social Media Profiles
-            </div>
-            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 14px;">
-              Direct links to official social profiles found in website source code and footer:
-            </div>
-
-            <div class="analyzer-social-grid" id="socialProfilesGrid">
-              <!-- Injected by JS -->
-            </div>
-          </div>
-
-          <!-- Google Maps & Physical Location Presence -->
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
-              <div>
-                <div style="font-size: 16px; font-weight: 700; color: var(--navy);">
-                  📍 Google Maps &amp; Local Business Presence
-                </div>
-                <div style="font-size: 13px; color: var(--gray-500);">
-                  Physical office, retail store or headquarters mapped on Google:
-                </div>
-              </div>
-              <a href="#" target="_blank" rel="noopener" id="btnSearchMaps" class="btn btn-outline" style="font-size: 12px; padding: 7px 14px; text-decoration: none;">
-                🗺️ Search on Google Maps
-              </a>
-            </div>
-
-            <div id="mapsContainer">
-              <!-- Maps Embed or Map Search Info -->
-            </div>
-          </div>
-
-          <!-- Contact Information (Emails & Phones) -->
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px;">
-            <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
-              📞 Extracted Contact Details
-            </div>
-            <div style="font-size: 13px; color: var(--gray-500);">
-              Public support emails and phone numbers discovered on the website:
-            </div>
-            <div class="analyzer-contact-list" id="contactDetailsList">
-              <!-- Injected by JS -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 2: SEO & Meta Tags -->
-        <div class="tab-panel" id="tabSeo" style="display: none;">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
-            <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">
-              🔍 Essential SEO Tags &amp; Snippet Previews
-            </div>
-
-            <!-- Page Title -->
-            <div class="form-group" style="margin-bottom: 16px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
-                <label class="form-label" style="font-weight: 600; margin: 0;">SEO Title Tag</label>
-                <span id="titleCharCount" style="color: var(--gray-500);">0 chars</span>
-              </div>
-              <div id="seoTitleBox" style="padding: 12px 14px; background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-200); font-weight: 600; color: #1e293b; font-size: 14px;">
-                --
-              </div>
-            </div>
-
-            <!-- Meta Description -->
-            <div class="form-group" style="margin-bottom: 16px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
-                <label class="form-label" style="font-weight: 600; margin: 0;">Meta Description</label>
-                <span id="descCharCount" style="color: var(--gray-500);">0 chars</span>
-              </div>
-              <div id="seoDescBox" style="padding: 12px 14px; background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-200); color: var(--gray-700); font-size: 13px; line-height: 1.5;">
-                --
-              </div>
-            </div>
-
-            <!-- Google SERP Card Preview -->
-            <div style="margin-top: 20px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px;">Google Search Result Preview:</div>
-              <div class="serp-card" style="max-width: 600px;">
-                <div class="serp-url-row">
-                  <div class="serp-favicon">🌐</div>
-                  <div>
-                    <div class="serp-site-name" id="serpSiteName">example.com</div>
-                    <div class="serp-breadcrumb" id="serpBreadcrumb">https://example.com</div>
-                  </div>
-                </div>
-                <div class="serp-title" id="serpTitle">Website Title</div>
-                <div class="serp-desc" id="serpDesc">Meta description snippet will be displayed here in Google format.</div>
-              </div>
-            </div>
-
-            <!-- Heading & Schema Tags Summary -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 20px;">
-              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
-                <div style="font-size: 20px; font-weight: 700; color: var(--navy);" id="countH1">0</div>
-                <div style="font-size: 12px; color: var(--gray-500);">H1 Headings</div>
-              </div>
-              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
-                <div style="font-size: 20px; font-weight: 700; color: var(--navy);" id="countH2">0</div>
-                <div style="font-size: 12px; color: var(--gray-500);">H2 Headings</div>
-              </div>
-              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
-                <div style="font-size: 20px; font-weight: 700; color: var(--navy);" id="countSchema">None</div>
-                <div style="font-size: 12px; color: var(--gray-500);">Schema.org Markup</div>
-              </div>
-              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
-                <div style="font-size: 20px; font-weight: 700; color: #16a34a;" id="statCanonical">Valid</div>
-                <div style="font-size: 12px; color: var(--gray-500);">Canonical Tag</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Tab 3: Tech Stack & Shopify Apps -->
-        <div class="tab-panel" id="tabTech" style="display: none;">
-          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px;">
-            <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
-              🛠️ Detected Technologies &amp; E-commerce Apps
-            </div>
-            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">
-              Full tech stack running on this domain:
-            </div>
-            <div class="tech-cards-grid" id="analyzerTechGrid">
-              <!-- Injected by JS -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 5: DNS & Infrastructure -->
-        <div class="tab-panel" id="tabDns" style="display: none;">
+        <!-- Panel 3: Hosting Provider, Server Infrastructure & DNS -->
+        <div class="tab-panel" id="tabDns">
+          
           
           <!-- Hosting Provider & Server Infrastructure Profile -->
           <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
@@ -872,10 +568,237 @@
               <span><strong>SSL Security Status:</strong> Encrypted HTTPS protocol is active. Strict-Transport-Security supported.</span>
             </div>
           </div>
+        
         </div>
 
-      <!-- Tab 10: External Traffic & Competitor Hub -->
-        <div class="tab-panel" id="tabIntelligence" style="display: none;">
+        <!-- Panel 4: Paid Ads, Social Media & Customer Support -->
+        <div class="tab-panel" id="tabSocials">
+
+          <!-- Extracted Marketing Pixels & Tracking Tags (Only shows if pixels exist, else compact privacy badge) -->
+          <div id="pixelsSectionWrap" style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+              <div>
+                <div style="font-size: 16px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px;">
+                  <span>🎯</span> <span>Advertising Pixels &amp; Analytics Tags</span>
+                </div>
+                <div style="font-size: 13px; color: var(--gray-500); margin-top: 2px;">
+                  Direct marketing conversion scripts and visitor measurement tags discovered in page code:
+                </div>
+              </div>
+            </div>
+            <div id="pixelsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;"></div>
+            <div id="pixelsAbsentContainer" style="margin-top: 14px; display: none;"></div>
+          </div>
+          
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
+              📱 Detected Social Media Profiles
+            </div>
+            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 14px;">
+              Direct links to official social profiles found in website source code and footer:
+            </div>
+
+            <div class="analyzer-social-grid" id="socialProfilesGrid">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <!-- Google Maps & Physical Location Presence -->
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <div style="font-size: 16px; font-weight: 700; color: var(--navy);">
+                  📍 Google Maps &amp; Local Business Presence
+                </div>
+                <div style="font-size: 13px; color: var(--gray-500);">
+                  Physical office, retail store or headquarters mapped on Google:
+                </div>
+              </div>
+              <a href="#" target="_blank" rel="noopener" id="btnSearchMaps" class="btn btn-outline" style="font-size: 12px; padding: 7px 14px; text-decoration: none;">
+                🗺️ Search on Google Maps
+              </a>
+            </div>
+
+            <div id="mapsContainer">
+              <!-- Maps Embed or Map Search Info -->
+            </div>
+          </div>
+
+          <!-- Contact Information (Emails & Phones) -->
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px;">
+            <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
+              📞 Extracted Contact Details
+            </div>
+            <div style="font-size: 13px; color: var(--gray-500);">
+              Public support emails and phone numbers discovered on the website:
+            </div>
+            <div class="analyzer-contact-list" id="contactDetailsList">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+        
+        </div>
+
+        <!-- Panel 5: Code Signature, AI Builder Audit & Security Grade -->
+        <div class="tab-panel" id="tabSecurity">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--gray-200); padding-bottom: 12px;">
+              <div>
+                <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span>🛡️</span> <span>Code Signature, AI Builder Audit &amp; Security</span>
+                </h3>
+                <p style="font-size: 12px; color: var(--gray-500); margin: 3px 0 0;">Scans for managed AI platforms (v0, Lovable, Bolt.new, Framer AI) and OWASP security headers:</p>
+              </div>
+              <span id="aiAuditCategoryBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #f3e8ff; color: #7e22ce;">Multi-Layer Audit</span>
+            </div>
+
+            <!-- AI Verdict Card -->
+            <div id="aiVerdictBox" style="padding: 16px 18px; border-radius: var(--radius-lg); background: #faf5ff; border: 1px solid #e9d5ff; margin-bottom: 16px;">
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <span id="aiVerdictIcon" style="font-size: 28px;">🤖</span>
+                <div style="flex: 1; min-width: 220px;">
+                  <div style="font-size: 15px; font-weight: 700; color: var(--navy);" id="aiVerdictTitle">Analyzing code fingerprints...</div>
+                  <div style="font-size: 12px; color: var(--gray-600); margin-top: 3px;" id="aiVerdictDesc">Checking script URLs, meta tags, and component footprints...</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; font-weight: 600;">Confidence</div>
+                  <div id="aiVerdictConfidence" style="font-size: 13px; font-weight: 700; color: var(--navy); margin-top: 2px;">--</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Detailed Signal Columns -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 16px;">
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 14px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🏢 Managed AI Builder Footprints</div>
+                <div id="aiPlatformStatus" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 4px;">Scanning...</div>
+              </div>
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 14px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">⚡ Claude &amp; LLM Code Heuristics</div>
+                <div id="aiLlmStatus" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 4px;">Scanning...</div>
+              </div>
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 14px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">💬 Embedded AI Chatbots &amp; Agents</div>
+                <div id="aiChatbotsDetected" style="font-size: 13px; color: var(--navy); font-weight: 700; margin-top: 4px;">Scanning...</div>
+              </div>
+            </div>
+
+            <!-- Matched Code Signals Detailed Box -->
+            <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 20px;">
+              <div style="color: var(--gray-600); font-size: 11px; font-weight: 700; text-transform: uppercase;">🔍 Exact Digital Fingerprints Discovered:</div>
+              <div id="aiMatchedSignals" style="font-family: var(--font-mono, monospace); font-size: 12px; color: var(--navy); font-weight: 600; margin-top: 4px;">--</div>
+            </div>
+
+            <!-- Side-by-side: Security Headers & Social Share Card Simulator -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: start;">
+              <!-- Left: Security Headers Table -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <div style="font-size: 14px; font-weight: 700; color: var(--navy);">🛡️ HTTP Security Headers</div>
+                  <div id="securityGradeBadge" style="font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 6px; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0;">Grade A</div>
+                </div>
+                <div class="dns-table-container" style="max-height: 280px; overflow-y: auto;">
+                  <table class="dns-table" style="font-size: 12px;">
+                    <thead><tr><th>Header</th><th>Status</th></tr></thead>
+                    <tbody id="securityHeadersTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Right: Social Share Link Simulator -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">🖼️ Social Share Link Simulator</div>
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 12px;">
+                  <div id="socialPreviewImgWrap" style="width: 100%; height: 160px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <img id="socialPreviewImg" src="" alt="Social Preview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                    <span id="socialPreviewNoImg" style="font-size: 12px; color: var(--gray-500); padding: 12px; text-align: center;">No og:image detected</span>
+                  </div>
+                  <div style="padding: 10px 14px; background: #f8fafc;">
+                    <div id="socialPreviewDomain" style="font-size: 10px; text-transform: uppercase; color: var(--gray-500); font-weight: 600;">EXAMPLE.COM</div>
+                    <div id="socialPreviewTitle" style="font-size: 13px; font-weight: 700; color: #0f172a; margin-top: 2px;">Page Title</div>
+                    <div id="socialPreviewDesc" style="font-size: 11px; color: #475569; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Page description...</div>
+                  </div>
+                </div>
+                <div id="ogChecklist" style="display: flex; flex-direction: column; gap: 6px; font-size: 12px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 6: SEO & Meta Tags -->
+        <div class="tab-panel" id="tabSeo">
+          
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">
+              🔍 Essential SEO Tags &amp; Snippet Previews
+            </div>
+
+            <!-- Page Title -->
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <label class="form-label" style="font-weight: 600; margin: 0;">SEO Title Tag</label>
+                <span id="titleCharCount" style="color: var(--gray-500);">0 chars</span>
+              </div>
+              <div id="seoTitleBox" style="padding: 12px 14px; background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-200); font-weight: 600; color: #1e293b; font-size: 14px;">
+                --
+              </div>
+            </div>
+
+            <!-- Meta Description -->
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <label class="form-label" style="font-weight: 600; margin: 0;">Meta Description</label>
+                <span id="descCharCount" style="color: var(--gray-500);">0 chars</span>
+              </div>
+              <div id="seoDescBox" style="padding: 12px 14px; background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-200); color: var(--gray-700); font-size: 13px; line-height: 1.5;">
+                --
+              </div>
+            </div>
+
+            <!-- Google SERP Card Preview -->
+            <div style="margin-top: 20px;">
+              <div style="font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px;">Google Search Result Preview:</div>
+              <div class="serp-card" style="max-width: 600px;">
+                <div class="serp-url-row">
+                  <div class="serp-favicon">🌐</div>
+                  <div>
+                    <div class="serp-site-name" id="serpSiteName">example.com</div>
+                    <div class="serp-breadcrumb" id="serpBreadcrumb">https://example.com</div>
+                  </div>
+                </div>
+                <div class="serp-title" id="serpTitle">Website Title</div>
+                <div class="serp-desc" id="serpDesc">Meta description snippet will be displayed here in Google format.</div>
+              </div>
+            </div>
+
+            <!-- Heading & Schema Tags Summary -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 20px;">
+              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; color: var(--navy);" id="countH1">0</div>
+                <div style="font-size: 12px; color: var(--gray-500);">H1 Headings</div>
+              </div>
+              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; color: var(--navy);" id="countH2">0</div>
+                <div style="font-size: 12px; color: var(--gray-500);">H2 Headings</div>
+              </div>
+              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; color: var(--navy);" id="countSchema">None</div>
+                <div style="font-size: 12px; color: var(--gray-500);">Schema.org Markup</div>
+              </div>
+              <div style="background: var(--gray-50); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; color: #16a34a;" id="statCanonical">Valid</div>
+                <div style="font-size: 12px; color: var(--gray-500);">Canonical Tag</div>
+              </div>
+            </div>
+
+          </div>
+        
+        </div>
+
+        <!-- Panel 7: External Traffic & Competitor Hub -->
+        <div class="tab-panel" id="tabIntelligence">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px;">
+            
           <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px;">
             <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
               🌐 1-Click Competitor &amp; Traffic Intelligence Hub
@@ -913,6 +836,8 @@
                 <div style="font-size: 12px; color: #0284c7; font-weight: 600; margin-top: 8px;">Check Backlinks →</div>
               </a>
             </div>
+          </div>
+        
           </div>
         </div>
       </div>
