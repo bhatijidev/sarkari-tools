@@ -194,10 +194,38 @@
           </div>
         </div>
 
-        <!-- 4 Verified Bento Metric Cards (100% Genuine Live Signals) -->
+                <!-- 6 Verified Bento Metric Cards (100% Genuine Live Signals) -->
         <div class="analyzer-bento-grid">
           
-          <!-- Bento 1: Meta Ads & Tracking Status -->
+          <!-- Bento 1: First Live Date & Age -->
+          <div class="analyzer-bento-card">
+            <div class="analyzer-bento-header">
+              <span class="analyzer-bento-title">📅 Live Date &amp; Age</span>
+              <span class="analyzer-score-badge" id="badgeLiveDate" style="background: #e0f2fe; color: #0284c7;">Historical RDAP</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;">
+              <span class="analyzer-score-num" id="scoreLiveDate" style="font-size: 19px; color: var(--navy);">Checking...</span>
+            </div>
+            <div style="font-size: 12px; color: var(--gray-500); margin-top: 8px;" id="scoreExpiryText">
+              Live Age: <strong id="scoreAgeText" style="color: var(--navy);">--</strong>
+            </div>
+          </div>
+
+          <!-- Bento 2: AI Builder & Generator Detection -->
+          <div class="analyzer-bento-card">
+            <div class="analyzer-bento-header">
+              <span class="analyzer-bento-title">🤖 AI Builder Detection</span>
+              <span class="analyzer-score-badge" id="badgeAiTool" style="background: #f3e8ff; color: #7e22ce;">Scanning</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;">
+              <span class="analyzer-score-num" id="scoreAiTool" style="font-size: 18px; color: #7e22ce;">Scanning...</span>
+            </div>
+            <div style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">
+              Verdict: <strong id="scoreAiConfidence" style="color: var(--navy);">--</strong>
+            </div>
+          </div>
+
+          <!-- Bento 3: Meta Ads & Tracking Status -->
           <div class="analyzer-bento-card">
             <div class="analyzer-bento-header">
               <span class="analyzer-bento-title">Meta Ads Tracking</span>
@@ -211,46 +239,46 @@
             </div>
           </div>
 
-          <!-- Bento 2: Core Platform & E-commerce -->
+          <!-- Bento 4: Core Platform & E-commerce -->
           <div class="analyzer-bento-card">
             <div class="analyzer-bento-header">
               <span class="analyzer-bento-title">E-commerce / CMS</span>
               <span class="analyzer-score-badge" id="badgePlatform" style="background: #ecfdf5; color: #15803d;">Verified</span>
             </div>
             <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;">
-              <span class="analyzer-score-num" id="scorePlatform" style="font-size: 22px; color: var(--navy);">Custom</span>
+              <span class="analyzer-score-num" id="scorePlatform" style="font-size: 20px; color: var(--navy);">Custom</span>
             </div>
             <div style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">
               CDN / Host: <strong id="scoreCdn" style="color: var(--navy);">Cloudflare</strong>
             </div>
           </div>
 
-          <!-- Bento 3: Social & Google Maps Presence -->
+          <!-- Bento 5: Security Grade & OWASP Audit -->
+          <div class="analyzer-bento-card">
+            <div class="analyzer-bento-header">
+              <span class="analyzer-bento-title">🛡️ Security Grade</span>
+              <span class="analyzer-score-badge" id="badgeSecurityGrade" style="background: #f0fdf4; color: #166534;">Audit</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;">
+              <span class="analyzer-score-num" id="scoreSecurityGrade" style="font-size: 22px; color: #16a34a;">Grade A</span>
+            </div>
+            <div style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">
+              Status: <strong id="scoreSecuritySub" style="color: var(--navy);">HSTS &amp; SSL Active</strong>
+            </div>
+          </div>
+
+          <!-- Bento 6: Social & Location Presence -->
           <div class="analyzer-bento-card">
             <div class="analyzer-bento-header">
               <span class="analyzer-bento-title">Social &amp; Maps Presence</span>
               <span class="analyzer-score-badge" id="badgeSocial" style="background: #fdf2f8; color: #db2777;">Verified</span>
             </div>
             <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;">
-              <span class="analyzer-score-num" id="scoreSocialCount" style="color: #db2777;">0</span>
+              <span class="analyzer-score-num" id="scoreSocialCount" style="color: #db2777; font-size: 22px;">0</span>
               <span style="font-size: 14px; color: var(--gray-400); font-weight: 600;">Profiles</span>
             </div>
             <div style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">
               Location: <strong id="scoreMapsFound" style="color: var(--navy);">Not Found</strong>
-            </div>
-          </div>
-
-          <!-- Bento 4: Corporate Mail & Cloud DNS -->
-          <div class="analyzer-bento-card">
-            <div class="analyzer-bento-header">
-              <span class="analyzer-bento-title">Mail Server &amp; DNS</span>
-              <span class="analyzer-score-badge" id="badgeDns" style="background: #fef3c7; color: #b45309;">Live DNS</span>
-            </div>
-            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;">
-              <span class="analyzer-score-num" id="scoreMailHost" style="font-size: 18px; color: var(--navy);">Checking...</span>
-            </div>
-            <div style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">
-              Authoritative: <strong id="scoreNameserver" style="color: var(--navy);">--</strong>
             </div>
           </div>
 
@@ -280,14 +308,195 @@
 
         <!-- Detail Tabs -->
         <div class="tool-tabs" id="auditTabs" style="margin-bottom: 24px;">
-          <button type="button" class="tool-tab active" data-tab="tabSocials">📱 Socials &amp; Google Maps</button>
-          <button type="button" class="tool-tab" data-tab="tabSeo">🚀 SEO &amp; Meta Tags</button>
-          <button type="button" class="tool-tab" data-tab="tabTech">🛠️ Tech Stack &amp; Apps</button>
-          <button type="button" class="tool-tab" data-tab="tabDns">☁️ DNS &amp; Hosting</button>
+          <button type="button" class="tool-tab active" data-tab="tabLiveDate">📅 Live Date &amp; Age</button>
+          <button type="button" class="tool-tab" data-tab="tabAi">🤖 AI Builder</button>
+          <button type="button" class="tool-tab" data-tab="tabSocialPreview">🖼️ Social Card</button>
+          <button type="button" class="tool-tab" data-tab="tabSecurity">🛡️ Security Grade</button>
+          <button type="button" class="tool-tab" data-tab="tabPixels">🎯 Ad Pixels</button>
+          <button type="button" class="tool-tab" data-tab="tabSocials">📱 Socials &amp; Maps</button>
+          <button type="button" class="tool-tab" data-tab="tabSeo">🚀 SEO &amp; Meta</button>
+          <button type="button" class="tool-tab" data-tab="tabTech">🛠️ Tech Stack</button>
+          <button type="button" class="tool-tab" data-tab="tabDns">☁️ DNS &amp; Mail</button>
+          <button type="button" class="tool-tab" data-tab="tabIntelligence">🌐 Traffic &amp; Wayback</button>
         </div>
 
-        <!-- Tab 1: Socials, Google Maps & Contact Info -->
-        <div class="tab-panel active" id="tabSocials">
+        <!-- Tab 1: Live Date, Domain Age & Registration Profile -->
+        <div class="tab-panel active" id="tabLiveDate">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--gray-200); padding-bottom: 12px;">
+              <div>
+                <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span>📅 When Did This Website Go Live?</span>
+                </h3>
+                <p style="font-size: 12px; color: var(--gray-500); margin: 3px 0 0;">Official creation timestamp queried from authoritative registry RDAP</p>
+              </div>
+              <span id="liveDateBadge" style="font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 9999px; background: #e0f2fe; color: #0369a1;">Verified Registry Record</span>
+            </div>
+
+            <!-- Key-Value Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; font-size: 13px;">
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🚀 Official First Live Date</div>
+                <div id="dispCreatedDate" style="font-weight: 700; color: var(--navy); font-size: 15px; margin-top: 4px;">Checking...</div>
+                <div id="dispCreatedAgo" style="font-size: 11px; color: var(--gray-600); margin-top: 2px;">--</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">⏳ Domain Expiry &amp; Remaining Time</div>
+                <div id="dispExpiryDate" style="font-weight: 700; color: var(--navy); font-size: 15px; margin-top: 4px;">--</div>
+                <div id="dispExpiryCountdown" style="font-size: 11px; font-weight: 600; margin-top: 2px;">--</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🏢 Sponsoring Registrar</div>
+                <div id="dispRegistrar" style="font-weight: 700; color: var(--navy); font-size: 15px; margin-top: 4px;">--</div>
+                <div id="dispRegistrarIana" style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">IANA ID: --</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🔒 Transfer Protection Status</div>
+                <div id="dispTransferLock" style="font-weight: 600; color: #16a34a; font-size: 13px; margin-top: 4px;">Active</div>
+                <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">EPP Transfer Safe</div>
+              </div>
+            </div>
+
+            <!-- Big CTA Wayback Machine Link -->
+            <div style="margin-top: 18px; padding: 16px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--navy);">⏳ Explore First Live Historical Version</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 2px;">See what this website looked like on the day it launched via Wayback Machine snapshots.</div>
+              </div>
+              <a href="#" target="_blank" rel="noopener" id="btnWaybackFirst" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px; text-decoration: none; background: #0284c7; border-color: #0284c7;">
+                🏛️ Open Historical Archives
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: AI Website Builder Detection -->
+        <div class="tab-panel" id="tabAi" style="display: none;">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
+              🤖 AI Website Generator &amp; Builder Audit
+            </div>
+            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">
+              Scans for digital code signatures of AI website builders (v0, Lovable, Bolt.new, Framer AI, Durable, 10Web, Hostinger AI, Mixo, Wix ADI, etc.):
+            </div>
+
+            <!-- AI Verdict Card -->
+            <div id="aiVerdictBox" style="padding: 18px 20px; border-radius: var(--radius-lg); background: #faf5ff; border: 1px solid #e9d5ff; margin-bottom: 18px;">
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <span id="aiVerdictIcon" style="font-size: 32px;">🤖</span>
+                <div>
+                  <div style="font-size: 16px; font-weight: 700; color: var(--navy);" id="aiVerdictTitle">Analyzing code fingerprints...</div>
+                  <div style="font-size: 13px; color: var(--gray-600); margin-top: 3px;" id="aiVerdictDesc">Checking script URLs, meta tags, and component footprints...</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Matched AI Signals & Chatbots -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">🔍 Matched Code Signals</div>
+                <div id="aiMatchedSignals" style="font-size: 13px; color: var(--navy); font-weight: 600; margin-top: 6px;">--</div>
+              </div>
+
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px;">
+                <div style="color: var(--gray-500); font-size: 11px; font-weight: 600; text-transform: uppercase;">💬 Embedded AI Chatbots &amp; Assistants</div>
+                <div id="aiChatbotsDetected" style="font-size: 13px; color: var(--navy); font-weight: 600; margin-top: 6px;">--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Social Share Card Link Simulator -->
+        <div class="tab-panel" id="tabSocialPreview" style="display: none;">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
+              🖼️ Social Share Link Simulator
+            </div>
+            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 18px;">
+              Visual preview of how this website link looks when shared on WhatsApp, Facebook, iMessage, and Twitter/X:
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: start;">
+              <!-- WhatsApp / Social Card Preview Container -->
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); max-width: 440px;">
+                <div id="socialPreviewImgWrap" style="width: 100%; height: 210px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                  <img id="socialPreviewImg" src="" alt="Social Preview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                  <span id="socialPreviewNoImg" style="font-size: 13px; color: var(--gray-500);">No og:image detected</span>
+                </div>
+                <div style="padding: 14px 16px; background: #f8fafc;">
+                  <div id="socialPreviewDomain" style="font-size: 11px; text-transform: uppercase; color: var(--gray-500); font-weight: 600; letter-spacing: 0.5px;">EXAMPLE.COM</div>
+                  <div id="socialPreviewTitle" style="font-size: 14px; font-weight: 700; color: #0f172a; margin-top: 4px; line-height: 1.3;">Page Title</div>
+                  <div id="socialPreviewDesc" style="font-size: 12px; color: #475569; margin-top: 4px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Page description snippet...</div>
+                </div>
+              </div>
+
+              <!-- Open Graph Tags Audit -->
+              <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">📋 Open Graph (OG) Tag Checklist</div>
+                <div id="ogChecklist" style="display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Security Headers & OWASP Safety Grade -->
+        <div class="tab-panel" id="tabSecurity" style="display: none;">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+              <div>
+                <div style="font-size: 17px; font-weight: 700; color: var(--navy);">
+                  🛡️ HTTP Security Headers &amp; Safety Audit
+                </div>
+                <div style="font-size: 13px; color: var(--gray-500);">
+                  Evaluates defense against Clickjacking, Cross-Site Scripting (XSS), and MITM attacks:
+                </div>
+              </div>
+              <div id="securityGradeBadge" style="font-size: 18px; font-weight: 800; padding: 6px 16px; border-radius: 8px; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0;">
+                Grade A
+              </div>
+            </div>
+
+            <!-- Security Headers Table -->
+            <div class="dns-table-container">
+              <table class="dns-table">
+                <thead>
+                  <tr>
+                    <th style="width: 220px;">Security Header</th>
+                    <th style="width: 110px;">Status</th>
+                    <th>Value / Protection Directive</th>
+                  </tr>
+                </thead>
+                <tbody id="securityHeadersTableBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Ad Pixels & Analytics Tracking IDs -->
+        <div class="tab-panel" id="tabPixels" style="display: none;">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
+            <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
+              🎯 Extracted Ad Pixels &amp; Analytics IDs
+            </div>
+            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">
+              Direct marketing measurement tags discovered in page source:
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;" id="pixelsGrid">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 6: Socials, Google Maps & Contact Info -->
+        <div class="tab-panel" id="tabSocials">
           <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px;">
             <div style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
               📱 Detected Social Media Profiles
@@ -449,6 +658,47 @@
           </div>
         </div>
 
+      <!-- Tab 10: External Traffic & Competitor Hub -->
+        <div class="tab-panel" id="tabIntelligence" style="display: none;">
+          <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 22px;">
+            <div style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
+              🌐 1-Click Competitor &amp; Traffic Intelligence Hub
+            </div>
+            <div style="font-size: 13px; color: var(--gray-500); margin-bottom: 18px;">
+              Direct shortcuts to inspect traffic, backlinks, Core Web Vitals, and indexed pages:
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <a href="#" target="_blank" rel="noopener" id="intelWayback" style="text-decoration: none; padding: 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); display: block; transition: all 0.2s ease;">
+                <div style="font-size: 24px; margin-bottom: 8px;">⏳</div>
+                <div style="font-weight: 700; color: var(--navy); font-size: 15px;">Wayback Machine Archives</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">Browse first launch snapshots and historical design iterations since creation.</div>
+                <div style="font-size: 12px; color: #0284c7; font-weight: 600; margin-top: 8px;">View Historical Timeline →</div>
+              </a>
+
+              <a href="#" target="_blank" rel="noopener" id="intelSimilarweb" style="text-decoration: none; padding: 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); display: block; transition: all 0.2s ease;">
+                <div style="font-size: 24px; margin-bottom: 8px;">📈</div>
+                <div style="font-weight: 700; color: var(--navy); font-size: 15px;">SimilarWeb Traffic Analysis</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">Inspect monthly visits, bounce rates, traffic sources, and country rankings.</div>
+                <div style="font-size: 12px; color: #0284c7; font-weight: 600; margin-top: 8px;">View Traffic Estimates →</div>
+              </a>
+
+              <a href="#" target="_blank" rel="noopener" id="intelPagespeed" style="text-decoration: none; padding: 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); display: block; transition: all 0.2s ease;">
+                <div style="font-size: 24px; margin-bottom: 8px;">⚡</div>
+                <div style="font-weight: 700; color: var(--navy); font-size: 15px;">Google PageSpeed Insights</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">Official Core Web Vitals (LCP, INP, CLS) performance score for Mobile &amp; Desktop.</div>
+                <div style="font-size: 12px; color: #0284c7; font-weight: 600; margin-top: 8px;">Run Google Speed Test →</div>
+              </a>
+
+              <a href="#" target="_blank" rel="noopener" id="intelAhrefs" style="text-decoration: none; padding: 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); display: block; transition: all 0.2s ease;">
+                <div style="font-size: 24px; margin-bottom: 8px;">🔗</div>
+                <div style="font-weight: 700; color: var(--navy); font-size: 15px;">Ahrefs Backlink Checker</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">Check Domain Rating (DR), total backlinks, and referring domains.</div>
+                <div style="font-size: 12px; color: #0284c7; font-weight: 600; margin-top: 8px;">Check Backlinks →</div>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- SEO Educational Guide Section -->
@@ -477,4 +727,5 @@
   <script src="../js/app.js" defer></script>
   <script src="../js/tools/website-analyzer.js" defer></script>
 </body>
+</html
 </html>
