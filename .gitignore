@@ -20,3 +20,5 @@ temp/
 # Agent & Playwright
 .playwright-mcp/
 .gemini/
+
+scratch/

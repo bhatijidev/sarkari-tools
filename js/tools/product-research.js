@@ -680,8 +680,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tags: ['Impulse Auto', '72% Margin', 'Everyday Use'],
       trendMomentum: 88,
       saturation: 'Scaling (High Demand)',
-      baseCostInr: 150,
-      baseSellInr: 649,
+      baseCostInr: 140,
+      baseSellInr: 899,
       wowFactor: 'Keeps phone directly at eye level without blocking windshield view or falling off suction cups.',
       solvesProblem: 'Stops phone from falling off flimsy AC vent clips while driving over potholes.',
       whyItSells: 'Universal utility for Google Maps navigation; fits every car mirror in 10 seconds.',
@@ -883,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sunset_lamp: 'https://deodap.in/cdn/shop/files/01_adf4df0e-2746-4f15-a62f-769b4ad3843d.jpg?v=1769172005',
     car_vacuum: 'https://static.vecteezy.com/system/resources/previews/058/695/651/non_2x/cordless-handheld-vacuum-cleaner-on-transparent-background-png.png',
     dash_cam_3ch: 'https://www.quboworld.com/cdn/shop/files/Trio_1.jpg?v=1777818316&width=800',
-    phone_mount_mirror: 'https://rukminim2.flixcart.com/image/612/612/xif0q/car-cradle/dashboard/j/p/r/upgraded-multifunctional-rearview-mirror-phone-holder-360-original-imahzx8yhqeu7d57.jpeg?q=70',
+    phone_mount_mirror: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&auto=format&fit=crop&q=80',
     back_stretcher: 'https://deodap.in/cdn/shop/files/16ca6b92-323d-4876-b9a7-4c2ba3d505ef.jpg?v=1772271863',
     walking_pad: 'https://www.walkingpad.com/cdn/shop/files/walkingpad-google-home-page.jpg?v=1767147777',
     pushup_board: 'https://srmn.co.in/wp-content/uploads/2026/05/Pusub-Board.jpg',
@@ -940,7 +940,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tech: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
     home: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80',
     beauty: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80',
-    auto: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&auto=format&fit=crop&q=80',
+    auto: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&auto=format&fit=crop&q=80',
     fitness: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80',
     pets: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80',
     baby: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&auto=format&fit=crop&q=80',
@@ -1371,7 +1371,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div>
               <div style="font-size: 10px; color: var(--gray-500); font-weight: 600; text-transform: uppercase;">Net Profit / Order</div>
-              <div style="font-size: 14px; font-weight: 700; color: #16a34a; margin-top: 2px;">+${cfg.symbol}${Math.round(p.netProfit).toLocaleString()}</div>
+              <div style="font-size: 14px; font-weight: 700; color: ${p.netProfit >= 0 ? '#16a34a' : '#dc2626'}; margin-top: 2px;">${p.netProfit >= 0 ? '+' : '-'}${cfg.symbol}${Math.abs(Math.round(p.netProfit)).toLocaleString()}</div>
             </div>
           </div>
 
@@ -1485,13 +1485,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (roasVerdictBox) {
-      if (netProfit > 0 && breakevenRoas < 2.0) {
+      if (netProfit > 0 && profitMargin >= 22 && breakevenRoas < 2.5) {
         roasVerdictBox.innerHTML = `
-          <div style="font-weight: 700; color: #166534; font-size: 13px; margin-bottom: 2px;">✅ Highly Profitable Dropshipping Unit Economics</div>
-          <div style="font-size: 12px; color: #15803d;">You only need an ad ROAS above <strong>${breakevenRoas.toFixed(2)}x</strong> to make profit. Healthy margin allows scaling aggressive Facebook & TikTok ad budgets.</div>
+          <div style="font-weight: 700; color: #166534; font-size: 13px; margin-bottom: 2px;">✅ Highly Profitable Dropshipping Unit Economics (${profitMargin.toFixed(1)}% Margin)</div>
+          <div style="font-size: 12px; color: #15803d;">Net profit is <strong>+${cfg.symbol}${Math.round(netProfit).toLocaleString()}</strong> per order. You only need an ad ROAS above <strong>${breakevenRoas.toFixed(2)}x</strong>. Healthy margin allows scaling aggressive Facebook & TikTok ad budgets.</div>
         `;
         roasVerdictBox.style.background = '#f0fdf4';
         roasVerdictBox.style.borderColor = '#86efac';
+      } else if (netProfit > 0 && profitMargin >= 10) {
+        roasVerdictBox.innerHTML = `
+          <div style="font-weight: 700; color: #b45309; font-size: 13px; margin-bottom: 2px;">⚡ Moderate Profit Margin (${profitMargin.toFixed(1)}% Margin)</div>
+          <div style="font-size: 12px; color: #92400e;">Net profit is <strong>+${cfg.symbol}${Math.round(netProfit).toLocaleString()}</strong> per order with breakeven ROAS <strong>${breakevenRoas.toFixed(2)}x</strong>. Viable if delivery success rate (RTO) stays above 85% and ad CTR is optimized.</div>
+        `;
+        roasVerdictBox.style.background = '#fefce8';
+        roasVerdictBox.style.borderColor = '#fef08a';
+      } else if (netProfit > 0) {
+        roasVerdictBox.innerHTML = `
+          <div style="font-weight: 700; color: #dc2626; font-size: 13px; margin-bottom: 2px;">⚠️ High Risk / Razor Thin Margin (${profitMargin.toFixed(1)}% Margin)</div>
+          <div style="font-size: 12px; color: #b91c1c;">Net profit is only <strong>+${cfg.symbol}${Math.round(netProfit).toLocaleString()}</strong> (${profitMargin.toFixed(1)}%). At this razor thin margin, even a 5% customer return/RTO rate or slight ad CPA spike will cause net losses! Increase selling price or lower CPA.</div>
+        `;
+        roasVerdictBox.style.background = '#fef2f2';
+        roasVerdictBox.style.borderColor = '#fca5a5';
       } else if (netProfit > 0) {
         roasVerdictBox.innerHTML = `
           <div style="font-weight: 700; color: #b45309; font-size: 13px; margin-bottom: 2px;">⚠️ Moderate Profit Margin (Tight Ad Room)</div>

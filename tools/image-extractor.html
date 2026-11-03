@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Webpage Image Extractor &amp; HD Bulk Downloader | AllToolsInOne</title>
-  <meta name="description" content="Extract, view, and download all images, photos, SVG vectors, and backgrounds from any website URL or raw HTML in Full HD. Auto-upgrades thumbnails to 4K original source and upscales 2x/4x. Download individually or as a single ZIP file.">
-  <meta name="keywords" content="image extractor, extract images in hd, 4k image downloader, website image downloader, scrape images from website, bulk image downloader, download all images from webpage in hd, extract svg from website">
-  <meta property="og:title" content="Webpage Image Extractor &amp; HD Bulk Downloader">
-  <meta property="og:description" content="Extract, filter, and download all images, icons, and SVG graphics in Full HD from any webpage URL or HTML in 1-click or as a ZIP archive.">
-  <meta property="og:type" content="website">
-    <!-- Favicon & Touch Icons -->
+  <title>Extract Images from URL &amp; PDF - Bulk Downloader | AllTools</title>
+  <meta name="description" content="Extract and download all high-resolution images from any website URL or PDF file. Preview thumbnails, filter by file size, and download as a ZIP.">
+  <meta name="keywords" content="extract images from website, pdf image extractor, download all images from url, bulk image ripper, web image scraper">
+  <!-- Favicon & Touch Icons -->
   <link rel="shortcut icon" href="../favicon.ico">
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
@@ -17,7 +14,17 @@
   <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
   <link rel="canonical" href="https://alltoolsinone.com/tools/image-extractor.html">
-    <!-- DNS Prefetches & Preconnects -->
+  <meta property="og:title" content="Extract Images from URL &amp; PDF - Bulk Downloader | AllTools">
+  <meta property="og:description" content="Extract and download all high-resolution images from any website URL or PDF file. Preview thumbnails, filter by file size, and download as a ZIP.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/image-extractor.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Extract Images from URL &amp; PDF - Bulk Downloader | AllTools">
+  <meta name="twitter:description" content="Extract and download all high-resolution images from any website URL or PDF file. Preview thumbnails, filter by file size, and download as a ZIP.">
+  <meta name="twitter:image" content="https://alltoolsinone.com/images/og-image.png">
+  <!-- DNS Prefetches & Preconnects -->
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
   <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,15 +82,80 @@
   <!-- JSZip for Bulk Image ZIP Downloads -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Webpage Image Extractor & HD Downloader",
-    "description": "Extract, preview, and bulk-download all images, icons, and SVG graphics in Full HD from any webpage URL.",
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "All",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://alltoolsinone.com/tools/image-extractor.html#webapp",
+      "name": "Image Extractor from URL & PDF",
+      "url": "https://alltoolsinone.com/tools/image-extractor.html",
+      "description": "Extract and download all high-resolution images from any website URL or PDF file. Preview thumbnails, filter by file size, and download as a ZIP.",
+      "applicationCategory": "Image Tools",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://alltoolsinone.com/tools/image-extractor.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://alltoolsinone.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://alltoolsinone.com/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Image Extractor from URL & PDF",
+          "item": "https://alltoolsinone.com/tools/image-extractor.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://alltoolsinone.com/tools/image-extractor.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I extract images from a webpage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Paste the webpage URL and click \"Extract Images\". The tool parses all `<img>`, background CSS, and `<picture>` tags and displays them for download."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I extract images from password-protected PDFs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, simply enter the PDF password when prompted and the tool will extract every embedded vector and bitmap graphic."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I download all extracted images in a single archive?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, click \"Download All as ZIP\" to save all full-resolution images organized into one zip file."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
   <style>
     .checkerboard-bg {
@@ -655,47 +727,55 @@
       </section>
 
       <!-- FAQ Section -->
-      <section class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-list">
+      </div>
+  </main>
+
+  
+      <!-- FAQ Section for Google Rich Snippets & People Also Ask -->
+      
+      <!-- FAQ Section for Google Rich Snippets & People Also Ask -->
+      <section class="faq-section" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--gray-200, #e2e8f0);">
+        <div class="faq-header" style="text-align: center; margin-bottom: 24px;">
+          <h2 style="font-size: 24px; font-weight: 700; color: var(--navy, #0f172a); margin-bottom: 8px;">Frequently Asked Questions</h2>
+          <p style="font-size: 14px; color: var(--gray-500, #64748b);">Got questions? Everything you need to know about Image Extractor from URL &amp; PDF</p>
+        </div>
+        <div class="faq-list" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
+
           <div class="faq-item">
-            <button class="faq-question">
-              <span>How does the HD Download feature work?</span>
+            <button type="button" class="faq-question">
+              <span>How do I extract images from a webpage?</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                Most websites display small, compressed thumbnails on pages (e.g. 300px) to save bandwidth, but store the full-resolution 4K image on their CDN. Our tool inspects <code>srcset</code> descriptors, high-res zoom attributes, and reverses CDN thumbnail algorithms (Wikimedia Commons, Shopify <code>_master</code>, WordPress uncropped, Unsplash 2.5K, YouTube 1080p) to download the true raw HD image.
+                Paste the webpage URL and click &quot;Extract Images&quot;. The tool parses all `&lt;img&gt;`, background CSS, and `&lt;picture&gt;` tags and displays them for download.
               </div>
             </div>
           </div>
           <div class="faq-item">
-            <button class="faq-question">
-              <span>What is 2x and 4x Super-Resolution Upscaling?</span>
+            <button type="button" class="faq-question">
+              <span>Can I extract images from password-protected PDFs?</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                If an image is inherently low-resolution on the website (e.g. a 400x300 product or logo), our client-side canvas engine performs multi-pass high-quality bicubic interpolation combined with an unsharp-mask filter to double (2x) or quadruple (4x) the pixel dimensions with crisp edge contrast.
+                Yes, simply enter the PDF password when prompted and the tool will extract every embedded vector and bitmap graphic.
               </div>
             </div>
           </div>
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Can I extract and download SVG vectors and CSS backgrounds?</span>
+            <button type="button" class="faq-question">
+              <span>Can I download all extracted images in a single archive?</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                Yes! SVG vectors are infinitely scalable without quality loss. We also scan CSS background-image declarations, OpenGraph meta images, and &lt;picture&gt; elements.
+                Yes, click &quot;Download All as ZIP&quot; to save all full-resolution images organized into one zip file.
               </div>
             </div>
           </div>
         </div>
       </section>
-
-    </div>
-  </main>
 
   <div id="footer-placeholder"></div>
 
