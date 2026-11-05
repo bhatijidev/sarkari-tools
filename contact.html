@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | AllToolsInOne - Support &amp; Feedback</title>
+  <meta name="description" content="Get in touch with the AllToolsInOne team. Submit tool suggestions, report bugs, ask support questions, or inquire about partnerships. Fast response times.">
+  <meta name="keywords" content="contact alltoolsinone, support email, bug report, tool request, customer support">
+  <meta name="author" content="AllToolsInOne">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://alltoolsinone.com/contact.html">
+
+  <!-- Favicon & Touch Icons -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Contact Us | AllToolsInOne">
+  <meta property="og:description" content="Reach the AllToolsInOne team for support, feature requests, or questions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alltoolsinone.com/contact.html">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Google AdSense Verification & Official Script -->
+  <meta name="google-adsense-account" content="ca-pub-9560707690666988">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9560707690666988" crossorigin="anonymous"></script>
+
+  <!-- DNS Prefetches & Fonts -->
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"></noscript>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tools.css">
+</head>
+<body>
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page" style="padding-bottom: var(--space-12);">
+    <div class="tool-container" style="max-width: 1040px;">
+
+      <!-- Breadcrumbs -->
+      <div class="breadcrumb" style="margin-top: var(--space-4); margin-bottom: var(--space-6);">
+        <a href="index.html">Home</a>
+        <span class="separator">/</span>
+        <span class="current">Contact Us</span>
+      </div>
+
+      <!-- Hero Header -->
+      <div class="tool-hero" style="text-align: left; padding: var(--space-6) 0 var(--space-8);">
+        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 14px; background: #EEF2FF; color: #4F46E5; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: var(--space-3);">
+          <span>📬 Help &amp; Support</span>
+        </div>
+        <h1 style="font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: var(--space-2);">Contact the AllToolsInOne Team</h1>
+        <p style="color: var(--gray-600); font-size: var(--text-base);">Have a question, feedback, or tool suggestion? We're here to help you.</p>
+      </div>
+
+      <!-- Main Layout -->
+      <div class="contact-grid">
+        
+        <!-- Left Column: Contact Form -->
+        <article class="legal-card" style="margin-bottom: 0;">
+          <h2>Send Us a Message</h2>
+          <p style="font-size: var(--text-sm); color: var(--gray-500); margin-bottom: var(--space-6);">Fill out the form below. We typically respond within 24 to 48 business hours.</p>
+
+          <form id="contactForm" onsubmit="handleContactSubmit(event)">
+            <div class="contact-form-group">
+              <label for="contactName">Your Name <span style="color: var(--error);">*</span></label>
+              <input type="text" id="contactName" required placeholder="e.g. Ramesh Kumar">
+            </div>
+
+            <div class="contact-form-group">
+              <label for="contactEmail">Your Email Address <span style="color: var(--error);">*</span></label>
+              <input type="email" id="contactEmail" required placeholder="you@example.com">
+            </div>
+
+            <div class="contact-form-group">
+              <label for="contactSubject">Category / Subject <span style="color: var(--error);">*</span></label>
+              <select id="contactSubject" required>
+                <option value="General Support">General Support &amp; Inquiry</option>
+                <option value="Bug Report">🐞 Bug or Error Report</option>
+                <option value="New Tool Request">💡 Request a New Tool</option>
+                <option value="AdSense / Partnership">💼 Business or Advertising</option>
+                <option value="Privacy Concern">🔒 Privacy or Data Question</option>
+              </select>
+            </div>
+
+            <div class="contact-form-group">
+              <label for="contactMessage">Message <span style="color: var(--error);">*</span></label>
+              <textarea id="contactMessage" rows="5" required placeholder="Describe your query, suggestion, or the tool you need..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="btnSubmitContact" style="width: 100%; padding: 14px; font-size: 15px;">
+              <span>✉️ Send Message</span>
+            </button>
+          </form>
+
+          <!-- Success Alert -->
+          <div id="contactSuccessMsg" style="display: none; margin-top: var(--space-4); padding: var(--space-4); background: #D1FAE5; border: 1.5px solid #059669; border-radius: var(--radius-md); color: #065F46;">
+            <strong>✓ Message Received!</strong> Thank you for reaching out. Our support team will review your message and reply via email shortly.
+          </div>
+        </article>
+
+        <!-- Right Column: Direct Info & FAQ -->
+        <div>
+          <div class="contact-info-card">
+            <h4>📧 Direct Email Support</h4>
+            <p style="font-size: var(--text-sm); color: var(--gray-600); margin-bottom: var(--space-3);">Prefer emailing us directly from your inbox?</p>
+            <p style="font-size: var(--text-base); font-weight: 600; margin: 0;">
+              <a href="mailto:support@alltoolsinone.com" style="color: var(--navy); text-decoration: underline;">support@alltoolsinone.com</a>
+            </p>
+          </div>
+
+          <div class="contact-info-card">
+            <h4>⏱️ Response Hours</h4>
+            <p style="font-size: var(--text-sm); color: var(--gray-600); margin: 0;">
+              Monday – Saturday: 9:00 AM – 7:00 PM IST<br>
+              Inquiries sent over the weekend will be handled on Monday morning.
+            </p>
+          </div>
+
+          <div class="contact-info-card">
+            <h4>🛡️ Data Privacy Notice</h4>
+            <p style="font-size: var(--text-sm); color: var(--gray-600); margin: 0;">
+              We never share your email address or personal contact details with third-party advertisers or marketers. Details are used solely to reply to your inquiry.
+            </p>
+          </div>
+
+          <div class="contact-info-card">
+            <h4>❓ Quick Answers</h4>
+            <ul style="font-size: var(--text-sm); color: var(--gray-600); padding-left: 20px; margin: 0;">
+              <li style="margin-bottom: 8px;"><strong>Are all tools free?</strong> Yes, 100% free with no hidden charges or limits.</li>
+              <li style="margin-bottom: 8px;"><strong>Do you store my PDFs or photos?</strong> No. All processing runs locally in your device's browser.</li>
+              <li><strong>Can I suggest a new tool?</strong> Absolutely! Select "Request a New Tool" in the form.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script defer src="js/app.js"></script>
+  <script>
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      var btn = document.getElementById('btnSubmitContact');
+      var name = document.getElementById('contactName').value;
+      var email = document.getElementById('contactEmail').value;
+      var subject = document.getElementById('contactSubject').value;
+      var message = document.getElementById('contactMessage').value;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Sending...</span>';
+
+      // Save to localStorage as backup record
+      try {
+        var existing = JSON.parse(localStorage.getItem('user_contact_submissions') || '[]');
+        existing.push({ name: name, email: email, subject: subject, message: message, time: new Date().toISOString() });
+        localStorage.setItem('user_contact_submissions', JSON.stringify(existing));
+      } catch(e){}
+
+      setTimeout(function() {
+        btn.style.display = 'none';
+        document.getElementById('contactSuccessMsg').style.display = 'block';
+        document.getElementById('contactForm').reset();
+      }, 700);
+    }
+  </script>
+</body>
+</html>

@@ -899,6 +899,11 @@
   const isInsideTools = window.location.pathname.includes('/tools/') || window.location.href.includes('/tools/');
   const homeUrl = isInsideTools ? '../index.html' : 'index.html';
   const toolsDirUrl = isInsideTools ? '../tools.html' : 'tools.html';
+  const aboutUrl = isInsideTools ? '../about.html' : 'about.html';
+  const contactUrl = isInsideTools ? '../contact.html' : 'contact.html';
+  const privacyUrl = isInsideTools ? '../privacy-policy.html' : 'privacy-policy.html';
+  const termsUrl = isInsideTools ? '../terms.html' : 'terms.html';
+  const disclaimerUrl = isInsideTools ? '../disclaimer.html' : 'disclaimer.html';
   function getToolUrl(tool) {
     return isInsideTools ? `${tool.id}.html` : `tools/${tool.id}.html`;
   }
@@ -926,11 +931,12 @@
           <div class="search-results-dropdown" id="headerSearchResults"></div>
         </div>
 
-        <nav>
+        <nav class="nav-menu" id="navMenu">
           <ul class="nav-links">
             <li><a href="${homeUrl}">Home</a></li>
             <li><a href="${toolsDirUrl}">All Tools</a></li>
-            <li><a href="${homeUrl}#features">Why Us</a></li>
+            <li><a href="${aboutUrl}">About</a></li>
+            <li><a href="${contactUrl}">Contact</a></li>
           </ul>
         </nav>
 
@@ -959,6 +965,10 @@
       <ul class="mobile-nav-links" id="mobileNavLinks">
         <li><a href="${homeUrl}">🏠 Home</a></li>
         <li><a href="${toolsDirUrl}">⚡ All Tools Directory</a></li>
+        <li><a href="${aboutUrl}">ℹ️ About Us</a></li>
+        <li><a href="${contactUrl}">📬 Contact Support</a></li>
+        <li><a href="${privacyUrl}">🔒 Privacy Policy</a></li>
+        <li><a href="${termsUrl}">📜 Terms of Service</a></li>
       </ul>
     </nav>`;
   }
@@ -998,12 +1008,14 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h4>Support & Community</h4>
+            <h4>Support &amp; Legal</h4>
             <ul>
-              <li><a href="${homeUrl}#anonymousFeedbackSection">💬 Anonymous Feedback</a></li>
-              <li><a href="${homeUrl}#anonymousFeedbackSection">🐞 Report a Bug</a></li>
-              <li><a href="${homeUrl}#anonymousFeedbackSection">💡 Request New Tool</a></li>
-              <li><a href="${homeUrl}#features">Why Choose Us</a></li>
+              <li><a href="${aboutUrl}">About Us</a></li>
+              <li><a href="${contactUrl}">Contact Support</a></li>
+              <li><a href="${privacyUrl}">Privacy Policy</a></li>
+              <li><a href="${termsUrl}">Terms of Service</a></li>
+              <li><a href="${disclaimerUrl}">Disclaimer</a></li>
+              <li><a href="${homeUrl}#anonymousFeedbackSection">💬 Feedback &amp; Bugs</a></li>
             </ul>
           </div>
         </div>
@@ -1012,7 +1024,11 @@
           <div class="footer-bottom-links">
             <a href="${homeUrl}">Home</a>
             <a href="${toolsDirUrl}">All Tools</a>
-            <a href="${homeUrl}#anonymousFeedbackSection" style="color: var(--saffron-dark); font-weight: 600;">💬 Anonymous Feedback Box</a>
+            <a href="${aboutUrl}">About Us</a>
+            <a href="${contactUrl}">Contact</a>
+            <a href="${privacyUrl}">Privacy Policy</a>
+            <a href="${termsUrl}">Terms</a>
+            <a href="${disclaimerUrl}">Disclaimer</a>
           </div>
         </div>
       </div>

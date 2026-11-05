@@ -2,6 +2,10 @@ User-agent: *
 Allow: /
 Sitemap: https://alltoolsinone.com/sitemap.xml
 
+# Google AdSense Crawler
+User-agent: Mediapartners-Google
+Allow: /
+
 # Googlebot (Google Search)
 User-agent: Googlebot
 Allow: /
