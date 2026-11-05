@@ -22,3 +22,6 @@ Allow: /
 
 # RSS & Feeds
 Feed: https://alltoolsinone.com/feed.xml
+
+User-agent: Applebot
+Allow: /
