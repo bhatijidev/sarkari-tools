@@ -7,3 +7,4 @@ Allow: /
 
 User-agent: Bingbot
 Allow: /
+Feed: https://alltoolsinone.com/feed.xml

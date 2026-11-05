@@ -1539,6 +1539,24 @@
 
   /* ───────── INITIALIZATION ───────── */
   function init() {
+    // Check if running in embed mode (?embed=true) for viral backlink widgets
+    if (window.location.search.includes('embed=true')) {
+      document.documentElement.classList.add('is-embedded');
+      document.body.style.background = 'transparent';
+      document.body.style.padding = '10px';
+      const hEl = document.getElementById('header-placeholder');
+      const fEl = document.getElementById('footer-placeholder');
+      const faqEl = document.querySelector('.faq-section');
+      const relEl = document.querySelector('.related-tools');
+      const heroEl = document.querySelector('.tool-hero, .hero-section');
+      if (hEl) hEl.style.display = 'none';
+      if (fEl) fEl.style.display = 'none';
+      if (faqEl) faqEl.style.display = 'none';
+      if (relEl) relEl.style.display = 'none';
+      if (heroEl) heroEl.style.display = 'none';
+      return;
+    }
+
     // Inject header & footer if placeholders exist and not already rendered
     const headerEl = document.getElementById('header-placeholder');
     const footerEl = document.getElementById('footer-placeholder');
