@@ -1731,4 +1731,82 @@
     initEmbedWidget();
   }
 
+
+  /* ───────── AUTOMATIC CROSS-PROMOTION: RELATED TOOLS SECTION ───────── */
+  function initRelatedToolsSection() {
+    if (!window.location.pathname.includes('/tools/') || window.location.search.includes('embed=true')) return;
+    if (document.getElementById('dynamicRelatedTools')) return;
+
+    const currentPath = window.location.pathname;
+    const currentFile = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+
+    // Find current tool
+    const currentTool = TOOLS.find(t => t.url.endsWith(currentFile) || t.id === currentFile.replace('.html', ''));
+    const currentCategory = currentTool ? currentTool.category : 'utilities';
+
+    // Pick 4 related tools in same category or popular utilities
+    let related = TOOLS.filter(t => !t.url.endsWith(currentFile) && t.category === currentCategory);
+    if (related.length < 4) {
+      const others = TOOLS.filter(t => !t.url.endsWith(currentFile) && t.category !== currentCategory);
+      related = related.concat(others);
+    }
+    related = related.slice(0, 4);
+
+    if (related.length === 0) return;
+
+    const cardsHtml = related.map(tool => {
+      const cleanUrl = tool.url.startsWith('../') ? tool.url : (tool.url.startsWith('tools/') ? tool.url.replace('tools/', '') : tool.url);
+      return `
+        <a href="${cleanUrl}" class="related-tool-card" style="display: flex; flex-direction: column; padding: 18px; background: var(--white, #ffffff); border: 1px solid var(--gray-200, #e2e8f0); border-radius: 14px; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <div style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border-radius: 10px;">${tool.icon || '🛠️'}</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--navy, #0f172a); line-height: 1.3;">${tool.name}</div>
+          </div>
+          <p style="font-size: 12px; color: var(--gray-500, #64748b); margin: 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${tool.description}</p>
+          <div style="margin-top: 12px; font-size: 11px; font-weight: 600; color: #4f46e5; display: flex; align-items: center; gap: 4px;">
+            <span>Open Tool</span> <span>&rarr;</span>
+          </div>
+        </a>
+      `;
+    }).join('');
+
+    const sectionHtml = `
+      <!-- Related Tools Cross-Promotion Section -->
+      <section id="dynamicRelatedTools" class="related-tools-section" style="margin-top: 48px; margin-bottom: 32px; padding-top: 32px; border-top: 1px solid var(--gray-200, #e2e8f0);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h3 style="font-size: 20px; font-weight: 700; color: var(--navy, #0f172a); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>⚡</span> <span>Related &amp; Popular Utilities</span>
+            </h3>
+            <p style="font-size: 13px; color: var(--gray-500, #64748b); margin: 4px 0 0;">Users working with this utility also frequently use these tools</p>
+          </div>
+          <a href="../tools.html" style="font-size: 13px; font-weight: 600; color: #4f46e5; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+            <span>Explore all 73+ tools</span> <span>&rarr;</span>
+          </a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+          ${cardsHtml}
+        </div>
+      </section>
+    `;
+
+    // Inject before FAQ section or before footer
+    const faqSection = document.querySelector('.faq-section');
+    const footerEl = document.getElementById('footer-placeholder');
+    if (faqSection) {
+      faqSection.insertAdjacentHTML('beforebegin', sectionHtml);
+    } else if (footerEl) {
+      footerEl.insertAdjacentHTML('beforebegin', sectionHtml);
+    } else {
+      document.body.insertAdjacentHTML('beforeend', sectionHtml);
+    }
+  }
+
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRelatedToolsSection);
+  } else {
+    initRelatedToolsSection();
+  }
+
 })();

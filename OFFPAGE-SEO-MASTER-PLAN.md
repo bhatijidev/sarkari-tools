@@ -69,6 +69,23 @@ Below are the curated high-authority platforms categorized by link type, with do
 
 ---
 
+### Category C2: Search Engines & Instant Indexing (Google & Microsoft Bing / Copilot)
+*Microsoft's search engine (**Bing**) powers **Microsoft Copilot AI**, **Windows 10/11 Search**, **Yahoo**, and **DuckDuckGo**. Adding `alltoolsinone.com` here captures non-Google search traffic and AI summaries.*
+
+| Search Engine / Protocol | Market Coverage | Implementation Setup | Action / Submission URL |
+| :--- | :--- | :--- | :--- |
+| **Microsoft Bing Webmaster Tools** | Bing, Copilot AI, Windows Taskbar, Yahoo | 1-Click Import from GSC or `BingSiteAuth.xml` / `<meta name="msvalidate.01">` | `https://www.bing.com/webmasters` |
+| **IndexNow Protocol (Bing / Yandex)** | Instant crawler-less indexing for Microsoft Bing & partner engines | Automated script submitting all 75 URLs via key `c4b6e8a0f2d4e6189a0b2c4e6f8a0b2c.txt` | Run `node scratch/submit_to_bing_indexnow.js` |
+| **Google Search Console** | Google Search & Discover | Sitemap `https://alltoolsinone.com/sitemap.xml` | `https://search.google.com/search-console` |
+
+#### How to Add Website to Microsoft Bing in 1 Click:
+1. Go to [Bing Webmaster Tools](https://www.bing.com/webmasters) and Sign In with your Google or Microsoft account.
+2. Select **"Import your sites from Google Search Console"** and click **Import**.
+3. Authorize your Google account: Bing will automatically import your verified domain, your sitemap (`https://alltoolsinone.com/sitemap.xml`), and all 75 URLs instantly without needing manual DNS or meta tag editing.
+4. Once deployed to your live server, execute `node scratch/submit_to_bing_indexnow.js` to trigger instant IndexNow indexing directly to Microsoft Bing.
+
+---
+
 ### Category D: Social Q&A & High-Karma Communities (Massive Referral Traffic)
 | Community | DA | Target Sub-reddit / Topics | Strategy |
 | :--- | :---: | :--- | :--- |
