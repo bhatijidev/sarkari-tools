@@ -1639,4 +1639,96 @@
   window.SARKARI_TOOLS = TOOLS;
   window.SARKARI_CATEGORIES = CATEGORIES;
 
+
+  /* ───────── VIRAL EMBED & SHARE WIDGET FOR OFF-PAGE BACKLINKS ───────── */
+  function initEmbedWidget() {
+    if (!window.location.pathname.includes('/tools/') || window.location.search.includes('embed=true')) return;
+
+    const toolName = document.querySelector('h1')?.textContent?.trim() || document.title.split('-')[0]?.trim() || 'Tool';
+    const currentUrl = window.location.href.split('?')[0];
+    const embedUrl = currentUrl + '?embed=true';
+
+    const embedHtml = `
+      <!-- Floating Embed / Share Pill -->
+      <div id="embedSharePill" style="position: fixed; bottom: 24px; left: 24px; z-index: 999; display: flex; align-items: center; gap: 8px;">
+        <button id="btnOpenEmbedModal" type="button" style="display: flex; align-items: center; gap: 6px; background: var(--white, #ffffff); color: var(--navy, #0f172a); border: 1.5px solid var(--gray-300, #cbd5e1); border-radius: 999px; padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.2s ease;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          <span>Embed / Share Tool</span>
+        </button>
+      </div>
+
+      <!-- Embed Modal Backdrop -->
+      <div id="embedModalBackdrop" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); z-index: 9999; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(2px);">
+        <div style="background: var(--white, #ffffff); border-radius: 16px; max-width: 540px; width: 100%; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; border: 1px solid var(--gray-200, #e2e8f0);">
+          <button id="btnCloseEmbedModal" style="position: absolute; top: 16px; right: 16px; background: transparent; border: none; font-size: 20px; color: var(--gray-400, #94a3b8); cursor: pointer; line-height: 1;">&times;</button>
+          
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <div style="width: 36px; height: 36px; border-radius: 10px; background: #e0e7ff; color: #4f46e5; display: flex; align-items: center; justify-content: center; font-size: 18px;">🔗</div>
+            <div>
+              <h3 style="margin: 0; font-size: 17px; font-weight: 700; color: var(--navy, #0f172a);">Embed on Your Website</h3>
+              <p style="margin: 2px 0 0; font-size: 12px; color: var(--gray-500, #64748b);">Add this free tool directly to your blog, school portal, or website</p>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--gray-500, #64748b); margin-bottom: 6px;">HTML Embed Code (With Free Attribution)</label>
+            <textarea id="txtEmbedSnippet" readonly rows="4" style="width: 100%; font-family: monospace; font-size: 11px; padding: 10px; border: 1.5px solid var(--gray-200, #e2e8f0); border-radius: 8px; background: #f8fafc; color: #334155; resize: none; box-sizing: border-box;"></textarea>
+          </div>
+
+          <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button id="btnCopyEmbedSnippet" type="button" class="btn btn-primary" style="font-size: 13px; padding: 8px 18px; display: flex; align-items: center; gap: 6px;">
+              <span>📋</span> <span id="txtCopyLabel">Copy Embed Code</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', embedHtml);
+
+    const btnOpen = document.getElementById('btnOpenEmbedModal');
+    const btnClose = document.getElementById('btnCloseEmbedModal');
+    const backdrop = document.getElementById('embedModalBackdrop');
+    const textarea = document.getElementById('txtEmbedSnippet');
+    const btnCopy = document.getElementById('btnCopyEmbedSnippet');
+    const copyLabel = document.getElementById('txtCopyLabel');
+
+    const snippetText = `<iframe src="${embedUrl}" width="100%" height="600" frameborder="0" style="border:1px solid #e2e8f0;border-radius:12px;max-width:800px;"></iframe>\n<p style="font-size:11px;color:#64748b;font-family:sans-serif;margin-top:6px;">Powered by <a href="${currentUrl}" target="_blank" rel="noopener" style="color:#4f46e5;text-decoration:underline;">AllToolsInOne ${toolName}</a></p>`;
+
+    if (textarea) textarea.value = snippetText;
+
+    btnOpen?.addEventListener('click', () => {
+      if (backdrop) backdrop.style.display = 'flex';
+    });
+
+    btnClose?.addEventListener('click', () => {
+      if (backdrop) backdrop.style.display = 'none';
+    });
+
+    backdrop?.addEventListener('click', (e) => {
+      if (e.target === backdrop) backdrop.style.display = 'none';
+    });
+
+    btnCopy?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(snippetText);
+        if (copyLabel) copyLabel.textContent = 'Copied to Clipboard!';
+        setTimeout(() => { if (copyLabel) copyLabel.textContent = 'Copy Embed Code'; }, 2500);
+      } catch (err) {
+        if (textarea) {
+          textarea.select();
+          document.execCommand('copy');
+          if (copyLabel) copyLabel.textContent = 'Copied to Clipboard!';
+          setTimeout(() => { if (copyLabel) copyLabel.textContent = 'Copy Embed Code'; }, 2500);
+        }
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEmbedWidget);
+  } else {
+    initEmbedWidget();
+  }
+
 })();
