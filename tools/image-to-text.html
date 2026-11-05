@@ -191,39 +191,64 @@
       <div class="tool-workspace" style="margin-bottom: 24px; padding: 20px;">
         <div style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-            <span>⚙️</span> High-Accuracy OCR &amp; Clean Text Engine
+            <span>⚙️</span> High-Accuracy OCR &amp; Handwriting Engine
           </div>
-          <label style="font-size: 12px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 6px; cursor: pointer; background: #e0f2fe; padding: 4px 10px; border-radius: 16px;">
-            <input type="checkbox" id="ocrDeskew" checked style="accent-color: #0284c7;">
-            <span>📐 Auto-Deskew &amp; Level Tilted Photos</span>
-          </label>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+            <label style="font-size: 12px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 6px; cursor: pointer; background: #e0f2fe; padding: 4px 10px; border-radius: 16px;">
+              <input type="checkbox" id="ocrRemoveLines" checked style="accent-color: #0284c7;">
+              <span>📏 Remove Ruled Lines</span>
+            </label>
+            <label style="font-size: 12px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 6px; cursor: pointer; background: #e0f2fe; padding: 4px 10px; border-radius: 16px;">
+              <input type="checkbox" id="ocrStrokeDilation" checked style="accent-color: #0284c7;">
+              <span>✒️ Heals Pen Gaps</span>
+            </label>
+            <label style="font-size: 12px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 6px; cursor: pointer; background: #e0f2fe; padding: 4px 10px; border-radius: 16px;">
+              <input type="checkbox" id="ocrDeskew" checked style="accent-color: #0284c7;">
+              <span>📐 Auto-Deskew</span>
+            </label>
+          </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
           
+          <!-- Preset Mode Selector -->
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label" for="ocrPresetMode" style="font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🎯</span> Document &amp; Writing Type *
+            </label>
+            <select id="ocrPresetMode" class="form-select" style="font-weight: 600; border-color: #3b82f6; background-color: #eff6ff;">
+              <option value="handwriting" selected>✍️ Handwritten Notes &amp; Manual Writing (हस्तलिखित)</option>
+              <option value="document">📄 Printed Document &amp; Books (किताबें व फॉर्म)</option>
+              <option value="receipt">🧾 Receipts, Bills &amp; Tables (बिल व रसीदें)</option>
+              <option value="camera">📸 Mobile Camera Photo (Shadows &amp; Lighting)</option>
+            </select>
+            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Optimizes line removal, cursive pen connection, and segmentation.</div>
+          </div>
+
           <!-- Language Selector -->
           <div class="form-group" style="margin: 0;">
             <label class="form-label" for="ocrLanguage" style="font-weight: 600; display: flex; align-items: center; gap: 6px;">
               <span>🌐</span> Recognition Language *
             </label>
             <select id="ocrLanguage" class="form-select" style="font-weight: 500;">
-              <option value="eng" selected>🇬🇧 English Only (Highest Accuracy &amp; Clean Text) — Recommended</option>
-              <option value="hin">🇮🇳 Hindi Only (हिंदी - देवनागरी)</option>
+              <option value="eng" selected>🇬🇧 English Only (Highest Accuracy Latin Script)</option>
+              <option value="hin">🇮🇳 Hindi Only (हिंदी - देवनागरी लिपि)</option>
               <option value="eng+hin">🌐 English + Hindi (Bilingual / Mixed Documents)</option>
             </select>
-            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">English mode produces pure text without symbol noise on English papers.</div>
+            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Select English for pure English notes or Hindi for Devanagari text.</div>
           </div>
 
           <!-- Enhancement & Preprocessing Mode -->
           <div class="form-group" style="margin: 0;">
             <label class="form-label" for="ocrPreprocessMode" style="font-weight: 600; display: flex; align-items: center; gap: 6px;">
-              <span>⚡</span> Preprocessing &amp; Shadow Removal
+              <span>⚡</span> Preprocessing &amp; Shadow Filter
             </label>
             <select id="ocrPreprocessMode" class="form-select" style="font-weight: 500;">
-              <option value="sauvola" selected>✨ Sauvola Adaptive Scanner (Removes all shadows) — Best for Photos</option>
+              <option value="handwriting" selected>✨ Handwriting &amp; Notebook Scanner (Line Removal + Stroke Healing)</option>
+              <option value="sauvola">📄 Sauvola Adaptive Scanner (Removes all shadows) — For Photos</option>
               <option value="camera">📷 Camera Photo Shadow Remover (Illumination Normalizer)</option>
               <option value="upscale">🔍 Small Text Booster (2x Resolution for small fonts)</option>
-              <option value="binarize">📄 Document / High-Contrast B&amp;W (For Books &amp; Scans)</option>
+              <option value="binarize">📑 Document / High-Contrast B&amp;W (For Books &amp; Scans)</option>
               <option value="none">🚫 Raw / Original Image (No filter)</option>
             </select>
             <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Adaptive thresholding isolates black text even under dark phone shadows.</div>
@@ -235,24 +260,26 @@
               <span>🧹</span> Symbol &amp; Noise Cleaner
             </label>
             <select id="ocrCleanMode" class="form-select" style="font-weight: 500;">
-              <option value="strict" selected>✨ Strict Clean (Remove All Junk Symbols &amp; Align Lines)</option>
+              <option value="handwriting" selected>✍️ Handwriting Smart Corrector (Fix digits, ligatures &amp; ruled lines)</option>
+              <option value="strict">✨ Strict Clean (Remove All Junk Symbols &amp; Align Lines)</option>
               <option value="moderate">📝 Moderate Clean (Keep standard math &amp; punctuation)</option>
               <option value="raw">📜 Raw Unfiltered OCR</option>
             </select>
-            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Eliminates hallucinated characters (~, \, |, _, =, etc.) and aligns lines.</div>
+            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Repairs OCR misreads (0->o, 1->l, rn->m) and eliminates notebook artifacts.</div>
           </div>
 
           <!-- Page Segmentation Mode -->
           <div class="form-group" style="margin: 0;">
             <label class="form-label" for="ocrPsmMode" style="font-weight: 600; display: flex; align-items: center; gap: 6px;">
-              <span>📑</span> Document Layout Structure
+              <span>📑</span> Layout Structure (PSM)
             </label>
             <select id="ocrPsmMode" class="form-select" style="font-weight: 500;">
-              <option value="auto" selected>📑 Auto Layout (Keep exact paragraphs &amp; lines)</option>
-              <option value="single_block">📄 Single Uniform Block (Ideal for syllabus/notes)</option>
+              <option value="single_block" selected>📄 Single Uniform Block (Recommended for Handwriting &amp; Notes)</option>
+              <option value="auto">📑 Auto Layout (Keep multi-column paragraphs &amp; lines)</option>
               <option value="single_column">📊 Single Column Text (Strict vertical order)</option>
+              <option value="sparse_text">🔍 Sparse / Dispersed Text (Receipts &amp; Labels)</option>
             </select>
-            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Preserves exact lines from top to bottom.</div>
+            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Single Block prevents wavy handwritten lines from fragmenting.</div>
           </div>
 
         </div>
@@ -343,7 +370,7 @@
           <div style="font-size: 44px; margin-bottom: 12px;">🖼️ ➔ 📝</div>
           <div style="font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 6px;">No Images Uploaded Yet</div>
           <p style="font-size: 13px; max-width: 440px; margin: 0 auto 18px;">Drop or select multiple images above. Every image will get its own separate editable text box with confidence metrics, formatting tools, and instant copy/download.</p>
-          <button type="button" class="btn btn-outline" id="btnEmptySample" style="font-size: 13px;">💡 Load Sample Document &amp; Hindi Form</button>
+          <button type="button" class="btn btn-outline" id="btnEmptySample" style="font-size: 13px;">💡 Load Sample Notes, Notice &amp; Hindi Form</button>
         </div>
       </div>
 

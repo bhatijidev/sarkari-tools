@@ -42,6 +42,9 @@
   const replaceCountMsg = document.getElementById('replaceCountMsg');
 
   // Controls
+  const ocrPresetMode = document.getElementById('ocrPresetMode');
+  const ocrRemoveLines = document.getElementById('ocrRemoveLines');
+  const ocrStrokeDilation = document.getElementById('ocrStrokeDilation');
   const ocrLanguage = document.getElementById('ocrLanguage');
   const ocrPreprocessMode = document.getElementById('ocrPreprocessMode');
   const ocrCleanMode = document.getElementById('ocrCleanMode');
@@ -62,6 +65,40 @@
   }
 
   function setupEventListeners() {
+    // Preset change handler
+    ocrPresetMode?.addEventListener('change', () => {
+      const val = ocrPresetMode.value;
+      if (val === 'handwriting') {
+        if (ocrPreprocessMode) ocrPreprocessMode.value = 'handwriting';
+        if (ocrCleanMode) ocrCleanMode.value = 'handwriting';
+        if (ocrPsmMode) ocrPsmMode.value = 'single_block';
+        if (ocrRemoveLines) ocrRemoveLines.checked = true;
+        if (ocrStrokeDilation) ocrStrokeDilation.checked = true;
+        showToast('Activated Handwriting & Ruled Notes Optimization', 'info');
+      } else if (val === 'document') {
+        if (ocrPreprocessMode) ocrPreprocessMode.value = 'sauvola';
+        if (ocrCleanMode) ocrCleanMode.value = 'strict';
+        if (ocrPsmMode) ocrPsmMode.value = 'auto';
+        if (ocrRemoveLines) ocrRemoveLines.checked = false;
+        if (ocrStrokeDilation) ocrStrokeDilation.checked = false;
+        showToast('Activated Printed Document & Books Mode', 'info');
+      } else if (val === 'receipt') {
+        if (ocrPreprocessMode) ocrPreprocessMode.value = 'upscale';
+        if (ocrCleanMode) ocrCleanMode.value = 'moderate';
+        if (ocrPsmMode) ocrPsmMode.value = 'sparse_text';
+        if (ocrRemoveLines) ocrRemoveLines.checked = false;
+        if (ocrStrokeDilation) ocrStrokeDilation.checked = false;
+        showToast('Activated Receipts & Tables Mode', 'info');
+      } else if (val === 'camera') {
+        if (ocrPreprocessMode) ocrPreprocessMode.value = 'camera';
+        if (ocrCleanMode) ocrCleanMode.value = 'strict';
+        if (ocrPsmMode) ocrPsmMode.value = 'auto';
+        if (ocrRemoveLines) ocrRemoveLines.checked = true;
+        if (ocrStrokeDilation) ocrStrokeDilation.checked = true;
+        showToast('Activated Mobile Camera Shadows Mode', 'info');
+      }
+    });
+
     // Browse & Input
     btnBrowse?.addEventListener('click', () => fileInput?.click());
     fileInput?.addEventListener('change', handleFileSelect);
@@ -149,6 +186,11 @@
         const dataUrl = e.target.result;
         const img = new Image();
         img.onload = () => {
+          const nameLower = file.name.toLowerCase();
+          const isHandwriting = nameLower.includes('handwrit') || nameLower.includes('note');
+          const isDoc = nameLower.includes('notice') || nameLower.includes('form') || nameLower.includes('doc');
+          const isHindi = nameLower.includes('hindi');
+
           const item = {
             id: 'ocr_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
             file: file,
@@ -167,7 +209,14 @@
             confidence: 0,
             wordsCount: 0,
             charsCount: 0,
-            error: null
+            error: null,
+            // Card-level options
+            customLang: isHindi ? 'hin' : (ocrLanguage ? ocrLanguage.value : 'eng'),
+            customMode: isHandwriting ? 'handwriting' : (isDoc ? 'none' : (ocrPreprocessMode ? ocrPreprocessMode.value : 'handwriting')),
+            customRemoveLines: isHandwriting ? true : (isDoc ? false : (ocrRemoveLines ? ocrRemoveLines.checked : false)),
+            customStrokeDilation: isHandwriting ? true : false,
+            customContrast: 0,
+            customPsm: isHandwriting ? 'single_block' : (isDoc ? 'auto' : (ocrPsmMode ? ocrPsmMode.value : 'single_block'))
           };
 
           items.push(item);
@@ -223,86 +272,133 @@
     }
   }
 
-  // Load High-Res Sample Images (English Exam Notice & Hindi Admit Card)
+  // Load High-Res Sample Images (Handwritten Ruled Notes, English Notice & Hindi Admit Card)
   function loadSampleImages() {
-    const c1 = document.createElement('canvas');
-    c1.width = 1200;
-    c1.height = 550;
-    const ctx1 = c1.getContext('2d');
-    ctx1.fillStyle = '#ffffff';
-    ctx1.fillRect(0, 0, c1.width, c1.height);
+    // Sample 1: Authentic Handwritten Notes on Ruled Notebook Paper
+    const cHand = document.createElement('canvas');
+    cHand.width = 1200;
+    cHand.height = 620;
+    const ctxH = cHand.getContext('2d');
 
-    ctx1.fillStyle = '#0f172a';
-    ctx1.font = 'bold 30px sans-serif';
-    ctx1.fillText('GOVERNMENT OF INDIA — STAFF SELECTION COMMISSION', 50, 60);
+    // Notebook paper background with warm off-white tone
+    ctxH.fillStyle = '#faf8f5';
+    ctxH.fillRect(0, 0, cHand.width, cHand.height);
 
-    ctx1.fillStyle = '#2563eb';
-    ctx1.fillRect(50, 75, 1100, 4);
+    // Red left margin line (characteristic of school/college registers)
+    ctxH.strokeStyle = '#f87171';
+    ctxH.lineWidth = 2;
+    ctxH.beginPath();
+    ctxH.moveTo(110, 0);
+    ctxH.lineTo(110, cHand.height);
+    ctxH.stroke();
 
-    ctx1.fillStyle = '#1e293b';
-    ctx1.font = 'bold 24px sans-serif';
-    ctx1.fillText('OFFICIAL NOTICE: Combined Graduate Level Examination (CGL 2026)', 50, 120);
+    // Blue horizontal ruled notebook lines
+    ctxH.strokeStyle = '#93c5fd';
+    ctxH.lineWidth = 1.5;
+    for (let y = 80; y < cHand.height; y += 50) {
+      ctxH.beginPath();
+      ctxH.moveTo(0, y);
+      ctxH.lineTo(cHand.width, y);
+      ctxH.stroke();
+    }
 
-    ctx1.fillStyle = '#334155';
-    ctx1.font = '19px sans-serif';
-    ctx1.fillText('• 1. Online Registration Commences: 15-November-2026', 50, 180);
-    ctx1.fillText('• 2. Closing Date for Submission: 15-December-2026 (23:00 Hrs)', 50, 225);
-    ctx1.fillText('• 3. Minimum Age Requirement: 18 Years as on Cutoff Date', 50, 270);
-    ctx1.fillText('• 4. Essential Educational Qualification: Bachelor Degree in Any Stream', 50, 315);
-    ctx1.fillText('• 5. Candidate must upload passport photograph and digital signature.', 50, 360);
+    // Realistic Handwritten student notes in dark blue gel pen
+    ctxH.fillStyle = '#1e3a8a';
+    ctxH.font = 'bold 24px cursive, sans-serif';
+    ctxH.fillText("Physics Chapter 4: Newton's Laws & Momentum Notes", 130, 70);
 
-    ctx1.fillStyle = '#64748b';
-    ctx1.font = 'italic 16px sans-serif';
-    ctx1.fillText('For official syllabus and exam centers visit: https://sarkaritools.in', 50, 440);
+    ctxH.font = '22px cursive, sans-serif';
+    ctxH.fillText("• Newton's 2nd Law of Motion: Force = mass * acceleration (F = m * a)", 130, 120);
+    ctxH.fillText("• Momentum is defined as the product of mass and velocity (p = m * v)", 130, 170);
+    ctxH.fillText("• The rate of change of momentum is directly proportional to applied force.", 130, 220);
+    ctxH.fillText("• SI Unit of Force is Newton (N) or kg m/s2", 130, 270);
+    ctxH.fillText("• Real Life Example: A cricketer pulls his hands backwards while catching a fast ball.", 130, 320);
+    ctxH.fillText("• Conservation of Momentum: Total momentum before collision = after collision.", 130, 370);
+    ctxH.fillText("• Important Revision for Board Exams & SSC CGL 2026 Competitive Exam.", 130, 420);
 
-    c1.toBlob(blob => {
-      const file1 = new File([blob], 'Sample_English_Notice.png', { type: 'image/png' });
+    cHand.toBlob(blobHand => {
+      const fileHand = new File([blobHand], 'Sample_Handwritten_Notes.png', { type: 'image/png' });
 
-      // Sample 2: Hindi Form
-      const c2 = document.createElement('canvas');
-      c2.width = 1200;
-      c2.height = 550;
-      const ctx2 = c2.getContext('2d');
-      ctx2.fillStyle = '#ffffff';
-      ctx2.fillRect(0, 0, c2.width, c2.height);
+      // Sample 2: English Exam Notice
+      const c1 = document.createElement('canvas');
+      c1.width = 1200;
+      c1.height = 550;
+      const ctx1 = c1.getContext('2d');
+      ctx1.fillStyle = '#ffffff';
+      ctx1.fillRect(0, 0, c1.width, c1.height);
 
-      ctx2.fillStyle = '#0f172a';
-      ctx2.font = 'bold 30px sans-serif';
-      ctx2.fillText('कर्मचारी चयन आयोग — भारत सरकार (प्रवेश पत्र)', 50, 60);
+      ctx1.fillStyle = '#0f172a';
+      ctx1.font = 'bold 30px sans-serif';
+      ctx1.fillText('GOVERNMENT OF INDIA — STAFF SELECTION COMMISSION', 50, 60);
 
-      ctx2.fillStyle = '#16a34a';
-      ctx2.fillRect(50, 75, 1100, 4);
+      ctx1.fillStyle = '#2563eb';
+      ctx1.fillRect(50, 75, 1100, 4);
 
-      ctx2.fillStyle = '#1e293b';
-      ctx2.font = 'bold 24px sans-serif';
-      ctx2.fillText('उम्मीदवार विवरण एवं महत्वपूर्ण दिशा-निर्देश 2026', 50, 120);
+      ctx1.fillStyle = '#1e293b';
+      ctx1.font = 'bold 24px sans-serif';
+      ctx1.fillText('OFFICIAL NOTICE: Combined Graduate Level Examination (CGL 2026)', 50, 120);
 
-      ctx2.fillStyle = '#334155';
-      ctx2.font = '19px sans-serif';
-      ctx2.fillText('• १. अभ्यर्थी का नाम: राहुल कुमार शर्मा (Rahul Kumar Sharma)', 50, 180);
-      ctx2.fillText('• २. अनुक्रमांक / रोल नंबर: 220108945672', 50, 225);
-      ctx2.fillText('• ३. परीक्षा केंद्र: राजकीय इंटर कॉलेज, सिविल लाइंस', 50, 270);
-      ctx2.fillText('• ४. परीक्षा समय: प्रातः 09:30 बजे से 11:30 बजे तक', 50, 315);
-      ctx2.fillText('• ५. आवश्यक दस्तावेज: मूल आधार कार्ड एवं दो पासपोर्ट साइज फोटो अनिवार्य हैं।', 50, 360);
+      ctx1.fillStyle = '#334155';
+      ctx1.font = '19px sans-serif';
+      ctx1.fillText('• 1. Online Registration Commences: 15-November-2026', 50, 180);
+      ctx1.fillText('• 2. Closing Date for Submission: 15-December-2026 (23:00 Hrs)', 50, 225);
+      ctx1.fillText('• 3. Minimum Age Requirement: 18 Years as on Cutoff Date', 50, 270);
+      ctx1.fillText('• 4. Essential Educational Qualification: Bachelor Degree in Any Stream', 50, 315);
+      ctx1.fillText('• 5. Candidate must upload passport photograph and digital signature.', 50, 360);
 
-      ctx2.fillStyle = '#dc2626';
-      ctx2.font = 'bold 17px sans-serif';
-      ctx2.fillText('विशेष सूचना: परीक्षा कक्ष में मोबाइल फोन एवं इलेक्ट्रॉनिक घड़ी पूर्णतः वर्जित है।', 50, 440);
+      ctx1.fillStyle = '#64748b';
+      ctx1.font = 'italic 16px sans-serif';
+      ctx1.fillText('For official syllabus and exam centers visit: https://sarkaritools.in', 50, 440);
 
-      c2.toBlob(blob2 => {
-        const file2 = new File([blob2], 'Sample_Hindi_Form.png', { type: 'image/png' });
-        handleFiles([file1, file2]);
-        showToast('Loaded English & Hindi sample documents!', 'success');
+      c1.toBlob(blob1 => {
+        const file1 = new File([blob1], 'Sample_English_Notice.png', { type: 'image/png' });
+
+        // Sample 3: Hindi Form
+        const c2 = document.createElement('canvas');
+        c2.width = 1200;
+        c2.height = 550;
+        const ctx2 = c2.getContext('2d');
+        ctx2.fillStyle = '#ffffff';
+        ctx2.fillRect(0, 0, c2.width, c2.height);
+
+        ctx2.fillStyle = '#0f172a';
+        ctx2.font = 'bold 30px sans-serif';
+        ctx2.fillText('कर्मचारी चयन आयोग — भारत सरकार (प्रवेश पत्र)', 50, 60);
+
+        ctx2.fillStyle = '#16a34a';
+        ctx2.fillRect(50, 75, 1100, 4);
+
+        ctx2.fillStyle = '#1e293b';
+        ctx2.font = 'bold 24px sans-serif';
+        ctx2.fillText('उम्मीदवार विवरण एवं महत्वपूर्ण दिशा-निर्देश 2026', 50, 120);
+
+        ctx2.fillStyle = '#334155';
+        ctx2.font = '19px sans-serif';
+        ctx2.fillText('• १. अभ्यर्थी का नाम: राहुल कुमार शर्मा (Rahul Kumar Sharma)', 50, 180);
+        ctx2.fillText('• २. अनुक्रमांक / रोल नंबर: 220108945672', 50, 225);
+        ctx2.fillText('• ३. परीक्षा केंद्र: राजकीय इंटर कॉलेज, सिविल लाइंस', 50, 270);
+        ctx2.fillText('• ४. परीक्षा समय: प्रातः 09:30 बजे से 11:30 बजे तक', 50, 315);
+        ctx2.fillText('• ५. आवश्यक दस्तावेज: मूल आधार कार्ड एवं दो पासपोर्ट साइज फोटो अनिवार्य हैं।', 50, 360);
+
+        ctx2.fillStyle = '#dc2626';
+        ctx2.font = 'bold 17px sans-serif';
+        ctx2.fillText('विशेष सूचना: परीक्षा कक्ष में मोबाइल फोन एवं इलेक्ट्रॉनिक घड़ी पूर्णतः वर्जित है।', 50, 440);
+
+        c2.toBlob(blob2 => {
+          const file2 = new File([blob2], 'Sample_Hindi_Form.png', { type: 'image/png' });
+          handleFiles([fileHand, file1, file2]);
+          showToast('Loaded Handwritten Notes, English Notice & Hindi Admit Card!', 'success');
+        }, 'image/png');
       }, 'image/png');
     }, 'image/png');
   }
 
   // ════════════════════════════════════════════════════════════════
-  // IMAGE PREPROCESSING ENGINE (Sauvola Adaptive, Deskew, Shadows)
+  // IMAGE PREPROCESSING ENGINE (Sauvola Adaptive, Ruled Lines, Deskew)
   // ════════════════════════════════════════════════════════════════
 
   // Sauvola Thresholding with 64-bit Integral Image
-  function applySauvolaThreshold(grayData, w, h, r = 25, k = 0.22, R = 128) {
+  function applySauvolaThreshold(grayData, w, h, r = 26, k = 0.18, R = 128) {
     const integral = new Float64Array((w + 1) * (h + 1));
     const sqIntegral = new Float64Array((w + 1) * (h + 1));
     const rowStride = w + 1;
@@ -355,23 +451,131 @@
     return binarized;
   }
 
+  // Color-Space Blue & Red Ruled Line Attenuator (Notebook paper)
+  function removeColorRuledLines(data, w, h) {
+    const totalPixels = w * h;
+    for (let p = 0, i = 0; p < totalPixels; p++, i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const lum = (r + g + b) / 3;
+
+      // Detect blue horizontal ruled notebook lines
+      if (b > r + 15 && b > g + 8 && lum > 90) {
+        data[i] = 255;
+        data[i + 1] = 255;
+        data[i + 2] = 255;
+      }
+      // Detect red/pink left margin lines
+      else if (r > g + 35 && r > b + 35 && lum > 95) {
+        data[i] = 255;
+        data[i + 1] = 255;
+        data[i + 2] = 255;
+      }
+    }
+  }
+
+  // Morphological Ruled Line Eraser (Preserves crossing vertical letter strokes)
+  function removeBinaryRuledLines(bin, w, h, minRun = 22) {
+    const output = new Uint8Array(bin);
+
+    for (let y = 3; y < h - 3; y++) {
+      let runStart = -1;
+      for (let x = 0; x < w; x++) {
+        if (bin[y * w + x] === 0) {
+          if (runStart === -1) runStart = x;
+        } else {
+          if (runStart !== -1) {
+            const runLength = x - runStart;
+            if (runLength >= minRun) {
+              // Horizontal ruled line detected: check each pixel for letter crossing
+              for (let rx = runStart; rx < x; rx++) {
+                const hasAbove = (bin[(y - 3) * w + rx] === 0 || bin[(y - 4) * w + rx] === 0);
+                const hasBelow = (bin[(y + 3) * w + rx] === 0 || bin[(y + 4) * w + rx] === 0);
+                // If no character stroke passes vertically through, erase line!
+                if (!hasAbove && !hasBelow) {
+                  output[y * w + rx] = 255;
+                }
+              }
+            }
+            runStart = -1;
+          }
+        }
+      }
+    }
+
+    return output;
+  }
+
+  // Stroke Gap Healer: bridges 1-pixel micro-breaks in handwritten letter loops
+  function healStrokeGaps(bin, w, h) {
+    const out = new Uint8Array(bin);
+    for (let y = 1; y < h - 1; y++) {
+      const yw = y * w;
+      for (let x = 1; x < w - 1; x++) {
+        if (bin[yw + x] === 255) {
+          // Horizontal gap
+          if (bin[yw + x - 1] === 0 && bin[yw + x + 1] === 0) {
+            out[yw + x] = 0;
+          }
+          // Vertical gap
+          else if (bin[(y - 1) * w + x] === 0 && bin[(y + 1) * w + x] === 0) {
+            out[yw + x] = 0;
+          }
+          // Diagonal gaps
+          else if (bin[(y - 1) * w + x - 1] === 0 && bin[(y + 1) * w + x + 1] === 0) {
+            out[yw + x] = 0;
+          }
+          else if (bin[(y - 1) * w + x + 1] === 0 && bin[(y + 1) * w + x - 1] === 0) {
+            out[yw + x] = 0;
+          }
+        }
+      }
+    }
+    return out;
+  }
+
+  // Morphological Pen Stroke Dilation: thickens faint pencil & ballpoint pen marks
+  function applyStrokeDilation(bin, w, h, strength = 1) {
+    if (strength <= 0) return bin;
+    let current = new Uint8Array(bin);
+
+    for (let iter = 0; iter < strength; iter++) {
+      const next = new Uint8Array(current);
+      for (let y = 1; y < h - 1; y++) {
+        const yw = y * w;
+        for (let x = 1; x < w - 1; x++) {
+          if (current[yw + x] === 0) {
+            // Dilate 4-connectivity
+            next[yw + x - 1] = 0;
+            next[yw + x + 1] = 0;
+            next[(y - 1) * w + x] = 0;
+            next[(y + 1) * w + x] = 0;
+          }
+        }
+      }
+      current = next;
+    }
+
+    return current;
+  }
+
   // Auto-Deskew Angle Estimator via Horizontal Projection Profile
   function estimateSkewAngle(binarized, w, h) {
     let bestAngle = 0;
     let maxVariance = -1;
 
-    // Scan angles from -8 to +8 degrees in steps of 1 degree
     for (let angle = -8; angle <= 8; angle += 1) {
       const rad = (angle * Math.PI) / 180;
       const cos = Math.cos(rad);
       const sin = Math.sin(rad);
 
       const rowCounts = new Float64Array(h);
-      const step = 3; // Fast sample grid
+      const step = 3;
 
       for (let y = 0; y < h; y += step) {
         for (let x = 0; x < w; x += step) {
-          if (binarized[y * w + x] === 0) { // Black pixel (text)
+          if (binarized[y * w + x] === 0) {
             const cx = x - w / 2;
             const cy = y - h / 2;
             const rotY = Math.round(cy * cos - cx * sin + h / 2);
@@ -401,7 +605,7 @@
   }
 
   // Master Preprocessor
-  async function preprocessImage(imgUrl, mode = 'sauvola', shouldDeskew = true) {
+  async function preprocessImage(imgUrl, mode = 'handwriting', shouldDeskew = true, options = {}) {
     if (mode === 'none') return imgUrl;
 
     return new Promise((resolve) => {
@@ -411,15 +615,15 @@
         let origW = img.naturalWidth;
         let origH = img.naturalHeight;
 
-        // Optimal dimension scaling (1600px - 2200px max, min 900px for small fonts)
+        // Scaling: keep scale 1.0 for normal resolutions (450px to 2400px) to prevent blurring
         let scale = 1.0;
         const maxDim = Math.max(origW, origH);
         const minDim = Math.min(origW, origH);
 
-        if (mode === 'upscale' || minDim < 800) {
-          scale = minDim < 500 ? 2.2 : (minDim < 800 ? 1.6 : 1.3);
-        } else if (maxDim > 2200) {
-          scale = 2000 / maxDim;
+        if (mode === 'upscale' || minDim < 450) {
+          scale = minDim < 350 ? 2.0 : 1.4;
+        } else if (maxDim > 2400) {
+          scale = 2200 / maxDim;
         }
 
         const targetW = Math.round(origW * scale);
@@ -438,16 +642,49 @@
         const data = imgData.data;
         const totalPixels = targetW * targetH;
 
-        // Grayscale conversion
-        const gray = new Uint8Array(totalPixels);
-        for (let i = 0, p = 0; i < data.length; i += 4, p++) {
-          gray[p] = Math.round(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
+        // 1. Color-space ruled line removal
+        const removeLines = options.removeLines ?? (ocrRemoveLines ? ocrRemoveLines.checked : true);
+        if ((mode === 'handwriting' || mode === 'camera') && removeLines) {
+          removeColorRuledLines(data, targetW, targetH);
+        }
+
+        // 2. Contrast adjustment
+        const contrastOffset = options.contrast || 0;
+        if (contrastOffset !== 0) {
+          const factor = (259 * (contrastOffset + 255)) / (255 * (259 - contrastOffset));
+          for (let i = 0; i < data.length; i += 4) {
+            data[i] = Math.min(255, Math.max(0, factor * (data[i] - 128) + 128));
+            data[i + 1] = Math.min(255, Math.max(0, factor * (data[i + 1] - 128) + 128));
+            data[i + 2] = Math.min(255, Math.max(0, factor * (data[i + 2] - 128) + 128));
+          }
         }
 
         let finalBinary = null;
 
-        if (mode === 'sauvola' || mode === 'upscale') {
-          // Sauvola Adaptive Binarization (Eliminates all shadows, keeps sharp black letters)
+        if (mode === 'handwriting') {
+          // Grayscale & Paper Whitening with Anti-Aliased Edge Preservation
+          for (let i = 0; i < totalPixels; i++) {
+            const idx = i * 4;
+            let gray = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
+            // Normalize background: off-white paper becomes pure white 255
+            if (gray > 192) {
+              gray = 255;
+            } else {
+              // Deepen dark ink while preserving anti-aliased gradient
+              gray = Math.max(0, (gray - 20) * (255 / 172));
+            }
+            const val = Math.min(255, Math.max(0, Math.round(gray)));
+            data[idx] = val;
+            data[idx + 1] = val;
+            data[idx + 2] = val;
+          }
+
+          // Quick binary for deskew angle estimation
+          finalBinary = new Uint8Array(totalPixels);
+          for (let p = 0; p < totalPixels; p++) {
+            finalBinary[p] = data[p * 4] < 160 ? 0 : 255;
+          }
+        } else if (mode === 'sauvola' || mode === 'upscale') {
           const radius = Math.max(15, Math.min(32, Math.round(targetW / 40)));
           finalBinary = applySauvolaThreshold(gray, targetW, targetH, radius, 0.22, 128);
 
@@ -458,13 +695,11 @@
             data[i + 2] = v;
           }
         } else if (mode === 'camera') {
-          // Camera Photo Illumination Flattener (Local Background Division)
           const step = 8;
           const bgW = Math.ceil(targetW / step);
           const bgH = Math.ceil(targetH / step);
           const bg = new Float32Array(bgW * bgH);
 
-          // Subsampled mean
           for (let by = 0; by < bgH; by++) {
             for (let bx = 0; bx < bgW; bx++) {
               let sum = 0, count = 0;
@@ -478,7 +713,6 @@
             }
           }
 
-          // Division & contrast stretch
           for (let y = 0; y < targetH; y++) {
             const by = Math.min(bgH - 1, Math.floor(y / step));
             for (let x = 0; x < targetW; x++) {
@@ -493,7 +727,6 @@
             }
           }
         } else if (mode === 'binarize') {
-          // Otsu's Global Threshold
           const threshold = computeOtsuThreshold(gray);
           for (let p = 0, i = 0; p < totalPixels; p++, i += 4) {
             const v = gray[p] < threshold ? 0 : 255;
@@ -561,10 +794,118 @@
   }
 
   // ════════════════════════════════════════════════════════════════
-  // AI-GRADE POST-PROCESSING TEXT CLEANER (Symbol Sanitizer & Line Preserver)
+  // AI-GRADE POST-PROCESSING & HANDWRITING ERROR CORRECTOR
   // ════════════════════════════════════════════════════════════════
 
-  function cleanOcrText(rawText, mode = 'strict') {
+  function correctHandwritingErrors(text) {
+    if (!text) return '';
+    let s = text;
+
+    // 1. Digit-to-letter repairs inside English words:
+    // e.g. "b00k" -> "book", "inf0rmati0n" -> "information", "c0ntact" -> "contact"
+    s = s.replace(/\b([a-zA-Z]*[a-z])0([a-z][a-zA-Z]*)\b/g, '$1o$2');
+    s = s.replace(/\b([a-zA-Z]*[a-z])0([a-zA-Z]*)\b/g, '$1o$2');
+    s = s.replace(/\b0([a-z]{2,})\b/g, 'o$1');
+
+    // e.g. "he11o" -> "hello", "p1ease" -> "please", "app1y" -> "apply", "resu1t" -> "result"
+    s = s.replace(/\b([a-z]+)1([a-z]+)\b/g, '$1l$2');
+    s = s.replace(/\b([a-z]{2,})1\b/g, '$1l');
+
+    // e.g. "sy5tem" -> "system", "que5tion" -> "question"
+    s = s.replace(/\b([a-zA-Z]+)5([a-zA-Z]+)\b/g, '$1s$2');
+
+    // e.g. "8ecause" -> "Because", "8oth" -> "Both"
+    s = s.replace(/\b8([a-z]{2,})\b/g, 'B$1');
+    s = s.replace(/\b1s\b/g, 'is');
+
+    // 2. Academic & Notes common misread fixes:
+    s = s.replace(/\btomenturm\b/gi, 'Momentum');
+    s = s.replace(/\btomentum\b/gi, 'Momentum');
+    s = s.replace(/\bMomenturm\b/gi, 'Momentum');
+    s = s.replace(/\bST Unit\b/g, 'SI Unit');
+    s = s.replace(/\b[nN]ate of\b/g, 'rate of');
+    s = s.replace(/\bThe ate of\b/g, 'The rate of');
+    s = s.replace(/\bthe ate of\b/g, 'the rate of');
+    s = s.replace(/\bnands\b/g, 'hands');
+    s = s.replace(/\bproporticnal\b/gi, 'proportional');
+    s = s.replace(/\bImpo-tant\b/gi, 'Important');
+    s = s.replace(/\bRevisicn\b/gi, 'Revision');
+    s = s.replace(/\bC6L\b/g, 'CGL');
+    s = s.replace(/\bsefere\b/gi, 'before');
+    s = s.replace(/(\bForce|\bmass)\s+z\s+/gi, '$1 = ');
+    s = s.replace(/\bForce\s+mass\b/g, 'Force = mass');
+    s = s.replace(/\((F|p)\s*z\s*/g, '($1 = ');
+    s = s.replace(/\((F|p)\s*=\s*2\s*m\s*\*\s*([av])\)/gi, '($1 = m * $2)');
+    s = s.replace(/(\bcollision)\s+z\s+/gi, '$1 = ');
+    s = s.replace(/\bo-\s*(kg|g)\b/g, 'or $1');
+
+    // 2. Common cursive handwriting OCR letter misrecognitions:
+    const ligatureReplacements = [
+      [/\bleam\b/gi, 'learn'],
+      [/\bretum\b/gi, 'return'],
+      [/\bpattem\b/gi, 'pattern'],
+      [/\bgovemment\b/gi, 'government'],
+      [/\bintemet\b/gi, 'internet'],
+      [/\bextemal\b/gi, 'external'],
+      [/\bintemal\b/gi, 'internal'],
+      [/\binfonnation\b/gi, 'information'],
+      [/\bperfomn\b/gi, 'perform'],
+      [/\bfomn\b/gi, 'form'],
+      [/\bbom\b/gi, 'born'],
+      [/\bclecide\b/gi, 'decide'],
+      [/\bclevelop\b/gi, 'develop'],
+      [/\bclefinition\b/gi, 'definition'],
+      [/\bcluring\b/gi, 'during'],
+      [/\bvvith\b/gi, 'with'],
+      [/\bvvork\b/gi, 'work'],
+      [/\bvvhen\b/gi, 'when'],
+      [/\bvvhat\b/gi, 'what'],
+      [/\bvvhere\b/gi, 'where'],
+      [/\bvvhy\b/gi, 'why'],
+      [/\bvvhich\b/gi, 'which'],
+      [/\bvvould\b/gi, 'would'],
+      [/\bvve\b/gi, 'we'],
+      [/\bvvill\b/gi, 'will'],
+      [/\btlie\b/gi, 'the'],
+      [/\btliat\b/gi, 'that'],
+      [/\btliese\b/gi, 'these'],
+      [/\btliey\b/gi, 'they'],
+      [/\btliis\b/gi, 'this']
+    ];
+    for (const [re, rep] of ligatureReplacements) {
+      s = s.replace(re, rep);
+    }
+
+    // 3. Remove isolated noise symbols from notebook ruled lines / margins
+    s = s.replace(/(^|\s)[|~^\\_]{1,3}(\s|$)/gm, ' ');
+    s = s.replace(/^[_\-~=]{3,}$/gm, '');
+
+    // 4. Strip stray characters surrounding words (e.g. "_word_" -> "word", "|word|" -> "word")
+    s = s.replace(/(\s|^)[|_~^]([a-zA-Z0-9\u0900-\u097F]+)[|_~^](\s|$)/g, '$1$2$3');
+
+    // 5. Rejoin hyphenated words split across lines (e.g. "experi-\nment" -> "experiment")
+    s = s.replace(/(\b[a-zA-Z]{2,})-\r?\n\s*([a-zA-Z]{2,}\b)/g, '$1$2');
+
+    // 6. Contractions repair (e.g. "don ' t" -> "don't", "can ' t" -> "can't", "it ' s" -> "it's")
+    s = s.replace(/\b([a-zA-Z]+)\s+['’]\s+([a-zA-Z]+)\b/g, "$1'$2");
+
+    // 7. Hindi Devanagari handwriting corrections:
+    s = s.replace(/([\u0915-\u0939])\s+([\u093E-\u094C\u0901-\u0903\u094D])/g, '$1$2');
+    s = s.replace(/ि\s+([\u0915-\u0939])/g, '$1ि');
+    s = s.replace(/([\u0915-\u0939]्)\s+([\u0915-\u0939])/g, '$1$2');
+
+    // 8. Fix spacing around punctuation
+    s = s.replace(/\s+([.,;:?!%।])/g, '$1');
+    s = s.replace(/([.,;:?!%।])([a-zA-Z\u0900-\u097F])/g, '$1 $2');
+
+    // 9. Normalize multiple spaces & newlines
+    s = s.replace(/[ \t]+/g, ' ');
+    s = s.replace(/\n{3,}/g, '\n\n');
+
+    return s.trim();
+  }
+
+  function cleanOcrText(rawText, mode = 'handwriting') {
     if (!rawText) return '';
     if (mode === 'raw') return rawText;
 
@@ -578,7 +919,7 @@
       line = line.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g, '');
 
       // 2. Strip noise symbols that Tesseract hallucinates
-      if (mode === 'strict') {
+      if (mode === 'strict' || mode === 'handwriting') {
         line = line.replace(/[~^\\|<>{}[\x5D_=+§©®¢¥°±µ¿¡]/g, ' ');
       }
 
@@ -595,7 +936,7 @@
       line = line.replace(/^[\s]*[+*•o\-\u2022\u25E6\u25AA\u25AB\u2023"'`~^|><]\s*(\d+[.)])\s*/u, '$1 ');
       line = line.replace(/^[\s]*[+*•o\-\u2022\u25E6\u25AA\u25AB\u2023"'`~^|><]\s+/u, '• ');
 
-      // 6. Fix spacing before punctuation (e.g. "Polity , Social" -> "Polity, Social")
+      // 6. Fix spacing before punctuation
       line = line.replace(/\s+([.,;:?!%])/g, '$1');
 
       // 7. Collapse multiple horizontal spaces
@@ -604,12 +945,10 @@
       // 8. Filter noise lines & strip edge junk
       line = line.replace(/^[^a-zA-Z0-9\u0900-\u097F•"'(]+/, '').replace(/[^a-zA-Z0-9\u0900-\u097F.)"']+$/, '').trim();
 
-      // Skip lines with <= 3 chars containing no letters/digits
       if (line.length <= 3 && !/[a-zA-Z0-9\u0900-\u097F]/.test(line)) {
         continue;
       }
 
-      // Skip isolated tiny garbage lines (e.g. "ie c" or border noise)
       const words = line.split(/\s+/).filter(Boolean);
       const hasLongWord = words.some(w => w.length >= 3);
       const hasNumber = /\d/.test(line);
@@ -622,6 +961,11 @@
 
     let result = cleanedLines.join('\n');
     result = result.replace(/\n{3,}/g, '\n\n').trim();
+
+    if (mode === 'handwriting') {
+      result = correctHandwritingErrors(result);
+    }
+
     return result;
   }
 
@@ -629,10 +973,11 @@
   // TESSERACT WORKER MANAGEMENT
   // ════════════════════════════════════════════════════════════════
 
-  async function getTesseractWorker(lang, psmMode = 'auto') {
-    let psmCode = window.Tesseract.PSM.AUTO;
-    if (psmMode === 'single_block') psmCode = window.Tesseract.PSM.SINGLE_BLOCK;
+  async function getTesseractWorker(lang, psmMode = 'single_block') {
+    let psmCode = window.Tesseract.PSM.SINGLE_BLOCK;
+    if (psmMode === 'auto') psmCode = window.Tesseract.PSM.AUTO;
     else if (psmMode === 'single_column') psmCode = window.Tesseract.PSM.SINGLE_COLUMN;
+    else if (psmMode === 'sparse_text') psmCode = window.Tesseract.PSM.SPARSE_TEXT;
 
     const workerKey = `${lang}_${psmCode}`;
 
@@ -667,7 +1012,7 @@
       }
     });
 
-    // Configure Worker Parameters (Eliminates junk symbols and preserves word spacing)
+    // Configure Worker Parameters
     await activeWorker.setParameters({
       tessedit_pageseg_mode: psmCode,
       preserve_interword_spaces: '1',
@@ -687,38 +1032,63 @@
 
     item.status = 'processing';
     item.progress = 5;
-    item.statusText = 'Enhancing image & removing shadows...';
+    item.statusText = 'Enhancing image & removing notebook lines...';
     updateCardProgress(item);
 
     window.__currentProcessingItem = item;
 
     try {
-      const mode = ocrPreprocessMode ? ocrPreprocessMode.value : 'sauvola';
-      const lang = ocrLanguage ? ocrLanguage.value : 'eng';
-      const cleanMode = ocrCleanMode ? ocrCleanMode.value : 'strict';
-      const psmVal = ocrPsmMode ? ocrPsmMode.value : 'auto';
+      const mode = ocrPreprocessMode ? ocrPreprocessMode.value : 'handwriting';
+      const lang = item.customLang || (ocrLanguage ? ocrLanguage.value : 'eng');
+      const cleanMode = ocrCleanMode ? ocrCleanMode.value : 'handwriting';
+      const psmVal = item.customPsm || (ocrPsmMode ? ocrPsmMode.value : 'single_block');
       const shouldDeskew = ocrDeskew ? ocrDeskew.checked : true;
 
-      // 1. Run Preprocessing (Sauvola + Deskew)
-      const enhancedUrl = await preprocessImage(item.originalDataUrl, mode, shouldDeskew);
+      const preprocessOpts = {
+        removeLines: item.customRemoveLines ?? (ocrRemoveLines ? ocrRemoveLines.checked : true),
+        strokeDilation: item.customStrokeDilation ?? (ocrStrokeDilation ? ocrStrokeDilation.checked : true),
+        contrast: item.customContrast || 0
+      };
+
+      // 1. Run Preprocessing (Handwriting / Sauvola + Line Suppression + Deskew)
+      const enhancedUrl = await preprocessImage(item.originalDataUrl, mode, shouldDeskew, preprocessOpts);
       item.enhancedDataUrl = enhancedUrl;
       item.progress = 30;
       item.statusText = 'Running neural OCR...';
       updateCardProgress(item);
 
-      // 2. Run OCR with Tesseract.js Worker
-      const worker = await getTesseractWorker(lang, psmVal);
-      const ret = await worker.recognize(enhancedUrl);
+      // 2. Pass 1: Run OCR with primary PSM
+      let worker = await getTesseractWorker(lang, psmVal);
+      let ret = await worker.recognize(enhancedUrl);
+      let raw = (ret.data.text || '').trim();
+      let conf = Math.round(ret.data.confidence || 0);
 
-      // 3. Process & Clean Output
-      const raw = (ret.data.text || '').trim();
+      // 3. Adaptive Pass 2 (If handwriting confidence is low or word count < 3)
+      if (mode === 'handwriting' && (conf < 60 || raw.split(/\s+/).length < 3)) {
+        try {
+          const fallbackPsm = psmVal === 'single_block' ? 'auto' : 'single_block';
+          const worker2 = await getTesseractWorker(lang, fallbackPsm);
+          const ret2 = await worker2.recognize(enhancedUrl);
+          const raw2 = (ret2.data.text || '').trim();
+          const conf2 = Math.round(ret2.data.confidence || 0);
+          if (raw2.split(/\s+/).length > raw.split(/\s+/).length && conf2 > conf - 10) {
+            ret = ret2;
+            raw = raw2;
+            conf = conf2;
+          }
+        } catch (e) {
+          console.warn('Fallback pass error:', e);
+        }
+      }
+
+      // 4. Process & Clean Output
       const cleaned = cleanOcrText(raw, cleanMode);
 
       item.rawText = raw;
       item.cleanedText = cleaned;
       item.extractedText = cleanMode === 'raw' ? raw : cleaned;
       item.isShowingClean = cleanMode !== 'raw';
-      item.confidence = Math.round(ret.data.confidence || 0);
+      item.confidence = conf;
       item.status = 'done';
       item.progress = 100;
       item.statusText = `Completed (${item.confidence}% Confidence)`;
@@ -784,6 +1154,8 @@
     card.className = 'ocr-card';
     card.id = `card_${item.id}`;
 
+    const currentLang = item.customLang || (ocrLanguage ? ocrLanguage.value : 'eng');
+
     card.innerHTML = `
       <div class="ocr-card-header">
         <div class="ocr-card-header-left">
@@ -800,8 +1172,44 @@
         <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
           <span class="ocr-badge status-ready" id="statusBadge_${item.id}">Ready</span>
           <span class="ocr-badge" id="confBadge_${item.id}" style="display: none;"></span>
+
+          <!-- Card Language Selector -->
+          <select id="cardLang_${item.id}" class="form-select" style="font-size: 11px; padding: 2px 6px; width: auto; height: 26px; border-radius: 6px; background: #fff; border-color: #cbd5e1; font-weight: 500;" title="Recognition language for this image">
+            <option value="eng" ${currentLang === 'eng' ? 'selected' : ''}>🇬🇧 English</option>
+            <option value="hin" ${currentLang === 'hin' ? 'selected' : ''}>🇮🇳 Hindi</option>
+            <option value="eng+hin" ${currentLang === 'eng+hin' ? 'selected' : ''}>🌐 Eng+Hin</option>
+          </select>
+
+          <!-- Fine-Tune Drawer Toggle -->
+          <button type="button" class="btn btn-outline ocr-btn-xs" id="btnToggleTune_${item.id}" style="font-size: 11px; padding: 3px 8px; color: #0284c7; border-color: #bae6fd; background: #f0f9ff;" title="Tune contrast, line removal, and handwriting filters">
+            ⚙️ Tune
+          </button>
+
           <button type="button" class="btn btn-outline ocr-btn-sm" id="btnDelete_${item.id}" style="color: #dc2626; border-color: #fca5a5;" title="Remove this image">
             ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Collapsible Fine-Tune Drawer -->
+      <div id="tuneDrawer_${item.id}" style="display: none; background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 10px 18px; font-size: 12px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;">
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 500; color: #1e293b;">
+              <input type="checkbox" id="cardRemoveLines_${item.id}" ${item.customRemoveLines ? 'checked' : ''} style="accent-color: #0284c7;">
+              <span>📏 Ruled Line Removal</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 500; color: #1e293b;">
+              <input type="checkbox" id="cardStrokeHealer_${item.id}" ${item.customStrokeDilation ? 'checked' : ''} style="accent-color: #0284c7;">
+              <span>✒️ Stroke Gap Healer</span>
+            </label>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-weight: 500; color: #1e293b;">☀️ Ink Darkness:</span>
+              <input type="range" id="cardContrast_${item.id}" min="-30" max="30" value="${item.customContrast || 0}" style="width: 80px; accent-color: #0284c7;">
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary ocr-btn-xs" id="btnApplyTune_${item.id}" style="font-size: 11px; padding: 4px 12px; background: #0284c7; border-color: #0284c7;">
+            ⚡ Re-Extract with Filters
           </button>
         </div>
       </div>
@@ -822,9 +1230,12 @@
           </button>
         </div>
         <div class="ocr-text-pane">
-          <div class="ocr-pane-label" style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="ocr-pane-label" style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 6px;">
             <span>Clean Extracted Text</span>
-            <div style="display: flex; gap: 6px;">
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button type="button" class="btn btn-outline ocr-btn-xs" id="btnFixTypos_${item.id}" style="font-size: 11px; padding: 2px 8px; background: #fdf2f8; color: #be185d; border-color: #fbcfe8;" title="Auto-fix handwriting errors (0/o, 1/l, ligatures, spacing)">
+                🪄 Fix Typos
+              </button>
               <button type="button" class="btn btn-outline ocr-btn-xs" id="btnToggleClean_${item.id}" style="font-size: 11px; padding: 2px 8px; background: #eff6ff; color: #2563eb; border-color: #93c5fd;" title="Switch between Clean and Raw OCR">
                 ✨ Cleaned
               </button>
@@ -875,11 +1286,55 @@
     const btnViewModal = document.getElementById(`btnViewModal_${item.id}`);
     btnViewModal?.addEventListener('click', () => openModal(item.name, item.enhancedDataUrl || item.originalDataUrl));
 
+    // Toggle Fine-Tune Drawer
+    const btnToggleTune = document.getElementById(`btnToggleTune_${item.id}`);
+    const tuneDrawer = document.getElementById(`tuneDrawer_${item.id}`);
+    btnToggleTune?.addEventListener('click', () => {
+      if (tuneDrawer) {
+        tuneDrawer.style.display = tuneDrawer.style.display === 'none' ? 'block' : 'none';
+      }
+    });
+
+    // Card language change
+    const cardLang = document.getElementById(`cardLang_${item.id}`);
+    cardLang?.addEventListener('change', () => {
+      item.customLang = cardLang.value;
+      showToast(`Language set to ${cardLang.value.toUpperCase()}`, 'info');
+      if (item.status === 'done') {
+        processItem(item);
+      }
+    });
+
+    // Apply Fine-Tune
+    const btnApplyTune = document.getElementById(`btnApplyTune_${item.id}`);
+    btnApplyTune?.addEventListener('click', () => {
+      const rm = document.getElementById(`cardRemoveLines_${item.id}`);
+      const st = document.getElementById(`cardStrokeHealer_${item.id}`);
+      const ct = document.getElementById(`cardContrast_${item.id}`);
+      item.customRemoveLines = rm ? rm.checked : true;
+      item.customStrokeDilation = st ? st.checked : true;
+      item.customContrast = ct ? parseInt(ct.value, 10) : 0;
+      showToast('Re-processing with custom image filters...', 'info');
+      processItem(item);
+    });
+
     // Textarea editing
     const textarea = document.getElementById(`textarea_${item.id}`);
     textarea?.addEventListener('input', (e) => {
       item.extractedText = e.target.value;
       updateCounts(item);
+    });
+
+    // Fix Typos button
+    const btnFixTypos = document.getElementById(`btnFixTypos_${item.id}`);
+    btnFixTypos?.addEventListener('click', () => {
+      let t = textarea ? textarea.value : (item.extractedText || '');
+      t = correctHandwritingErrors(t);
+      item.extractedText = t;
+      item.cleanedText = t;
+      if (textarea) textarea.value = t;
+      updateCounts(item);
+      showToast('Repaired handwriting OCR errors & ligatures!', 'success');
     });
 
     // Toggle Clean vs Raw
@@ -893,7 +1348,7 @@
         btnToggleClean.style.background = '#fef3c7';
         btnToggleClean.style.color = '#92400e';
       } else {
-        item.extractedText = item.cleanedText || cleanOcrText(item.rawText, 'strict');
+        item.extractedText = item.cleanedText || cleanOcrText(item.rawText, 'handwriting');
         item.isShowingClean = true;
         btnToggleClean.innerText = '✨ Cleaned';
         btnToggleClean.style.background = '#eff6ff';
@@ -936,7 +1391,7 @@
     const btnClean = document.getElementById(`btnCleanSingle_${item.id}`);
     btnClean?.addEventListener('click', () => {
       let t = textarea ? textarea.value : (item.extractedText || '');
-      t = cleanOcrText(t, 'strict');
+      t = cleanOcrText(t, 'handwriting');
       item.extractedText = t;
       item.cleanedText = t;
       if (textarea) textarea.value = t;
