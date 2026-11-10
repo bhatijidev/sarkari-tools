@@ -16,6 +16,9 @@
   --white: #FFFFFF;
   --off-white: #FAFAFA;
   --cream: #FFF8F0;
+  --border-color: var(--gray-200);
+  --bg-card: var(--white);
+  --primary: var(--saffron);
 
   /* Neutral Palette */
   --gray-50: #F9FAFB;
@@ -1625,9 +1628,14 @@ body.home-page.scrolled-past-hero .header-search {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DARK MODE — toggled via body.dark (theme button in header)
+   DARK MODE — Ultra-Comprehensive High-Contrast Theme System
    ═══════════════════════════════════════════════════════════ */
+:root.dark,
+html.dark,
 body.dark {
+  color-scheme: dark;
+
+  /* Surface & Base Inversions */
   --white: #1B2436;
   --off-white: #0F1522;
   --cream: #141B2B;
@@ -1641,11 +1649,24 @@ body.dark {
   --gray-700: #D0D9E8;
   --gray-800: #E4EAF4;
   --gray-900: #F2F6FC;
+
+  /* Brand Accents on Dark Surfaces */
   --navy: #A9B6FF;
   --navy-light: #C3CCFF;
+  --navy-dark: #8194FE;
+  --saffron-dark: #FFB366;
+  --border-color: #24324B;
+  --bg-card: #16202F;
+  --primary: var(--saffron);
+
+  /* Semantic Alerts */
+  --success: #34D399;
   --success-light: rgba(5, 150, 105, 0.22);
+  --error: #F87171;
   --error-light: rgba(220, 38, 38, 0.22);
+  --warning: #FBBF24;
   --warning-light: rgba(217, 119, 6, 0.22);
+  --info: #60A5FA;
   --info-light: rgba(37, 99, 235, 0.25);
 }
 
@@ -1654,80 +1675,263 @@ body,
 .tool-card,
 .tool-workspace,
 .settings-panel,
-.faq-question {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+.faq-question,
+.form-input,
+.form-select,
+.form-textarea {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-/* header */
+/* ───────── HEADER & NAVIGATION ───────── */
 body.dark .site-header {
-  background: rgba(13, 19, 32, 0.93);
+  background: rgba(13, 19, 32, 0.95);
   border-bottom-color: #24324B;
 }
 
+body.dark .logo-text {
+  color: #F8FAFC;
+}
+
+body.dark .nav-links a {
+  color: #D0D9E8;
+}
+
+body.dark .nav-links a:hover {
+  color: var(--saffron);
+}
+
+/* ───────── HEADER & HERO SEARCH DROPDOWNS ───────── */
 body.dark .search-results-dropdown {
+  background: #16202F !important;
+  border-color: #24324B !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+body.dark .search-result-item {
+  background: #16202F !important;
+  border-bottom: 1px solid #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark .search-result-item:hover,
+body.dark .search-result-item.active {
+  background: #1D2A40 !important;
+}
+
+body.dark .search-result-item .result-name {
+  color: #F8FAFC !important;
+}
+
+body.dark .search-result-item .result-category {
+  color: var(--saffron) !important;
+}
+
+body.dark .search-result-item .result-arrow {
+  color: #8E9CB5 !important;
+}
+
+/* ───────── HERO SECTION (HOMEPAGE) ───────── */
+body.dark .hero {
+  background: linear-gradient(180deg, #141B2B 0%, #0F1522 100%);
+}
+
+body.dark .hero h1 {
+  color: #F8FAFC;
+}
+
+body.dark .hero-subtitle {
+  color: #B9C4D8;
+}
+
+body.dark .hero-badge {
+  background: rgba(255, 153, 51, 0.12);
+  border-color: rgba(255, 153, 51, 0.35);
+  color: #FFA726 !important;
+}
+
+body.dark .hero-stat-number {
+  color: #C3CCFF !important;
+}
+
+body.dark .hero-stat-label {
+  color: #9FADC4 !important;
+}
+
+body.dark .hero-search-kbd {
   background: #16202F;
   border-color: #24324B;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  color: #8E9CB5;
 }
 
-body.dark .search-result-item:hover {
-  background: #1D2A40;
+/* ───────── CATEGORY TABS (HOMEPAGE & DIRECTORY) ───────── */
+body.dark .category-tab {
+  background: #16202F;
+  border-color: #24324B;
+  color: #D0D9E8;
 }
 
-/* footer & dark sections */
-body.dark .site-footer,
+body.dark .category-tab:hover {
+  border-color: var(--saffron-light);
+  color: var(--saffron);
+}
+
+body.dark .category-tab.active {
+  background: var(--saffron) !important;
+  border-color: var(--saffron) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+/* ───────── TOOL CARDS (HOMEPAGE) ───────── */
+body.dark .tool-card {
+  background: #16202F;
+  border-color: #24324B;
+}
+
+body.dark .tool-card:hover {
+  border-color: var(--saffron-light);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(255, 153, 51, 0.15);
+  transform: translateY(-4px);
+}
+
+body.dark .tool-card h3 {
+  color: #F2F6FC;
+}
+
+body.dark .tool-card p {
+  color: #9FADC4;
+}
+
+body.dark .tool-card-arrow {
+  color: #8E9CB5;
+}
+
+body.dark .tool-card:hover .tool-card-arrow {
+  color: var(--saffron);
+}
+
+body.dark .tool-card-badge {
+  background: rgba(5, 150, 105, 0.22);
+  color: #34D399 !important;
+  border: 1px solid rgba(5, 150, 105, 0.35);
+}
+
+/* ───────── FEATURES / WHY US SECTION (FIX FOR HOMEPAGE) ───────── */
 body.dark .features-section {
+  background: #0A0F1C !important;
+}
+
+body.dark .features-section .section-header h2 {
+  color: #FFFFFF !important;
+}
+
+body.dark .features-section .section-header p {
+  color: #94A3B8 !important;
+}
+
+body.dark .feature-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid #24324B !important;
+}
+
+body.dark .feature-card:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: var(--saffron) !important;
+}
+
+body.dark .feature-card h3 {
+  color: #FFFFFF !important;
+}
+
+body.dark .feature-card p {
+  color: #94A3B8 !important;
+}
+
+body.dark .feature-icon {
+  background: rgba(255, 153, 51, 0.15);
+  color: var(--saffron);
+}
+
+/* ───────── FOOTER ───────── */
+body.dark .site-footer {
   background: #0A0F1C;
 }
 
-/* buttons that must keep white text on colored backgrounds */
+/* ───────── ANONYMOUS FEEDBACK SECTION ───────── */
+body.dark .feedback-section {
+  background: transparent;
+}
+
+body.dark .feedback-section h2 {
+  color: #F8FAFC;
+}
+
+body.dark .feedback-badge {
+  background: rgba(5, 150, 105, 0.2);
+  color: #6EE7B7;
+  border-color: rgba(5, 150, 105, 0.4);
+}
+
+body.dark .feedback-card,
+body.dark .feedback-modal-box {
+  background: #16202F;
+  border-color: #24324B;
+}
+
+body.dark .feedback-card h3 {
+  color: #D0D9E8 !important;
+}
+
+body.dark .feedback-history-item {
+  background: #0D1320 !important;
+  border-color: #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark .feedback-history-item strong {
+  color: var(--navy) !important;
+}
+
+/* ───────── BUTTONS ───────── */
 body.dark .btn-primary,
 body.dark .back-to-top {
-  color: #FFFFFF;
+  background: var(--saffron);
+  color: #FFFFFF !important;
+}
+
+body.dark .btn-primary:hover,
+body.dark .back-to-top:hover {
+  background: #E6821F;
+  color: #FFFFFF !important;
 }
 
 body.dark .btn-secondary {
   background: #3D51D9;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
-/* navy-background pills/badges → brighter indigo on dark */
-body.dark .qr-tab-btn.active,
-body.dark .qr-nav-pill.active,
-body.dark .quick-tag-pill:hover,
-body.dark .domain-ext-badge {
-  background: #3D51D9;
-  color: #FFFFFF;
-}
-
-body.dark ::selection {
-  background: #3D51D9;
-  color: #FFFFFF;
-}
-
-/* paper previews & platform cards must stay LIGHT (print/preview reality) */
-body.dark .preview-panel,
-body.dark .fb-card-preview,
-body.dark .tw-card-preview {
-  --white: #FFFFFF;
-  --off-white: #FAFAFA;
-  --cream: #FFF8F0;
-  --gray-50: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
-  --gray-300: #D1D5DB;
-  --gray-400: #9CA3AF;
-  --gray-500: #6B7280;
-  --gray-600: #4B5563;
-  --gray-700: #374151;
-  --gray-800: #1F2937;
-  --gray-900: #111827;
-  --navy: #1A237E;
-  background: #FFFFFF;
+body.dark .btn-outline {
+  background: transparent;
+  color: #C3CCFF;
   border-color: #35486E;
 }
 
-/* theme toggle button (injected in header by app.js) */
+body.dark .btn-outline:hover {
+  background: rgba(255, 153, 51, 0.1);
+  border-color: var(--saffron);
+  color: var(--saffron);
+}
+
+body.dark .btn-ghost {
+  color: #B9C4D8;
+}
+
+body.dark .btn-ghost:hover {
+  background: #16202F;
+  color: #FFFFFF;
+}
+
+/* ───────── THEME TOGGLE BUTTON ───────── */
 .theme-toggle {
   width: 38px;
   height: 38px;
@@ -1760,7 +1964,6 @@ body.dark .tw-card-preview {
 }
 
 .theme-toggle .icon-sun { display: none; }
-
 body.dark .theme-toggle .icon-sun { display: block; }
 body.dark .theme-toggle .icon-moon { display: none; }
 
@@ -1771,44 +1974,125 @@ body.dark .theme-toggle .icon-moon { display: none; }
   }
 }
 
-/* dark mode: form controls */
+/* ───────── FORM INPUTS, TEXTAREAS & SELECTS (COMPREHENSIVE FIX) ───────── */
+body.dark input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="file"]):not([type="range"]),
+body.dark select,
+body.dark textarea,
 body.dark .form-input,
 body.dark .form-select,
-body.dark .form-textarea {
-  background: #0D1320;
+body.dark .form-textarea,
+body.dark .hash-input,
+body.dark .sub-time-input,
+body.dark .dir-search-input,
+body.dark .hero-search-input,
+body.dark .header-search-input {
+  background: #0D1320 !important;
+  color: #E4EAF4 !important;
+  border: 1.5px solid #24324B !important;
+}
+
+body.dark input:focus,
+body.dark select:focus,
+body.dark textarea:focus,
+body.dark .form-input:focus,
+body.dark .form-select:focus,
+body.dark .form-textarea:focus,
+body.dark .hero-search-input:focus,
+body.dark .header-search-input:focus {
+  border-color: var(--saffron) !important;
+  box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.2) !important;
+  outline: none;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder,
+body.dark .form-input::placeholder,
+body.dark .form-textarea::placeholder,
+body.dark .hero-search-input::placeholder,
+body.dark .header-search-input::placeholder {
+  color: #8E9CB5 !important;
+  opacity: 1;
+}
+
+body.dark select option {
+  background: #16202F !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark input::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.2);
+  cursor: pointer;
+}
+
+body.dark input[type="range"],
+body.dark .range-slider {
+  background: #24324B;
+}
+
+body.dark input[type="range"]::-webkit-slider-thumb,
+body.dark .range-slider::-webkit-slider-thumb {
+  border-color: #0D1320;
+}
+
+/* ───────── TOOL WORKSPACES & DATA SURFACES ───────── */
+body.dark .tool-workspace {
+  background: #16202F;
+  border-color: #24324B;
   color: #E4EAF4;
 }
 
-body.dark .form-input::placeholder,
-body.dark .form-textarea::placeholder {
-  color: #8E9CB5;
+body.dark .tool-workspace h1,
+body.dark .tool-workspace h2,
+body.dark .tool-workspace h3,
+body.dark .tool-workspace h4,
+body.dark .tool-workspace h5,
+body.dark .tool-workspace h6 {
+  color: #F2F6FC;
 }
 
-/* ═══ DARK MODE round 2 — leftover light surfaces ═══ */
-body.dark .feedback-card,
-body.dark .feedback-modal-box {
-  background: #1B2436;
+body.dark .workspace-section-title {
+  color: #F2F6FC;
+}
+
+body.dark .workspace-divider {
+  background: #24324B;
+}
+
+body.dark .settings-panel {
+  background: transparent;
+}
+
+body.dark .settings-group {
+  background: #111C2E;
   border-color: #24324B;
 }
-body.dark .feedback-badge {
-  background: rgba(5, 150, 105, 0.18);
-  color: #6EE7B7;
-  border-color: rgba(5, 150, 105, 0.45);
+
+body.dark .settings-group label,
+body.dark .form-label {
+  color: #D0D9E8 !important;
 }
-body.dark .settings-group { background: #16202F; }
-body.dark .result-stat {
-  background: #16202F;
-  border-color: #24324B;
+
+body.dark .settings-group .hint {
+  color: #8E9CB5 !important;
 }
-body.dark .status-pill.pass {
-  background: rgba(5, 150, 105, 0.22);
-  color: #6EE7B7;
+
+/* Tool output panel (preview-panel) is dark UI */
+body.dark .preview-panel {
+  background: #16202F !important;
+  border-color: #24324B !important;
+  color: #E4EAF4;
 }
-body.dark .status-pill.fail {
-  background: rgba(220, 38, 38, 0.22);
-  color: #FCA5A5;
+
+body.dark .preview-panel h3,
+body.dark .preview-panel h4 {
+  color: #F2F6FC !important;
 }
-/* inline-styled light boxes inside workspaces (result cards, toolbars) */
+
+body.dark .preview-panel strong {
+  color: #E4EAF4;
+}
+
+/* Overriding inline-styled white and light surfaces inside workspaces */
 body.dark .tool-workspace div[style*="#fff"],
 body.dark .tool-workspace div[style*="#ffffff"],
 body.dark .tool-workspace div[style*="255, 255, 255"],
@@ -1816,78 +2100,641 @@ body.dark .tool-workspace div[style*="#f8fafc"],
 body.dark .tool-workspace div[style*="#f0fdf4"],
 body.dark .tool-workspace div[style*="#f1f5f9"],
 body.dark .tool-workspace div[style*="#eff6ff"],
-body.dark .tool-workspace div[style*="#fef3c7"] {
-  background: #16202F !important;
-  border-color: #24324B !important;
-}
-/* the inline green age-result box */
-body.dark #resultBox {
-  background: rgba(5, 150, 105, 0.12) !important;
-  border-color: rgba(5, 150, 105, 0.5) !important;
-}
-/* resume A4 sheet is paper — keep white, reset vars inside */
-body.dark .resume-a4-sheet {
-  --white: #FFFFFF; --off-white: #FAFAFA; --cream: #FFF8F0;
-  --gray-50: #F9FAFB; --gray-100: #F3F4F6; --gray-200: #E5E7EB;
-  --gray-300: #D1D5DB; --gray-400: #9CA3AF; --gray-500: #6B7280;
-  --gray-600: #4B5563; --gray-700: #374151; --gray-800: #1F2937;
-  --gray-900: #111827; --navy: #1A237E;
-  background: #FFFFFF;
-}
-
+body.dark .tool-workspace div[style*="#eef2ff"],
+body.dark .tool-workspace div[style*="#faf5ff"],
+body.dark .tool-workspace div[style*="#fdfaf5"],
+body.dark .tool-workspace div[style*="#fffcf8"],
+body.dark .tool-workspace div[style*="#fef3c7"],
 body.dark .tool-workspace div[style*="background: white"],
 body.dark .tool-workspace div[style*="background:white"],
 body.dark .tool-workspace div[style*="background: #fff;"],
 body.dark .tool-workspace div[style*="background: #ffffff;"],
+body.dark .tool-workspace label[style*="#eef2ff"],
+body.dark .tool-workspace label[style*="#eff6ff"],
+body.dark .tool-workspace label[style*="background: white"],
 body.dark .tool-workspace tr[style*="background: white"],
-body.dark .tool-workspace tr[style*="background: #f8fafc"] {
-  background: #16202F !important;
+body.dark .tool-workspace tr[style*="background: #f8fafc"],
+body.dark .tool-workspace tr[style*="background:#f8fafc"] {
+  background: #111C2E !important;
+  border-color: #24324B !important;
+  color: #E4EAF4;
 }
 
-/* white inline bars anywhere (resume toolbar etc.), paper sheets protected below */
-body.dark div[style*="background: white"],
-body.dark div[style*="background: #fff"],
-body.dark div[style*="background: #ffffff"] {
-  background: #16202F !important;
+/* In dark mode, ensure text with hardcoded dark hex colors becomes light and readable */
+body.dark .tool-workspace [style*="color: #000"],
+body.dark .tool-workspace [style*="color: #0f172a"],
+body.dark .tool-workspace [style*="color: #1e293b"],
+body.dark .tool-workspace [style*="color: #334155"],
+body.dark .tool-workspace [style*="color: #475569"],
+body.dark .tool-workspace [style*="color: #111827"],
+body.dark .tool-workspace [style*="color: #1f2937"],
+body.dark .tool-workspace [style*="color:#000"],
+body.dark .tool-workspace [style*="color:#0f172a"],
+body.dark .tool-workspace [style*="color:#1e293b"],
+body.dark .tool-workspace [style*="color:#334155"],
+body.dark .tool-workspace [style*="color:#475569"],
+body.dark .tool-workspace [style*="color:#111827"] {
+  color: #E4EAF4 !important;
 }
-/* paper previews keep their white inline surfaces */
-body.dark .resume-a4-sheet div[style*="background: white"],
-body.dark .resume-a4-sheet div[style*="background: #fff"],
-body.dark .preview-panel div[style*="background: white"],
-body.dark .bill-paper div[style*="background: white"] {
+
+body.dark .tool-workspace [style*="color: var(--navy)"] {
+  color: #C3CCFF !important;
+}
+
+body.dark .tool-workspace [style*="color: var(--gray-800)"],
+body.dark .tool-workspace [style*="color: var(--gray-900)"] {
+  color: #F2F6FC !important;
+}
+
+body.dark .tool-workspace [style*="color: var(--gray-700)"],
+body.dark .tool-workspace [style*="color: var(--gray-600)"] {
+  color: #B9C4D8 !important;
+}
+
+body.dark .tool-workspace [style*="color: var(--gray-500)"] {
+  color: #9FADC4 !important;
+}
+
+/* ───────── REAL PAPER PREVIEWS (PROTECTED FOR ACCURATE PRINT) ───────── */
+body.dark .resume-a4-sheet,
+body.dark .biodata-sheet,
+body.dark .bill-paper,
+body.dark .fb-card-preview,
+body.dark .tw-card-preview,
+body.dark .serp-card,
+body.dark .tweet-card-preview,
+body.dark .ig-card {
+  --white: #FFFFFF;
+  --off-white: #FAFAFA;
+  --cream: #FFF8F0;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+  --navy: #1A237E;
   background: #FFFFFF !important;
+  color: #1F2937 !important;
+  border-color: #CBD5E1 !important;
 }
 
-/* ═══ DARK MODE round 3 — domain cards, biodata paper, progress tracks ═══ */
-body.dark .domain-result-card.is-taken {
-  background: rgba(220, 38, 38, 0.14);
-  border-color: rgba(220, 38, 38, 0.4);
+body.dark .resume-a4-sheet *,
+body.dark .biodata-sheet *,
+body.dark .bill-paper *,
+body.dark .fb-card-preview *,
+body.dark .tw-card-preview *,
+body.dark .serp-card *,
+body.dark .tweet-card-preview *,
+body.dark .ig-card * {
+  color: initial;
 }
-body.dark .domain-result-card.is-available {
-  background: rgba(5, 150, 105, 0.14);
-  border-color: rgba(5, 150, 105, 0.4);
+
+body.dark .resume-a4-sheet div[style*="background"],
+body.dark .biodata-sheet div[style*="background"],
+body.dark .bill-paper div[style*="background"] {
+  background-color: transparent;
 }
-body.dark .domain-result-card.is-checking {
-  background: #16202F;
+
+/* ───────── RESULT SECTIONS & CALCULATOR OUTPUTS ───────── */
+body.dark .result-section {
+  background: rgba(5, 150, 105, 0.12) !important;
+  border-color: rgba(5, 150, 105, 0.4) !important;
+  color: #E4EAF4;
+}
+
+body.dark .result-section h3 {
+  color: #34D399 !important;
+}
+
+body.dark #resultBox {
+  background: rgba(5, 150, 105, 0.14) !important;
+  border-color: rgba(5, 150, 105, 0.5) !important;
+}
+
+body.dark .result-stat {
+  background: #111C2E;
   border-color: #24324B;
 }
-/* biodata sheet is paper like resume — keep white, reset vars inside */
-body.dark .biodata-sheet {
-  --white: #FFFFFF; --off-white: #FAFAFA; --cream: #FFF8F0;
-  --gray-50: #F9FAFB; --gray-100: #F3F4F6; --gray-200: #E5E7EB;
-  --gray-300: #D1D5DB; --gray-400: #9CA3AF; --gray-500: #6B7280;
-  --gray-600: #4B5563; --gray-700: #374151; --gray-800: #1F2937;
-  --gray-900: #111827; --navy: #1A237E;
-  background: #FFFFFF;
-}
-/* light progress-bar tracks and misc inline light grays */
-body.dark div[style*="background: #e2e8f0"],
-body.dark div[style*="background:#e2e8f0"],
-body.dark div[style*="background: #f1f5f9"],
-body.dark div[style*="background: #e5e7eb"] {
-  background: #24324B !important;
+
+body.dark .result-stat .stat-value {
+  color: #C3CCFF !important;
 }
 
+body.dark .result-stat .stat-label {
+  color: #9FADC4 !important;
+}
+
+body.dark #mainAgeDisplay,
+body.dark #dispFinalAmount,
+body.dark #dispMainResult,
+body.dark #liveSpeedNumber,
+body.dark #wordsResult {
+  color: #C3CCFF !important;
+}
+
+body.dark #wordsResult {
+  background: #111C2E !important;
+  border-color: #24324B !important;
+}
+
+body.dark #passwordOutput {
+  background: #0D1320 !important;
+  color: #60A5FA !important;
+  border-color: #24324B !important;
+}
+
+body.dark #dispBasePrice,
+body.dark #dispCgstAmount,
+body.dark #dispSgstAmount,
+body.dark #dispIgstAmount,
+body.dark #dispPrincipalAmount,
+body.dark #dispTotalPayment,
+body.dark #dispFromSummary,
+body.dark #dispToSummary,
+body.dark #resClassesHeld {
+  color: #E4EAF4 !important;
+}
+
+body.dark #fromValue {
+  color: #60A5FA !important;
+}
+
+body.dark #dispTotalTax,
+body.dark #resClassesMissed {
+  color: #F87171 !important;
+}
+
+body.dark #dispMonthlyEmi {
+  color: #60A5FA !important;
+}
+
+body.dark #dispTotalInterest {
+  color: #FBBF24 !important;
+}
+
+body.dark #cgpaPercentResult,
+body.dark #resClassesAttended {
+  color: #34D399 !important;
+}
+
+body.dark #currentPercentDisplay {
+  color: #F87171 !important;
+}
+
+body.dark #dispModeBadge {
+  background: rgba(5, 150, 105, 0.22) !important;
+  color: #6EE7B7 !important;
+}
+
+/* Donut chart in EMI calculator */
+body.dark .donut-svg circle[stroke="#e2e8f0"] {
+  stroke: #24324B !important;
+}
+
+body.dark .donut-chart-container div {
+  color: #E4EAF4 !important;
+}
+
+body.dark #donutPrincipalPct {
+  color: #60A5FA !important;
+}
+
+body.dark #scheduleBody td[style*="color:#2563eb"],
+body.dark #scheduleBody td[style*="color: #2563eb"] {
+  color: #60A5FA !important;
+}
+
+body.dark #scheduleBody td[style*="color:#d97706"],
+body.dark #scheduleBody td[style*="color: #d97706"] {
+  color: #FBBF24 !important;
+}
+
+/* Bionic Reading & Handwriting Canvas */
+body.dark .bionic-preview-box:not(.theme-sepia):not(.theme-light) {
+  background: #111C2E !important;
+  color: #E4EAF4 !important;
+  border-color: #24324B !important;
+}
+
+body.dark .paper-preview-container {
+  background: #0B1322 !important;
+  border-color: #24324B !important;
+}
+
+/* Age Calculator Exam Eligibility Cards */
+body.dark #examEligibilityGrid > div,
+body.dark .exam-card {
+  background: #111C2E !important;
+  border-color: #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+/* General Land / Matrix Table */
+body.dark .unit-matrix-table th {
+  background: #111C2E !important;
+  color: #C3CCFF !important;
+  border-bottom: 1px solid #24324B !important;
+}
+
+body.dark .unit-matrix-table td {
+  border-bottom: 1px solid #24324B !important;
+  color: #E4EAF4 !important;
+  background: transparent !important;
+}
+
+/* ───────── TABLES ACROSS ALL TOOLS ───────── */
+body.dark table {
+  color: #E4EAF4;
+}
+
+body.dark thead th,
+body.dark .meta-table th,
+body.dark .dns-table th,
+body.dark .schedule-table th,
+body.dark .comparison-panel-header {
+  background: #111C2E !important;
+  color: #C3CCFF !important;
+  border-bottom: 1px solid #24324B !important;
+}
+
+body.dark tbody td,
+body.dark .meta-table td,
+body.dark .dns-table td,
+body.dark .schedule-table td {
+  border-bottom: 1px solid #24324B !important;
+  color: #E4EAF4;
+  background: transparent;
+}
+
+body.dark .dns-table-container,
+body.dark .schedule-table-container,
+body.dark .table-responsive,
+body.dark .comparison-panel {
+  background: #16202F !important;
+  border: 1px solid #24324B !important;
+}
+
+body.dark .meta-table tr:hover,
+body.dark .dns-table tr:hover,
+body.dark .schedule-table tr:hover {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* ───────── STATUS BADGES, PILLS & INLINE HIGHLIGHTS ───────── */
+body.dark .status-pill.pass {
+  background: rgba(5, 150, 105, 0.22);
+  color: #6EE7B7;
+}
+
+body.dark .status-pill.fail {
+  background: rgba(220, 38, 38, 0.22);
+  color: #FCA5A5;
+}
+
+body.dark span[style*="background: #e0f2fe"],
+body.dark span[style*="background:#e0f2fe"],
+body.dark span[style*="background: #dbeafe"],
+body.dark span[style*="background:#dbeafe"],
+body.dark span[style*="background: #eff6ff"] {
+  background: rgba(37, 99, 235, 0.22) !important;
+  color: #93C5FD !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
+}
+
+body.dark span[style*="background: #dcfce7"],
+body.dark span[style*="background:#dcfce7"],
+body.dark span[style*="background: #ecfdf5"],
+body.dark span[style*="background:#ecfdf5"],
+body.dark span[style*="background: #f0fdf4"] {
+  background: rgba(16, 185, 129, 0.22) !important;
+  color: #6EE7B7 !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+}
+
+body.dark span[style*="background: #fee2e2"],
+body.dark span[style*="background:#fee2e2"],
+body.dark span[style*="background: #fef2f2"],
+body.dark span[style*="background:#fef2f2"] {
+  background: rgba(239, 68, 68, 0.22) !important;
+  color: #FCA5A5 !important;
+  border-color: rgba(239, 68, 68, 0.45) !important;
+}
+
+body.dark span[style*="background: #fef3c7"],
+body.dark span[style*="background:#fef3c7"],
+body.dark span[style*="background: #fef9c3"],
+body.dark span[style*="background:#fef9c3"] {
+  background: rgba(245, 158, 11, 0.22) !important;
+  color: #FCD34D !important;
+  border-color: rgba(245, 158, 11, 0.45) !important;
+}
+
+body.dark span[style*="background: #f3e8ff"],
+body.dark span[style*="background:#f3e8ff"] {
+  background: rgba(147, 51, 234, 0.22) !important;
+  color: #D8B4FE !important;
+  border-color: rgba(147, 51, 234, 0.45) !important;
+}
+
+body.dark span[style*="background: #e2e8f0"],
+body.dark span[style*="background:#e2e8f0"],
+body.dark span[style*="background: #f1f5f9"],
+body.dark span[style*="background:#f1f5f9"] {
+  background: #24324B !important;
+  color: #D0D9E8 !important;
+}
+
+/* ───────── TYPING TEST (DARK MODE) ───────── */
+body.dark .typing-area,
+body.dark #typingDisplay {
+  background: #0D1320 !important;
+  border-color: #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark .typing-area span.pending,
+body.dark .typing-text .pending {
+  color: #8E9CB5 !important;
+}
+
+body.dark .typing-area span.correct,
+body.dark .typing-text .correct {
+  color: #34D399 !important;
+}
+
+body.dark .typing-area span.incorrect,
+body.dark .typing-text .incorrect {
+  color: #F87171 !important;
+  background: rgba(220, 38, 38, 0.25) !important;
+}
+
+body.dark .typing-area span.current,
+body.dark .typing-text .current {
+  background: rgba(255, 153, 51, 0.25) !important;
+  border-bottom: 2px solid var(--saffron) !important;
+  color: #FFFFFF !important;
+}
+
+/* ───────── VIDEO SUBTITLE MAKER (DARK MODE) ───────── */
+body.dark .sub-cue {
+  background: #16202F !important;
+  border-color: #24324B !important;
+}
+
+body.dark .sub-cue.active {
+  border-color: var(--saffron) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+}
+
+body.dark .sub-cue textarea {
+  background: #0D1320 !important;
+  color: #E4EAF4 !important;
+  border-color: #24324B !important;
+}
+
+body.dark .sub-time-input {
+  background: #0D1320 !important;
+  color: #E4EAF4 !important;
+  border-color: #24324B !important;
+}
+
+body.dark .sub-cue-head button {
+  background: #1D2A40 !important;
+  color: #D0D9E8 !important;
+  border-color: #24324B !important;
+}
+
+body.dark .sub-status {
+  background: rgba(37, 99, 235, 0.15) !important;
+  border-color: rgba(37, 99, 235, 0.3) !important;
+  color: #93C5FD !important;
+}
+
+/* ───────── PRODUCT RESEARCH & DROPSHIPPING SPY ───────── */
+body.dark .product-card,
+body.dark .winning-product-card,
+body.dark .category-chip-card {
+  background: #16202F !important;
+  border-color: #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark .product-thumb-wrap {
+  background: #0D1320 !important;
+}
+
+body.dark .product-thumb-img {
+  background: #0D1320 !important;
+}
+
+body.dark .spy-link-trends {
+  background: #1D2A40 !important;
+  color: #D0D9E8 !important;
+  border-color: #35486E !important;
+}
+
+body.dark .stat-pill {
+  background: #111C2E !important;
+  border-color: #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+/* ───────── QUICK NOTES TOOL ───────── */
+body.dark .note-card {
+  background: #16202F !important;
+  border-color: #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark .note-card-title {
+  color: #F2F6FC !important;
+}
+
+body.dark .note-card-body {
+  color: #B9C4D8 !important;
+}
+
+body.dark .notes-toolbar button {
+  background: #1D2A40 !important;
+  border-color: #24324B !important;
+  color: #D0D9E8 !important;
+}
+
+/* ───────── AI VIDEO REMOVER & FORENSICS ───────── */
+body.dark .engine-card {
+  background: rgba(245, 158, 11, 0.08) !important;
+  border-color: rgba(245, 158, 11, 0.25) !important;
+  color: #E4EAF4;
+}
+
+body.dark .forensic-metric-box {
+  background: #16202F !important;
+  border-color: #24324B !important;
+}
+
+body.dark .forensic-metric-val {
+  color: #C3CCFF !important;
+}
+
+body.dark .camera-preset-card,
+body.dark .scale-chip,
+body.dark .preset-option-card {
+  background: #16202F !important;
+  border-color: #24324B !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark .camera-preset-card.active,
+body.dark .preset-option-card.active {
+  background: #1D2A40 !important;
+  border-color: var(--saffron) !important;
+}
+
+body.dark .scale-chip.active {
+  background: #3D51D9 !important;
+  color: #FFFFFF !important;
+}
+
+/* ───────── FAQ ACCORDIONS ───────── */
+body.dark .faq-item {
+  border-color: #24324B !important;
+}
+
+body.dark .faq-question {
+  background: #16202F !important;
+  color: #E4EAF4 !important;
+}
+
+body.dark .faq-answer-inner {
+  background: #111C2E !important;
+  color: #B9C4D8 !important;
+}
+
+body.dark .faq-question svg {
+  color: #8E9CB5 !important;
+}
+
+/* ───────── CODE PREVIEWS, UPLOAD ZONES, BREADCRUMBS, TOASTS & MODALS ───────── */
+body.dark .code-preview-box {
+  background: #0B0F19 !important;
+  border: 1px solid #24324B;
+  color: #E4EAF4;
+}
+
+body.dark pre,
+body.dark code {
+  color: #E4EAF4;
+}
+
+body.dark .upload-zone,
+body.dark .upload-area {
+  background: #0D1320 !important;
+  border-color: #35486E !important;
+  color: #E4EAF4;
+}
+
+body.dark .upload-zone:hover,
+body.dark .upload-area:hover {
+  border-color: var(--saffron) !important;
+  background: rgba(255, 153, 51, 0.05) !important;
+}
+
+body.dark .upload-zone h3 {
+  color: #F2F6FC !important;
+}
+
+body.dark .upload-zone p {
+  color: #9FADC4 !important;
+}
+
+body.dark .upload-zone .file-type-badge {
+  background: #24324B !important;
+  color: #C3CCFF !important;
+}
+
+body.dark .breadcrumb a {
+  color: #8E9CB5;
+}
+
+body.dark .breadcrumb a:hover {
+  color: var(--saffron);
+}
+
+body.dark .breadcrumb .current {
+  color: #E4EAF4;
+}
+
+body.dark .toast {
+  background: #16202F;
+  color: #E4EAF4;
+  border: 1px solid #24324B;
+}
+
+body.dark .modal-content,
+body.dark .ocr-modal-content {
+  background: #16202F !important;
+  border-color: #24324B !important;
+  color: #E4EAF4;
+}
+
+body.dark .option-btn,
+body.dark .preset-btn {
+  background: #16202F !important;
+  border-color: #24324B !important;
+  color: #D0D9E8 !important;
+}
+
+body.dark .option-btn:hover,
+body.dark .preset-btn:hover {
+  border-color: var(--saffron) !important;
+  color: var(--saffron) !important;
+}
+
+body.dark .option-btn.active,
+body.dark .preset-btn.active {
+  background: rgba(255, 153, 51, 0.15) !important;
+  border-color: var(--saffron) !important;
+  color: var(--saffron) !important;
+}
+
+body.dark .preset-btn .preset-name {
+  color: #E4EAF4 !important;
+}
+
+body.dark .seo-metric-card {
+  background: #16202F !important;
+  border-color: #24324B !important;
+}
+
+body.dark .seo-metric-title {
+  color: #9FADC4 !important;
+}
+
+body.dark .seo-gauge-val {
+  color: #C3CCFF !important;
+}
+
+body.dark .seo-metric-gauge .gauge-bg {
+  stroke: #24324B !important;
+}
+
+body.dark .seo-audit-item {
+  background: #16202F !important;
+  border-color: #24324B !important;
+}
+
+body.dark .seo-audit-title {
+  color: #E4EAF4 !important;
+}
+
+body.dark .seo-audit-detail {
+  color: #9FADC4 !important;
+}
 
 /* Prevent number inputs from capturing wheel when scrolling over forms */
 input[type="number"] {

@@ -1,4 +1,4 @@
-﻿/* ═══════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════
    SARKARI RESULT TOOLS — Main Application JS
    ═══════════════════════════════════════════════════ */
 
@@ -12,6 +12,7 @@
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (saved === 'dark' || (!saved && prefersDark)) {
       document.body.classList.add('dark');
+      document.documentElement.classList.add('dark');
     }
   })();
 
@@ -168,6 +169,18 @@
       url: 'tools/image-to-pdf.html',
       keywords: ['image', 'pdf', 'convert', 'document', 'merge', 'combine', 'page'],
       badge: 'Popular'
+    },
+    {
+      id: 'pdf-to-image',
+      name: 'PDF to Image Converter',
+      description: 'Convert PDF pages into high-resolution JPG, PNG, or WebP images and download as a neat ZIP archive with custom folder organization',
+      category: 'pdf',
+      categoryLabel: 'PDF Tools',
+      icon: '🖼️',
+      iconBg: 'pdf-tools',
+      url: 'tools/pdf-to-image.html',
+      keywords: ['pdf to image', 'pdf to jpg', 'pdf to png', 'pdf to webp', 'convert pdf to photos', 'extract pdf pages as images', 'pdf image extractor', 'pdf to zip', 'pdf to images zip'],
+      badge: 'New'
     },
     {
       id: 'pdf-editor',
@@ -701,6 +714,18 @@
       badge: 'New'
     },
     {
+      id: 'youtube-thumbnail-editor',
+      name: 'AI YouTube Thumbnail Editor & Multi-Layer Studio',
+      description: 'Deconstruct YouTube thumbnails into editable subject & background layers, add pro YouTuber outlines, 3D text, arrows, and export in 1080p — 100% GPU accelerated',
+      category: 'video',
+      categoryLabel: 'Video & Subtitles',
+      icon: '🎨',
+      iconBg: 'media-tools',
+      url: 'tools/youtube-thumbnail-editor.html',
+      keywords: ['youtube thumbnail editor', 'thumbnail maker', 'ai thumbnail editor', 'youtube thumbnail layers', 'thumbnail layer separator', 'photoshop thumbnail editor', 'mrbeast outline generator', 'youtube banner maker', 'multilateral thumbnail'],
+      badge: 'New'
+    },
+    {
       id: 'tweet-generator',
       name: 'Fake Tweet / X Post Generator',
       description: 'Create pixel-perfect Twitter and X post mockups with custom verified ticks, avatars, metrics, and high-res PNG download',
@@ -897,15 +922,15 @@
 
   /* ───────── PATH HELPERS FOR ROOT VS /tools/ ───────── */
   const isInsideTools = window.location.pathname.includes('/tools/') || window.location.href.includes('/tools/');
-  const homeUrl = isInsideTools ? '../index.html' : 'index.html';
-  const toolsDirUrl = isInsideTools ? '../tools.html' : 'tools.html';
-  const aboutUrl = isInsideTools ? '../about.html' : 'about.html';
-  const contactUrl = isInsideTools ? '../contact.html' : 'contact.html';
-  const privacyUrl = isInsideTools ? '../privacy-policy.html' : 'privacy-policy.html';
-  const termsUrl = isInsideTools ? '../terms.html' : 'terms.html';
-  const disclaimerUrl = isInsideTools ? '../disclaimer.html' : 'disclaimer.html';
+  const homeUrl = '/';
+  const toolsDirUrl = '/tools.html';
+  const aboutUrl = '/about.html';
+  const contactUrl = '/contact.html';
+  const privacyUrl = '/privacy-policy.html';
+  const termsUrl = '/terms.html';
+  const disclaimerUrl = '/disclaimer.html';
   function getToolUrl(tool) {
-    return isInsideTools ? `${tool.id}.html` : `tools/${tool.id}.html`;
+    return `/tools/${tool.id}.html`;
   }
 
   /* ───────── SHARED HEADER COMPONENT ───────── */
@@ -1585,6 +1610,7 @@
     if (themeBtn) {
       themeBtn.addEventListener('click', function () {
         const dark = document.body.classList.toggle('dark');
+        document.documentElement.classList.toggle('dark', dark);
         try { localStorage.setItem('skt-theme', dark ? 'dark' : 'light'); } catch (e) { /* private mode */ }
       });
     }

@@ -2,401 +2,493 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://alltoolsinone.com/</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.99</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/about.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/contact.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/privacy-policy.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/terms.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/disclaimer.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/age-calculator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/ai-plagiarism-checker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/ai-video-remover.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/attendance-calculator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/barcode-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/base64-converter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/bg-color-changer.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/bg-remover.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/biodata-maker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/bionic-reading.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/case-converter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/code-formatter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/color-converter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/da-pa-checker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/domain-checker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/emi-calculator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/exam-studio.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/google-maps-qr-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/google-review-qr-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/gst-calculator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/hash-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-converter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-enhancer.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-extractor.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-metadata-editor.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-resizer.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-slicer.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-to-pdf.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/image-to-text.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/instagram-post-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/internet-speed-test.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/invoice-maker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/json-xml-converter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/keyword-density.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/krutidev-converter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/letter-writer.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/meta-tag-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/name-date-photo.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/numbers-to-words.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/passport-photo.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/password-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/pdf-editor.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/pdf-lock-unlock.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/pdf-merger-splitter.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://alltoolsinone.com/tools/pdf-to-image.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/photo-signature.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/policy-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/product-research.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/qr-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/qr-scanner.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/quick-notes.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/resume-maker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/robots-sitemap-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/schema-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/serp-simulator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/tech-detector.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/text-to-handwriting.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/tweet-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/typing-test.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/unit-converter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/upi-qr-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/url-html-encoder.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/url-safety-checker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/utm-builder.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/vcard-qr-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/video-subtitle-maker.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/webcam-mic-tester.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/website-analyzer.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/whatsapp-qr-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/whois-lookup.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/wifi-qr-generator.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/word-counter.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/youtube-tag-extractor.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://alltoolsinone.com/tools/youtube-thumbnail-downloader.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://alltoolsinone.com/tools/youtube-thumbnail-editor.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>

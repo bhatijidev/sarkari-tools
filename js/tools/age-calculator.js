@@ -124,6 +124,7 @@
       }
 
       const card = document.createElement('div');
+      card.className = 'exam-card';
       card.style.cssText = `
         background: white;
         border: 1px solid var(--gray-200);

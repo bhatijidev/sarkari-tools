@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI YouTube Thumbnail Editor - Multi-Layer Studio &amp; Cutout Tool | AllTools</title>
+  <meta name="description" content="Free AI YouTube Thumbnail Editor &amp; Multi-Layer Studio. Deconstruct thumbnails into subject and background layers, add pro YouTuber glow outlines, viral 3D text, arrows &amp; badges. 100% GPU-accelerated in your browser.">
+  <meta name="keywords" content="youtube thumbnail editor, thumbnail maker, ai thumbnail layer separator, photoshop thumbnail editor, youtube thumbnail layers, mrbeast outline generator, youtube thumbnail creator free">
+
+  <!-- Favicon & Touch Icons -->
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/youtube-thumbnail-editor.html">
+
+  <meta property="og:title" content="AI YouTube Thumbnail Editor - Multi-Layer Studio | AllTools">
+  <meta property="og:description" content="Deconstruct YouTube thumbnails into editable subject &amp; background layers. Add viral outlines, 3D text, arrows, and depth-of-field blur. 100% GPU-accelerated.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/youtube-thumbnail-editor.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI YouTube Thumbnail Editor - Multi-Layer Studio | AllTools">
+  <meta name="twitter:description" content="Deconstruct YouTube thumbnails into editable subject &amp; background layers. Add viral outlines, 3D text, and badges. 100% GPU-accelerated.">
+  <meta name="twitter:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Google AdSense Verification & Official Script -->
+  <meta name="google-adsense-account" content="ca-pub-9560707690666988">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9560707690666988" crossorigin="anonymous"></script>
+
+  <!-- DNS Prefetches & Preconnects -->
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Non-blocking Google Fonts for YouTube Thumbnail Typography -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Montserrat:wght@700;800;900&family=Luckiest+Guy&family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Montserrat:wght@700;800;900&family=Luckiest+Guy&family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Montserrat:wght@700;800;900&family=Luckiest+Guy&family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <!-- Google Analytics & Tag Manager DataLayer Init -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+  </script>
+
+  <!-- High-Performance Lazy Loader for 3rd-Party Scripts -->
+  <script>
+    (function() {
+      var loaded = false;
+      function loadScripts() {
+        if (loaded) return;
+        loaded = true;
+        var gtm = document.createElement('script');
+        gtm.async = true;
+        gtm.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-T2ZZ2MP6';
+        document.head.appendChild(gtm);
+      }
+      function scheduleLoad() {
+        if (loaded) return;
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadScripts, { timeout: 4000 });
+        } else {
+          setTimeout(loadScripts, 200);
+        }
+      }
+      ['scroll', 'touchstart', 'click'].forEach(function(ev) {
+        window.addEventListener(ev, scheduleLoad, { once: true, passive: true });
+      });
+      window.addEventListener('load', function() {
+        setTimeout(scheduleLoad, 7000);
+      });
+    })();
+  </script>
+
+  <!-- GPU-Accelerated Canvas Engine & MediaPipe Neural Segmentation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+
+  <!-- Structured Schema Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/youtube-thumbnail-editor.html#webapp",
+        "name": "AI YouTube Thumbnail Editor & Multi-Layer Studio",
+        "url": "https://alltoolsinone.com/tools/youtube-thumbnail-editor.html",
+        "description": "Multi-layer Photoshop-like YouTube thumbnail studio running 100% on client GPU. Deconstruct thumbnails into layers, add pro YouTuber outlines, 3D fonts, and badges.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires WebGL / HTML5 Canvas.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/youtube-thumbnail-editor.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://alltoolsinone.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://alltoolsinone.com/tools.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "YouTube Thumbnail Editor",
+            "item": "https://alltoolsinone.com/tools/youtube-thumbnail-editor.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://alltoolsinone.com/tools/youtube-thumbnail-editor.html#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does the AI Layer Separation work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When you load a YouTube thumbnail or upload an image, our GPU-accelerated MediaPipe neural network analyzes the pixels locally on your graphics card. It separates the human creator/subject from the backdrop, creating distinct editable layers for the foreground cutout, background scene, and text elements."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this editor run on my local GPU?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! The entire studio utilizes your computer's GPU via WebGL 2.0 hardware acceleration and WebAssembly shaders. All layer manipulation, outline rendering, and filtering run at 60 FPS directly on your machine without server lag."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I edit an existing YouTube video's thumbnail by URL?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, simply paste any YouTube video link or ID. The studio automatically fetches the maximum resolution 1080p/720p thumbnail and opens it in the multi-layer editor ready for instant customization."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I add the famous YouTuber glow outline to my face?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Select the Creator Cutout layer in the editor. Under 'YouTuber Outline & Glow', toggle the outline ON and choose your favorite color (Electric Yellow, Clean White, Neon Cyan, or Hot Red) and adjust thickness and glow blur."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What export resolutions are available?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can export in standard YouTube HD (1280 × 720) or ultra-crisp Full HD (1920 × 1080) in PNG or optimized JPG format under YouTube's 2MB file size upload limit, or copy directly to your clipboard."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       Studio Styles & Modern Photoshop-like Dark Interface
+       ═══════════════════════════════════════════════════════════ */
+    .studio-shell {
+      background: #0b0f19;
+      border: 1px solid #1e293b;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      color: #f1f5f9;
+      margin-top: var(--space-6);
+    }
+
+    /* Top Studio Header */
+    .studio-header {
+      background: #111827;
+      border-bottom: 1px solid #1f2937;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .studio-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .gpu-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+      border: 1px solid #10b981;
+      color: #34d399;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
+    .gpu-pulse {
+      width: 7px;
+      height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulseGpu 1.5s infinite;
+    }
+    @keyframes pulseGpu {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .studio-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Studio Main Layout Grid: Left Tools (260px) | Center Canvas (Flex) | Right Inspector (300px) */
+    .studio-main-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr 310px;
+      min-height: 680px;
+      background: #0f172a;
+    }
+
+    @media (max-width: 1200px) {
+      .studio-main-grid {
+        grid-template-columns: 240px 1fr 280px;
+      }
+    }
+    @media (max-width: 980px) {
+      .studio-main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar Columns */
+    .studio-sidebar {
+      background: #111827;
+      border-right: 1px solid #1f2937;
+      padding: 16px;
+      overflow-y: auto;
+      max-height: 820px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .studio-inspector {
+      background: #111827;
+      border-left: 1px solid #1f2937;
+      padding: 16px;
+      overflow-y: auto;
+      max-height: 820px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Action Buttons in Sidebar */
+    .tool-btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .tool-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 10px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+    .tool-btn:hover {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .tool-btn.primary {
+      background: linear-gradient(135deg, #FF9933, #EA580C);
+      border-color: #f97316;
+      grid-column: span 2;
+      padding: 12px;
+      font-size: 13px;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+    }
+    .tool-btn.primary:hover {
+      background: linear-gradient(135deg, #EA580C, #c2410c);
+    }
+
+    /* Preset Text Chips */
+    .preset-chip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .preset-chip-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+    .preset-chip-btn:hover {
+      border-color: #60a5fa;
+      background: #1e3a8a;
+    }
+
+    /* Center Canvas Viewport */
+    .studio-canvas-stage {
+      background: #020617;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .canvas-wrapper {
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      border-radius: 4px;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    #editorCanvas {
+      display: block;
+      background: #0f172a;
+    }
+
+    /* Canvas Top Quick Bar */
+    .canvas-quick-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      background: #1e293b;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #334155;
+      font-size: 12px;
+    }
+    .canvas-quick-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .canvas-quick-btn:hover {
+      color: #fff;
+      background: #334155;
+    }
+
+    /* Layers Stack Panel */
+    .layers-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .layer-item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .layer-item:hover {
+      background: #273549;
+    }
+    .layer-item.active {
+      background: #1e3a8a;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6;
+    }
+    .layer-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+    .layer-thumb-preview {
+      width: 28px;
+      height: 28px;
+      border-radius: 3px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+      border: 1px solid #475569;
+      overflow: hidden;
+    }
+    .layer-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .layer-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .layer-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 3px;
+      font-size: 12px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .layer-btn:hover {
+      color: #fff;
+      background: #334155;
+    }
+    .layer-btn.is-hidden {
+      color: #ef4444;
+    }
+
+    /* Inspector Controls */
+    .inspector-group {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .inspector-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .inspector-input {
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      width: 100%;
+      outline: none;
+    }
+    .inspector-input:focus {
+      border-color: #3b82f6;
+    }
+    .color-swatch-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .color-swatch-picker input[type="color"] {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    /* Preset YouTuber Colors */
+    .swatch-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .swatch-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #334155;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .swatch-btn:hover {
+      transform: scale(1.15);
+      border-color: #fff;
+    }
+
+    /* Initial Input Box */
+    .input-mode-tabs {
+      display: flex;
+      gap: 8px;
+      background: #1e293b;
+      padding: 4px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+    }
+    .input-mode-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .input-mode-btn.active {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    /* Template Cards Grid */
+    .demo-template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .demo-template-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: var(--radius-sm);
+      padding: 10px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .demo-template-card:hover {
+      border-color: #3b82f6;
+      background: #1e3a8a;
+      transform: translateY(-2px);
+    }
+    .demo-template-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .demo-template-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    /* AI Loading Overlay */
+    .ai-processing-modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 15, 25, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      border-radius: var(--radius-lg);
+    }
+    .ai-processing-card {
+      background: #1e293b;
+      border: 1px solid #3b82f6;
+      border-radius: var(--radius-lg);
+      padding: 28px 36px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      max-width: 420px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2ZZ2MP6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+
+      <!-- Breadcrumbs -->
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">AI YouTube Thumbnail Studio</span>
+      </div>
+
+      <!-- Hero Header -->
+      <div class="tool-hero">
+        <div class="tool-icon media-tools">🎨</div>
+        <h1>AI YouTube Thumbnail Editor &amp; Multi-Layer Studio</h1>
+        <p class="tool-description">Deconstruct any YouTube thumbnail or uploaded photo into editable Photoshop-style layers using client-side AI. Add viral MrBeast glow outlines, bold 3D text, arrows, badges, and background depth-of-field — running 100% on your local GPU.</p>
+      </div>
+
+      <!-- Input Source Card (YouTube Link / File Upload / Preset Templates) -->
+      <div class="workspace-section" id="sourcePickerSection" style="max-width: 900px; margin: 0 auto var(--space-6) auto; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+          <h3 style="font-size: 16px; font-weight: 700; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+            <span>Import Thumbnail into Studio</span>
+          </h3>
+          <span class="gpu-badge" id="gpuDetectBadge">
+            <span class="gpu-pulse"></span>
+            <span id="gpuNameText">Checking GPU...</span>
+          </span>
+        </div>
+
+        <!-- Mode Tabs -->
+        <div class="input-mode-tabs">
+          <button type="button" class="input-mode-btn active" id="tabYtUrl">🔗 Paste YouTube Video URL</button>
+          <button type="button" class="input-mode-btn" id="tabUpload">📁 Upload Local Image</button>
+          <button type="button" class="input-mode-btn" id="tabDemo">⚡ Demo Thumbnails</button>
+        </div>
+
+        <!-- Panel 1: YouTube URL Input -->
+        <div id="panelYtUrl">
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <input type="text" id="ytVideoUrlInput" class="form-input" style="flex: 1; min-width: 260px;" placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ or Video ID">
+            <button type="button" class="btn btn-outline" id="btnPasteUrl">📋 Paste</button>
+            <button type="button" class="btn btn-primary" id="btnFetchYt">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Open in Studio
+            </button>
+          </div>
+          <span class="hint" style="margin-top: 6px; display: block;">Fetches highest resolution 1080p/720p thumbnail directly into editable canvas.</span>
+        </div>
+
+        <!-- Panel 2: Upload Zone -->
+        <div id="panelUpload" style="display: none;">
+          <div class="upload-zone" id="editorDropZone" style="padding: 24px; min-height: 150px; margin: 0;">
+            <input type="file" id="editorFileInput" accept="image/*">
+            <div class="upload-zone-icon" style="font-size: 32px; margin-bottom: 8px;">🖼️</div>
+            <h4 style="font-size: 14px; font-weight: 700; margin: 0 0 4px 0;">Click or Drag &amp; Drop Any Image Here</h4>
+            <p style="font-size: 12px; margin: 0; color: var(--gray-500);">JPG, PNG, WebP (Ideal resolution 1280 × 720)</p>
+          </div>
+        </div>
+
+        <!-- Panel 3: Quick Demo Presets -->
+        <div id="panelDemo" style="display: none;">
+          <p style="font-size: 13px; color: var(--gray-600); margin: 0 0 10px 0;">Click any template to test multi-layer editing and AI separation immediately:</p>
+          <div class="demo-template-grid">
+            <div class="demo-template-card" data-demo="tech">
+              <div class="demo-template-icon">📱</div>
+              <div class="demo-template-title">Tech Review</div>
+            </div>
+            <div class="demo-template-card" data-demo="gaming">
+              <div class="demo-template-icon">🎮</div>
+              <div class="demo-template-title">Gaming Epic</div>
+            </div>
+            <div class="demo-template-card" data-demo="reaction">
+              <div class="demo-template-icon">😱</div>
+              <div class="demo-template-title">Viral Reaction</div>
+            </div>
+            <div class="demo-template-card" data-demo="podcast">
+              <div class="demo-template-icon">🎙️</div>
+              <div class="demo-template-title">Podcast / Story</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Studio Shell (Photoshop-like Workspace) -->
+      <div class="studio-shell" id="studioShell">
+
+        <!-- Top Studio Bar -->
+        <div class="studio-header">
+          <div class="studio-header-left">
+            <div style="font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              <span style="color: #FF9933;">AllTools</span> Studio
+              <span style="color: #64748b;">•</span>
+              <span style="color: #94a3b8; font-weight: 500; font-size: 12px;" id="currentDocLabel">Untitled Thumbnail</span>
+            </div>
+          </div>
+
+          <div class="studio-header-actions">
+            <!-- AI Split Layers Action -->
+            <button type="button" class="btn btn-sm" id="btnAiSeparateLayers" style="background: linear-gradient(135deg, #8b5cf6, #ec4899); color: #fff; border: none; font-weight: 700; box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);">
+              ✨ AI Split into Layers
+            </button>
+
+            <!-- Export Dropdown -->
+            <button type="button" class="btn btn-sm btn-outline" id="btnCopyClipboard" style="color: #e2e8f0; border-color: #475569;" title="Copy thumbnail directly to clipboard">
+              📋 Copy
+            </button>
+
+            <button type="button" class="btn btn-sm btn-primary" id="btnExportHd" style="background: #2563eb; font-weight: 700;">
+              ⬇ Export 720p HD
+            </button>
+
+            <button type="button" class="btn btn-sm btn-outline" id="btnExportFullHd" style="color: #f97316; border-color: #f97316; font-weight: 700;" title="Export 1080p Full HD">
+              4K / 1080p
+            </button>
+          </div>
+        </div>
+
+        <!-- Studio Main Body (3 Columns) -->
+        <div class="studio-main-grid">
+
+          <!-- Left Sidebar: Tools & Elements -->
+          <aside class="studio-sidebar">
+
+            <!-- Section: Add Elements -->
+            <div>
+              <div class="sidebar-section-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Add Layer Elements
+              </div>
+              <div class="tool-btn-grid">
+                <button type="button" class="tool-btn" id="btnAddText">
+                  <span style="font-size: 18px;">🔤</span>
+                  <span>Add Text</span>
+                </button>
+                <button type="button" class="tool-btn" id="btnAddArrow">
+                  <span style="font-size: 18px;">🎯</span>
+                  <span>Red Arrow</span>
+                </button>
+                <button type="button" class="tool-btn" id="btnAddCircle">
+                  <span style="font-size: 18px;">⭕</span>
+                  <span>Attention Ring</span>
+                </button>
+                <button type="button" class="tool-btn" id="btnAddBadge">
+                  <span style="font-size: 18px;">🏷️</span>
+                  <span>4K / LIVE Badge</span>
+                </button>
+                <button type="button" class="tool-btn" id="btnAddEmoji">
+                  <span style="font-size: 18px;">🔥</span>
+                  <span>Add Emoji</span>
+                </button>
+                <button type="button" class="tool-btn" id="btnAddStickerImg">
+                  <span style="font-size: 18px;">📷</span>
+                  <span>Custom Overlay</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Section: Viral Text Presets -->
+            <div>
+              <div class="sidebar-section-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Viral Font Presets
+              </div>
+              <div class="preset-chip-list">
+                <button type="button" class="preset-chip-btn" data-preset="mrbeast" style="font-family: 'Impact', sans-serif; color: #FFE600; text-shadow: 2px 2px 0 #000;">
+                  <span>MRBEAST YELLOW</span>
+                  <span style="font-size: 10px; opacity: 0.7;">Impact</span>
+                </button>
+                <button type="button" class="preset-chip-btn" data-preset="neon" style="font-family: 'Montserrat', sans-serif; color: #00F0FF; text-shadow: 0 0 8px #00F0FF;">
+                  <span>NEON CYBERPUNK</span>
+                  <span style="font-size: 10px; opacity: 0.7;">Montserrat</span>
+                </button>
+                <button type="button" class="preset-chip-btn" data-preset="gaming" style="font-family: 'Bangers', cursive; color: #EF4444; text-shadow: 2px 2px 0 #fff;">
+                  <span>GAMING COMIC</span>
+                  <span style="font-size: 10px; opacity: 0.7;">Bangers</span>
+                </button>
+                <button type="button" class="preset-chip-btn" data-preset="drama" style="font-family: 'Anton', sans-serif; color: #FFFFFF; text-shadow: 3px 3px 0 #000;">
+                  <span>BOLD DRAMA</span>
+                  <span style="font-size: 10px; opacity: 0.7;">Anton</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Section: Background Filters -->
+            <div>
+              <div class="sidebar-section-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                Background FX &amp; Blur
+              </div>
+              <div class="inspector-group">
+                <div class="inspector-label">
+                  <span>Depth-of-Field Blur</span>
+                  <span id="bgBlurVal">0px</span>
+                </div>
+                <input type="range" id="bgBlurSlider" class="range-slider" min="0" max="25" value="0">
+
+                <div class="inspector-label">
+                  <span>Darkness Vignette</span>
+                  <span id="bgDarknessVal">0%</span>
+                </div>
+                <input type="range" id="bgDarknessSlider" class="range-slider" min="0" max="80" value="0">
+              </div>
+            </div>
+
+          </aside>
+
+          <!-- Center Stage: Canvas Viewport -->
+          <div class="studio-canvas-stage">
+            
+            <!-- Quick View Toolbar -->
+            <div class="canvas-quick-bar">
+              <button type="button" class="canvas-quick-btn" id="btnUndo" title="Undo (Ctrl+Z)">↶ Undo</button>
+              <button type="button" class="canvas-quick-btn" id="btnRedo" title="Redo (Ctrl+Y)">↷ Redo</button>
+              <span style="color: #475569;">|</span>
+              <button type="button" class="canvas-quick-btn" id="btnBringFwd" title="Bring Layer Forward">▲ Forward</button>
+              <button type="button" class="canvas-quick-btn" id="btnSendBwd" title="Send Layer Backward">▼ Backward</button>
+              <span style="color: #475569;">|</span>
+              <button type="button" class="canvas-quick-btn" id="btnDuplicateLayer" title="Duplicate Layer (Ctrl+D)">📄 Duplicate</button>
+              <button type="button" class="canvas-quick-btn" id="btnDeleteLayer" style="color: #ef4444;" title="Delete Layer (Del)">🗑️ Delete</button>
+            </div>
+
+            <!-- Canvas Container -->
+            <div class="canvas-wrapper">
+              <canvas id="editorCanvas" width="1280" height="720"></canvas>
+            </div>
+
+            <div style="margin-top: 10px; font-size: 11px; color: #64748b; display: flex; gap: 14px;">
+              <span>Resolution: 1280 × 720 (16:9 HD)</span>
+              <span>•</span>
+              <span>Hardware Acceleration: Active</span>
+              <span>•</span>
+              <span>Tip: Click any layer to transform or drag</span>
+            </div>
+
+          </div>
+
+          <!-- Right Sidebar: Layers Stack & Inspector -->
+          <aside class="studio-inspector">
+
+            <!-- Layers Stack Section -->
+            <div>
+              <div class="sidebar-section-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                Layers Stack (Photoshop Mode)
+              </div>
+              <div class="layers-container" id="layersStackList">
+                <!-- Dynamically rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Layer Inspector Panel -->
+            <div id="inspectorPanel">
+              <div class="sidebar-section-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Layer Properties
+              </div>
+
+              <!-- Universal Layer Properties -->
+              <div class="inspector-group">
+                <div class="inspector-label">
+                  <span>Layer Opacity</span>
+                  <span id="layerOpacityVal">100%</span>
+                </div>
+                <input type="range" id="layerOpacitySlider" class="range-slider" min="10" max="100" value="100">
+              </div>
+
+              <!-- Cutout / Subject Specific Controls -->
+              <div class="inspector-group" id="subjectControlGroup" style="display: none;">
+                <div class="inspector-label" style="color: #f59e0b;">
+                  <span>⚡ YouTuber Outline &amp; Glow</span>
+                  <input type="checkbox" id="checkOutlineEnabled" checked style="cursor: pointer; accent-color: #f59e0b;">
+                </div>
+
+                <div class="swatch-row">
+                  <button type="button" class="swatch-btn" data-color="#FFE600" style="background: #FFE600;" title="MrBeast Yellow"></button>
+                  <button type="button" class="swatch-btn" data-color="#FFFFFF" style="background: #FFFFFF;" title="Clean White"></button>
+                  <button type="button" class="swatch-btn" data-color="#00F0FF" style="background: #00F0FF;" title="Neon Cyan"></button>
+                  <button type="button" class="swatch-btn" data-color="#EF4444" style="background: #EF4444;" title="Red"></button>
+                  <button type="button" class="swatch-btn" data-color="#10B981" style="background: #10B981;" title="Emerald"></button>
+                  <input type="color" id="outlineColorPicker" value="#FFE600" style="width: 24px; height: 24px; border: none; cursor: pointer; background: transparent;">
+                </div>
+
+                <div class="inspector-label">
+                  <span>Outline Thickness</span>
+                  <span id="outlineWidthVal">12px</span>
+                </div>
+                <input type="range" id="outlineWidthSlider" class="range-slider" min="2" max="30" value="12">
+
+                <div class="inspector-label">
+                  <span>Glow Blur Radius</span>
+                  <span id="outlineGlowVal">18px</span>
+                </div>
+                <input type="range" id="outlineGlowSlider" class="range-slider" min="0" max="40" value="18">
+
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button type="button" class="tool-btn" id="btnFlipH" style="flex: 1; padding: 6px;">↔ Flip H</button>
+                  <button type="button" class="tool-btn" id="btnFlipV" style="flex: 1; padding: 6px;">↕ Flip V</button>
+                </div>
+              </div>
+
+              <!-- Text Specific Controls -->
+              <div class="inspector-group" id="textControlGroup" style="display: none;">
+                <div class="inspector-label">Text Content</div>
+                <input type="text" id="textValueInput" class="inspector-input" value="VIRAL TITLE">
+
+                <div class="inspector-label">Font Family</div>
+                <select id="textFontSelect" class="inspector-input">
+                  <option value="Impact" selected>Impact (Classic YouTuber)</option>
+                  <option value="Anton">Anton (Bold Condensed)</option>
+                  <option value="Bangers">Bangers (Comic / Gaming)</option>
+                  <option value="Montserrat">Montserrat (900 Ultra)</option>
+                  <option value="Luckiest Guy">Luckiest Guy (Cartoon / Playful)</option>
+                  <option value="Poppins">Poppins (Clean Sans)</option>
+                </select>
+
+                <div class="inspector-label">Text Color &amp; Stroke</div>
+                <div style="display: flex; gap: 8px;">
+                  <div style="flex: 1;">
+                    <span style="font-size: 10px; color: #94a3b8;">Fill Color</span>
+                    <input type="color" id="textFillColor" value="#FFE600" class="inspector-input" style="height: 36px; padding: 2px;">
+                  </div>
+                  <div style="flex: 1;">
+                    <span style="font-size: 10px; color: #94a3b8;">Stroke (Outline)</span>
+                    <input type="color" id="textStrokeColor" value="#000000" class="inspector-input" style="height: 36px; padding: 2px;">
+                  </div>
+                </div>
+
+                <div class="inspector-label">
+                  <span>Stroke Width</span>
+                  <span id="textStrokeVal">4px</span>
+                </div>
+                <input type="range" id="textStrokeSlider" class="range-slider" min="0" max="15" value="4">
+              </div>
+
+            </div>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+      <!-- Hidden file input for custom sticker image overlay -->
+      <input type="file" id="stickerFileInput" accept="image/*" style="display: none;">
+
+      <!-- AI Segmentation Overlay Screen -->
+      <div class="ai-processing-modal" id="aiProcessingModal">
+        <div class="ai-processing-card">
+          <div style="font-size: 40px; margin-bottom: 12px; animation: spin 2s linear infinite;">🧠</div>
+          <h3 style="font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 8px 0;" id="aiModalStatusTitle">Neural Net Segmenting Subject...</h3>
+          <p style="font-size: 13px; color: #94a3b8; margin: 0 0 14px 0;" id="aiModalStatusDesc">Running WebGL shader pipeline on your GPU to isolate creator cutout &amp; background</p>
+          <div style="width: 100%; height: 6px; background: #334155; border-radius: 999px; overflow: hidden;">
+            <div style="width: 75%; height: 100%; background: linear-gradient(90deg, #8b5cf6, #ec4899); border-radius: 999px; animation: aiPulse 1.2s infinite ease-in-out;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How to use -->
+      <section class="how-to-use" style="margin-top: 56px;">
+        <h2>How to Make Viral Multi-Layer YouTube Thumbnails</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Import or Fetch Video</h3>
+            <p>Paste any YouTube video link or upload an image. The studio loads the maximum resolution 1080p source.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>AI Split into Layers</h3>
+            <p>Hit "AI Split into Layers". Our GPU model instantly segments the subject and backdrop into Photoshop-style layers.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Add Outlines &amp; Viral Text</h3>
+            <p>Turn on the MrBeast glow outline, add viral 3D text and attention arrows, then export in full 1080p resolution!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Features Section -->
+      <section class="features-section" style="margin-top: 48px; padding: 36px 24px; background: var(--gray-50); border-radius: var(--radius-lg); border: 1px solid var(--gray-200);">
+        <h2 style="text-align: center; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 24px;">Why Creators Love AllTools YouTube Studio</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+          <div style="background: var(--white); padding: 20px; border-radius: var(--radius-md); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+            <div style="font-size: 24px; margin-bottom: 10px;">⚡</div>
+            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 6px;">GPU-Powered Speed</h4>
+            <p style="font-size: 13px; color: var(--gray-600); margin: 0;">Connects directly to your graphics card via WebGL shaders. No waiting in cloud queues or paying subscriptions.</p>
+          </div>
+          <div style="background: var(--white); padding: 20px; border-radius: var(--radius-md); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+            <div style="font-size: 24px; margin-bottom: 10px;">👤</div>
+            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 6px;">Photoshop-Grade Outlines</h4>
+            <p style="font-size: 13px; color: var(--gray-600); margin: 0;">Apply signature electric yellow, white, or cyan glow borders around yourself with adjustable thickness and soft outer glow.</p>
+          </div>
+          <div style="background: var(--white); padding: 20px; border-radius: var(--radius-md); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+            <div style="font-size: 24px; margin-bottom: 10px;">🔤</div>
+            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 6px;">Viral Clickable Typography</h4>
+            <p style="font-size: 13px; color: var(--gray-600); margin: 0;">Includes Impact, Anton, Bangers, and Montserrat with multi-layer strokes and deep drop shadows that guarantee high CTR.</p>
+          </div>
+          <div style="background: var(--white); padding: 20px; border-radius: var(--radius-md); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+            <div style="font-size: 24px; margin-bottom: 10px;">🔒</div>
+            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 6px;">100% Private in Browser</h4>
+            <p style="font-size: 13px; color: var(--gray-600); margin: 0;">Everything executes in your local memory. Your unreleased video concepts and photos stay 100% confidential.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq-section" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--gray-200, #e2e8f0);">
+        <div class="faq-header" style="text-align: center; margin-bottom: 24px;">
+          <h2 style="font-size: 24px; font-weight: 700; color: var(--navy, #0f172a); margin-bottom: 8px;">Frequently Asked Questions</h2>
+          <p style="font-size: 14px; color: var(--gray-500, #64748b);">Got questions? Everything you need to know about AI YouTube Thumbnail Studio</p>
+        </div>
+        <div class="faq-list" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>How does the AI Layer Separation work?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                When you load a YouTube thumbnail or upload an image, our GPU-accelerated MediaPipe neural network analyzes the pixels locally on your graphics card. It separates the human creator/subject from the backdrop, creating distinct editable layers for the foreground cutout, background scene, and text elements.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Does this editor run on my local GPU?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Yes! The entire studio utilizes your computer's GPU via WebGL 2.0 hardware acceleration and WebAssembly shaders. All layer manipulation, outline rendering, and filtering run at 60 FPS directly on your machine without server lag.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Can I edit an existing YouTube video's thumbnail by URL?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Yes, simply paste any YouTube video link or ID. The studio automatically fetches the maximum resolution 1080p/720p thumbnail and opens it in the multi-layer editor ready for instant customization.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>How do I add the famous YouTuber glow outline to my face?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Select the Creator Cutout layer in the editor. Under "YouTuber Outline &amp; Glow", toggle the outline ON and choose your favorite color (Electric Yellow, Clean White, Neon Cyan, or Hot Red) and adjust thickness and glow blur.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>What export resolutions are available?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                You can export in standard YouTube HD (1280 × 720) or ultra-crisp Full HD (1920 × 1080) in PNG or optimized JPG format under YouTube's 2MB file size upload limit, or copy directly to your clipboard.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+        <!-- Related Tools Cross-Promotion Section (Static SEO Pre-Render) -->
+      <section id="dynamicRelatedTools" class="related-tools-section" style="margin-top: 48px; margin-bottom: 32px; padding-top: 32px; border-top: 1px solid var(--gray-200, #e2e8f0);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h3 style="font-size: 20px; font-weight: 700; color: var(--navy, #0f172a); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>⚡</span> <span>Related &amp; Popular Utilities</span>
+            </h3>
+            <p style="font-size: 13px; color: var(--gray-500, #64748b); margin: 4px 0 0;">Users working with this utility also frequently use these tools</p>
+          </div>
+          <a href="/tools.html" style="font-size: 13px; font-weight: 600; color: var(--saffron, #ff9933); text-decoration: none;">Explore All 75+ Tools →</a>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+        <a href="/tools/ai-video-remover.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 18px; background: var(--white, #ffffff); border: 1px solid var(--gray-200, #e2e8f0); border-radius: 14px; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <div style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border-radius: 10px; flex-shrink: 0;">🎬</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--navy, #0f172a); line-height: 1.3;">AI Video to Camera Converter & Forensics Humanizer</div>
+          </div>
+          <div style="font-size: 12px; color: var(--gray-500, #64748b); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Purge C2PA credentials, inject Apple iPhone 15 Pro & Sony FX3 metadata, and simulate physical CMOS sensor grain & camera mic room tone</div>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--saffron, #ff9933);">
+            <span>Video & Media Tools</span>
+            <span>Open Tool →</span>
+          </div>
+        </a>
+        <a href="/tools/video-subtitle-maker.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 18px; background: var(--white, #ffffff); border: 1px solid var(--gray-200, #e2e8f0); border-radius: 14px; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <div style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border-radius: 10px; flex-shrink: 0;">🎬</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--navy, #0f172a); line-height: 1.3;">AI Video Subtitle Maker</div>
+          </div>
+          <div style="font-size: 12px; color: var(--gray-500, #64748b); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Auto-generate timed subtitles from video with on-device AI — Hindi, English & Hinglish, timeline editor, SRT/VTT export</div>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--saffron, #ff9933);">
+            <span>Video & Subtitles</span>
+            <span>Open Tool →</span>
+          </div>
+        </a>
+        <a href="/tools/age-calculator.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 18px; background: var(--white, #ffffff); border: 1px solid var(--gray-200, #e2e8f0); border-radius: 14px; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <div style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border-radius: 10px; flex-shrink: 0;">📅</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--navy, #0f172a); line-height: 1.3;">Age Calculator</div>
+          </div>
+          <div style="font-size: 12px; color: var(--gray-500, #64748b); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Calculate exact age in years, months and days for government exam eligibility</div>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--saffron, #ff9933);">
+            <span>Calculators</span>
+            <span>Open Tool →</span>
+          </div>
+        </a>
+        <a href="/tools/image-resizer.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 18px; background: var(--white, #ffffff); border: 1px solid var(--gray-200, #e2e8f0); border-radius: 14px; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <div style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border-radius: 10px; flex-shrink: 0;">🖼️</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--navy, #0f172a); line-height: 1.3;">Image Resizer</div>
+          </div>
+          <div style="font-size: 12px; color: var(--gray-500, #64748b); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Resize images by pixel, percentage or preset sizes for government forms</div>
+          <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--saffron, #ff9933);">
+            <span>Image Tools</span>
+            <span>Open Tool →</span>
+          </div>
+        </a>
+        </div>
+      </section>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/youtube-thumbnail-editor.js" defer></script>
+</body>
+</html>
