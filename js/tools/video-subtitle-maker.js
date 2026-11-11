@@ -706,23 +706,50 @@
       '      }',
       '      self.postMessage({ type: "model_ready" });',
       '      var totalSamples = msg.audio.length;',
-      '      var chunkSize = 30 * 16000; // 30s @ 16kHz',
-      '      var totalChunks = Math.max(1, Math.ceil(totalSamples / chunkSize));',
+      '      var nominalChunk = 30 * 16000;',
+      '      var totalChunks = Math.max(1, Math.ceil(totalSamples / nominalChunk));',
       '      var allChunks = [];',
       '      var allText = "";',
-      '      for (var i = 0; i < totalChunks; i++) {',
-      '        var startSample = i * chunkSize;',
-      '        var endSample = Math.min(totalSamples, (i + 1) * chunkSize);',
-      '        var chunkAudio = msg.audio.subarray(startSample, endSample);',
-      '        var timeOffset = startSample / 16000;',
-      '        var pct = Math.round(((i + 1) / totalChunks) * 100);',
+      '      function findSilenceSplit(audio, target, range) {',
+      '        var minS = Math.max(0, target - range);',
+      '        var maxS = Math.min(audio.length, target + range);',
+      '        var win = 1600;',
+      '        var lowest = Infinity;',
+      '        var best = target;',
+      '        for (var s = minS; s <= maxS - win; s += win) {',
+      '          var sum = 0;',
+      '          for (var j = 0; j < win; j += 8) {',
+      '            var v = audio[s + j];',
+      '            sum += v * v;',
+      '          }',
+      '          if (sum < lowest) {',
+      '            lowest = sum;',
+      '            best = s + 800;',
+      '          }',
+      '        }',
+      '        return best;',
+      '      }',
+      '      var curSample = 0;',
+      '      var chunkIndex = 0;',
+      '      while (curSample < totalSamples) {',
+      '        chunkIndex++;',
+      '        var targetEnd = curSample + nominalChunk;',
+      '        var endSample;',
+      '        if (targetEnd >= totalSamples) {',
+      '          endSample = totalSamples;',
+      '        } else {',
+      '          endSample = findSilenceSplit(msg.audio, targetEnd, 40000);',
+      '        }',
+      '        var chunkAudio = msg.audio.subarray(curSample, endSample);',
+      '        var timeOffset = curSample / 16000;',
+      '        var pct = Math.min(99, Math.round((curSample / totalSamples) * 100));',
       '        self.postMessage({',
       '          type: "chunk_progress",',
       '          data: {',
-      '            current: i + 1,',
+      '            current: chunkIndex,',
       '            total: totalChunks,',
       '            pct: pct,',
-      '            msg: "Transcribing audio chunk " + (i + 1) + " of " + totalChunks + " (" + pct + "%)…"',
+      '            msg: "Transcribing speech: part " + chunkIndex + " (" + pct + "%)…"',
       '          }',
       '        });',
       '        var chunkOpts = { return_timestamps: true, repetition_penalty: 1.15 };',
@@ -745,8 +772,9 @@
       '            }',
       '          }',
       '        } catch (chunkErr) {',
-      '          console.warn("Chunk " + (i + 1) + " error:", chunkErr);',
+      '          console.warn("Chunk " + chunkIndex + " error:", chunkErr);',
       '        }',
+      '        curSample = endSample;',
       '      }',
       '      self.postMessage({ type: "result", data: { text: allText, chunks: allChunks } });',
       '    }',
@@ -922,24 +950,40 @@
       candidates.push({ start: Math.round(s * 100) / 100, end: Math.round(en * 100) / 100, text: txt });
     });
 
-    // Natural Pacing Splitter: Break long cues (> 4.0s) into readable shorts/reels cards
-    candidates.forEach(function (cue) {
+    // Dialogue & Speech Pacing Splitter: Break long spoken lines into natural dialogue cues
+    function splitDialogueCue(cue) {
       var dur = cue.end - cue.start;
-      var words = cue.text.split(/\s+/);
-      if (dur > 4.0 && words.length >= 7) {
-        // Find natural punctuation split (comma, period, exclamation)
+      var words = cue.text.split(/\s+/).filter(Boolean);
+      // If dialogue is longer than 4.0s or contains more than 8 words, split naturally
+      if ((dur > 4.0 || words.length >= 8) && words.length >= 5) {
+        // Find natural punctuation split: [।!?.,;:—]
         var splitIdx = -1;
         for (var idx = 2; idx <= words.length - 3; idx++) {
-          if (/[,.!?]$/.test(words[idx])) { splitIdx = idx + 1; break; }
+          if (/[।!?.,;:—]$/.test(words[idx])) { splitIdx = idx + 1; break; }
+        }
+        // If no punctuation, split at common conversational conjunctions
+        if (splitIdx < 1) {
+          for (var cidx = 3; cidx <= words.length - 3; cidx++) {
+            if (/^(और|कि|लेकिन|तो|या|फिर|अगर|क्योंकि|मगर|इसलिए|and|but|so|because|that|which|when|then|while)$/i.test(words[cidx])) {
+              splitIdx = cidx;
+              break;
+            }
+          }
         }
         if (splitIdx < 1) splitIdx = Math.ceil(words.length / 2);
 
         var midTime = Math.round((cue.start + dur * (splitIdx / words.length)) * 100) / 100;
-        state.cues.push({ id: state.uid++, start: cue.start, end: midTime, text: words.slice(0, splitIdx).join(' ') });
-        state.cues.push({ id: state.uid++, start: midTime, end: cue.end, text: words.slice(splitIdx).join(' ') });
+        var p1 = { start: cue.start, end: midTime, text: words.slice(0, splitIdx).join(' ') };
+        var p2 = { start: midTime, end: cue.end, text: words.slice(splitIdx).join(' ') };
+        splitDialogueCue(p1);
+        splitDialogueCue(p2);
       } else {
         state.cues.push({ id: state.uid++, start: cue.start, end: cue.end, text: cue.text });
       }
+    }
+
+    candidates.forEach(function (cue) {
+      splitDialogueCue(cue);
     });
 
     sortCues();
