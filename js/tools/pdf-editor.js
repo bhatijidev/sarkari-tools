@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   SARKARI TOOLS — Advanced PDF Editor
+   ALLTOOLSINONE — Advanced PDF Editor
    100% client-side. pdf.js renders, pdf-lib exports.
    Pages: load / merge / rotate / delete / reorder / duplicate
    Objects: text, image, drawn signature (drag, resize, restyle)

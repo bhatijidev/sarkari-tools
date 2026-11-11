@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!analysisData) return;
 
       const summaryText =
-        `SARKARI TOOLS - AI & PLAGIARISM AUDIT REPORT\n` +
+        `ALLTOOLSINONE - AI & PLAGIARISM AUDIT REPORT\n` +
         `-----------------------------------------\n` +
         `AI Generated Probability : ${analysisData.aiScore}%\n` +
         `Human Originality Score   : ${analysisData.humanScore}%\n` +
@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `Burstiness (Rhythm)      : ${analysisData.burstiness} (Sentence variance)\n` +
         `Vocabulary Diversity     : ${analysisData.vocabDiversity}\n` +
         `-----------------------------------------\n` +
-        `Analyzed privately in-browser at AllToolsInOne.in`;
+        `Analyzed privately in-browser at AllToolsInOne.com`;
 
       navigator.clipboard.writeText(summaryText).then(() => {
         if (window.showToast) window.showToast('Audit summary copied to clipboard!');
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       certDiv.innerHTML = `
         <div style="text-align: center; border-bottom: 2px solid #FF9933; padding-bottom: 16px; margin-bottom: 20px;">
-          <h1 style="color: #1A237E; font-size: 24px; margin: 0 0 6px 0;">SARKARI TOOLS AUDIT VERIFICATION</h1>
+          <h1 style="color: #1A237E; font-size: 24px; margin: 0 0 6px 0;">ALLTOOLSINONE AUDIT VERIFICATION</h1>
           <div style="font-size: 13px; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">AI Content & Plagiarism Certificate</div>
           <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Date: ${new Date().toLocaleDateString('en-IN', { dateStyle: 'full' })}</div>
         </div>

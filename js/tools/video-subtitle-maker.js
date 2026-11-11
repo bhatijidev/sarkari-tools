@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   SARKARI TOOLS — AI Video Subtitle Maker & Style Studio
+   ALLTOOLSINONE — AI Video Subtitle Maker & Style Studio
    100% client-side. Whisper (transformers.js) runs in a Web
    Worker. WebAudio extracts 16 kHz mono audio for ASR.
    Timeline editor: drag / retime cue blocks. SRT/VTT/TXT export.
@@ -578,7 +578,7 @@
       ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
       ctx.font = 'bold 44px Montserrat, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('🎬 SARKARI TOOLS VIDEO STUDIO', 640, 280);
+      ctx.fillText('🎬 ALLTOOLSINONE VIDEO STUDIO', 640, 280);
 
       ctx.font = '26px Inter, sans-serif';
       ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
@@ -606,11 +606,11 @@
     await new Promise(function (resolve) {
       rec.onstop = function () {
         var blob = new Blob(chunks, { type: mimeType });
-        var file = new File([blob], 'sarkari_tools_demo.webm', { type: mimeType });
+        var file = new File([blob], 'alltoolsinone_demo.webm', { type: mimeType });
         loadMedia(file).then(function () {
           // Pre-populate sample cues
           state.cues = [
-            { id: state.uid++, start: 0.5, end: 3.5, text: 'Welcome to Sarkari Tools AI Subtitle Studio! 🎬' },
+            { id: state.uid++, start: 0.5, end: 3.5, text: 'Welcome to AllToolsInOne AI Subtitle Studio! 🎬' },
             { id: state.uid++, start: 3.8, end: 6.8, text: 'Drag and retime cues directly on the visual timeline ⏱️' },
             { id: state.uid++, start: 7.0, end: 9.8, text: 'Viral Reels Styles, Transitions & Burn-in Export! ⚡' }
           ];

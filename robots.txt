@@ -1,21 +1,4 @@
 User-agent: *
 Allow: /
 
-# Google Search & Google AdSense
-User-agent: Googlebot
-Allow: /
-
-User-agent: Mediapartners-Google
-Allow: /
-
-# Microsoft Bing
-User-agent: Bingbot
-Allow: /
-
-# Apple Search
-User-agent: Applebot
-Allow: /
-
-# Sitemaps
 Sitemap: https://alltoolsinone.com/sitemap.xml
-# RSS Feed: https://alltoolsinone.com/feed.xml
