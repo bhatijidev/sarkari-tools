@@ -112,6 +112,7 @@
     activeCueId: null,
     workerBusy: false,
     isExportingVideo: false,
+    showOverlay: true,    // toggle whether subtitles appear on video preview
     style: {
       preset: 'reels',
       font: "'Impact', 'Arial Black', sans-serif",
@@ -228,11 +229,130 @@
     resolve(false);
     return out;
   }
+  /* ───────── Perso-Arabic (Urdu) → Devanagari (Hindi) ───────── */
+  var URDU_WORD_DICT = {
+    'وہ': 'वो', 'میں': 'मैं', 'نے': 'ने', 'ہی': 'ही', 'سے': 'से', 'نہیں': 'नहीं',
+    'حنومان': 'हनुमान', 'راما': 'रामा', 'رامانے': 'रामा ने', 'سیتا': 'सीता', 'ساغر': 'सागर',
+    'بھروں': 'भरोसे', 'تریں': 'तेरे', 'پارے': 'पार', 'لگائے': 'लगाए', 'سکی': 'सती',
+    'بہم': 'बहिन', 'بیٹھا': 'बैठा', 'نہاری': 'निहारी', 'ماتے': 'माते', 'کے': 'के',
+    'وانے': 'बाने', 'ہارے': 'हारे', 'آداریں': 'आधार', 'دائیں': 'दाएं', 'ھا': 'हा',
+    'کا': 'का', 'کی': 'की', 'کو': 'को', 'پر': 'पर', 'ہے': 'है', 'ہیں': 'हैं', 'تھا': 'था',
+    'تھی': 'थी', 'تھے': 'थे', 'اور': 'और', 'تو': 'तो', 'یہ': 'यह', 'کیا': 'क्या', 'کیوں': 'क्यों',
+    'کیسے': 'कैसे', 'آپ': 'आप', 'تم': 'तुम', 'ہم': 'हम', 'سب': 'सब', 'بات': 'बात'
+  };
+  var URDU_CHAR_MAP = {
+    'ا': 'अ', 'آ': 'आ', 'ب': 'ब', 'پ': 'प', 'ت': 'त', 'ٹ': 'ट', 'ث': 'स',
+    'ج': 'ज', 'چ': 'च', 'ح': 'ह', 'خ': 'ख', 'د': 'द', 'ڈ': 'ड', 'ذ': 'ज़',
+    'ر': 'र', 'ڑ': 'ड़', 'ز': 'ज़', 'ژ': 'झ', 'س': 'स', 'ش': 'श', 'ص': 'स',
+    'ض': 'ज़', 'ط': 'त', 'ظ': 'ज़', 'ع': 'अ', 'غ': 'ग़', 'ف': 'फ़', 'ق': 'क़',
+    'ک': 'क', 'گ': 'ग', 'ل': 'ल', 'م': 'म', 'ن': 'न', 'ں': 'ं', 'و': 'व',
+    'ہ': 'ह', 'ھ': 'ह', 'ی': 'ी', 'ے': 'े', 'ء': '', 'ئ': 'ई'
+  };
+  function urduToHindi(text) {
+    if (!text || !/[\u0600-\u06FF]/.test(text)) return text;
+    var words = text.split(/\s+/);
+    var res = words.map(function (w) {
+      var clean = w.replace(/[\u064B-\u065F\u200C-\u200F]/g, '');
+      if (URDU_WORD_DICT[clean]) return URDU_WORD_DICT[clean];
+      return clean.split('').map(function (c) { return URDU_CHAR_MAP[c] || c; }).join('');
+    });
+    return res.join(' ');
+  }
+
   function hasDevanagari(s) { return /[\u0900-\u097F]/.test(s); }
   function displayText(cue) {
     if (!cue || !cue.text) return '';
-    if (state.display === 'hinglish' && hasDevanagari(cue.text)) return devaToRoman(cue.text);
-    return cue.text;
+    var txt = cue.text;
+    if (state.display === 'hinglish') {
+      if (hasDevanagari(txt)) return devaToRoman(txt);
+      if (/[\u0600-\u06FF]/.test(txt)) return devaToRoman(urduToHindi(txt));
+      return txt;
+    }
+    if (state.display === 'deva' && /[\u0600-\u06FF]/.test(txt)) {
+      return urduToHindi(txt);
+    }
+    return txt;
+  }
+
+  /* ───────── Subtitle Visibility Toggle on Video ───────── */
+  function setShowOverlay(show) {
+    state.showOverlay = !!show;
+    var chk = $('subToggleOverlay');
+    if (chk) chk.checked = state.showOverlay;
+    var btn = $('btnQuickToggleSub');
+    if (btn) {
+      btn.innerHTML = state.showOverlay ? '<span>👁️ Subtitles: ON</span>' : '<span>👁️‍🗨️ Subtitles: OFF</span>';
+      btn.style.background = state.showOverlay ? 'rgba(15, 23, 42, 0.85)' : 'rgba(185, 28, 28, 0.9)';
+      btn.style.borderColor = state.showOverlay ? 'rgba(255, 255, 255, 0.25)' : '#ef4444';
+    }
+    var badge = $('subOverlayStateBadge');
+    if (badge) {
+      badge.textContent = state.showOverlay ? 'Active (Overlay ON)' : 'Hidden (Video Only)';
+      badge.style.background = state.showOverlay ? '#dcfce7' : '#fee2e2';
+      badge.style.color = state.showOverlay ? '#15803d' : '#b91c1c';
+      badge.style.borderColor = state.showOverlay ? '#bbf7d0' : '#fecaca';
+    }
+    var ov = $('subOverlay');
+    if (ov && !state.showOverlay) {
+      ov.style.display = 'none';
+    }
+  }
+
+  /* ───────── 1-Click Copy All Subtitles with Timeline ───────── */
+  function copyAllCues(format) {
+    if (!state.cues || !state.cues.length) {
+      status('⚠ No subtitle cues to copy yet! Please upload a video or click "Add Cue" first.', true);
+      return;
+    }
+    format = format || ($('subCopyFormatSelect') ? $('subCopyFormatSelect').value : 'timeline');
+    var text = '';
+    if (format === 'srt') {
+      text = buildSubtitles('srt');
+    } else if (format === 'simple') {
+      text = state.cues.map(function (c) {
+        return fmtShort(c.start) + ' ' + displayText(c);
+      }).join('\n');
+    } else if (format === 'text') {
+      text = state.cues.map(function (c) { return displayText(c); }).join('\n');
+    } else { // 'timeline'
+      text = state.cues.map(function (c) {
+        return '[' + fmtCueTime(c.start) + ' --> ' + fmtCueTime(c.end) + '] ' + displayText(c);
+      }).join('\n');
+    }
+
+    function onCopied() {
+      var copyBtns = [$('btnCopyAllCues'), $('btnExportCopyAll')].filter(Boolean);
+      copyBtns.forEach(function (btn) {
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<span>✅ Copied ' + state.cues.length + ' Cues!</span>';
+        setTimeout(function () { btn.innerHTML = orig; }, 2200);
+      });
+      status('📋 Success! Copied all ' + state.cues.length + ' cues with exact timelines to clipboard.');
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onCopied).catch(function () {
+        fallbackCopy(text, onCopied);
+      });
+    } else {
+      fallbackCopy(text, onCopied);
+    }
+  }
+
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      if (cb) cb();
+    } catch (e) {
+      status('Could not copy automatically. Please copy from the Cue list.', true);
+    }
+    document.body.removeChild(ta);
   }
 
   /* ───────── Styling & Overlay Configuration ───────── */
@@ -379,17 +499,14 @@
       setTimeout(function () { rej(new Error('Timed out reading the file')); }, 20000);
     });
     state.duration = v.duration || 0;
-    if (state.duration > 3600) {
-      status('File is over 1 hour — please split it first (on-device AI limit).', true);
-      return;
-    }
     $('subWorkspace').style.display = '';
     $('subMediaInfo').textContent = '📄 ' + file.name + ' · duration ' + fmtShort(state.duration) +
-      ' · ' + (file.size / 1048576).toFixed(1) + ' MB';
+      ' · ' + (file.size / 1048576).toFixed(1) + ' MB (Unlimited Size Support)';
     window.scrollTo({ top: $('subWorkspace').offsetTop - 90, behavior: 'smooth' });
     renderTimeline();
     renderCueList();
     applyOverlayStyle();
+    setShowOverlay(true);
     status('✅ Media loaded. Press "Auto-Generate Subtitles" for AI, or style and add cues manually.');
     // extract audio in background
     extractAudio(file).then(function (audio) {
@@ -509,28 +626,38 @@
   }
 
   async function extractAudio(file) {
+    status('⏳ Extracting audio track from media (' + (file.size / 1048576).toFixed(1) + ' MB)…');
     var buf = await file.arrayBuffer();
     var ctx = null;
     try {
       ctx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
     } catch (e) { ctx = null; }
-    var decoded;
+    var decoded = null;
     if (ctx) {
-      try { decoded = await ctx.decodeAudioData(buf.slice(0)); }
-      catch (e) { decoded = null; }
-      ctx.close();
+      try {
+        decoded = await ctx.decodeAudioData(buf);
+      } catch (e) { decoded = null; }
+      try { ctx.close(); } catch (e) {}
     }
     if (!decoded) {
       // fallback: standard context + offline resample
       var ctx2 = new (window.AudioContext || window.webkitAudioContext)();
-      decoded = await ctx2.decodeAudioData(buf.slice(0));
-      ctx2.close();
-      var off = new OfflineAudioContext(1, Math.ceil(decoded.duration * 16000), 16000);
-      var src = off.createBufferSource();
-      src.buffer = decoded;
-      src.connect(off.destination);
-      src.start();
-      decoded = await off.startRendering();
+      try {
+        decoded = await ctx2.decodeAudioData(buf);
+      } catch (e) { decoded = null; }
+      try { ctx2.close(); } catch (e) {}
+      if (decoded) {
+        var off = new OfflineAudioContext(1, Math.ceil(decoded.duration * 16000), 16000);
+        var src = off.createBufferSource();
+        src.buffer = decoded;
+        src.connect(off.destination);
+        src.start();
+        decoded = await off.startRendering();
+      }
+    }
+    buf = null; // Free raw ArrayBuffer memory immediately to prevent browser memory spikes
+    if (!decoded) {
+      throw new Error('Could not decode audio stream from video container');
     }
     // mono mixdown
     var chs = decoded.numberOfChannels, len = decoded.length;
@@ -539,11 +666,11 @@
       var d = decoded.getChannelData(c);
       for (var i = 0; i < len; i++) out[i] += d[i] / chs;
     }
+    decoded = null; // Free decoded audio buffer memory immediately
     return out;
   }
 
-  /* ───────── Whisper worker ───────── */
-  /* ───────── Whisper worker (WebGPU & Multi-Thread CPU) ───────── */
+  /* ───────── Whisper worker (WebGPU & Multi-Thread CPU with Safe Chunking) ───────── */
   var worker = null;
   function getWorker() {
     if (worker) return worker;
@@ -557,6 +684,11 @@
       '  try {',
       '    return await pipeline("automatic-speech-recognition", model, opts);',
       '  } catch (e) {',
+      '    if (device === "webgpu") {',
+      '      self.postMessage({ type: "fallback_wasm" });',
+      '      delete opts.device;',
+      '      try { return await pipeline("automatic-speech-recognition", model, opts); } catch (e2) {}',
+      '    }',
       '    self.postMessage({ type: "mirror" });',
       '    env.remoteHost = "https://hf-mirror.com/";',
       '    return await pipeline("automatic-speech-recognition", model, opts);',
@@ -572,17 +704,51 @@
       '        loadedModel = msg.model;',
       '        loadedDevice = msg.device;',
       '      }',
-      '      var opts = {',
-      '        chunk_length_s: 30,',
-      '        stride_length_s: 5,',
-      '        return_timestamps: true,',
-      '        condition_on_previous_text: false,',
-      '        repetition_penalty: 1.15',
-      '      };',
-      '      if (msg.language && msg.language !== "auto") opts.language = msg.language;',
-      '      if (msg.translate) opts.task = "translate";',
-      '      var out = await asr(msg.audio, opts);',
-      '      self.postMessage({ type: "result", data: { text: out.text, chunks: out.chunks || [] } });',
+      '      self.postMessage({ type: "model_ready" });',
+      '      var totalSamples = msg.audio.length;',
+      '      var chunkSize = 30 * 16000; // 30s @ 16kHz',
+      '      var totalChunks = Math.max(1, Math.ceil(totalSamples / chunkSize));',
+      '      var allChunks = [];',
+      '      var allText = "";',
+      '      for (var i = 0; i < totalChunks; i++) {',
+      '        var startSample = i * chunkSize;',
+      '        var endSample = Math.min(totalSamples, (i + 1) * chunkSize);',
+      '        var chunkAudio = msg.audio.subarray(startSample, endSample);',
+      '        var timeOffset = startSample / 16000;',
+      '        var pct = Math.round(((i + 1) / totalChunks) * 100);',
+      '        self.postMessage({',
+      '          type: "chunk_progress",',
+      '          data: {',
+      '            current: i + 1,',
+      '            total: totalChunks,',
+      '            pct: pct,',
+      '            msg: "Transcribing audio chunk " + (i + 1) + " of " + totalChunks + " (" + pct + "%)…"',
+      '          }',
+      '        });',
+      '        var chunkOpts = { return_timestamps: true, repetition_penalty: 1.15 };',
+      '        if (msg.language && msg.language !== "auto") chunkOpts.language = msg.language;',
+      '        if (msg.translate) chunkOpts.task = "translate";',
+      '        try {',
+      '          var chunkOut = await asr(chunkAudio, chunkOpts);',
+      '          if (chunkOut) {',
+      '            if (chunkOut.text && chunkOut.text.trim()) {',
+      '              allText += (allText ? " " : "") + chunkOut.text.trim();',
+      '            }',
+      '            if (chunkOut.chunks && chunkOut.chunks.length) {',
+      '              chunkOut.chunks.forEach(function (c) {',
+      '                var s = c.timestamp && c.timestamp[0] != null ? (timeOffset + c.timestamp[0]) : timeOffset;',
+      '                var en = c.timestamp && c.timestamp[1] != null ? (timeOffset + c.timestamp[1]) : (timeOffset + (chunkAudio.length / 16000));',
+      '                allChunks.push({ timestamp: [s, en], text: c.text });',
+      '              });',
+      '            } else if (chunkOut.text && chunkOut.text.trim()) {',
+      '              allChunks.push({ timestamp: [timeOffset, timeOffset + (chunkAudio.length / 16000)], text: chunkOut.text.trim() });',
+      '            }',
+      '          }',
+      '        } catch (chunkErr) {',
+      '          console.warn("Chunk " + (i + 1) + " error:", chunkErr);',
+      '        }',
+      '      }',
+      '      self.postMessage({ type: "result", data: { text: allText, chunks: allChunks } });',
       '    }',
       '  } catch (err) {',
       '    self.postMessage({ type: "error", data: (err && err.message) || String(err) });',
@@ -616,8 +782,21 @@
         any = true; tot += dlFiles[k].total; loaded += dlFiles[k].loaded;
       });
       if (any && tot > 0) {
-        progressShow('Downloading AI model (cached after this)…', Math.round(loaded / tot * 100));
+        var pct = Math.round(loaded / tot * 100);
+        if (pct >= 100) {
+          progressShow('🧠 AI Model loaded! Initializing speech recognition engine…', 100);
+        } else {
+          progressShow('Downloading AI model (cached after this)…', pct);
+        }
       }
+    } else if (m.type === 'model_ready') {
+      progressShow('🧠 Model ready! Analyzing audio & transcribing speech…', 5);
+      status('🧠 AI is transcribing audio — analyzing speech & timestamps…');
+    } else if (m.type === 'chunk_progress') {
+      progressShow(m.data.msg, m.data.pct);
+      status('🧠 ' + m.data.msg);
+    } else if (m.type === 'fallback_wasm') {
+      status('⚡ WebGPU switched to high-speed Multi-Thread CPU mode for stability…');
     } else if (m.type === 'ready') {
       if (state.workerBusy) status('🧠 AI model ready — transcribing with GPU/CPU…');
     } else if (m.type === 'mirror') {
@@ -655,29 +834,31 @@
   function isHallucination(text) {
     if (!text || text.length < 2) return true;
     var t = text.trim();
-    // Common Whisper non-speech tags & musical symbols
-    if (/^(\[[^\]]+\]|\([^\)]+\)|♪|♫|\*B)/i.test(t)) return true;
-    // Common youtube/caption filler hallucinations
+    // Pure bracket tags with no real words e.g. [Music] or (Music) or ♪♪
+    if (/^(\[[^\]]+\]|\([^\)]+\)|[♪♫#*]+)$/i.test(t)) return true;
+    // Common youtube filler hallucinations
     if (/(thank\s+you\s+for\s+watching|please\s+subscribe|subtitles\s+by)/i.test(t)) return true;
-    // Repeating single characters (e.g. "a a a a a..." or "s s s s...")
-    if (/^([a-zA-Z\u0900-\u097F]\s+){3,}/.test(t)) return true;
-
-    // Word repetition check: loops like "तो तो तो तो तो" or "absolutely absolutely absolutely"
-    var words = t.toLowerCase().replace(/[^a-zA-Z0-9\u0900-\u097F\s]/g, '').split(/\s+/).filter(Boolean);
-    if (words.length >= 3) {
-      var unique = {};
-      var uCount = 0;
-      for (var i = 0; i < words.length; i++) {
-        if (!unique[words[i]]) { unique[words[i]] = true; uCount++; }
-      }
-      // If unique word ratio is < 42% (e.g. 10 words, only 2 unique), it's a hallucination loop
-      if (uCount / words.length < 0.42) return true;
-    }
+    // Hallucinated repeated non-speech tokens e.g. "NNN", "MMM", "..."
+    if (/^(N+|M+|A+|E+|O+|\.+)$/i.test(t)) return true;
+    // Degenerate repeating single characters: "a a a a a..."
+    if (/^([a-zA-Z\u0900-\u097F]\s+){6,}/.test(t)) return true;
     return false;
   }
 
   function cleanTranscript(text) {
     if (!text) return '';
+    // Strip audio tag prefixes and suffixes like [Music], [Sings], (Music), ♪, ♫
+    text = text.replace(/^\[(Music|Sings|Singing|Applause|Laughter|Cheering|Audio|Noise)\]\s*/gi, '');
+    text = text.replace(/\s*\[(Music|Sings|Singing|Applause|Laughter|Cheering|Audio|Noise)\]$/gi, '');
+    text = text.replace(/^\((Music|Sings|Singing|Applause|Laughter|Cheering|Audio|Noise)\)\s*/gi, '');
+    text = text.replace(/\s*\((Music|Sings|Singing|Applause|Laughter|Cheering|Audio|Noise)\)$/gi, '');
+    text = text.replace(/^[♪♫#*]+\s*/g, '').replace(/\s*[♪♫#*]+$/g, '');
+
+    // If Whisper transcribed in Perso-Arabic (Urdu) alphabet, convert to Hindi Devanagari automatically!
+    if (/[\u0600-\u06FF]/.test(text)) {
+      text = urduToHindi(text);
+    }
+
     // Collapse repeating single words: "jeep jeep jeep jeep..." -> "jeep"
     text = text.replace(/\b([a-zA-Z\u0900-\u097F]+)(?:\s+\1\b){2,}/gi, '$1');
     // Collapse repeating phrases
@@ -706,7 +887,6 @@
 
     rawChunks.forEach(function (c) {
       if (!c.text) return;
-      if (isHallucination(c.text)) return;
       var txt = cleanTranscript(c.text || '');
       if (!txt || txt.length < 2 || isHallucination(txt)) return;
       // Skip consecutive exact duplicates
@@ -717,21 +897,23 @@
       var words = txt.split(/\s+/).filter(Boolean);
       var wordCount = words.length;
 
-      // Smart End Timing (No Silence Stretching):
-      // If Whisper stretches a 1-4 word phrase across > 4 seconds of silence/music, clamp to speech duration!
-      var maxSpeechDuration = Math.max(1.2, wordCount * 0.45);
+      // Smart End Timing (Human-Readable Duration):
+      // Ensure each subtitle has enough screen-time to be read (minimum 1.8s)
+      var minSpeechDuration = Math.max(1.8, wordCount * 0.45);
       var en;
       if (c.timestamp && c.timestamp[1] != null) {
         var rawDur = c.timestamp[1] - s;
-        if (rawDur > maxSpeechDuration + 1.2 && wordCount <= 4) {
-          en = s + maxSpeechDuration;
+        if (rawDur < minSpeechDuration) {
+          en = s + minSpeechDuration;
+        } else if (rawDur > minSpeechDuration + 3.0 && wordCount <= 3) {
+          en = s + minSpeechDuration + 0.8;
         } else {
           en = c.timestamp[1];
         }
       } else {
-        en = s + maxSpeechDuration;
+        en = s + minSpeechDuration;
       }
-      if (en <= s) en = s + 1.2;
+      if (en <= s) en = s + minSpeechDuration;
 
       // Ensure it doesn't overshoot video duration
       if (state.duration && s >= state.duration) return;
@@ -740,11 +922,11 @@
       candidates.push({ start: Math.round(s * 100) / 100, end: Math.round(en * 100) / 100, text: txt });
     });
 
-    // Natural Pacing Splitter: Break long cues (> 3.5s) into readable shorts/reels cards
+    // Natural Pacing Splitter: Break long cues (> 4.0s) into readable shorts/reels cards
     candidates.forEach(function (cue) {
       var dur = cue.end - cue.start;
       var words = cue.text.split(/\s+/);
-      if (dur > 3.5 && words.length >= 6) {
+      if (dur > 4.0 && words.length >= 7) {
         // Find natural punctuation split (comma, period, exclamation)
         var splitIdx = -1;
         for (var idx = 2; idx <= words.length - 3; idx++) {
@@ -1035,6 +1217,19 @@
 
     var ov = $('subOverlay');
     var span = $('subOverlayText');
+
+    // If user disabled overlay on video preview, keep overlay hidden
+    if (!state.showOverlay) {
+      if (ov) ov.style.display = 'none';
+      if (cur && cur.id !== state.activeCueId) {
+        selectCue(cur.id);
+        var rowEl = $('subCueList').querySelector('[data-cid="' + cur.id + '"]');
+        if (rowEl) rowEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+      rafId = requestAnimationFrame(syncPlayhead);
+      return;
+    }
+
     if (cur && ov && span) {
       ov.style.display = 'block';
       var txt = displayText(cur);
@@ -1702,6 +1897,34 @@
       $('subCaseSelect').addEventListener('change', function () {
         state.style.textCase = this.value;
         applyOverlayStyle();
+      });
+    }
+
+    // Subtitle Visibility Toggle Listeners
+    if ($('subToggleOverlay')) {
+      $('subToggleOverlay').addEventListener('change', function () {
+        setShowOverlay(this.checked);
+      });
+    }
+    if ($('btnQuickToggleSub')) {
+      $('btnQuickToggleSub').addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setShowOverlay(!state.showOverlay);
+      });
+    }
+
+    // 1-Click Copy All Subtitles Listeners
+    if ($('btnCopyAllCues')) {
+      $('btnCopyAllCues').addEventListener('click', function () {
+        var fmt = $('subCopyFormatSelect') ? $('subCopyFormatSelect').value : 'timeline';
+        copyAllCues(fmt);
+      });
+    }
+    if ($('btnExportCopyAll')) {
+      $('btnExportCopyAll').addEventListener('click', function () {
+        var fmt = $('subCopyFormatSelect') ? $('subCopyFormatSelect').value : 'timeline';
+        copyAllCues(fmt);
       });
     }
 

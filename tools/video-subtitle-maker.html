@@ -457,6 +457,8 @@
     body.dark .quick-size-pill { background: #16202F; border-color: #24324B; color: #B9C4D8; }
     body.dark .quick-size-pill.active { border-color: var(--saffron); background: #2A1F0D; color: #FFC97E; }
     body.dark .sub-size-panel { background: #141B2B !important; border-color: #24324B !important; }
+    body.dark .sub-video-controls-header { background: #141B2B !important; border-color: #24324B !important; }
+    body.dark #subCopyFormatSelect { background: #0D1320; color: #E4EAF4; border-color: #24324B; }
   </style>
 </head>
 <body>
@@ -571,11 +573,23 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M4 16l4 4"/><path d="M8 8h8M8 12h5"/></svg>
               Subtitle Cues <span id="cueCountBadge" style="font-weight:400; color:var(--gray-500); font-size: 12px;">(0)</span>
             </div>
-            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;">
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; align-items:center;">
               <button type="button" class="btn btn-outline" id="btnAddCue">＋ Add Cue</button>
               <button type="button" class="btn btn-outline" id="btnImportSrt">📥 Import SRT/VTT</button>
               <input type="file" id="subImportInput" accept=".srt,.vtt,text/plain" hidden>
               <button type="button" class="btn btn-outline" id="btnClearCues" style="color:#b91c1c;">🗑 Clear All</button>
+
+              <div style="margin-left:auto; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                <select id="subCopyFormatSelect" class="form-select" style="font-size:12px; padding:4px 8px; height:34px; border-radius:6px; width:auto; max-width:180px;" title="Select Copy Format">
+                  <option value="timeline" selected>Format: [Timeline] + Text</option>
+                  <option value="srt">Format: Standard .SRT</option>
+                  <option value="simple">Format: 0:00 + Text</option>
+                  <option value="text">Format: Dialogue Only</option>
+                </select>
+                <button type="button" class="btn btn-primary" id="btnCopyAllCues" style="background:#10b981; border-color:#059669; color:#fff; font-weight:700; height:34px; padding:0 12px; display:inline-flex; align-items:center; gap:5px;" title="Copy all subtitles with exact timeline to clipboard in 1 click">
+                  <span>📋 Copy All (Timeline)</span>
+                </button>
+              </div>
             </div>
             <div class="sub-lang-pills" id="subDisplayPills" style="margin-bottom: 10px;">
               <button type="button" class="sub-lang-pill active" data-mode="orig">Original text</button>
@@ -799,11 +813,12 @@
 
               <!-- Subtitle File Downloads -->
               <div class="sub-export-actions">
+                <button type="button" class="btn btn-outline" id="btnExportCopyAll" style="font-weight:700; color:#059669; border-color:#10b981;">📋 Copy All (Timeline)</button>
                 <button type="button" class="btn btn-outline" id="btnExportSrt">⬇ Download .SRT</button>
                 <button type="button" class="btn btn-outline" id="btnExportVtt">⬇ Download .VTT</button>
                 <button type="button" class="btn btn-outline" id="btnExportTxt">⬇ Transcript .TXT</button>
               </div>
-              <p style="font-size: 11.5px; color: var(--gray-500); margin-top: 6px;">Burn-in renders styled animated subtitles right into your MP4/WebM video ready for Instagram Reels, Shorts &amp; TikTok. SRT is for YouTube captions.</p>
+              <p style="font-size: 11.5px; color: var(--gray-500); margin-top: 6px;">Copy subtitles with timestamps for YouTube, Instagram captions &amp; notes with 1 click. Or download standard SRT / burn-in video.</p>
             </div>
           </div>
 
@@ -811,8 +826,20 @@
 
         <div class="tool-split-output">
 
+          <!-- Video preview options & Subtitle Visibility Toggle -->
+          <div class="sub-video-controls-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px; padding:7px 12px; background:var(--gray-50, #f8fafc); border:1px solid var(--gray-200, #e2e8f0); border-radius:8px;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:600; color:var(--navy, #0f172a); margin:0;">
+              <input type="checkbox" id="subToggleOverlay" checked style="accent-color:var(--saffron, #f59e0b); width:18px; height:18px; cursor:pointer;">
+              <span>👁️ Show Subtitles on Video Preview</span>
+            </label>
+            <span id="subOverlayStateBadge" style="font-size:11px; padding:2px 8px; border-radius:999px; background:#dcfce7; color:#15803d; font-weight:700; border:1px solid #bbf7d0;">Active (Overlay ON)</span>
+          </div>
+
           <!-- Video preview -->
           <div class="sub-video-shell" id="subVideoShell">
+            <button type="button" id="btnQuickToggleSub" title="Click to show/hide subtitles on video" style="position:absolute; top:10px; right:10px; z-index:20; background:rgba(15,23,42,0.85); color:#fff; border:1px solid rgba(255,255,255,0.25); border-radius:999px; padding:4px 10px; font-size:11.5px; font-weight:600; cursor:pointer; backdrop-filter:blur(4px); display:flex; align-items:center; gap:5px; box-shadow:0 2px 6px rgba(0,0,0,0.4);">
+              <span>👁️ Subtitles: ON</span>
+            </button>
             <video id="subVideo" controls playsinline></video>
             <div class="sub-overlay" id="subOverlay" style="display:none;">
               <div class="sub-overlay-box" id="subOverlayBox" title="Drag to move · Pull corner to resize">
@@ -974,6 +1001,6 @@
   <div id="footer-placeholder"></div>
 
   <script src="../js/app.js" defer></script>
-  <script src="../js/tools/video-subtitle-maker.js" defer></script>
+  <script src="../js/tools/video-subtitle-maker.js?v=2.3" defer></script>
 </body>
 </html>
