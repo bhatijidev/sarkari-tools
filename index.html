@@ -225,547 +225,552 @@
       </div>
     </section>
 
-    <!-- ═══════ TOOLS SECTION ═══════ -->
-    <section class="section" id="tools">
-      <div class="section-header reveal">
-        <h2>Our Free Tools</h2>
-        <p>Everything you need — documents, images, PDFs, QR codes, subtitles, SEO &amp; more</p>
+    <!-- ═══════ TOOLS SECTION (Categorized Sections - Allinone Style) ═══════ -->
+    <section class="section" id="tools" style="padding-bottom: 0;">
+      <div class="section-header reveal" style="margin-bottom: var(--space-4);">
+        <h2>Our Free Online Tools</h2>
+        <p>Explore 76+ specialized utilities organized by category — fast, private, and 100% free</p>
       </div>
 
-      <!-- Category Tabs -->
-      <div class="category-tabs reveal">
-        <button class="category-tab active" data-category="all">All Tools</button>
-        <button class="category-tab" data-category="image">🖼️ Image Tools</button>
-        <button class="category-tab" data-category="pdf">📄 PDF Tools</button>
-        <button class="category-tab" data-category="calculator">📅 Calculators</button>
-        <button class="category-tab" data-category="exam">⌨️ Exam Tools</button>
-        <button class="category-tab" data-category="document">📝 Documents</button>
-        <button class="category-tab" data-category="utility">🔐 Utilities</button>
-        <button class="category-tab" data-category="video">🎬 Video &amp; Subtitles</button>
-        <button class="category-tab" data-category="seo">🚀 SEO &amp; Marketing</button>
+      <!-- Sticky Category Quick-Navigation Pills (Allinone style) -->
+      <div class="category-nav-wrapper">
+        <div class="category-nav-scroll" id="categoryNavScroll">
+          <a href="#all" class="cat-nav-pill active" data-filter="all">
+            <span class="cat-nav-icon">✨</span>
+            <span class="cat-nav-label">All Tools</span>
+            <span class="cat-nav-count">76</span>
+          </a>
+          <a href="#cat-video" class="cat-nav-pill" data-filter="video">
+            <span class="cat-nav-icon">🎬</span>
+            <span class="cat-nav-label">Video & Audio Tools</span>
+            <span class="cat-nav-count">4</span>
+          </a>
+          <a href="#cat-pdf" class="cat-nav-pill" data-filter="pdf">
+            <span class="cat-nav-icon">📄</span>
+            <span class="cat-nav-label">PDF Tools</span>
+            <span class="cat-nav-count">5</span>
+          </a>
+          <a href="#cat-image" class="cat-nav-pill" data-filter="image">
+            <span class="cat-nav-icon">🖼️</span>
+            <span class="cat-nav-label">Image & Photo Tools</span>
+            <span class="cat-nav-count">12</span>
+          </a>
+          <a href="#cat-seo" class="cat-nav-pill" data-filter="seo">
+            <span class="cat-nav-icon">🚀</span>
+            <span class="cat-nav-label">SEO & Web Marketing Tools</span>
+            <span class="cat-nav-count">16</span>
+          </a>
+          <a href="#cat-social" class="cat-nav-pill" data-filter="social">
+            <span class="cat-nav-icon">📱</span>
+            <span class="cat-nav-label">Social Media Tools</span>
+            <span class="cat-nav-count">3</span>
+          </a>
+          <a href="#cat-calc" class="cat-nav-pill" data-filter="calculator">
+            <span class="cat-nav-icon">📅</span>
+            <span class="cat-nav-label">Calculators & Financial Tools</span>
+            <span class="cat-nav-count">6</span>
+          </a>
+          <a href="#cat-doc" class="cat-nav-pill" data-filter="document">
+            <span class="cat-nav-icon">📝</span>
+            <span class="cat-nav-label">Documents, Writing & AI</span>
+            <span class="cat-nav-count">7</span>
+          </a>
+          <a href="#cat-utility" class="cat-nav-pill" data-filter="utility">
+            <span class="cat-nav-icon">🔐</span>
+            <span class="cat-nav-label">Security, QR & Developer Utilities</span>
+            <span class="cat-nav-count">21</span>
+          </a>
+          <a href="#cat-exam" class="cat-nav-pill" data-filter="exam">
+            <span class="cat-nav-icon">⌨️</span>
+            <span class="cat-nav-label">Exam & Typing Studio</span>
+            <span class="cat-nav-count">2</span>
+          </a>
+        </div>
       </div>
 
-      <!-- Tools Grid (Pre-rendered for zero CLS and instant SEO crawling) -->
-      <div class="tools-grid visible" id="toolsGrid">
-      <a href="tools/image-enhancer.html" class="tool-card" aria-label="Ultra AI Image Enhancer & 4K Super-Resolution">
+    <!-- ═══════ VIDEO & AUDIO TOOLS SECTION ═══════ -->
+    <section class="category-section" id="cat-video" data-category="video">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon utility-tools">🎬</div>
+          <div>
+            <h2 class="category-heading">Video & Audio Tools</h2>
+            <p class="category-subheading">Extract audio, auto-generate AI subtitles, remove watermarks, and design viral thumbnails</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">4 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/video-to-audio-converter.html" class="tool-card" aria-label="Any Video to Audio Converter" data-category="video" data-tags="video to audio extract mp3 video to wav mp4 to mp3 audio extractor">
         <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">💎</div>
-        <h3>Ultra AI Image Enhancer &amp; 4K Super-Resolution</h3>
-        <p>Deep multi-stage photo enhancer: Edge-directed super-resolution, CLAHE local HDR tone mapping, and micro-texture recovery</p>
+        <div class="tool-card-icon utility-tools">🎵</div>
+        <h3>Any Video to Audio Converter</h3>
+        <p>Extract MP3, WAV, AAC & M4A from any video — unlimited duration, custom bitrates, volume booster & audio trimmer</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/ai-video-remover.html" class="tool-card" aria-label="AI Video to Camera Converter & Forensics Humanizer">
+      <a href="tools/ai-video-remover.html" class="tool-card" aria-label="AI Video to Camera Converter & Forensics Humanizer" data-category="video" data-tags="">
         <span class="tool-card-badge">New</span>
         <div class="tool-card-icon media-tools">🎬</div>
-        <h3>AI Video to Camera Converter &amp; Forensics Humanizer</h3>
-        <p>Purge C2PA credentials, inject Apple iPhone 15 Pro &amp; Sony FX3 metadata, and simulate physical CMOS sensor grain &amp; camera mic room tone</p>
+        <h3>AI Video to Camera Converter & Forensics Humanizer</h3>
+        <p>Purge C2PA credentials, inject Apple iPhone 15 Pro & Sony FX3 metadata, and simulate physical CMOS sensor grain & camera mic room tone</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/image-metadata-editor.html" class="tool-card" aria-label="Image Metadata & AI to Camera Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">📷</div>
-        <h3>Image Metadata &amp; AI to Camera Converter</h3>
-        <p>View, edit, or delete EXIF &amp; GPS metadata, remove AI prompt traces, and convert AI images into authentic camera photos</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/image-extractor.html" class="tool-card" aria-label="Webpage Image Extractor">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">📥</div>
-        <h3>Webpage Image Extractor</h3>
-        <p>Extract and download all photos, SVGs, and background images from any website URL or HTML in bulk or ZIP</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/image-to-text.html" class="tool-card" aria-label="Image to Text (OCR)">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">🔤</div>
-        <h3>Image to Text (OCR)</h3>
-        <p>Extract editable text from multiple images in English & Hindi with high accuracy</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/image-resizer.html" class="tool-card" aria-label="Image Resizer">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon image-tools">🖼️</div>
-        <h3>Image Resizer</h3>
-        <p>Resize images by pixel, percentage or preset sizes for government forms</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/image-converter.html" class="tool-card" aria-label="Image Format Converter">
-        
-        <div class="tool-card-icon image-tools">🔄</div>
-        <h3>Image Format Converter</h3>
-        <p>Convert images between JPG, PNG, WebP, BMP and more formats</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/passport-photo.html" class="tool-card" aria-label="Passport Size Photo Maker">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon image-tools">📷</div>
-        <h3>Passport Size Photo Maker</h3>
-        <p>Create passport size photos with A4 print layout — 5 or 10 photos per sheet</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/bg-remover.html" class="tool-card" aria-label="Background Remover">
-        
-        <div class="tool-card-icon image-tools">✂️</div>
-        <h3>Background Remover</h3>
-        <p>Remove image background instantly and replace with custom colors</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/photo-signature.html" class="tool-card" aria-label="Photo & Signature Joiner">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon image-tools">✍️</div>
-        <h3>Photo & Signature Joiner</h3>
-        <p>Join photo and signature side by side for government application forms</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/name-date-photo.html" class="tool-card" aria-label="Name & Date on Photo">
-        
-        <div class="tool-card-icon image-tools">🏷️</div>
-        <h3>Name & Date on Photo</h3>
-        <p>Add name, date or custom text below your passport photo</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/bg-color-changer.html" class="tool-card" aria-label="Photo Background Color">
-        
-        <div class="tool-card-icon image-tools">🎨</div>
-        <h3>Photo Background Color</h3>
-        <p>Change photo background color to white, blue, red or any custom color</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/image-to-pdf.html" class="tool-card" aria-label="Image to PDF Converter">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon pdf-tools">📄</div>
-        <h3>Image to PDF Converter</h3>
-        <p>Convert images to PDF with headers, footers, watermark and page numbering</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/pdf-to-image.html" class="tool-card" aria-label="PDF to Image Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon pdf-tools">🖼️</div>
-        <h3>PDF to Image Converter</h3>
-        <p>Convert PDF pages to high-resolution JPG, PNG or WebP images and download as a neat ZIP</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/pdf-editor.html" class="tool-card" aria-label="Advanced PDF Editor">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon pdf-tools">📝</div>
-        <h3>Advanced PDF Editor</h3>
-        <p>Edit PDF in browser — add text, images & signatures, watermark, merge, rotate and reorder pages</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/video-subtitle-maker.html" class="tool-card" aria-label="AI Video Subtitle Maker">
+      <a href="tools/video-subtitle-maker.html" class="tool-card" aria-label="AI Video Subtitle Maker" data-category="video" data-tags="">
         <span class="tool-card-badge">New</span>
         <div class="tool-card-icon utility-tools">🎬</div>
         <h3>AI Video Subtitle Maker</h3>
         <p>Auto-generate timed subtitles from video with on-device AI — Hindi, English & Hinglish, timeline editor, SRT/VTT export</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/age-calculator.html" class="tool-card" aria-label="Age Calculator">
-        
-        <div class="tool-card-icon calc-tools">📅</div>
-        <h3>Age Calculator</h3>
-        <p>Calculate exact age in years, months and days for government exam eligibility</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/typing-test.html" class="tool-card" aria-label="Typing Speed Test">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon exam-tools">⌨️</div>
-        <h3>Typing Speed Test</h3>
-        <p>Practice Hindi & English typing for SSC, CHSL and government typing exams</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/resume-maker.html" class="tool-card" aria-label="Resume / CV Maker">
-        
-        <div class="tool-card-icon doc-tools">📝</div>
-        <h3>Resume / CV Maker</h3>
-        <p>Create professional resumes with beautiful templates — download as PDF</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/biodata-maker.html" class="tool-card" aria-label="Shadi / Marriage Biodata">
-        
-        <div class="tool-card-icon doc-tools">💍</div>
-        <h3>Shadi / Marriage Biodata</h3>
-        <p>Create beautiful marriage biodata with customizable templates in Hindi & English</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/letter-writer.html" class="tool-card" aria-label="Application & Letter Writer">
-        
-        <div class="tool-card-icon doc-tools">✉️</div>
-        <h3>Application & Letter Writer</h3>
-        <p>Write formal letters and applications in Hindi, English or Hinglish with AI assistance</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/password-generator.html" class="tool-card" aria-label="Password Generator">
-        
-        <div class="tool-card-icon utility-tools">🔐</div>
-        <h3>Password Generator</h3>
-        <p>Generate strong, secure passwords for your online accounts</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/exam-studio.html" class="tool-card" aria-label="All-in-One Exam Studio">
-        <span class="tool-card-badge">Featured</span>
-        <div class="tool-card-icon exam-tools">⚡</div>
-        <h3>All-in-One Exam Studio</h3>
-        <p>Unified studio to resize photo, crop signature, add name & date, and generate compliant files in 1 click</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/attendance-calculator.html" class="tool-card" aria-label="College Attendance Planner">
-        <span class="tool-card-badge">Student</span>
-        <div class="tool-card-icon calc-tools">🎓</div>
-        <h3>College Attendance Planner</h3>
-        <p>Calculate 75% college attendance eligibility and convert CGPA to percentage</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/qr-generator.html" class="tool-card" aria-label="All-in-One QR Code Studio & Scanner">
-        <span class="tool-card-badge">Featured</span>
-        <div class="tool-card-icon utility-tools">📱</div>
-        <h3>All-in-One QR Code Studio & Scanner</h3>
-        <p>Generate UPI with GPay/PhonePe logo, vCard visiting card, Wi-Fi, WhatsApp, Google reviews, and scan QR codes from camera/image</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/upi-qr-generator.html" class="tool-card" aria-label="UPI QR Code Generator with Logo">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon utility-tools">💳</div>
-        <h3>UPI QR Code Generator with Logo</h3>
-        <p>Generate Bharat UPI payment QR with GPay, PhonePe, Paytm logo & printable counter standees</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/vcard-qr-generator.html" class="tool-card" aria-label="vCard Digital Visiting Card QR">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon doc-tools">📇</div>
-        <h3>vCard Digital Visiting Card QR</h3>
-        <p>Generate digital business card QR codes — scan with iPhone/Android camera to save contact in 1 tap</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/qr-scanner.html" class="tool-card" aria-label="Online QR Code Scanner">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon image-tools">📷</div>
-        <h3>Online QR Code Scanner</h3>
-        <p>Scan QR codes online using your laptop/phone webcam or upload gallery screenshots & images</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/wifi-qr-generator.html" class="tool-card" aria-label="Wi-Fi Access QR Code Generator">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">📶</div>
-        <h3>Wi-Fi Access QR Code Generator</h3>
-        <p>Let guests and customers scan to connect directly to your Wi-Fi without typing passwords</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/whatsapp-qr-generator.html" class="tool-card" aria-label="WhatsApp Direct Chat QR Generator">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon utility-tools">💬</div>
-        <h3>WhatsApp Direct Chat QR Generator</h3>
-        <p>Create scan-to-chat WhatsApp QR codes with pre-filled greeting messages without saving phone numbers</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/google-review-qr-generator.html" class="tool-card" aria-label="Google Review 5-Star QR Generator">
-        <span class="tool-card-badge">Featured</span>
-        <div class="tool-card-icon calc-tools">⭐</div>
-        <h3>Google Review 5-Star QR Generator</h3>
-        <p>Boost Google Maps local ranking — direct 5-star review QR standee for shop counters & receipts</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/google-maps-qr-generator.html" class="tool-card" aria-label="Google Maps Location QR Generator">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">📍</div>
-        <h3>Google Maps Location QR Generator</h3>
-        <p>Create turn-by-turn navigation QR codes for store addresses, banners, and wedding invitation cards</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/gst-calculator.html" class="tool-card" aria-label="Indian GST Calculator">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon calc-tools">📊</div>
-        <h3>Indian GST Calculator</h3>
-        <p>Calculate GST inclusive, exclusive, CGST, SGST, IGST tax breakdown and retailer profit margins</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/invoice-maker.html" class="tool-card" aria-label="Cyber Cafe Invoice Maker">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon utility-tools">🧾</div>
-        <h3>Cyber Cafe Invoice Maker</h3>
-        <p>Generate instant cash memos, customer receipts and GST bills with quick cyber cafe presets</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/word-counter.html" class="tool-card" aria-label="Word & Character Counter">
-        
-        <div class="tool-card-icon utility-tools">✍️</div>
-        <h3>Word & Character Counter</h3>
-        <p>Count words, characters, check SSC/UPSC essay limits, change cases and clean spaces</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/ai-plagiarism-checker.html" class="tool-card" aria-label="AI & Plagiarism Detector">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon doc-tools">🤖</div>
-        <h3>AI & Plagiarism Detector</h3>
-        <p>Check essays & text for ChatGPT, Claude AI probability, similarity %, word counts & highlighted sentences</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/barcode-generator.html" class="tool-card" aria-label="Online Barcode Generator">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🏷️</div>
-        <h3>Online Barcode Generator</h3>
-        <p>Generate Code 128, EAN-13, UPC barcodes with instant SVG/PNG download and printable A4 sticker sheets</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/whois-lookup.html" class="tool-card" aria-label="Domain WHOIS & DNS Checker">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">🌐</div>
-        <h3>Domain WHOIS & DNS Checker</h3>
-        <p>Check live DNS records (A, MX, TXT, NS, CNAME), domain age, hosting provider and SPF/DMARC email security</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/url-safety-checker.html" class="tool-card" aria-label="URL Safety Checker & Scam Link Detector">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🛡️</div>
-        <h3>URL Safety &amp; Scam Link Detector</h3>
-        <p>Scan links for phishing, WhatsApp/SMS scams, fake bank KYC fraud, malware downloads &amp; Cloudflare threat blocklists</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/product-research.html" class="tool-card" aria-label="Winning Product Research & Dropshipping Spy Tool">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon calc-tools">🛍️</div>
-        <h3>Winning Product Research &amp; Dropshipping Spy</h3>
-        <p>Find trending winning products by country &amp; category, spy on live competitor Meta ads, TikTok trends &amp; calculate profit margins</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/website-analyzer.html" class="tool-card" aria-label="All-in-One Website Analyzer & Auditor">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon calc-tools">🔬</div>
-        <h3>All-in-One Website Analyzer & Auditor</h3>
-        <p>360° verified audit: active Meta & Facebook ads, social profiles, Google Maps, contact details, tech stack & DNS</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/tech-detector.html" class="tool-card" aria-label="Website Tech Stack & Shopify Detector">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon calc-tools">🔎</div>
-        <h3>Website Tech Stack & Shopify Detector</h3>
-        <p>Discover CMS, Shopify apps & themes, React, Next.js, hosting, CDN, and 200+ technologies</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/da-pa-checker.html" class="tool-card" aria-label="Domain Authority (DA) & PA Checker">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon calc-tools">📊</div>
-        <h3>Domain Authority (DA) & PA Checker</h3>
-        <p>Analyze website ranking potential — calculate estimated DA (1-100), Page Authority (PA), Spam Score, and 10-point SEO audit</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/meta-tag-generator.html" class="tool-card" aria-label="Meta Tag & Open Graph Generator">
-        <span class="tool-card-badge">Featured</span>
-        <div class="tool-card-icon utility-tools">🏷️</div>
-        <h3>Meta Tag & Open Graph Generator</h3>
-        <p>Build Google SEO meta tags and social share cards (WhatsApp, Facebook, Twitter) with live interactive previews</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/keyword-density.html" class="tool-card" aria-label="Keyword Density & Content Optimizer">
-        
-        <div class="tool-card-icon doc-tools">📈</div>
-        <h3>Keyword Density & Content Optimizer</h3>
-        <p>Analyze articles for 1-word, 2-word, 3-word phrase frequency, keyword density %, Flesch readability, and stuffing warnings</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/robots-sitemap-generator.html" class="tool-card" aria-label="Robots.txt & XML Sitemap Generator">
-        
-        <div class="tool-card-icon exam-tools">🤖</div>
-        <h3>Robots.txt & XML Sitemap Generator</h3>
-        <p>Build search engine crawl directives with live URL testing, CMS presets (WordPress, Shopify), and W3C XML sitemaps</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/schema-generator.html" class="tool-card" aria-label="Google Schema Markup (JSON-LD)">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">⚡</div>
-        <h3>Google Schema Markup (JSON-LD)</h3>
-        <p>Generate rich snippet structured data for FAQ accordions, Local Business, Article, Product reviews, and Organization</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/utm-builder.html" class="tool-card" aria-label="UTM Campaign URL Builder & QR">
-        
-        <div class="tool-card-icon image-tools">🔗</div>
-        <h3>UTM Campaign URL Builder & QR</h3>
-        <p>Create Google Analytics tracking links with 1-click pills, multi-channel bulk links (WhatsApp, Meta, Google), and printable QR</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/serp-simulator.html" class="tool-card" aria-label="Google SERP Snippet Simulator">
-        
-        <div class="tool-card-icon calc-tools">🔍</div>
-        <h3>Google SERP Snippet Simulator</h3>
-        <p>Simulate desktop and mobile search snippets with real Arial 20px pixel width calculation, rich stars, and query bolding</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/domain-checker.html" class="tool-card" aria-label="Domain Availability Checker">
-        <span class="tool-card-badge">Popular</span>
-        <div class="tool-card-icon image-tools">🌐</div>
-        <h3>Domain Availability Checker</h3>
-        <p>Check live domain availability in real time across .com, .in, .co.in, .org with instant pricing & bulk search</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/internet-speed-test.html" class="tool-card" aria-label="Internet Speed Test & Net Performance">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">⚡</div>
-        <h3>Internet Speed Test & Net Performance</h3>
-        <p>Test live broadband, 5G & Wi-Fi internet speeds, download & upload throughput, latency ping, and jitter with speedometer gauge</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/quick-notes.html" class="tool-card" aria-label="Quick Notes & Local Task Keeper">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">📝</div>
-        <h3>Quick Notes & Local Task Keeper</h3>
-        <p>Fast offline notepad with complete local CRUD operations, interactive checklist tasks, tags, auto-save, and JSON backup</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/emi-calculator.html" class="tool-card" aria-label="Loan & EMI Calculator (Home, Car, Personal)">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon calc-tools">💰</div>
-        <h3>Loan & EMI Calculator (Home, Car, Personal)</h3>
-        <p>Calculate monthly loan EMI, total interest payable, visual principal-interest donut chart, and complete yearly amortization schedule</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/unit-converter.html" class="tool-card" aria-label="Land Area & Smart Unit Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon calc-tools">📐</div>
-        <h3>Land Area & Smart Unit Converter</h3>
-        <p>Convert Indian land units (Bigha, Gaj, Biswa, Katha, Acre, Sq.Ft) along with Length, Weight (Tola), and Digital Data (MB/GB)</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/krutidev-converter.html" class="tool-card" aria-label="Unicode to Kruti Dev 010 Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon doc-tools">🇮🇳</div>
-        <h3>Unicode to Kruti Dev 010 Converter</h3>
-        <p>Accurately convert Hindi text between modern Unicode (Mangal) and Kruti Dev 010 for typing exams and court jobs</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/text-to-handwriting.html" class="tool-card" aria-label="Text to Handwriting Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon doc-tools">📝</div>
-        <h3>Text to Handwriting Converter</h3>
-        <p>Convert typed homework, assignments, and notes into realistic handwritten notebook pages with custom ink and paper</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/bionic-reading.html" class="tool-card" aria-label="Bionic Reading Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🧠</div>
-        <h3>Bionic Reading Converter</h3>
-        <p>Read up to 3x faster with higher retention using artificial eye fixation points on any text or article</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/numbers-to-words.html" class="tool-card" aria-label="Numbers to Words Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon calc-tools">🔢</div>
-        <h3>Numbers to Words Converter</h3>
-        <p>Convert numbers, amounts, and currency into official words in Indian (Lakhs/Crores) and International formats for cheques and invoices</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/youtube-thumbnail-downloader.html" class="tool-card" aria-label="YouTube Thumbnail Downloader">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon video-tools">📺</div>
-        <h3>YouTube Thumbnail Downloader</h3>
-        <p>Grab and download Ultra HD 1080p, 720p, HQ, and Shorts cover thumbnails from any YouTube video in one click</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/youtube-thumbnail-editor.html" class="tool-card" aria-label="AI YouTube Thumbnail Editor">
+      <a href="tools/youtube-thumbnail-editor.html" class="tool-card" aria-label="AI YouTube Thumbnail Editor & Multi-Layer Studio" data-category="video" data-tags="">
         <span class="tool-card-badge">New</span>
         <div class="tool-card-icon media-tools">🎨</div>
-        <h3>AI YouTube Thumbnail Editor</h3>
-        <p>Deconstruct thumbnails into layers, add viral MrBeast outlines, 3D text &amp; arrows with GPU acceleration</p>
+        <h3>AI YouTube Thumbnail Editor & Multi-Layer Studio</h3>
+        <p>Deconstruct YouTube thumbnails into editable subject & background layers, add pro YouTuber outlines, 3D text, arrows, and export in 1080p — 100% GPU accelerated</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/tweet-generator.html" class="tool-card" aria-label="Fake Tweet / X Post Generator">
+      </div>
+    </section>
+
+    <!-- ═══════ PDF TOOLS SECTION ═══════ -->
+    <section class="category-section" id="cat-pdf" data-category="pdf">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon pdf-tools">📄</div>
+          <div>
+            <h2 class="category-heading">PDF Tools</h2>
+            <p class="category-subheading">Edit, merge, split, compress, protect, unlock, and convert PDFs 100% privately in browser</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">5 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/image-to-pdf.html" class="tool-card" aria-label="Image to PDF Converter" data-category="pdf" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon pdf-tools">📄</div>
+        <h3>Image to PDF Converter</h3>
+        <p>Convert images to PDF with headers, footers, watermark and page numbering</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/pdf-to-image.html" class="tool-card" aria-label="PDF to Image Converter" data-category="pdf" data-tags="">
         <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🐦</div>
-        <h3>Fake Tweet / X Post Generator</h3>
-        <p>Create pixel-perfect Twitter and X post mockups with custom verified ticks, avatars, metrics, and high-res PNG download</p>
+        <div class="tool-card-icon pdf-tools">🖼️</div>
+        <h3>PDF to Image Converter</h3>
+        <p>Convert PDF pages into high-resolution JPG, PNG, or WebP images and download as a neat ZIP archive with custom folder organization</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/instagram-post-generator.html" class="tool-card" aria-label="Instagram Post Mockup Generator">
+      <a href="tools/pdf-editor.html" class="tool-card" aria-label="Advanced PDF Editor" data-category="pdf" data-tags="">
         <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">📸</div>
-        <h3>Instagram Post Mockup Generator</h3>
-        <p>Design realistic Instagram feed post mockups with profile avatar, photo, likes count, caption, and verified badge</p>
+        <div class="tool-card-icon pdf-tools">📝</div>
+        <h3>Advanced PDF Editor</h3>
+        <p>Edit PDF in browser — add text, images & signatures, watermark, merge, rotate and reorder pages</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/youtube-tag-extractor.html" class="tool-card" aria-label="YouTube Tags & SEO Extractor">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon seo-tools">🏷️</div>
-        <h3>YouTube Tags & SEO Extractor</h3>
-        <p>Extract hidden tags, keywords, titles, and SEO metadata from any YouTube video or Shorts to boost rankings</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/base64-converter.html" class="tool-card" aria-label="Base64 Encoder & Decoder">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🔐</div>
-        <h3>Base64 Encoder & Decoder</h3>
-        <p>Encode and decode plain text, images, and files to Base64 format with full UTF-8 and Data URI support</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/hash-generator.html" class="tool-card" aria-label="Hash Generator & Checksum Verifier">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🛡️</div>
-        <h3>Hash Generator & Checksum Verifier</h3>
-        <p>Generate MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes from text or files and verify download integrity</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/code-formatter.html" class="tool-card" aria-label="Code Formatter & Minifier">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">💻</div>
-        <h3>Code Formatter & Minifier</h3>
-        <p>Beautify or minify HTML, CSS, JavaScript, and JSON code to reduce file sizes and clean messy syntax</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/json-xml-converter.html" class="tool-card" aria-label="JSON to XML & XML to JSON Converter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🔄</div>
-        <h3>JSON to XML & XML to JSON Converter</h3>
-        <p>Convert structured data seamlessly between JSON and XML with syntax validation and custom root tags</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/url-html-encoder.html" class="tool-card" aria-label="URL & HTML Entity Encoder / Decoder">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🌐</div>
-        <h3>URL & HTML Entity Encoder / Decoder</h3>
-        <p>Escape and sanitize special characters for web URLs, query parameters, and HTML templates to prevent broken links and XSS</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/color-converter.html" class="tool-card" aria-label="Color Converter & Palette Studio">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🎨</div>
-        <h3>Color Converter & Palette Studio</h3>
-        <p>Convert between HEX, RGB, HSL, and CMYK color codes, check WCAG accessibility contrast ratios, and generate palettes</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/case-converter.html" class="tool-card" aria-label="Text Case Converter & String Tools">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🔠</div>
-        <h3>Text Case Converter & String Tools</h3>
-        <p>Convert text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and reverse text</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/image-slicer.html" class="tool-card" aria-label="Image Slicer & Grid Splitter">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon image-tools">✂️</div>
-        <h3>Image Slicer & Grid Splitter</h3>
-        <p>Split photos into multi-image grids for Instagram 3x3 profiles, Twitter panoramic banners, and custom slices with ZIP download</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/webcam-mic-tester.html" class="tool-card" aria-label="Webcam & Microphone Tester">
-        <span class="tool-card-badge">New</span>
-        <div class="tool-card-icon utility-tools">🎥</div>
-        <h3>Webcam & Microphone Tester</h3>
-        <p>Verify camera resolution, real-time FPS, microphone volume level meter, and speaker audio before exams and online interviews</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a href="tools/pdf-merger-splitter.html" class="tool-card" aria-label="Merge PDF & Split PDF Pages">
+      <a href="tools/pdf-merger-splitter.html" class="tool-card" aria-label="Merge PDF & Split PDF Pages" data-category="pdf" data-tags="">
         <span class="tool-card-badge">New</span>
         <div class="tool-card-icon pdf-tools">📑</div>
         <h3>Merge PDF & Split PDF Pages</h3>
         <p>Combine multiple PDF documents into one or extract specific page ranges with 100% client-side privacy</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/pdf-lock-unlock.html" class="tool-card" aria-label="Protect PDF & Unlock PDF Tool">
+      <a href="tools/pdf-lock-unlock.html" class="tool-card" aria-label="Protect PDF & Unlock PDF Tool" data-category="pdf" data-tags="">
         <span class="tool-card-badge">New</span>
         <div class="tool-card-icon pdf-tools">🔒</div>
         <h3>Protect PDF & Unlock PDF Tool</h3>
         <p>Add strong password encryption to confidential PDFs or permanently remove passwords from protected PDFs in your browser</p>
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="tools/policy-generator.html" class="tool-card" aria-label="Privacy Policy & Terms Generator">
+      </div>
+    </section>
+
+    <!-- ═══════ IMAGE & PHOTO TOOLS SECTION ═══════ -->
+    <section class="category-section" id="cat-image" data-category="image">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon image-tools">🖼️</div>
+          <div>
+            <h2 class="category-heading">Image & Photo Tools</h2>
+            <p class="category-subheading">AI image enhancement, background removal, photo resizing, and format conversions</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">12 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/image-enhancer.html" class="tool-card" aria-label="Ultra AI Image Enhancer & 4K Super-Resolution" data-category="image" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">💎</div>
+        <h3>Ultra AI Image Enhancer & 4K Super-Resolution</h3>
+        <p>Deep multi-stage photo enhancer: Edge-directed super-resolution (up to 8x), CLAHE local HDR tone mapping, bilateral de-noising, and micro-texture recovery</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/image-metadata-editor.html" class="tool-card" aria-label="Image Metadata & AI to Camera Converter" data-category="image" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">📷</div>
+        <h3>Image Metadata & AI to Camera Converter</h3>
+        <p>View, edit, or delete EXIF & GPS metadata, remove AI prompt traces, and convert AI images into authentic camera photos</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/image-extractor.html" class="tool-card" aria-label="Webpage Image Extractor" data-category="image" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">📥</div>
+        <h3>Webpage Image Extractor</h3>
+        <p>Extract and download all photos, SVGs, and background images from any website URL or HTML in bulk or ZIP</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/image-to-text.html" class="tool-card" aria-label="Image to Text (OCR)" data-category="image" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">🔤</div>
+        <h3>Image to Text (OCR)</h3>
+        <p>Extract editable text from multiple images in English & Hindi with high accuracy</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/image-resizer.html" class="tool-card" aria-label="Image Resizer" data-category="image" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon image-tools">🖼️</div>
+        <h3>Image Resizer</h3>
+        <p>Resize images by pixel, percentage or preset sizes for government forms</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/image-converter.html" class="tool-card" aria-label="Image Format Converter" data-category="image" data-tags="">
+        <div class="tool-card-icon image-tools">🔄</div>
+        <h3>Image Format Converter</h3>
+        <p>Convert images between JPG, PNG, WebP, BMP and more formats</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/passport-photo.html" class="tool-card" aria-label="Passport Size Photo Maker" data-category="image" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon image-tools">📷</div>
+        <h3>Passport Size Photo Maker</h3>
+        <p>Create passport size photos with A4 print layout — 5 or 10 photos per sheet</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/bg-remover.html" class="tool-card" aria-label="Background Remover" data-category="image" data-tags="">
+        <div class="tool-card-icon image-tools">✂️</div>
+        <h3>Background Remover</h3>
+        <p>Remove image background instantly and replace with custom colors</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/photo-signature.html" class="tool-card" aria-label="Photo & Signature Joiner" data-category="image" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon image-tools">✍️</div>
+        <h3>Photo & Signature Joiner</h3>
+        <p>Join photo and signature side by side for government application forms</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/name-date-photo.html" class="tool-card" aria-label="Name & Date on Photo" data-category="image" data-tags="">
+        <div class="tool-card-icon image-tools">🏷️</div>
+        <h3>Name & Date on Photo</h3>
+        <p>Add name, date or custom text below your passport photo</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/bg-color-changer.html" class="tool-card" aria-label="Photo Background Color" data-category="image" data-tags="">
+        <div class="tool-card-icon image-tools">🎨</div>
+        <h3>Photo Background Color</h3>
+        <p>Change photo background color to white, blue, red or any custom color</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/image-slicer.html" class="tool-card" aria-label="Image Slicer & Grid Splitter" data-category="image" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">✂️</div>
+        <h3>Image Slicer & Grid Splitter</h3>
+        <p>Split photos into multi-image grids for Instagram 3x3 profiles, Twitter panoramic banners, and custom slices with ZIP download</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      </div>
+    </section>
+
+    <!-- ═══════ SEO & WEB MARKETING TOOLS SECTION ═══════ -->
+    <section class="category-section" id="cat-seo" data-category="seo">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon utility-tools">🚀</div>
+          <div>
+            <h2 class="category-heading">SEO & Web Marketing Tools</h2>
+            <p class="category-subheading">Analyze site SEO, check DA/PA, audit backlinks, inspect WHOIS, and simulate Google SERP</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">16 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/whatsapp-qr-generator.html" class="tool-card" aria-label="WhatsApp Direct Chat QR Generator" data-category="seo" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon utility-tools">💬</div>
+        <h3>WhatsApp Direct Chat QR Generator</h3>
+        <p>Create scan-to-chat WhatsApp QR codes with pre-filled greeting messages without saving phone numbers</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/google-review-qr-generator.html" class="tool-card" aria-label="Google Review 5-Star QR Generator" data-category="seo" data-tags="">
+        <span class="tool-card-badge">Featured</span>
+        <div class="tool-card-icon calc-tools">⭐</div>
+        <h3>Google Review 5-Star QR Generator</h3>
+        <p>Boost Google Maps local ranking — direct 5-star review QR standee for shop counters & receipts</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/whois-lookup.html" class="tool-card" aria-label="Domain WHOIS & DNS Checker" data-category="seo" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">🌐</div>
+        <h3>Domain WHOIS & DNS Checker</h3>
+        <p>Check live DNS records (A, MX, TXT, NS, CNAME), domain age, hosting provider and SPF/DMARC email security</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/url-safety-checker.html" class="tool-card" aria-label="URL Safety Checker & Scam Link Detector" data-category="seo" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🛡️</div>
+        <h3>URL Safety Checker & Scam Link Detector</h3>
+        <p>Scan links for phishing, WhatsApp/SMS scams, fake bank KYC fraud, malware downloads & Cloudflare threat blocklists</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/product-research.html" class="tool-card" aria-label="Winning Product Research & Dropshipping Spy Tool" data-category="seo" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon calc-tools">🛍️</div>
+        <h3>Winning Product Research & Dropshipping Spy Tool</h3>
+        <p>Find trending winning products by country & category, spy on live competitor Meta ads, TikTok trends & calculate profit margins</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/website-analyzer.html" class="tool-card" aria-label="All-in-One Website Analyzer & Auditor" data-category="seo" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon calc-tools">🔬</div>
+        <h3>All-in-One Website Analyzer & Auditor</h3>
+        <p>360° verified audit: active Meta & Facebook ads, social profiles, Google Maps, contact details, tech stack & DNS</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/tech-detector.html" class="tool-card" aria-label="Website Tech Stack & Shopify Detector" data-category="seo" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon calc-tools">🔎</div>
+        <h3>Website Tech Stack & Shopify Detector</h3>
+        <p>Discover CMS, Shopify apps & themes, React, Next.js, hosting, CDN, and 200+ technologies</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/da-pa-checker.html" class="tool-card" aria-label="Domain Authority (DA) & PA Checker" data-category="seo" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon calc-tools">📊</div>
+        <h3>Domain Authority (DA) & PA Checker</h3>
+        <p>Analyze website ranking potential — calculate estimated DA (1-100), Page Authority (PA), Spam Score, and 10-point SEO audit</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/meta-tag-generator.html" class="tool-card" aria-label="Meta Tag & Open Graph Generator" data-category="seo" data-tags="">
+        <span class="tool-card-badge">Featured</span>
+        <div class="tool-card-icon utility-tools">🏷️</div>
+        <h3>Meta Tag & Open Graph Generator</h3>
+        <p>Build Google SEO meta tags and social share cards (WhatsApp, Facebook, Twitter) with live interactive previews</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/keyword-density.html" class="tool-card" aria-label="Keyword Density & Content Optimizer" data-category="seo" data-tags="">
+        <div class="tool-card-icon doc-tools">📈</div>
+        <h3>Keyword Density & Content Optimizer</h3>
+        <p>Analyze articles for 1-word, 2-word, 3-word phrase frequency, keyword density %, Flesch readability, and stuffing warnings</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/robots-sitemap-generator.html" class="tool-card" aria-label="Robots.txt & XML Sitemap Generator" data-category="seo" data-tags="">
+        <div class="tool-card-icon exam-tools">🤖</div>
+        <h3>Robots.txt & XML Sitemap Generator</h3>
+        <p>Build search engine crawl directives with live URL testing, CMS presets (WordPress, Shopify), and W3C XML sitemaps</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/schema-generator.html" class="tool-card" aria-label="Google Schema Markup (JSON-LD)" data-category="seo" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">⚡</div>
+        <h3>Google Schema Markup (JSON-LD)</h3>
+        <p>Generate rich snippet structured data for FAQ accordions, Local Business, Article, Product reviews, and Organization</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/utm-builder.html" class="tool-card" aria-label="UTM Campaign URL Builder & QR" data-category="seo" data-tags="">
+        <div class="tool-card-icon image-tools">🔗</div>
+        <h3>UTM Campaign URL Builder & QR</h3>
+        <p>Create Google Analytics tracking links with 1-click pills, multi-channel bulk links (WhatsApp, Meta, Google), and printable QR</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/serp-simulator.html" class="tool-card" aria-label="Google SERP Snippet Simulator" data-category="seo" data-tags="">
+        <div class="tool-card-icon calc-tools">🔍</div>
+        <h3>Google SERP Snippet Simulator</h3>
+        <p>Simulate desktop and mobile search snippets with real Arial 20px pixel width calculation, rich stars, and query bolding</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/domain-checker.html" class="tool-card" aria-label="Domain Availability Checker" data-category="seo" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon image-tools">🌐</div>
+        <h3>Domain Availability Checker</h3>
+        <p>Check live domain availability in real time across .com, .in, .co.in, .org with instant pricing & bulk search</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/youtube-tag-extractor.html" class="tool-card" aria-label="YouTube Tags & SEO Extractor" data-category="seo" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon seo-tools">🏷️</div>
+        <h3>YouTube Tags & SEO Extractor</h3>
+        <p>Extract hidden tags, keywords, titles, and SEO metadata from any YouTube video or Shorts to boost rankings</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      </div>
+    </section>
+
+    <!-- ═══════ SOCIAL MEDIA TOOLS SECTION ═══════ -->
+    <section class="category-section" id="cat-social" data-category="social">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon exam-tools">📱</div>
+          <div>
+            <h2 class="category-heading">Social Media Tools</h2>
+            <p class="category-subheading">Download YouTube thumbnails, extract tags, create tweet mockups, and post generators</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">3 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/youtube-thumbnail-downloader.html" class="tool-card" aria-label="YouTube Thumbnail Downloader" data-category="social" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon video-tools">📺</div>
+        <h3>YouTube Thumbnail Downloader</h3>
+        <p>Grab and download Ultra HD 1080p, 720p, HQ, and Shorts cover thumbnails from any YouTube video in one click</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/tweet-generator.html" class="tool-card" aria-label="Fake Tweet / X Post Generator" data-category="social" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🐦</div>
+        <h3>Fake Tweet / X Post Generator</h3>
+        <p>Create pixel-perfect Twitter and X post mockups with custom verified ticks, avatars, metrics, and high-res PNG download</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/instagram-post-generator.html" class="tool-card" aria-label="Instagram Post Mockup Generator" data-category="social" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">📸</div>
+        <h3>Instagram Post Mockup Generator</h3>
+        <p>Design realistic Instagram feed post mockups with profile avatar, photo, likes count, caption, and verified badge</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      </div>
+    </section>
+
+    <!-- ═══════ CALCULATORS & FINANCIAL TOOLS SECTION ═══════ -->
+    <section class="category-section" id="cat-calc" data-category="calculator">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon calc-tools">📅</div>
+          <div>
+            <h2 class="category-heading">Calculators & Financial Tools</h2>
+            <p class="category-subheading">Accurate Sarkari age calculator, loan EMI planners, GST tax computation, and unit conversions</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">6 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/age-calculator.html" class="tool-card" aria-label="Age Calculator" data-category="calculator" data-tags="">
+        <div class="tool-card-icon calc-tools">📅</div>
+        <h3>Age Calculator</h3>
+        <p>Calculate exact age in years, months and days for government exam eligibility</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/attendance-calculator.html" class="tool-card" aria-label="College Attendance Planner" data-category="calculator" data-tags="">
+        <span class="tool-card-badge">Student</span>
+        <div class="tool-card-icon calc-tools">🎓</div>
+        <h3>College Attendance Planner</h3>
+        <p>Calculate 75% college attendance eligibility and convert CGPA to percentage</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/gst-calculator.html" class="tool-card" aria-label="Indian GST Calculator" data-category="calculator" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon calc-tools">📊</div>
+        <h3>Indian GST Calculator</h3>
+        <p>Calculate GST inclusive, exclusive, CGST, SGST, IGST tax breakdown and retailer profit margins</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/emi-calculator.html" class="tool-card" aria-label="Loan & EMI Calculator (Home, Car, Personal)" data-category="calculator" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon calc-tools">💰</div>
+        <h3>Loan & EMI Calculator (Home, Car, Personal)</h3>
+        <p>Calculate monthly loan EMI, total interest payable, visual principal-interest donut chart, and complete yearly amortization schedule</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/unit-converter.html" class="tool-card" aria-label="Land Area & Smart Unit Converter" data-category="calculator" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon calc-tools">📐</div>
+        <h3>Land Area & Smart Unit Converter</h3>
+        <p>Convert Indian land units (Bigha, Gaj, Biswa, Katha, Acre, Sq.Ft) along with Length, Weight (Tola), and Digital Data (MB/GB)</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/numbers-to-words.html" class="tool-card" aria-label="Numbers to Words Converter" data-category="calculator" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon calc-tools">🔢</div>
+        <h3>Numbers to Words Converter</h3>
+        <p>Convert numbers, amounts, and currency into official words in Indian (Lakhs/Crores) and International formats for cheques and invoices</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      </div>
+    </section>
+
+    <!-- ═══════ DOCUMENTS, WRITING & AI SECTION ═══════ -->
+    <section class="category-section" id="cat-doc" data-category="document">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon doc-tools">📝</div>
+          <div>
+            <h2 class="category-heading">Documents, Writing & AI</h2>
+            <p class="category-subheading">Create job resumes, marriage biodata, formal letters, check AI plagiarism, and font converters</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">7 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/resume-maker.html" class="tool-card" aria-label="Resume / CV Maker" data-category="document" data-tags="">
+        <div class="tool-card-icon doc-tools">📝</div>
+        <h3>Resume / CV Maker</h3>
+        <p>Create professional resumes with beautiful templates — download as PDF</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/biodata-maker.html" class="tool-card" aria-label="Shadi / Marriage Biodata" data-category="document" data-tags="">
+        <div class="tool-card-icon doc-tools">💍</div>
+        <h3>Shadi / Marriage Biodata</h3>
+        <p>Create beautiful marriage biodata with customizable templates in Hindi & English</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/letter-writer.html" class="tool-card" aria-label="Application & Letter Writer" data-category="document" data-tags="">
+        <div class="tool-card-icon doc-tools">✉️</div>
+        <h3>Application & Letter Writer</h3>
+        <p>Write formal letters and applications in Hindi, English or Hinglish with AI assistance</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/ai-plagiarism-checker.html" class="tool-card" aria-label="AI & Plagiarism Detector" data-category="document" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon doc-tools">🤖</div>
+        <h3>AI & Plagiarism Detector</h3>
+        <p>Check essays & text for ChatGPT, Claude AI probability, similarity %, word counts & highlighted sentences</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/krutidev-converter.html" class="tool-card" aria-label="Unicode to Kruti Dev 010 Converter" data-category="document" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon doc-tools">🇮🇳</div>
+        <h3>Unicode to Kruti Dev 010 Converter</h3>
+        <p>Accurately convert Hindi text between modern Unicode (Mangal) and Kruti Dev 010 for typing exams and court jobs</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/text-to-handwriting.html" class="tool-card" aria-label="Text to Handwriting Converter" data-category="document" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon doc-tools">📝</div>
+        <h3>Text to Handwriting Converter</h3>
+        <p>Convert typed homework, assignments, and notes into realistic handwritten notebook pages with custom ink and paper</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/policy-generator.html" class="tool-card" aria-label="Privacy Policy & Terms Generator" data-category="document" data-tags="">
         <span class="tool-card-badge">New</span>
         <div class="tool-card-icon doc-tools">📜</div>
         <h3>Privacy Policy & Terms Generator</h3>
@@ -773,6 +778,204 @@
         <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
       </div>
+    </section>
+
+    <!-- ═══════ SECURITY, QR & DEVELOPER UTILITIES SECTION ═══════ -->
+    <section class="category-section" id="cat-utility" data-category="utility">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon utility-tools">🔐</div>
+          <div>
+            <h2 class="category-heading">Security, QR & Developer Utilities</h2>
+            <p class="category-subheading">QR studio, UPI payment QRs, strong passwords, encryption hashes, formatters & encoders</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">21 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/password-generator.html" class="tool-card" aria-label="Password Generator" data-category="utility" data-tags="">
+        <div class="tool-card-icon utility-tools">🔐</div>
+        <h3>Password Generator</h3>
+        <p>Generate strong, secure passwords for your online accounts</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/qr-generator.html" class="tool-card" aria-label="All-in-One QR Code Studio & Scanner" data-category="utility" data-tags="">
+        <span class="tool-card-badge">Featured</span>
+        <div class="tool-card-icon utility-tools">📱</div>
+        <h3>All-in-One QR Code Studio & Scanner</h3>
+        <p>Generate UPI with GPay/PhonePe logo, vCard visiting card, Wi-Fi, WhatsApp, Google reviews, and scan QR codes from camera/image</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/upi-qr-generator.html" class="tool-card" aria-label="UPI QR Code Generator with Logo" data-category="utility" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon utility-tools">💳</div>
+        <h3>UPI QR Code Generator with Logo</h3>
+        <p>Generate Bharat UPI payment QR with GPay, PhonePe, Paytm logo & printable counter standees</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/vcard-qr-generator.html" class="tool-card" aria-label="vCard Digital Visiting Card QR" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon doc-tools">📇</div>
+        <h3>vCard Digital Visiting Card QR</h3>
+        <p>Generate digital business card QR codes — scan with iPhone/Android camera to save contact in 1 tap</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/qr-scanner.html" class="tool-card" aria-label="Online QR Code Scanner" data-category="utility" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon image-tools">📷</div>
+        <h3>Online QR Code Scanner</h3>
+        <p>Scan QR codes online using your laptop/phone webcam or upload gallery screenshots & images</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/wifi-qr-generator.html" class="tool-card" aria-label="Wi-Fi Access QR Code Generator" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">📶</div>
+        <h3>Wi-Fi Access QR Code Generator</h3>
+        <p>Let guests and customers scan to connect directly to your Wi-Fi without typing passwords</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/google-maps-qr-generator.html" class="tool-card" aria-label="Google Maps Location QR Generator" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon image-tools">📍</div>
+        <h3>Google Maps Location QR Generator</h3>
+        <p>Create turn-by-turn navigation QR codes for store addresses, banners, and wedding invitation cards</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/invoice-maker.html" class="tool-card" aria-label="Cyber Cafe Invoice Maker" data-category="utility" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon utility-tools">🧾</div>
+        <h3>Cyber Cafe Invoice Maker</h3>
+        <p>Generate instant cash memos, customer receipts and GST bills with quick cyber cafe presets</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/word-counter.html" class="tool-card" aria-label="Word & Character Counter" data-category="utility" data-tags="">
+        <div class="tool-card-icon utility-tools">✍️</div>
+        <h3>Word & Character Counter</h3>
+        <p>Count words, characters, check SSC/UPSC essay limits, change cases and clean spaces</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/barcode-generator.html" class="tool-card" aria-label="Online Barcode Generator" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🏷️</div>
+        <h3>Online Barcode Generator</h3>
+        <p>Generate Code 128, EAN-13, UPC barcodes with instant SVG/PNG download and printable A4 sticker sheets</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/internet-speed-test.html" class="tool-card" aria-label="Internet Speed Test & Net Performance" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">⚡</div>
+        <h3>Internet Speed Test & Net Performance</h3>
+        <p>Test live broadband, 5G & Wi-Fi internet speeds, download & upload throughput, latency ping, and jitter with speedometer gauge</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/quick-notes.html" class="tool-card" aria-label="Quick Notes & Local Task Keeper" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">📝</div>
+        <h3>Quick Notes & Local Task Keeper</h3>
+        <p>Fast offline notepad with complete local CRUD operations, interactive checklist tasks, tags, auto-save, and JSON backup</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/bionic-reading.html" class="tool-card" aria-label="Bionic Reading Converter" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🧠</div>
+        <h3>Bionic Reading Converter</h3>
+        <p>Read up to 3x faster with higher retention using artificial eye fixation points on any text or article</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/base64-converter.html" class="tool-card" aria-label="Base64 Encoder & Decoder" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🔐</div>
+        <h3>Base64 Encoder & Decoder</h3>
+        <p>Encode and decode plain text, images, and files to Base64 format with full UTF-8 and Data URI support</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/hash-generator.html" class="tool-card" aria-label="Hash Generator & Checksum Verifier" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🛡️</div>
+        <h3>Hash Generator & Checksum Verifier</h3>
+        <p>Generate MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes from text or files and verify download integrity</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/code-formatter.html" class="tool-card" aria-label="Code Formatter & Minifier" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">💻</div>
+        <h3>Code Formatter & Minifier</h3>
+        <p>Beautify or minify HTML, CSS, JavaScript, and JSON code to reduce file sizes and clean messy syntax</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/json-xml-converter.html" class="tool-card" aria-label="JSON to XML & XML to JSON Converter" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🔄</div>
+        <h3>JSON to XML & XML to JSON Converter</h3>
+        <p>Convert structured data seamlessly between JSON and XML with syntax validation and custom root tags</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/url-html-encoder.html" class="tool-card" aria-label="URL & HTML Entity Encoder / Decoder" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🌐</div>
+        <h3>URL & HTML Entity Encoder / Decoder</h3>
+        <p>Escape and sanitize special characters for web URLs, query parameters, and HTML templates to prevent broken links and XSS</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/color-converter.html" class="tool-card" aria-label="Color Converter & Palette Studio" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🎨</div>
+        <h3>Color Converter & Palette Studio</h3>
+        <p>Convert between HEX, RGB, HSL, and CMYK color codes, check WCAG accessibility contrast ratios, and generate palettes</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/case-converter.html" class="tool-card" aria-label="Text Case Converter & String Tools" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🔠</div>
+        <h3>Text Case Converter & String Tools</h3>
+        <p>Convert text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and reverse text</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/webcam-mic-tester.html" class="tool-card" aria-label="Webcam & Microphone Tester" data-category="utility" data-tags="">
+        <span class="tool-card-badge">New</span>
+        <div class="tool-card-icon utility-tools">🎥</div>
+        <h3>Webcam & Microphone Tester</h3>
+        <p>Verify camera resolution, real-time FPS, microphone volume level meter, and speaker audio before exams and online interviews</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      </div>
+    </section>
+
+    <!-- ═══════ EXAM & TYPING STUDIO SECTION ═══════ -->
+    <section class="category-section" id="cat-exam" data-category="exam">
+      <div class="category-header">
+        <div class="category-header-main">
+          <div class="category-header-icon exam-tools">⌨️</div>
+          <div>
+            <h2 class="category-heading">Exam & Typing Studio</h2>
+            <p class="category-subheading">Official exam photo & signature resizer, typing speed test, and Sarkari admit card tools</p>
+          </div>
+        </div>
+        <div class="category-header-meta">
+          <span class="category-badge-pill">2 Tools</span>
+          <a href="#tools" class="category-top-link" title="Back to Category Menu">↑ Top</a>
+        </div>
+      </div>
+      <div class="tools-grid visible">
+      <a href="tools/typing-test.html" class="tool-card" aria-label="Typing Speed Test" data-category="exam" data-tags="">
+        <span class="tool-card-badge">Popular</span>
+        <div class="tool-card-icon exam-tools">⌨️</div>
+        <h3>Typing Speed Test</h3>
+        <p>Practice Hindi & English typing for SSC, CHSL and government typing exams</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="tools/exam-studio.html" class="tool-card" aria-label="All-in-One Exam Studio" data-category="exam" data-tags="">
+        <span class="tool-card-badge">Featured</span>
+        <div class="tool-card-icon exam-tools">⚡</div>
+        <h3>All-in-One Exam Studio</h3>
+        <p>Unified studio to resize photo, crop signature, add name & date, and generate compliant files in 1 click</p>
+        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      </div>
+    </section>
     </section>
 
     <!-- ═══════ RANGOLI DIVIDER ═══════ -->

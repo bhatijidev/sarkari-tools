@@ -19,6 +19,18 @@
   /* ───────── TOOL REGISTRY ───────── */
   const TOOLS = [
     {
+      id: 'video-to-audio-converter',
+      name: 'Any Video to Audio Converter',
+      description: 'Extract studio MP3, WAV, AAC & M4A from any video — unlimited duration, custom bitrates, volume booster & audio trimmer',
+      category: 'video',
+      categoryLabel: 'Video & Audio',
+      icon: '🎵',
+      iconBg: 'utility-tools',
+      url: 'tools/video-to-audio-converter.html',
+      keywords: ['video to audio', 'extract mp3 from video', 'mp4 to mp3', 'video to wav', 'convert video to audio', 'video audio extractor', 'video to m4a', 'extract sound from video'],
+      badge: 'New'
+    },
+    {
       id: 'image-enhancer',
       name: 'Ultra AI Image Enhancer & 4K Super-Resolution',
       description: 'Deep multi-stage photo enhancer: Edge-directed super-resolution (up to 8x), CLAHE local HDR tone mapping, bilateral de-noising, and micro-texture recovery',
@@ -1277,46 +1289,79 @@
     });
   }
 
-  /* ───────── CATEGORY FILTER (Homepage) ───────── */
+  /* ───────── CATEGORY NAVIGATION & SECTIONS (Allinone Style) ───────── */
   function initCategoryFilter() {
-    const tabs = document.querySelectorAll('.category-tab');
-    const grid = document.getElementById('toolsGrid');
-    if (!tabs.length || !grid) return;
+    const navPills = document.querySelectorAll('.cat-nav-pill');
+    const sections = document.querySelectorAll('.category-section');
+    if (!navPills.length) return;
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        const category = tab.dataset.category;
-        renderToolsGrid(category);
+    // Click handler on navigation pills
+    navPills.forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        const targetFilter = pill.dataset.filter;
+        navPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        if (targetFilter === 'all') {
+          sections.forEach(s => s.style.display = '');
+          const toolsRoot = document.getElementById('tools');
+          if (toolsRoot) toolsRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          // If user clicked a specific category, smooth scroll to it
+          const targetSection = document.getElementById(`cat-${targetFilter}`);
+          if (targetSection) {
+            sections.forEach(s => s.style.display = '');
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
       });
     });
-  }
 
-  function renderToolsGrid(category) {
-    const grid = document.getElementById('toolsGrid');
-    if (!grid) return;
+    // Scroll Spy: Highlight active category pill as user scrolls through sections
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const catId = entry.target.id;
+            const filterKey = catId.replace('cat-', '');
+            navPills.forEach(p => {
+              if (p.dataset.filter === filterKey) {
+                p.classList.add('active');
+                // Scroll nav pill into view horizontally on mobile
+                p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+              } else {
+                p.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px'
+      });
 
-    const filtered = category === 'all' ? TOOLS : TOOLS.filter(t => t.category === category);
-    
-    grid.innerHTML = filtered.map(tool => `
-      <a href="${getToolUrl(tool)}" class="tool-card" aria-label="${tool.name}">
-        ${tool.badge ? `<span class="tool-card-badge">${tool.badge}</span>` : ''}
-        <div class="tool-card-icon ${tool.iconBg}">${tool.icon}</div>
-        <h3>${tool.name}</h3>
-        <p>${tool.description}</p>
-        <svg class="tool-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-        </svg>
-      </a>
-    `).join('');
+      sections.forEach(s => observer.observe(s));
+    }
 
-    // Re-animate cards
-    grid.classList.remove('visible');
-    requestAnimationFrame(() => {
-      grid.classList.add('visible');
-    });
+    // Hero live filter across all categorized sections
+    const heroInput = document.getElementById('heroSearchInput');
+    if (heroInput) {
+      heroInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        sections.forEach(sec => {
+          let visibleCount = 0;
+          const cards = sec.querySelectorAll('.tool-card');
+          cards.forEach(card => {
+            const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
+            const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
+            const tags = (card.dataset.tags || '').toLowerCase();
+            const matches = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
+            card.style.display = matches ? '' : 'none';
+            if (matches) visibleCount++;
+          });
+          sec.style.display = visibleCount > 0 ? '' : 'none';
+        });
+      });
+    }
   }
 
   /* ───────── BACK TO TOP ───────── */

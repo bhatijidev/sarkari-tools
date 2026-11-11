@@ -3370,3 +3370,222 @@ body.dark .contact-form-group select {
   border-color: #24324B;
   color: #E4EAF4;
 }
+
+/* ══════════ CATEGORY SECTIONS & NAVIGATION (Allinone.tools Style) ══════════ */
+.category-nav-wrapper {
+  position: sticky;
+  top: 68px;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-200);
+  margin-bottom: var(--space-8);
+  padding: 10px 0;
+  transition: all 0.25s ease;
+}
+
+.category-nav-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 2px 16px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.category-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.cat-nav-pill:hover {
+  border-color: var(--saffron);
+  color: var(--saffron);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 153, 51, 0.15);
+}
+
+.cat-nav-pill.active {
+  background: #fff8f0;
+  border-color: var(--saffron);
+  color: var(--saffron);
+  box-shadow: 0 0 0 2px rgba(255, 153, 51, 0.2);
+}
+
+.cat-nav-count {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  font-weight: 700;
+  transition: all 0.18s ease;
+}
+.cat-nav-pill.active .cat-nav-count {
+  background: var(--saffron);
+  color: #fff;
+}
+
+/* Category Section Blocks */
+.category-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 140px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--gray-100);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.category-header-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.category-header-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+}
+
+.category-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 4px 0;
+  line-height: 1.25;
+}
+
+.category-subheading {
+  font-size: 13.5px;
+  color: var(--gray-500);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.category-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-badge-pill {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+}
+
+.category-top-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: transparent;
+  transition: all 0.15s ease;
+}
+.category-top-link:hover {
+  color: var(--saffron);
+  background: var(--gray-100);
+}
+
+/* Dark mode overrides for category sections */
+html.dark .category-nav-wrapper,
+body.dark .category-nav-wrapper {
+  background: rgba(15, 23, 42, 0.94);
+  border-bottom-color: #24324B;
+}
+html.dark .cat-nav-pill,
+body.dark .cat-nav-pill {
+  background: #16202F;
+  border-color: #24324B;
+  color: #D0D9E8;
+}
+html.dark .cat-nav-pill:hover,
+body.dark .cat-nav-pill:hover {
+  border-color: var(--saffron);
+  color: #FFC97E;
+}
+html.dark .cat-nav-pill.active,
+body.dark .cat-nav-pill.active {
+  background: #2A1F0D;
+  border-color: var(--saffron);
+  color: #FFC97E;
+}
+html.dark .cat-nav-count,
+body.dark .cat-nav-count {
+  background: #24324B;
+  color: #9FADC4;
+}
+html.dark .cat-nav-pill.active .cat-nav-count,
+body.dark .cat-nav-pill.active .cat-nav-count {
+  background: var(--saffron);
+  color: #000;
+}
+html.dark .category-header,
+body.dark .category-header {
+  border-bottom-color: #24324B;
+}
+html.dark .category-heading,
+body.dark .category-heading {
+  color: #F2F6FC;
+}
+html.dark .category-subheading,
+body.dark .category-subheading {
+  color: #9FADC4;
+}
+html.dark .category-badge-pill,
+body.dark .category-badge-pill {
+  background: #1E293B;
+  color: #D0D9E8;
+  border-color: #334155;
+}
+html.dark .category-top-link,
+body.dark .category-top-link {
+  color: #8E9CB5;
+}
+html.dark .category-top-link:hover,
+body.dark .category-top-link:hover {
+  color: var(--saffron);
+  background: #1E293B;
+}
+  color: var(--saffron);
+  background: #1E293B;
+}
+
