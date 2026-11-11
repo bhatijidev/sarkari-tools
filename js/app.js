@@ -19,6 +19,18 @@
   /* ───────── TOOL REGISTRY ───────── */
   const TOOLS = [
     {
+      id: 'heic-hevc-converter',
+      name: 'iPhone HEIC & HEVC to Android Converter',
+      description: 'Convert Apple HEIC photos to universal JPG/PNG and iPhone HEVC/MOV videos to standard MP4 for all Android phones',
+      category: 'video',
+      categoryLabel: 'iPhone & Media',
+      icon: '📱',
+      iconBg: 'utility-tools',
+      url: 'tools/heic-hevc-converter.html',
+      keywords: ['heic to jpg', 'hevc to mp4', 'iphone to android', 'apple heic converter', 'iphone video not playing on android', 'mov to mp4', 'convert heic to jpg', 'apple photos to android'],
+      badge: 'New'
+    },
+    {
       id: 'video-to-audio-converter',
       name: 'Any Video to Audio Converter',
       description: 'Extract studio MP3, WAV, AAC & M4A from any video — unlimited duration, custom bitrates, volume booster & audio trimmer',
