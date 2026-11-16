@@ -310,6 +310,66 @@
       badge: 'Featured'
     },
     {
+      id: 'ssc-photo-resizer',
+      name: 'SSC Photo & Signature Resizer (20KB - 50KB)',
+      description: 'Official 3.5×4.5 cm photo (20-50KB) and signature (10-20KB) with Name & DOP stamp for SSC CGL, CHSL, MTS, GD',
+      category: 'exam',
+      categoryLabel: 'Exam Tools',
+      icon: '🎯',
+      iconBg: 'exam-tools',
+      url: 'tools/ssc-photo-resizer.html',
+      keywords: ['ssc photo resizer', 'ssc photo 20 to 50 kb', 'ssc signature resizer', 'ssc cgl photo', 'ssc chsl', 'ssc gd', 'name date on photo'],
+      badge: 'Trending'
+    },
+    {
+      id: 'upsc-photo-resizer',
+      name: 'UPSC OTR Photo & Signature Resizer (20KB - 300KB)',
+      description: 'Square 350×350 px photo and signature for UPSC Civil Services (IAS/IPS), NDA, CDS with white background & DOP',
+      category: 'exam',
+      categoryLabel: 'Exam Tools',
+      icon: '🏛️',
+      iconBg: 'exam-tools',
+      url: 'tools/upsc-photo-resizer.html',
+      keywords: ['upsc photo resizer', 'upsc otr photo size', 'upsc signature resizer', 'upsc cse', 'ias photo resize', 'nda photo', 'cds photo'],
+      badge: 'Hot'
+    },
+    {
+      id: 'railway-photo-resizer',
+      name: 'Railway RRB Photo & Signature Resizer (30KB - 70KB)',
+      description: 'Official 35×45 mm photo (30-70KB) and signature for RRB NTPC, ALP, Technician, and Group D applications',
+      category: 'exam',
+      categoryLabel: 'Exam Tools',
+      icon: '🚆',
+      iconBg: 'exam-tools',
+      url: 'tools/railway-photo-resizer.html',
+      keywords: ['rrb photo resizer', 'railway photo size 30 to 70 kb', 'rrb ntpc photo', 'rrb alp photo signature', 'railway group d'],
+      badge: 'New'
+    },
+    {
+      id: 'up-police-photo-resizer',
+      name: 'UP Police Photo & Signature Resizer (20KB - 50KB)',
+      description: 'Official 35×45 mm photo (20-50KB) and signature (5-20KB) for UPPRPB Constable, SI, and PAC recruitment forms',
+      category: 'exam',
+      categoryLabel: 'Exam Tools',
+      icon: '👮',
+      iconBg: 'exam-tools',
+      url: 'tools/up-police-photo-resizer.html',
+      keywords: ['up police photo resizer', 'up police signature size 5 to 20 kb', 'upprpb constable photo', 'up police si photo'],
+      badge: 'New'
+    },
+    {
+      id: 'cyber-cafe',
+      name: 'Cyber Cafe & Jan Seva Kendra Toolkit',
+      description: 'All-in-one unified dashboard for Cyber Cafes and CSC VLEs with instant tools and exam dimension cheat sheet',
+      category: 'exam',
+      categoryLabel: 'Exam Tools',
+      icon: '💻',
+      iconBg: 'exam-tools',
+      url: 'cyber-cafe.html',
+      keywords: ['cyber cafe tools', 'jan seva kendra', 'csc vle tools', 'sarkari exam cheat sheet', 'exam photo size chart'],
+      badge: 'Popular'
+    },
+    {
       id: 'attendance-calculator',
       name: 'College Attendance Planner',
       description: 'Calculate 75% college attendance eligibility and convert CGPA to percentage',

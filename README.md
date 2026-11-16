@@ -1,11 +1,11 @@
 # AllToolsInOne 🇮🇳 🌍
 
 [![Website](https://img.shields.io/badge/Website-alltoolsinone.com-4f46e5?style=flat&logo=google-chrome)](https://alltoolsinone.com/)
-[![Tools Count](https://img.shields.io/badge/Tools-73%2B%20Utilities-16a34a?style=flat)](https://alltoolsinone.com/tools.html)
+[![Tools Count](https://img.shields.io/badge/Tools-78%2B%20Utilities-16a34a?style=flat)](https://alltoolsinone.com/tools.html)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-blue?style=flat)](https://alltoolsinone.com/)
 [![License](https://img.shields.io/badge/License-MIT-orange?style=flat)](LICENSE)
 
-> **A high-speed, mobile-first, privacy-first web utility suite featuring 73+ free online tools** designed for Indian government exam applicants (SSC, UPSC, Railway, State PSC, Banking), students, freelancers, cyber cafes, digital creators, and global developers.
+> **A high-speed, mobile-first, privacy-first web utility suite featuring 78+ free online tools** designed for Indian government exam applicants (SSC, UPSC, Railway, State PSC, Banking), students, freelancers, cyber cafes, digital creators, and global developers.
 
 ---
 
@@ -16,12 +16,17 @@ Unlike standard utility websites that upload your private documents, sensitive p
 
 ## ⚡ Complete Catalog of 73+ Online Tools
 
-### Sarkari & Student Tools (5 Tools)
+### Sarkari & Student Tools (10 Tools)
 
 | Tool Name | Key Functionality | Direct Web Link |
 | :--- | :--- | :--- |
+| **SSC Photo & Signature Resizer** | Exact 3.5×4.5 cm (20-50 KB) and signature (10-20 KB) with Name & DOP stamp for SSC CGL, CHSL, MTS, GD | [Launch Tool ↗](https://alltoolsinone.com/tools/ssc-photo-resizer.html) |
+| **UPSC OTR Photo & Signature Resizer** | Square 350×350 px photo and signature (20-300 KB) for UPSC Civil Services (IAS/IPS), NDA, CDS with white background & DOP | [Launch Tool ↗](https://alltoolsinone.com/tools/upsc-photo-resizer.html) |
+| **Railway RRB Photo & Signature Resizer** | Official 35×45 mm photo (30-70 KB) and signature for RRB NTPC, ALP, Technician, and Group D applications | [Launch Tool ↗](https://alltoolsinone.com/tools/railway-photo-resizer.html) |
+| **UP Police Photo & Signature Resizer** | Official 35×45 mm photo (20-50 KB) and signature (5-20 KB) for UPPRPB Constable, SI, and PAC recruitment forms | [Launch Tool ↗](https://alltoolsinone.com/tools/up-police-photo-resizer.html) |
+| **Cyber Cafe & Jan Seva Kendra Toolkit** | All-in-one unified dashboard for Cyber Cafes and CSC VLEs with instant tools and exam dimension cheat sheet | [Launch Tool ↗](https://alltoolsinone.com/cyber-cafe.html) |
 | **College Attendance Calculator** | Calculate college attendance percentage and know exactly how many classes you can bunk or must attend to maintain 75% or 85% mandatory criteria | [Launch Tool ↗](https://alltoolsinone.com/tools/attendance-calculator.html) |
-| **Sarkari Exam Photo & Signature Resizer** | Resize photos and signatures to exact dimensions (20-50 KB, 3 | [Launch Tool ↗](https://alltoolsinone.com/tools/exam-studio.html) |
+| **Sarkari Exam Photo & Signature Resizer** | Resize photos and signatures to exact dimensions (20-50 KB, 3.5x4.5 cm) | [Launch Tool ↗](https://alltoolsinone.com/tools/exam-studio.html) |
 | **Name and Date on Photo Maker** | Add applicant name and date of photo (DOB / DOP) on passport photographs for SSC, UPSC, Police, and Railway exams | [Launch Tool ↗](https://alltoolsinone.com/tools/name-date-photo.html) |
 | **Photo and Signature Joiner** | Combine passport photograph and signature into a single image box (or single page) for UPSSSC, UP Police, BPSC, and State PSC online exam forms | [Launch Tool ↗](https://alltoolsinone.com/tools/photo-signature.html) |
 | **Text to Handwriting Converter** | Convert typed digital text into realistic handwritten assignments | [Launch Tool ↗](https://alltoolsinone.com/tools/text-to-handwriting.html) |
