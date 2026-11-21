@@ -43,6 +43,18 @@
       badge: 'New'
     },
     {
+      id: 'audio-remixer',
+      name: 'Shorts & Reels Audio Anti-Claim Remixer',
+      description: 'Transform music with pitch shifting, speed modulation (1.05x), bass boost, and ambient reverb for YouTube Shorts & Reels creators',
+      category: 'video',
+      categoryLabel: 'Video & Audio',
+      icon: '🎛️',
+      iconBg: 'utility-tools',
+      url: 'tools/audio-remixer.html',
+      keywords: ['audio remixer', 'music copyright bypass trick', 'shorts audio modifier', 'pitch shifter', 'speed modifier', 'slowed and reverb', 'nightcore maker', 'anti claim sound'],
+      badge: 'Hot'
+    },
+    {
       id: 'image-enhancer',
       name: 'Ultra AI Image Enhancer & 4K Super-Resolution',
       description: 'Deep multi-stage photo enhancer: Edge-directed super-resolution (up to 8x), CLAHE local HDR tone mapping, bilateral de-noising, and micro-texture recovery',

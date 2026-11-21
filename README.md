@@ -128,6 +128,8 @@ Unlike standard utility websites that upload your private documents, sensitive p
 | **Online Typing Speed Test** | Test your typing speed and accuracy in 1 minute, 2 minutes, or 5 minutes | [Launch Tool ↗](https://alltoolsinone.com/tools/typing-test.html) |
 | **URL & HTML Entity Encoder Decoder** | Encode and decode URLs, query strings, and HTML entities online | [Launch Tool ↗](https://alltoolsinone.com/tools/url-html-encoder.html) |
 | **URL Safety & Phishing Checker** | Check if a website link or URL is safe before clicking | [Launch Tool ↗](https://alltoolsinone.com/tools/url-safety-checker.html) |
+| **Shorts & Reels Audio Anti-Claim Remixer** | Transform background music with pitch (+1.2 st), tempo (1.05x), bass boost & reverb for Shorts, Reels & TikTok | [Launch Tool ↗](https://alltoolsinone.com/tools/audio-remixer.html) |
+| **Any Video to Audio Converter** | Extract studio MP3, WAV, AAC & M4A from any video with volume boost & audio trimmer | [Launch Tool ↗](https://alltoolsinone.com/tools/video-to-audio-converter.html) |
 | **Video Subtitle & Caption Maker** | Generate, edit, and burn subtitles and captions onto MP4 videos online | [Launch Tool ↗](https://alltoolsinone.com/tools/video-subtitle-maker.html) |
 | **Webcam & Microphone Hardware Tester** | Test your webcam video resolution, frame rate (FPS), microphone volume levels, and audio playback online before Zoom, Teams, or Google Meet calls | [Launch Tool ↗](https://alltoolsinone.com/tools/webcam-mic-tester.html) |
 | **Word & Character Counter Online** | Count words, characters (with and without spaces), sentences, paragraphs, and estimated reading time online | [Launch Tool ↗](https://alltoolsinone.com/tools/word-counter.html) |
