@@ -82,8 +82,10 @@
       });
     })();
   </script>
-  <!-- pdf-lib -->
+  <!-- pdf-lib & encryption engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="../js/libs/pdf-encrypt.umd.js"></script>
+  <script src="../js/libs/pdf-decrypt.umd.js"></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -212,9 +214,13 @@
           <div id="protectFormArea" style="display: none; background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; padding: 18px;">
             <div style="font-weight: 600; color: var(--navy); margin-bottom: 12px;" id="protectFileName">-</div>
             
-            <div class="settings-group" style="margin-bottom: 12px;">
-              <label for="pdfUserPass" style="font-size: 13px; font-weight: 600; color: var(--gray-700); display: block; margin-bottom: 4px;">Set Document Open Password:</label>
-              <input type="password" id="pdfUserPass" class="form-input" placeholder="Enter strong password..." style="font-size: 14px;">
+            <div class="settings-group" style="margin-bottom: 16px;">
+              <label for="pdfUserPass" style="font-size: 13px; font-weight: 600; color: var(--gray-700); display: block; margin-bottom: 6px;">Set Document Open Password:</label>
+              <div style="position: relative; display: flex; align-items: center;">
+                <input type="password" id="pdfUserPass" class="form-input" placeholder="Enter password to lock PDF..." style="font-size: 14px; padding-right: 44px; width: 100%;">
+                <button type="button" id="toggleProtectPass" style="position: absolute; right: 10px; background: none; border: none; font-size: 16px; cursor: pointer; color: var(--gray-500); padding: 4px;" title="Show/Hide Password" aria-label="Toggle password visibility">👁</button>
+              </div>
+              <small style="color: var(--gray-500); font-size: 12px; margin-top: 4px; display: block;">🔒 Encrypted with military-grade AES-256 standard directly in your browser.</small>
             </div>
 
             <button type="button" id="btnEncryptPdf" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 15px;">
@@ -238,9 +244,13 @@
           <div id="unlockFormArea" style="display: none; background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; padding: 18px;">
             <div style="font-weight: 600; color: var(--navy); margin-bottom: 12px;" id="unlockFileName">-</div>
             
-            <div class="settings-group" style="margin-bottom: 12px;">
-              <label for="pdfUnlockPass" style="font-size: 13px; font-weight: 600; color: var(--gray-700); display: block; margin-bottom: 4px;">Enter Current PDF Password:</label>
-              <input type="password" id="pdfUnlockPass" class="form-input" placeholder="Enter password to unlock..." style="font-size: 14px;">
+            <div class="settings-group" style="margin-bottom: 16px;">
+              <label for="pdfUnlockPass" style="font-size: 13px; font-weight: 600; color: var(--gray-700); display: block; margin-bottom: 6px;">Enter Current PDF Password:</label>
+              <div style="position: relative; display: flex; align-items: center;">
+                <input type="password" id="pdfUnlockPass" class="form-input" placeholder="Enter PDF password to unlock..." style="font-size: 14px; padding-right: 44px; width: 100%;">
+                <button type="button" id="toggleUnlockPass" style="position: absolute; right: 10px; background: none; border: none; font-size: 16px; cursor: pointer; color: var(--gray-500); padding: 4px;" title="Show/Hide Password" aria-label="Toggle password visibility">👁</button>
+              </div>
+              <small style="color: var(--gray-500); font-size: 12px; margin-top: 4px; display: block;">🔓 Removes the password permanently so you can print, copy, or view without typing a password.</small>
             </div>
 
             <button type="button" id="btnDecryptPdf" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 15px;">
