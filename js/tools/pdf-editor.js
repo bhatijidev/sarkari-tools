@@ -52,7 +52,7 @@
         var fi = state.files.length;
         state.files.push({ name: f.name, bytes: buf, doc: doc, pages: doc.numPages });
         for (var p = 1; p <= doc.numPages; p++) {
-          state.pages.push({ fi: fi, pno: p, rot: 0 });
+          state.pages.push({ fi: fi, pno: p, rot: 0, selected: true });
         }
         ok++;
       } catch (e) {
@@ -133,11 +133,15 @@
     grid.innerHTML = '';
     for (var i = 0; i < state.pages.length; i++) {
       var pg = state.pages[i];
+      var isSel = pg.selected !== false;
       var cell = document.createElement('div');
-      cell.className = 'pdf-thumb' + (i === state.cur ? ' active' : '');
+      cell.className = 'pdf-thumb' + (i === state.cur ? ' active' : '') + (!isSel ? ' unselected' : '');
       cell.dataset.pi = i;
       cell.innerHTML =
         '<span class="pnum">' + (i + 1) + '</span>' +
+        '<label class="pcheck" title="' + (isSel ? 'Untick to exclude from export' : 'Tick to include in export') + '">' +
+        '<input type="checkbox" class="thumb-check" ' + (isSel ? 'checked' : '') + '>' +
+        '</label>' +
         '<span class="pop">' +
         '<button data-a="rl" title="Rotate left">↺</button>' +
         '<button data-a="rr" title="Rotate right">↻</button>' +
@@ -152,6 +156,7 @@
       grid.appendChild(cell);
       bindThumb(cell, i);
     }
+    updateExportSummary();
     // render canvases sequentially (small scale)
     for (var j = 0; j < state.pages.length; j++) {
       if (token !== state.thumbToken) return;
@@ -169,7 +174,24 @@
     }
   }
   function bindThumb(cell, i) {
+    var chk = cell.querySelector('.thumb-check');
+    if (chk) {
+      chk.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+      });
+      chk.addEventListener('change', function (ev) {
+        ev.stopPropagation();
+        state.pages[i].selected = chk.checked;
+        cell.classList.toggle('unselected', !chk.checked);
+        if (chk.parentElement) {
+          chk.parentElement.title = chk.checked ? 'Untick to exclude from export' : 'Tick to include in export';
+        }
+        updateExportSummary();
+      });
+    }
+
     cell.addEventListener('click', function (ev) {
+      if (ev.target.closest('.pcheck')) return;
       var btn = ev.target.closest('button');
       var a = btn && btn.dataset.a;
       if (!a) {
@@ -182,7 +204,12 @@
       if (a === 'rl') state.pages[i].rot = normRot(state.pages[i].rot - 90);
       if (a === 'rr') state.pages[i].rot = normRot(state.pages[i].rot + 90);
       if (a === 'dup') {
-        state.pages.splice(i + 1, 0, { fi: state.pages[i].fi, pno: state.pages[i].pno, rot: state.pages[i].rot });
+        state.pages.splice(i + 1, 0, {
+          fi: state.pages[i].fi,
+          pno: state.pages[i].pno,
+          rot: state.pages[i].rot,
+          selected: state.pages[i].selected !== false
+        });
       }
       if (a === 'del') {
         state.pages.splice(i, 1);
@@ -281,6 +308,13 @@
     el.dataset.oid = o.id;
     el.style.left = (o.x * 100) + '%';
     el.style.top = (o.y * 100) + '%';
+
+    var handle = document.createElement('div');
+    handle.className = 'drag-handle';
+    handle.innerHTML = '<span>✥ Move</span>';
+    handle.title = 'Drag to reposition';
+    el.appendChild(handle);
+
     if (o.type === 'text') {
       el.style.width = (o.w * 100) + '%';
       var txt = document.createElement('div');
@@ -303,6 +337,11 @@
         o.text = txt.innerText.replace(/\u00a0/g, ' ');
         syncObjHeight(o, el);
       });
+      txt.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        selectObject(o.id);
+        txt.focus();
+      });
       el.appendChild(txt);
     } else {
       el.style.width = (o.w * 100) + '%';
@@ -316,36 +355,63 @@
     var rz = document.createElement('div');
     rz.className = 'rz';
     el.appendChild(rz);
-    bindObjectDrag(el, o, rz);
+    bindObjectDrag(el, o, rz, handle);
     el.addEventListener('pointerdown', function () { selectObject(o.id); }, true);
     return el;
   }
   function syncObjHeight(o, el) {
     if (o.type === 'text' && state.viewH) o.h = el.offsetHeight / state.viewH;
   }
-  function bindObjectDrag(el, o, rz) {
+  function bindObjectDrag(el, o, rz, handle) {
     el.addEventListener('pointerdown', function (ev) {
       if (ev.target === rz) return;
-      var editing = ev.target.isContentEditable && document.activeElement === ev.target;
-      if (editing) return;
-      ev.preventDefault();
-      el.setPointerCapture(ev.pointerId);
+      var isHandle = handle && (ev.target === handle || handle.contains(ev.target));
+      var isText = ev.target.classList.contains('obj-text') || ev.target.isContentEditable;
+
       var startX = ev.clientX, startY = ev.clientY;
       var ox = o.x, oy = o.y;
-      function move(e) {
-        o.x = Math.min(1 - Math.min(o.w, 0.98), Math.max(0, ox + (e.clientX - startX) / state.viewW));
-        o.y = Math.min(1 - 0.02, Math.max(0, oy + (e.clientY - startY) / state.viewH));
-        el.style.left = (o.x * 100) + '%';
-        el.style.top = (o.y * 100) + '%';
+      var isDragging = false;
+
+      function onMove(e) {
+        var dist = Math.hypot(e.clientX - startX, e.clientY - startY);
+        if (!isDragging && dist > 4) {
+          isDragging = true;
+          try { el.setPointerCapture(ev.pointerId); } catch (err) {}
+        }
+        if (isDragging) {
+          e.preventDefault();
+          o.x = Math.min(1 - Math.min(o.w, 0.98), Math.max(0, ox + (e.clientX - startX) / state.viewW));
+          o.y = Math.min(1 - 0.02, Math.max(0, oy + (e.clientY - startY) / state.viewH));
+          el.style.left = (o.x * 100) + '%';
+          el.style.top = (o.y * 100) + '%';
+        }
       }
-      function up() {
-        el.removeEventListener('pointermove', move);
-        el.removeEventListener('pointerup', up);
+
+      function onUp(e) {
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+        try { el.releasePointerCapture(ev.pointerId); } catch (err) {}
         syncObjHeight(o, el);
+
+        if (!isDragging && isText) {
+          var txtEl = el.querySelector('.obj-text');
+          if (txtEl) {
+            selectObject(o.id);
+            txtEl.focus();
+          }
+        }
       }
-      el.addEventListener('pointermove', move);
-      el.addEventListener('pointerup', up);
+
+      if (isHandle || !isText) {
+        ev.preventDefault();
+        try { el.setPointerCapture(ev.pointerId); } catch (err) {}
+        isDragging = true;
+      }
+
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
     });
+
     rz.addEventListener('pointerdown', function (ev) {
       ev.preventDefault();
       ev.stopPropagation();
@@ -524,7 +590,7 @@
       wmT.textContent = $('wmText').value || ' ';
       wmT.style.fontSize = ($('wmSize').value / 100 * state.viewH) + 'px';
       wmT.style.opacity = ($('wmOpacity').value / 100);
-      wmT.style.color = '#334155';
+      wmT.style.color = ($('wmColor') && $('wmColor').value) || '#b91c1c';
       wmT.style.transform = $('wmDiagonal').checked ? 'rotate(-30deg)' : 'none';
     } else {
       wm.style.display = 'none';
@@ -626,12 +692,28 @@
     }
     return libCache.get(fi);
   }
-  async function exportPdf() {
-    var btn = $('btnExportPdf');
-    if (!state.pages.length) return;
+  async function exportPdf(selectedOnly) {
+    if (typeof selectedOnly !== 'boolean') selectedOnly = true;
+    var total = state.pages.length;
+    if (!total) return;
+
+    var exportIndices = [];
+    for (var i = 0; i < total; i++) {
+      if (!selectedOnly || state.pages[i].selected !== false) {
+        exportIndices.push(i);
+      }
+    }
+
+    if (!exportIndices.length) {
+      status('⚠️ No pages selected! Please tick at least one page checkbox to export.', true);
+      return;
+    }
+
+    var btn = selectedOnly ? $('btnExportSelectedPdf') : $('btnExportAllPdf');
+    if (!btn) btn = $('btnExportPdf');
     btn.disabled = true;
     var oldLabel = btn.innerHTML;
-    status('⏳ Building your edited PDF in the browser…');
+    status('⏳ Building your edited PDF (' + exportIndices.length + ' page' + (exportIndices.length > 1 ? 's' : '') + ') in the browser…');
     try {
       var out = await PDFLib.PDFDocument.create();
       var helv = await out.embedFont(PDFLib.StandardFonts.Helvetica);
@@ -647,26 +729,27 @@
         return img;
       }
 
-      for (var i = 0; i < state.pages.length; i++) {
-        var pg = state.pages[i];
+      for (var outIdx = 0; outIdx < exportIndices.length; outIdx++) {
+        var origIdx = exportIndices[outIdx];
+        var pg = state.pages[origIdx];
         var src = await getLibDoc(pg.fi);
         var _rotMeta = (await state.files[pg.fi].doc.getPage(pg.pno)).rotate || 0;
         var [copied] = await out.copyPages(src, [pg.pno - 1]);
-        var total = normRot(_rotMeta + pg.rot);
-        copied.setRotation(PDFLib.degrees(total));
+        var totalRot = normRot(_rotMeta + pg.rot);
+        copied.setRotation(PDFLib.degrees(totalRot));
         out.addPage(copied);
         var W = copied.getWidth(), H = copied.getHeight();
 
         // objects on this page (z ascending)
-        var objs = state.objects.filter(function (o) { return o.pi === i; })
+        var objs = state.objects.filter(function (o) { return o.pi === origIdx; })
           .sort(function (a, b) { return a.z - b.z; });
         for (var k = 0; k < objs.length; k++) {
           var o = objs[k];
           try {
             if (o.type === 'image') {
               var img = await embed(o.dataUrl);
-              drawViewBox(copied, img, o.x, o.y, o.w, o.h, W, H, total, o.opacity);
-            } else if (total === 0 && !/[^\x20-\x7E\u00A0-\u00FF]/.test(o.text)) {
+              drawViewBox(copied, img, o.x, o.y, o.w, o.h, W, H, totalRot, o.opacity);
+            } else if (totalRot === 0 && !/[^\x20-\x7E\u00A0-\u00FF]/.test(o.text)) {
               var size = o.fsPct / 100 * H;
               var rgb = hexToRgb01(o.color);
               var lines = String(o.text).split('\n');
@@ -684,7 +767,7 @@
               var st = textToStampDataUrl(o.text, o.color, fontPx);
               var sImg = await embed(st.dataUrl);
               var sh = Math.max(o.h || 0.03, 0.03);
-              drawViewBox(copied, sImg, o.x, o.y, o.w, sh, W, H, total, o.opacity);
+              drawViewBox(copied, sImg, o.x, o.y, o.w, sh, W, H, totalRot, o.opacity);
             }
           } catch (e) { console.warn('object skipped', e); }
         }
@@ -692,11 +775,12 @@
         // watermark — placed in view space so it reads upright in the rotated view too
         if ($('wmEnabled').checked && $('wmText').value.trim()) {
           var wmTextV = $('wmText').value;
+          var wmColor = ($('wmColor') && $('wmColor').value) || '#b91c1c';
           var wmFontPx = Math.max(24, Math.round($('wmSize').value / 100 * H));
-          var stWm = textToStampDataUrl(wmTextV, '#334155', wmFontPx, 2);
+          var stWm = textToStampDataUrl(wmTextV, wmColor, wmFontPx, 2);
           var wImg = await embed(stWm.dataUrl);
           var wmOpacity = Math.max(0.03, Math.min(0.95, +$('wmOpacity').value / 100));
-          if (total === 0 && $('wmDiagonal').checked) {
+          if (totalRot === 0 && $('wmDiagonal').checked) {
             var targetW = W * 0.82;
             var targetH = targetW * (stWm.h / stWm.w);
             if (targetH > H) { targetH = H * 0.3; targetW = targetH * (stWm.w / stWm.h); }
@@ -711,20 +795,20 @@
             });
           } else {
             // straight watermark: define a centered box in view fractions and reuse rotated draw
-            var Vw = (total === 90 || total === 270) ? H : W;
-            var Vh = (total === 90 || total === 270) ? W : H;
+            var Vw = (totalRot === 90 || totalRot === 270) ? H : W;
+            var Vh = (totalRot === 90 || totalRot === 270) ? W : H;
             var bw = 0.82;
             var bh = (bw * Vw * (stWm.h / stWm.w)) / Vh;
             if (bh > 0.3) { bh = 0.3; bw = (bh * Vh * (stWm.w / stWm.h)) / Vw; }
-            drawViewBox(copied, wImg, (1 - bw) / 2, (1 - bh) / 2, bw, bh, W, H, total, wmOpacity);
+            drawViewBox(copied, wImg, (1 - bw) / 2, (1 - bh) / 2, bw, bh, W, H, totalRot, wmOpacity);
           }
         }
 
         // page numbers
         if ($('pnEnabled').checked) {
-          var label = pnText(i, state.pages.length);
+          var label = pnText(outIdx, exportIndices.length);
           var pos = $('pnPosition').value;
-          if (total === 0) {
+          if (totalRot === 0) {
             var pnSize = Math.max(8, H * 0.012);
             var tw = helvB.widthOfTextAtSize(label, pnSize);
             var px = pos.charAt(1) === 'c' ? (W - tw) / 2 : (pos.charAt(1) === 'r' ? W * 0.94 - tw : W * 0.06);
@@ -734,13 +818,13 @@
             // rotated page: stamp the number as an image so it reads upright in view
             var stPn = textToStampDataUrl(label, '#334155', 24, 3);
             var pnImg = await embed(stPn.dataUrl);
-            var Vw2 = (total === 90 || total === 270) ? H : W;
-            var Vh2 = (total === 90 || total === 270) ? W : H;
+            var Vw2 = (totalRot === 90 || totalRot === 270) ? H : W;
+            var Vh2 = (totalRot === 90 || totalRot === 270) ? W : H;
             var bhh = 0.024;
             var bww = (bhh * Vh2 * (stPn.w / stPn.h)) / Vw2;
             var vxpn = pos.charAt(1) === 'c' ? 0.5 - bww / 2 : (pos.charAt(1) === 'r' ? 0.96 - bww : 0.04);
             var vypn = pos.charAt(0) === 'b' ? 0.972 - bhh : 0.012;
-            drawViewBox(copied, pnImg, vxpn, vypn, bww, bhh, W, H, total, 0.9);
+            drawViewBox(copied, pnImg, vxpn, vypn, bww, bhh, W, H, totalRot, 0.9);
           }
         }
       }
@@ -749,26 +833,52 @@
       var blob = new Blob([bytesOut], { type: 'application/pdf' });
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'edited-' + (state.files[0] ? state.files[0].name.replace(/\.pdf$/i, '') : 'document') + '.pdf';
+      var baseName = (state.files[0] ? state.files[0].name.replace(/\.pdf$/i, '') : 'document');
+      var suffix = (selectedOnly && exportIndices.length < total) ? '-selected-pages' : '-edited';
+      a.download = baseName + suffix + '.pdf';
       document.body.appendChild(a);
       a.click();
       setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 3000);
-      status('✅ Done! Edited PDF (' + fmtKB(bytesOut.length) + ') downloaded — check your Downloads folder.');
+      status('✅ Done! ' + (selectedOnly && exportIndices.length < total ? exportIndices.length + ' selected pages' : 'All ' + total + ' pages') + ' (' + fmtKB(bytesOut.length) + ') downloaded — check your Downloads folder.');
     } catch (e) {
       console.error(e);
       status('Export failed: ' + (e.message || 'unknown error') + ' — try re-opening the PDF.', true);
     } finally {
       btn.innerHTML = oldLabel;
       btn.disabled = false;
+      updateExportSummary();
     }
   }
   function updateExportSummary() {
-    var n = state.pages.length;
+    var total = state.pages.length;
+    var selPages = state.pages.filter(function (p) { return p.selected !== false; });
+    var selCount = selPages.length;
     var ob = state.objects.length;
-    $('exportSummary').textContent = n
-      ? n + ' page' + (n > 1 ? 's' : '') + ' · ' + ob + ' edit' + (ob === 1 ? '' : 's') + ' · ready to export'
-      : '';
-    $('btnExportPdf').disabled = !n;
+
+    if ($('pagesSelectedCount')) $('pagesSelectedCount').textContent = selCount;
+    if ($('pagesTotalCount')) $('pagesTotalCount').textContent = total;
+    if ($('btnSelCount')) $('btnSelCount').textContent = selCount;
+    if ($('btnAllCount')) $('btnAllCount').textContent = total;
+
+    if ($('exportSummary')) {
+      if (!total) {
+        $('exportSummary').textContent = '';
+      } else if (selCount === total) {
+        $('exportSummary').textContent = 'All ' + total + ' pages selected · ' + ob + ' edit' + (ob === 1 ? '' : 's') + ' · ready to export';
+      } else {
+        $('exportSummary').textContent = selCount + ' of ' + total + ' pages selected · ' + ob + ' edit' + (ob === 1 ? '' : 's') + ' · ready to export';
+      }
+    }
+
+    if ($('btnExportSelectedPdf')) {
+      $('btnExportSelectedPdf').disabled = (selCount === 0);
+    }
+    if ($('btnExportAllPdf')) {
+      $('btnExportAllPdf').disabled = (total === 0);
+    }
+    if ($('btnExportPdf')) {
+      $('btnExportPdf').disabled = (total === 0);
+    }
   }
 
   /* ───────── wiring ───────── */
@@ -798,6 +908,34 @@
       status('');
     });
 
+    // select/deselect all pages
+    if ($('btnSelectAllPages')) {
+      $('btnSelectAllPages').addEventListener('click', function () {
+        state.pages.forEach(function (p) { p.selected = true; });
+        var grid = $('pdfThumbsGrid');
+        Array.prototype.forEach.call(grid.children, function (cell) {
+          cell.classList.remove('unselected');
+          var chk = cell.querySelector('.thumb-check');
+          if (chk) chk.checked = true;
+          if (chk && chk.parentElement) chk.parentElement.title = 'Untick to exclude from export';
+        });
+        updateExportSummary();
+      });
+    }
+    if ($('btnDeselectAllPages')) {
+      $('btnDeselectAllPages').addEventListener('click', function () {
+        state.pages.forEach(function (p) { p.selected = false; });
+        var grid = $('pdfThumbsGrid');
+        Array.prototype.forEach.call(grid.children, function (cell) {
+          cell.classList.add('unselected');
+          var chk = cell.querySelector('.thumb-check');
+          if (chk) chk.checked = false;
+          if (chk && chk.parentElement) chk.parentElement.title = 'Tick to include in export';
+        });
+        updateExportSummary();
+      });
+    }
+
     $('btnPrevPage').addEventListener('click', function () { if (state.cur > 0) { state.cur--; renderPage(); markActiveThumb(); } });
     $('btnNextPage').addEventListener('click', function () { if (state.cur < state.pages.length - 1) { state.cur++; renderPage(); markActiveThumb(); } });
     $('btnZoomIn').addEventListener('click', function () { state.zoom = Math.min(3, state.zoom * 1.2); renderPage(); });
@@ -818,16 +956,26 @@
 
     // watermark controls
     $('wmEnabled').addEventListener('change', function () {
-      ['wmText', 'wmSize', 'wmOpacity', 'wmDiagonal'].forEach(function (id) { $(id).disabled = !$('wmEnabled').checked; });
+      ['wmText', 'wmSize', 'wmOpacity', 'wmDiagonal', 'wmColor'].forEach(function (id) {
+        if ($(id)) $(id).disabled = !$('wmEnabled').checked;
+      });
       renderStampPreviews();
     });
     ['wmText', 'wmSize', 'wmOpacity', 'wmDiagonal'].forEach(function (id) {
-      $(id).addEventListener('input', function () {
-        $('wmSizeVal').textContent = $('wmSize').value + '%';
-        $('wmOpacityVal').textContent = $('wmOpacity').value + '%';
+      if ($(id)) {
+        $(id).addEventListener('input', function () {
+          $('wmSizeVal').textContent = $('wmSize').value + '%';
+          $('wmOpacityVal').textContent = $('wmOpacity').value + '%';
+          renderStampPreviews();
+        });
+      }
+    });
+    if ($('wmColor')) {
+      $('wmColor').addEventListener('input', function () {
+        if ($('wmColorVal')) $('wmColorVal').textContent = this.value;
         renderStampPreviews();
       });
-    });
+    }
     $('pnEnabled').addEventListener('change', function () {
       ['pnPosition', 'pnFormat'].forEach(function (id) { $(id).disabled = !$('pnEnabled').checked; });
       renderStampPreviews();
@@ -848,7 +996,15 @@
     });
     $('objDelete').addEventListener('click', deleteSelected);
 
-    $('btnExportPdf').addEventListener('click', exportPdf);
+    if ($('btnExportSelectedPdf')) {
+      $('btnExportSelectedPdf').addEventListener('click', function () { exportPdf(true); });
+    }
+    if ($('btnExportAllPdf')) {
+      $('btnExportAllPdf').addEventListener('click', function () { exportPdf(false); });
+    }
+    if ($('btnExportPdf')) {
+      $('btnExportPdf').addEventListener('click', function () { exportPdf(true); });
+    }
 
     document.addEventListener('keydown', function (e) {
       var t = e.target;
