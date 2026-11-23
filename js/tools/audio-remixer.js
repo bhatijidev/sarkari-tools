@@ -678,7 +678,8 @@
     if (!resultCard) return;
 
     var originalName = state.file ? state.file.name.replace(/\.[^/.]+$/, '') : 'remixed_track';
-    var outFileName = originalName + '_anti_claim_' + state.activePreset + '.' + ext;
+    var rawOutName = originalName + '_anti_claim_' + state.activePreset + '.' + ext;
+    var outFileName = (window.formatDownloadName ? window.formatDownloadName(rawOutName) : originalName + '_anti_claim_' + state.activePreset + ' ( alltoolsinone ).' + ext);
 
     if (resultPlayer) {
       resultPlayer.src = state.outputUrl;

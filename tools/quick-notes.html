@@ -1010,7 +1010,7 @@
         const jsonBlob = new Blob([JSON.stringify(notes, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(jsonBlob);
-        a.download = `sarkari_notes_backup_${Date.now()}.json`;
+        a.download = `notes_backup_${Date.now()}.json`;
         a.click();
       });
 

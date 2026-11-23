@@ -254,7 +254,7 @@
   // Download
   downloadBtn.addEventListener('click', () => {
     if (!finalBlob) return;
-    window.downloadFile(finalBlob, 'sarkari_photo_signature_joined.jpg');
+    window.downloadFile(finalBlob, 'photo_signature_joined.jpg');
     window.showToast('Photo & Signature joined file downloaded!', 'success');
   });
 

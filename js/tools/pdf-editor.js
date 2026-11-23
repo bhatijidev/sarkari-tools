@@ -835,7 +835,8 @@
       a.href = URL.createObjectURL(blob);
       var baseName = (state.files[0] ? state.files[0].name.replace(/\.pdf$/i, '') : 'document');
       var suffix = (selectedOnly && exportIndices.length < total) ? '-selected-pages' : '-edited';
-      a.download = baseName + suffix + '.pdf';
+      var rawDlName = baseName + suffix + '.pdf';
+      a.download = (window.formatDownloadName ? window.formatDownloadName(rawDlName) : baseName + suffix + ' ( alltoolsinone ).pdf');
       document.body.appendChild(a);
       a.click();
       setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 3000);

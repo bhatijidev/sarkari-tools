@@ -1520,7 +1520,34 @@
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  /* ───────── DOWNLOAD HELPER ───────── */
+  /* ───────── DOWNLOAD HELPER & UNIVERSAL BRANDING ───────── */
+  window.formatDownloadName = function(filename) {
+    if (!filename || typeof filename !== 'string') return 'file ( alltoolsinone )';
+    
+    let name = filename.trim();
+    name = name
+      .replace(/sarkaritools\.in/gi, 'alltoolsinone')
+      .replace(/sarkaritools/gi, 'alltoolsinone')
+      .replace(/sarkari[-_]?tools/gi, 'alltoolsinone')
+      .replace(/^sarkari[-_]/gi, '')
+      .replace(/[-_]sarkari/gi, '')
+      .replace(/sarkari/gi, 'alltoolsinone');
+
+    const lastDot = name.lastIndexOf('.');
+    let base = name;
+    let ext = '';
+    if (lastDot > 0 && lastDot < name.length - 1) {
+      base = name.substring(0, lastDot).trim();
+      ext = name.substring(lastDot);
+    }
+
+    if (!base.includes('( alltoolsinone )')) {
+      base = `${base} ( alltoolsinone )`;
+    }
+
+    return base + ext;
+  };
+
   window.downloadFile = function(blob, filename) {
     if (!blob) return;
     let safeName = filename || 'download';
@@ -1537,6 +1564,8 @@
       safeName += '.' + ext;
     }
 
+    safeName = window.formatDownloadName(safeName);
+
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -1550,6 +1579,33 @@
       try { URL.revokeObjectURL(url); } catch (e) {}
     }, 60000);
   };
+
+  // Universal Download Interceptor: ensures EVERY file downloaded across all tools
+  // always carries the '( alltoolsinone )' branding and never leaks old names
+  if (typeof HTMLAnchorElement !== 'undefined' && HTMLAnchorElement.prototype) {
+    const origAnchorClick = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function() {
+      const dl = this.getAttribute('download') || this.download;
+      if (dl && window.formatDownloadName) {
+        const formatted = window.formatDownloadName(dl);
+        this.download = formatted;
+        this.setAttribute('download', formatted);
+      }
+      return origAnchorClick.apply(this, arguments);
+    };
+  }
+
+  document.addEventListener('click', function(e) {
+    const a = e.target && e.target.closest ? e.target.closest('a[download]') : null;
+    if (a && window.formatDownloadName) {
+      const dl = a.getAttribute('download') || a.download;
+      if (dl) {
+        const formatted = window.formatDownloadName(dl);
+        a.download = formatted;
+        a.setAttribute('download', formatted);
+      }
+    }
+  }, true);
 
   /* ───────── ANONYMOUS FEEDBACK SYSTEM ───────── */
   function initFeedbackSystem() {

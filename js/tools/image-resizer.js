@@ -244,7 +244,7 @@
     if (format === 'image/png') ext = 'png';
     else if (format === 'image/webp') ext = 'webp';
 
-    const baseName = currentFile ? currentFile.name.replace(/\.[^/.]+$/, '') : 'sarkari_photo';
+    const baseName = currentFile ? currentFile.name.replace(/\.[^/.]+$/, '') : 'photo';
     window.downloadFile(latestBlob, `${baseName}_resized.${ext}`);
     window.showToast('Image downloaded successfully!', 'success');
   });

@@ -296,7 +296,7 @@
         }
       }
 
-      pdf.save('sarkari_documents_merged.pdf');
+      pdf.save('documents_merged.pdf');
       window.showToast('PDF generated and downloaded successfully! 🎉', 'success');
 
     } catch (err) {

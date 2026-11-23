@@ -893,7 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dataUrl = exportCanvas.toDataURL('image/png');
             const a = document.createElement('a');
             a.href = dataUrl;
-            a.download = `sarkari-qr-${currentTab}-${qrVisualMode}.png`;
+            a.download = `qr-code-${currentTab}-${qrVisualMode}.png`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
