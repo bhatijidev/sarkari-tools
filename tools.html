@@ -164,6 +164,16 @@
           </div>
         </div>
 
+        <!-- Filter 1B: Region Focus -->
+        <div class="filter-section">
+          <div class="filter-section-title">Region / Audience</div>
+          <div class="filter-badge-group" id="dirRegionBar">
+            <button type="button" class="filter-badge-pill region-pill" data-region-btn="in">🇮🇳 India</button>
+            <button type="button" class="filter-badge-pill region-pill" data-region-btn="global">🌍 Global / US</button>
+            <button type="button" class="filter-badge-pill region-pill" data-region-btn="all">✨ All</button>
+          </div>
+        </div>
+
         <!-- Filter 2: Badges / Highlights -->
         <div class="filter-section">
           <div class="filter-section-title">Filter by Badge</div>
@@ -211,7 +221,8 @@
               <div class="dir-sort-wrap">
                 <label for="dirSortSelect" class="dir-sort-label">Sort:</label>
                 <select id="dirSortSelect" class="dir-sort-select" aria-label="Sort tools">
-                  <option value="newest" selected>✨ Newly Added First (Default)</option>
+                  <option value="featured" selected>📄 PDF, Photo &amp; New First (Default)</option>
+                  <option value="newest">✨ Newly Added First</option>
                   <option value="recommended">Featured / Curated</option>
                   <option value="popular">⭐ Most Popular</option>
                   <option value="name-asc">Name: A → Z</option>

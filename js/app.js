@@ -1161,17 +1161,85 @@
 
   const CATEGORIES = [
     { id: 'all', label: 'All Tools', count: TOOLS.length },
-    { id: 'global', label: 'US & Global Tools', count: TOOLS.filter(t => t.category === 'global').length },
-    { id: 'image', label: 'Image Tools', count: TOOLS.filter(t => t.category === 'image').length },
     { id: 'pdf', label: 'PDF Tools', count: TOOLS.filter(t => t.category === 'pdf').length },
+    { id: 'image', label: 'Image Tools', count: TOOLS.filter(t => t.category === 'image').length },
+    { id: 'exam', label: 'Exam & India Tools', count: TOOLS.filter(t => t.category === 'exam').length },
+    { id: 'global', label: 'US & Global Tools', count: TOOLS.filter(t => t.category === 'global').length },
+    { id: 'video', label: 'Video & Audio', count: TOOLS.filter(t => t.category === 'video').length },
     { id: 'calculator', label: 'Calculators', count: TOOLS.filter(t => t.category === 'calculator').length },
-    { id: 'exam', label: 'Exam Tools', count: TOOLS.filter(t => t.category === 'exam').length },
     { id: 'document', label: 'Documents', count: TOOLS.filter(t => t.category === 'document').length },
     { id: 'utility', label: 'Utilities', count: TOOLS.filter(t => t.category === 'utility').length },
     { id: 'social', label: 'Social Media', count: TOOLS.filter(t => t.category === 'social').length },
-    { id: 'video', label: 'Video & Subtitles', count: TOOLS.filter(t => t.category === 'video').length },
     { id: 'seo', label: 'SEO & Marketing', count: TOOLS.filter(t => t.category === 'seo').length }
   ];
+
+  /* ───────── REGION DETECTION & TARGETING (India vs Global) ───────── */
+  const INDIA_ONLY_TOOL_IDS = new Set([
+    'ssc-photo-resizer', 'upsc-photo-resizer', 'railway-photo-resizer',
+    'up-police-photo-resizer', 'cyber-cafe', 'exam-studio', 'typing-test',
+    'photo-signature', 'name-date-photo', 'gst-calculator', 'unit-converter',
+    'numbers-to-words', 'biodata-maker', 'krutidev-converter',
+    'upi-qr-generator', 'invoice-maker', 'attendance-calculator'
+  ]);
+  const GLOBAL_ONLY_TOOL_IDS = new Set([
+    'mortgage-calculator', 'tip-calculator', 'paycheck-calculator',
+    'gpa-calculator', 'fake-data-generator', 'wheel-of-names',
+    'time-zone-converter', 'tdee-calculator', 'sleep-calculator',
+    'diff-checker', 'aspect-ratio-calculator', 'pet-age-calculator'
+  ]);
+
+  TOOLS.forEach(t => {
+    if (INDIA_ONLY_TOOL_IDS.has(t.id)) t.region = 'in';
+    else if (GLOBAL_ONLY_TOOL_IDS.has(t.id)) t.region = 'global';
+    else t.region = 'both';
+  });
+
+  function detectDefaultRegion() {
+    try {
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+      if (tz === 'asia/kolkata' || tz === 'asia/calcutta') return 'in';
+      const langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''])
+        .map(l => String(l).toLowerCase());
+      if (langs.some(l => l.endsWith('-in') || /^(hi|bn|ta|te|mr|gu|kn|ml|pa|or|as)\b/.test(l))) {
+        return 'in';
+      }
+    } catch (e) {}
+    return 'global';
+  }
+
+  function getActiveRegion() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const qReg = (params.get('region') || '').toLowerCase();
+      if (qReg === 'in' || qReg === 'global' || qReg === 'all') return qReg;
+      const saved = localStorage.getItem('alltoolsinone_region');
+      if (saved === 'in' || saved === 'global' || saved === 'all') return saved;
+    } catch (e) {}
+    return detectDefaultRegion();
+  }
+
+  function isRegionMatch(itemRegion, activeRegion) {
+    if (activeRegion === 'all') return true;
+    return !itemRegion || itemRegion === 'both' || itemRegion === activeRegion;
+  }
+
+  function setActiveRegion(reg) {
+    const clean = (reg === 'in' || reg === 'global' || reg === 'all') ? reg : detectDefaultRegion();
+    try { localStorage.setItem('alltoolsinone_region', clean); } catch (e) {}
+    try {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has('region')) {
+        url.searchParams.set('region', clean);
+        window.history.replaceState({}, '', url.toString());
+      }
+    } catch (e) {}
+    applyHomepageRegionFilter(clean);
+    window.dispatchEvent(new CustomEvent('alltoolsinone-region-change', { detail: { region: clean } }));
+  }
+
+  window.ALLTOOLSINONE_DETECT_REGION = detectDefaultRegion;
+  window.ALLTOOLSINONE_GET_REGION = getActiveRegion;
+  window.ALLTOOLSINONE_SET_REGION = setActiveRegion;
 
   /* ───────── PATH HELPERS FOR ROOT VS /tools/ ───────── */
   const isInsideTools = window.location.pathname.includes('/tools/') || window.location.href.includes('/tools/');
@@ -1338,8 +1406,9 @@
 
   function searchTools(query) {
     if (!query || query.length < 1) return [];
-    
-    const results = TOOLS.map(tool => {
+    const activeRegion = getActiveRegion();
+
+    const scored = TOOLS.map(tool => {
       let score = 0;
       score += fuzzyMatch(query, tool.name) * 3;
       score += fuzzyMatch(query, tool.description) * 1;
@@ -1351,8 +1420,10 @@
     })
     .filter(t => t.score > 0)
     .sort((a, b) => b.score - a.score);
-    
-    return results;
+
+    if (activeRegion === 'all') return scored;
+    const regionMatched = scored.filter(t => isRegionMatch(t.region, activeRegion));
+    return regionMatched.length > 0 ? regionMatched : scored;
   }
 
   function renderSearchResults(results, container) {
@@ -1536,10 +1607,97 @@
     });
   }
 
+  function applyHomepageRegionFilter(region) {
+    const activeReg = region || getActiveRegion();
+    const sections = document.querySelectorAll('.category-section');
+    const navPills = document.querySelectorAll('.cat-nav-pill');
+
+    // Update Region Switcher Buttons & Label
+    document.querySelectorAll('#regionSwitcherBar .region-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.regionBtn === activeReg);
+    });
+    const labelEl = document.getElementById('regionDetectedLabel');
+    if (labelEl) {
+      if (activeReg === 'in') {
+        labelEl.innerHTML = '📍 Region: <strong>🇮🇳 India + Universal Tools</strong>';
+      } else if (activeReg === 'global') {
+        labelEl.innerHTML = '📍 Region: <strong>🌍 Global / US + Universal Tools</strong>';
+      } else {
+        labelEl.innerHTML = '📍 Region: <strong>✨ All Tools (India + Global)</strong>';
+      }
+    }
+
+    if (!sections.length) return;
+
+    const visibleUniqueUrls = new Set();
+    const sectionCounts = {};
+
+    sections.forEach(sec => {
+      const secRegion = sec.dataset.region || 'both';
+      const secAllowed = isRegionMatch(secRegion, activeReg);
+      let visibleInSec = 0;
+
+      sec.querySelectorAll('.tool-card').forEach(card => {
+        const cardRegion = card.dataset.region || secRegion || 'both';
+        const showCard = secAllowed && isRegionMatch(cardRegion, activeReg);
+        card.style.display = showCard ? '' : 'none';
+        card.dataset.regionHidden = showCard ? '0' : '1';
+        if (showCard) {
+          visibleInSec++;
+          const href = card.getAttribute('href');
+          if (href) visibleUniqueUrls.add(href);
+        }
+      });
+
+      sec.style.display = (secAllowed && visibleInSec > 0) ? '' : 'none';
+      const catKey = sec.dataset.category || sec.id.replace('cat-', '');
+      sectionCounts[catKey] = visibleInSec;
+
+      const badgePill = sec.querySelector('.category-badge-pill');
+      if (badgePill) {
+        badgePill.textContent = sec.id === 'cat-new'
+          ? `${visibleInSec} New`
+          : `${visibleInSec} Tool${visibleInSec === 1 ? '' : 's'}`;
+      }
+    });
+
+    navPills.forEach(pill => {
+      const pReg = pill.dataset.region || 'both';
+      const f = pill.dataset.filter;
+      if (f === 'all') {
+        pill.style.display = '';
+        const cntEl = pill.querySelector('.cat-nav-count');
+        if (cntEl) cntEl.textContent = String(visibleUniqueUrls.size || TOOLS.length);
+        return;
+      }
+      const allowed = isRegionMatch(pReg, activeReg) && (sectionCounts[f] > 0);
+      pill.style.display = allowed ? '' : 'none';
+      const cntEl = pill.querySelector('.cat-nav-count');
+      if (cntEl && typeof sectionCounts[f] === 'number') {
+        cntEl.textContent = String(sectionCounts[f]);
+      }
+    });
+
+    const heroToolStat = document.getElementById('heroToolCount') || document.querySelector('.hero-stat:first-child .hero-stat-number');
+    if (heroToolStat) {
+      const regionToolCount = TOOLS.filter(t => isRegionMatch(t.region, activeReg)).length;
+      heroToolStat.textContent = `${regionToolCount}+`;
+    }
+  }
+
   /* ───────── CATEGORY NAVIGATION & SECTIONS (Allinone Style) ───────── */
   function initCategoryFilter() {
     const navPills = document.querySelectorAll('.cat-nav-pill');
     const sections = document.querySelectorAll('.category-section');
+
+    // Bind homepage region switcher pills
+    document.querySelectorAll('#regionSwitcherBar .region-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveRegion(btn.dataset.regionBtn);
+      });
+    });
+
+    applyHomepageRegionFilter(getActiveRegion());
     if (!navPills.length) return;
 
     // Click handler on navigation pills
@@ -1550,14 +1708,14 @@
         pill.classList.add('active');
 
         if (targetFilter === 'all') {
-          sections.forEach(s => s.style.display = '');
+          applyHomepageRegionFilter(getActiveRegion());
           const toolsRoot = document.getElementById('tools');
           if (toolsRoot) toolsRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
           // If user clicked a specific category, smooth scroll to it
           const targetSection = document.getElementById(`cat-${targetFilter}`);
           if (targetSection) {
-            sections.forEach(s => s.style.display = '');
+            applyHomepageRegionFilter(getActiveRegion());
             targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }
@@ -1568,7 +1726,7 @@
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && entry.target.style.display !== 'none') {
             const catId = entry.target.id;
             const filterKey = catId.replace('cat-', '');
             navPills.forEach(p => {
@@ -1589,19 +1747,28 @@
       sections.forEach(s => observer.observe(s));
     }
 
-    // Hero live filter across all categorized sections
+    // Hero live filter across all categorized sections (respects active region)
     const heroInput = document.getElementById('heroSearchInput');
     if (heroInput) {
       heroInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();
+        if (!query) {
+          applyHomepageRegionFilter(getActiveRegion());
+          return;
+        }
+        const activeReg = getActiveRegion();
         sections.forEach(sec => {
+          const secRegion = sec.dataset.region || 'both';
+          const secAllowed = isRegionMatch(secRegion, activeReg);
           let visibleCount = 0;
           const cards = sec.querySelectorAll('.tool-card');
           cards.forEach(card => {
+            const cardRegion = card.dataset.region || secRegion || 'both';
+            const allowed = secAllowed && isRegionMatch(cardRegion, activeReg);
             const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
             const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
             const tags = (card.dataset.tags || '').toLowerCase();
-            const matches = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
+            const matches = allowed && (title.includes(query) || desc.includes(query) || tags.includes(query));
             card.style.display = matches ? '' : 'none';
             if (matches) visibleCount++;
           });
@@ -1979,7 +2146,9 @@
     // Live Hero Tool Counter (always dynamically reflects total tools in catalog)
     const heroToolStat = document.getElementById('heroToolCount') || document.querySelector('.hero-stat:first-child .hero-stat-number');
     if (heroToolStat) {
-      heroToolStat.textContent = `${TOOLS.length}+`;
+      const activeReg = getActiveRegion();
+      const regionCount = TOOLS.filter(t => isRegionMatch(t.region, activeReg)).length;
+      heroToolStat.textContent = `${regionCount}+`;
     }
 
     // Initial tool grid render

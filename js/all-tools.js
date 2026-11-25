@@ -12,7 +12,7 @@
     badge: 'all',
     tag: null,
     searchQuery: '',
-    sortBy: 'newest', // Default is Newly Added First
+    sortBy: 'featured', // Default: PDF & Photo first, then New
     viewMode: 'grid' // 'grid' | 'list'
   };
 
@@ -112,12 +112,21 @@
 
   function renderCategoriesSidebar(tools) {
     if (!categoryListContainer) return;
-    const cats = getCategories();
+    const activeRegion = window.ALLTOOLSINONE_GET_REGION ? window.ALLTOOLSINONE_GET_REGION() : 'all';
+    const regionTools = tools.filter(t => {
+      if (activeRegion === 'all') return true;
+      return !t.region || t.region === 'both' || t.region === activeRegion;
+    });
+    const cats = getCategories().filter(c => {
+      if (activeRegion === 'in' && c.id === 'global') return false;
+      if (activeRegion === 'global' && c.id === 'exam') return false;
+      return true;
+    });
 
     categoryListContainer.innerHTML = cats.map(cat => {
       const count = cat.id === 'all'
-        ? tools.length
-        : tools.filter(t => t.category === cat.id).length;
+        ? regionTools.length
+        : regionTools.filter(t => t.category === cat.id).length;
 
       const icon = getCategoryIcon(cat.id);
       const isActive = state.category === cat.id;
@@ -253,6 +262,31 @@
     btnMobileFilter?.addEventListener('click', openMobileDrawer);
     mobileDrawerClose?.addEventListener('click', closeMobileDrawer);
     directoryBackdrop?.addEventListener('click', closeMobileDrawer);
+
+    // Region Switcher in Directory
+    document.querySelectorAll('#dirRegionBar .region-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (window.ALLTOOLSINONE_SET_REGION) {
+          window.ALLTOOLSINONE_SET_REGION(btn.dataset.regionBtn);
+        }
+      });
+    });
+    window.addEventListener('alltoolsinone-region-change', () => {
+      const reg = window.ALLTOOLSINONE_GET_REGION ? window.ALLTOOLSINONE_GET_REGION() : 'all';
+      if (reg === 'in' && state.category === 'global') state.category = 'all';
+      if (reg === 'global' && state.category === 'exam') state.category = 'all';
+      renderCategoriesSidebar(getTools());
+      updateDirRegionUI();
+      applyFiltersAndRender();
+    });
+    updateDirRegionUI();
+  }
+
+  function updateDirRegionUI() {
+    const reg = window.ALLTOOLSINONE_GET_REGION ? window.ALLTOOLSINONE_GET_REGION() : 'all';
+    document.querySelectorAll('#dirRegionBar .region-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.regionBtn === reg);
+    });
   }
 
   function openMobileDrawer() {
@@ -301,7 +335,12 @@
   /* ───────── FILTERING & SORTING ENGINE ───────── */
   function applyFiltersAndRender() {
     const allTools = getTools();
-    let filtered = [...allTools];
+    const activeRegion = window.ALLTOOLSINONE_GET_REGION ? window.ALLTOOLSINONE_GET_REGION() : 'all';
+    const regionPool = allTools.filter(t => {
+      if (activeRegion === 'all') return true;
+      return !t.region || t.region === 'both' || t.region === activeRegion;
+    });
+    let filtered = [...regionPool];
 
     // 1. Category Filter
     if (state.category && state.category !== 'all') {
@@ -344,7 +383,7 @@
     filtered = sortTools(filtered, state.sortBy);
 
     // Update Counter & Active Chips
-    renderActiveChips(allTools.length, filtered.length);
+    renderActiveChips(regionPool.length, filtered.length);
 
     // Render Cards or Empty State
     renderToolsView(filtered);
@@ -381,8 +420,23 @@
   function sortTools(tools, sortBy) {
     const arr = [...tools];
     switch (sortBy) {
-      case 'newest':
+      case 'featured':
       default:
+        return arr.sort((a, b) => {
+          function getCatRank(t) {
+            if (t.category === 'pdf') return 0;
+            if (t.category === 'image') return 1;
+            const nIdx = NEWEST_TOOL_IDS.indexOf(t.id);
+            if (nIdx !== -1 || (t.badge || '').toLowerCase().includes('new')) return 2;
+            if (t.category === 'exam' || t.category === 'global') return 3;
+            return 4;
+          }
+          const ra = getCatRank(a);
+          const rb = getCatRank(b);
+          if (ra !== rb) return ra - rb;
+          return a.name.localeCompare(b.name);
+        });
+      case 'newest':
         return arr.sort((a, b) => {
           const aIdx = NEWEST_TOOL_IDS.indexOf(a.id);
           const bIdx = NEWEST_TOOL_IDS.indexOf(b.id);
