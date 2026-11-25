@@ -1729,8 +1729,7 @@
 
     const heroToolStat = document.getElementById('heroToolCount') || document.querySelector('.hero-stat:first-child .hero-stat-number');
     if (heroToolStat) {
-      const regionToolCount = TOOLS.filter(t => isRegionMatch(t.region, activeReg)).length;
-      heroToolStat.textContent = `${regionToolCount}+`;
+      heroToolStat.textContent = `${TOOLS.length}+`;
     }
   }
 
@@ -2205,9 +2204,7 @@
     // Live Hero Tool Counter (always dynamically reflects total tools in catalog)
     const heroToolStat = document.getElementById('heroToolCount') || document.querySelector('.hero-stat:first-child .hero-stat-number');
     if (heroToolStat) {
-      const activeReg = getActiveRegion();
-      const regionCount = TOOLS.filter(t => isRegionMatch(t.region, activeReg)).length;
-      heroToolStat.textContent = `${regionCount}+`;
+      heroToolStat.textContent = `${TOOLS.length}+`;
     }
 
     // Initial tool grid render
