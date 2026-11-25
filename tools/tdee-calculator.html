@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TDEE & Calorie Macro Calculator Online | AllToolsInOne</title>
   <meta name="description" content="Calculate Total Daily Energy Expenditure (TDEE), BMR, and exact daily calorie & macro targets for weight loss, cutting, or bulking. 100% free and accurate.">
-  <meta name="keywords" content="tdee calculator, calorie deficit calculator, bmr calculator, macro calculator, maintenance calories, weight loss calories, mifflin st jeor">
+  <meta name="keywords" content="tdee calculator, calorie deficit calculator, daily protein calculator, high protein low protein diet plan, bmr calculator, macro calculator, maintenance calories, how much protein per day">
   <link rel="canonical" href="https://alltoolsinone.com/tools/tdee-calculator.html">
   <link rel="shortcut icon" href="../favicon.ico">
   <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
@@ -24,6 +24,150 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/tools.css">
 
+  <style>
+    .tdee-layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 430px) 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .tdee-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .tdee-card {
+      background: var(--bg-card, #ffffff);
+      border: 1.5px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .tdee-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .tdee-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tdee-field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy, #0f172a);
+    }
+    .tdee-unit-tabs, .tdee-pill-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tdee-pill-btn {
+      flex: 1;
+      min-width: 92px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1.5px solid #e2e8f0;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.16s ease;
+    }
+    .tdee-pill-btn:hover {
+      border-color: var(--saffron, #f97316);
+    }
+    .tdee-pill-btn.active {
+      background: var(--saffron, #f97316);
+      border-color: var(--saffron, #f97316);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25);
+    }
+    .tdee-smart-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #047857;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+    .tdee-protein-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 640px) {
+      .tdee-protein-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .protein-tier-card {
+      text-align: left;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1.5px solid #e2e8f0;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      position: relative;
+    }
+    .protein-tier-card:hover {
+      border-color: var(--saffron, #f97316);
+      transform: translateY(-1px);
+    }
+    .protein-tier-card.active {
+      border-color: #2563eb;
+      background: #eff6ff;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18);
+    }
+    .meal-plan-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+    }
+    .meal-slot-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px;
+    }
+    body.dark .tdee-card {
+      background: #141B2B;
+      border-color: #24324B;
+    }
+    body.dark .tdee-field label {
+      color: #E2E8F0;
+    }
+    body.dark .tdee-pill-btn {
+      background: #1E293B;
+      border-color: #334155;
+      color: #CBD5E1;
+    }
+    body.dark .tdee-pill-btn.active {
+      background: var(--saffron, #f97316);
+      color: #000000;
+    }
+    body.dark .protein-tier-card,
+    body.dark .meal-slot-card {
+      background: #1E293B;
+      border-color: #334155;
+      color: #E2E8F0;
+    }
+    body.dark .protein-tier-card.active {
+      background: #172554;
+      border-color: #60a5fa;
+    }
+  </style>
+
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,9 +175,9 @@
     {
       "@type": "WebApplication",
       "@id": "https://alltoolsinone.com/tools/tdee-calculator.html#webapp",
-      "name": "TDEE & Calorie Deficit Macro Calculator",
+      "name": "TDEE, Daily Protein & Calorie Planner",
       "url": "https://alltoolsinone.com/tools/tdee-calculator.html",
-      "description": "Calculate Total Daily Energy Expenditure, BMR, weight loss calorie targets, and macro breakdown.",
+      "description": "Calculate Total Daily Energy Expenditure, BMR, Low vs Balanced vs High Protein daily targets, and tailored Veg/Egg/Non-Veg meal portions even from height & weight alone.",
       "applicationCategory": "HealthApplication",
       "operatingSystem": "All",
       "offers": {
@@ -81,119 +225,225 @@
         <span class="separator">/</span>
         <a href="/tools.html">Tools</a>
         <span class="separator">/</span>
-        <span class="current">TDEE Calculator</span>
+        <span class="current">TDEE &amp; Protein Calculator</span>
       </div>
 
       <div class="tool-hero">
         <div class="tool-icon" style="background:#ecfdf5; color:#059669;">🥗</div>
-        <h1>TDEE &amp; Calorie Deficit Macro Calculator</h1>
-        <p class="tool-description">Learn exactly how many calories your body burns every day using the scientifically validated Mifflin-St Jeor formula. Get tailored calorie and macronutrient targets for cutting, maintenance, or muscle gain.</p>
+        <h1>TDEE, Calorie &amp; Daily Protein Planner</h1>
+        <p class="tool-description">Enter even just your <strong>Height &amp; Weight</strong> (e.g. 5.10 ft &amp; 98 kg) to get instant Daily Calories, <strong>Low / Balanced / High Protein</strong> targets, and practical Veg, Egg, or Non-Veg food suggestions.</p>
       </div>
 
-      <div class="tool-workspace">
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-          <!-- Left: User Metrics -->
-          <div class="settings-panel">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-              <h3 style="font-size:16px; font-weight:700; margin:0;">📋 Personal Stats</h3>
+      <div class="tool-workspace" style="padding: var(--space-6);">
+        <div class="tdee-layout">
+
+          <!-- Left Column: Clean Vertical Input Form -->
+          <div class="tdee-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <h3 style="font-size:17px; font-weight:700; margin:0; color:var(--navy);">📋 Your Body Stats</h3>
               <div style="display:flex; gap:6px;">
-                <button type="button" id="btnUnitUS" class="btn btn-sm btn-primary">US Units (lbs/ft)</button>
-                <button type="button" id="btnUnitMetric" class="btn btn-sm btn-outline">Metric (kg/cm)</button>
+                <button type="button" id="btnUnitMetric" class="btn btn-sm btn-primary">🇮🇳 Metric (kg + ft/cm)</button>
+                <button type="button" id="btnUnitUS" class="btn btn-sm btn-outline">🇺🇸 US (lbs + ft/in)</button>
               </div>
             </div>
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-              <div class="settings-group">
-                <label class="form-label" for="gender">Biological Sex</label>
-                <select id="gender" class="form-select">
-                  <option value="male" selected>Male</option>
-                  <option value="female">Female</option>
+            <!-- Weight & Height First (works even if user only knows these 2!) -->
+            <div class="tdee-row-2">
+              <div class="tdee-field">
+                <label id="lblWeight" for="weight">Weight (kg)</label>
+                <input type="number" id="weight" class="form-input" value="98" min="25" max="350" step="0.5" placeholder="e.g. 98">
+              </div>
+
+              <div class="tdee-field">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <label for="heightFt" id="lblHeightMode">Height (ft.in or ft)</label>
+                  <button type="button" id="btnToggleHeightMode" style="font-size:11px; font-weight:700; color:#2563eb; cursor:pointer; background:none; border:none; padding:0;">Switch to cm</button>
+                </div>
+                <div id="ftInWrap" style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                  <input type="text" inputmode="decimal" id="heightFt" class="form-input" value="5.10" placeholder="5.10" title="Enter 5.10 for 5ft 10in, or 5 + Inches box">
+                  <input type="number" id="heightIn" class="form-input" value="" min="0" max="11" placeholder="in (opt)" title="Optional inches (0-11)">
+                </div>
+                <div id="metricHeightWrap" style="display:none;">
+                  <input type="number" id="heightCm" class="form-input" value="178" min="90" max="250" placeholder="cm">
+                </div>
+              </div>
+            </div>
+
+            <div class="tdee-smart-badge" id="smartResolvedBadge">
+              ✓ Height: 5 ft 10 in (178 cm) • Weight: 98 kg (216 lbs)
+            </div>
+
+            <!-- Your Goal -->
+            <div class="tdee-field">
+              <label>🎯 Your Main Goal</label>
+              <div class="tdee-pill-row" id="goalPillRow">
+                <button type="button" class="tdee-pill-btn active" data-goal="cut">🔥 Lose Fat</button>
+                <button type="button" class="tdee-pill-btn" data-goal="maintain">⚖️ Maintain</button>
+                <button type="button" class="tdee-pill-btn" data-goal="bulk">💪 Gain Muscle</button>
+              </div>
+            </div>
+
+            <!-- Food / Diet Preference -->
+            <div class="tdee-field">
+              <label>🍽️ Diet Style (For Food &amp; Protein Suggestions)</label>
+              <div class="tdee-pill-row" id="dietPillRow">
+                <button type="button" class="tdee-pill-btn active" data-diet="veg">🥬 Pure Veg</button>
+                <button type="button" class="tdee-pill-btn" data-diet="egg">🥚 Veg + Eggs</button>
+                <button type="button" class="tdee-pill-btn" data-diet="nonveg">🍗 Non-Veg</button>
+              </div>
+            </div>
+
+            <!-- Optional Precision Fields -->
+            <div style="border-top:1px dashed #cbd5e1; padding-top:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <span style="font-size:12.5px; font-weight:700; color:#475569;">⚙️ Optional Details (Leave default if unsure)</span>
+                <button type="button" id="btnQuickOnly" class="btn btn-outline" style="font-size:11px; padding:3px 9px;">⚡ Reset to Avg</button>
+              </div>
+
+              <div class="tdee-row-2" style="margin-bottom:10px;">
+                <div class="tdee-field">
+                  <label for="gender">Biological Sex</label>
+                  <select id="gender" class="form-select">
+                    <option value="avg">Average (Not specified)</option>
+                    <option value="male" selected>Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div class="tdee-field">
+                  <label for="age">Age (Years)</label>
+                  <input type="number" id="age" class="form-input" value="28" min="14" max="100" placeholder="28 (avg)">
+                </div>
+              </div>
+
+              <div class="tdee-field">
+                <label for="activity">Daily Activity Level</label>
+                <select id="activity" class="form-select">
+                  <option value="1.2">Sedentary (Desk job / minimal walking)</option>
+                  <option value="1.375" selected>Lightly Active (Default • 1–3 workouts or 5k+ steps)</option>
+                  <option value="1.55">Moderately Active (3–5 gym/sport days per week)</option>
+                  <option value="1.725">Very Active (6–7 intense workouts/wk)</option>
+                  <option value="1.9">Athlete / Heavy Physical Work</option>
                 </select>
               </div>
-              <div class="settings-group">
-                <label class="form-label" for="age">Age</label>
-                <input type="number" id="age" class="form-input" value="28" min="14" max="100">
-              </div>
-            </div>
-
-            <!-- US Height Inputs -->
-            <div id="usHeightWrap" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-              <div class="settings-group">
-                <label class="form-label" for="heightFt">Height (Feet)</label>
-                <input type="number" id="heightFt" class="form-input" value="5" min="3" max="8">
-              </div>
-              <div class="settings-group">
-                <label class="form-label" for="heightIn">Height (Inches)</label>
-                <input type="number" id="heightIn" class="form-input" value="10" min="0" max="11">
-              </div>
-            </div>
-
-            <!-- Metric Height Input -->
-            <div id="metricHeightWrap" style="display:none;" class="settings-group">
-              <label class="form-label" for="heightCm">Height (Centimeters)</label>
-              <input type="number" id="heightCm" class="form-input" value="178" min="90" max="250">
-            </div>
-
-            <div class="settings-group">
-              <label class="form-label" id="lblWeight" for="weight">Weight (lbs)</label>
-              <input type="number" id="weight" class="form-input" value="175" min="50" max="600" step="0.5">
-            </div>
-
-            <div class="settings-group">
-              <label class="form-label" for="activity">Daily Activity Level</label>
-              <select id="activity" class="form-select">
-                <option value="1.2">Sedentary (Desk job, little to no exercise)</option>
-                <option value="1.375" selected>Lightly Active (Exercise 1-3 days/week)</option>
-                <option value="1.55">Moderately Active (Exercise 3-5 days/week)</option>
-                <option value="1.725">Very Active (Heavy exercise 6-7 days/week)</option>
-                <option value="1.9">Athlete / Physical Job (2x per day)</option>
-              </select>
             </div>
           </div>
 
-          <!-- Right: TDEE Output -->
-          <div class="result-panel" style="padding:24px; background:var(--bg-card, #ffffff); border:1px solid var(--border-color, #e2e8f0); border-radius:12px;">
-            <div style="text-align:center; margin-bottom:20px;">
-              <div style="font-size:13px; color:#64748b; font-weight:600;">DAILY MAINTENANCE CALORIES (TDEE)</div>
-              <div id="dispTdee" style="font-size:42px; font-weight:800; color:#059669; margin:4px 0;">2,450</div>
-              <div style="font-size:12px; color:#64748b;">Basal Metabolic Rate (BMR): <strong id="dispBmr">1,780</strong> kcal/day</div>
+          <!-- Right Column: Interactive Dashboard, Protein Levels & Meal Suggestions -->
+          <div style="display:flex; flex-direction:column; gap:18px;">
+
+            <!-- 1. Hero Calorie + Body Overview -->
+            <div class="tdee-card">
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:12px; align-items:center;">
+                <div style="background:#ecfdf5; border:1.5px solid #86efac; border-radius:12px; padding:14px; text-align:center;">
+                  <div id="lblRecommendedCals" style="font-size:11.5px; color:#065f46; font-weight:700; text-transform:uppercase;">Daily Target (Fat Loss)</div>
+                  <div id="dispTargetCals" style="font-size:34px; font-weight:800; color:#059669; line-height:1.15; margin:4px 0;">2,150</div>
+                  <div style="font-size:12px; color:#047857;">kcal / day to eat</div>
+                </div>
+
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px;">
+                  <div style="font-size:12px; color:#64748b; font-weight:600;">Body &amp; Maintenance</div>
+                  <div style="font-size:15px; font-weight:700; color:var(--navy); margin-top:4px;">Maintenance (TDEE): <span id="dispTdee">2,650</span> kcal</div>
+                  <div style="font-size:12.5px; color:#475569; margin-top:3px;">Resting BMR: <strong id="dispBmr">1,925</strong> kcal/day</div>
+                  <div style="font-size:12.5px; color:#475569; margin-top:3px;">BMI: <strong id="dispBmi">31.0</strong> (<span id="dispBmiTag">Above Ideal</span>)</div>
+                  <div style="font-size:11.5px; color:#0284c7; font-weight:600; margin-top:4px;" id="dispHealthyRange">Healthy Weight for 5'10": 63–79 kg</div>
+                </div>
+              </div>
+
+              <!-- Goal Comparison Strip -->
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(135px, 1fr)); gap:8px; font-size:12.5px;">
+                <div style="padding:10px; background:#eff6ff; border-radius:8px; border:1px solid #bfdbfe;">
+                  <div style="color:#1d4ed8; font-weight:700;">Mild Fat Loss</div>
+                  <div style="font-size:16px; font-weight:800;" id="dispMildCut">2,400 kcal</div>
+                </div>
+                <div style="padding:10px; background:#f0fdf4; border-radius:8px; border:1px solid #bbf7d0;">
+                  <div style="color:#15803d; font-weight:700;">Standard Fat Loss</div>
+                  <div style="font-size:16px; font-weight:800;" id="dispStdCut">2,150 kcal</div>
+                </div>
+                <div style="padding:10px; background:#fef3c7; border-radius:8px; border:1px solid #fde68a;">
+                  <div style="color:#b45309; font-weight:700;">Fast Cut</div>
+                  <div style="font-size:16px; font-weight:800;" id="dispExtCut">1,650 kcal</div>
+                </div>
+                <div style="padding:10px; background:#faf5ff; border-radius:8px; border:1px solid #e9d5ff;">
+                  <div style="color:#7e22ce; font-weight:700;">Lean Muscle Gain</div>
+                  <div style="font-size:16px; font-weight:800;" id="dispBulk">2,950 kcal</div>
+                </div>
+              </div>
             </div>
 
-            <h4 style="font-size:14px; font-weight:700; margin-bottom:10px;">🎯 Calorie Targets by Goal</h4>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:13px; margin-bottom:16px;">
-              <div style="padding:10px; background:#eff6ff; border-radius:8px; border:1px solid #bfdbfe;">
-                <div style="color:#1d4ed8; font-weight:700;">Mild Cut (-0.5 lb/wk)</div>
-                <div style="font-size:18px; font-weight:800;" id="dispMildCut">2,200 kcal</div>
+            <!-- 2. Protein Options: Low vs Balanced vs High Protein -->
+            <div class="tdee-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <div>
+                  <h4 style="font-size:15.5px; font-weight:700; margin:0; color:var(--navy);">🥩 Daily Protein Options — Choose Your Plan</h4>
+                  <p style="font-size:12px; color:#64748b; margin:3px 0 0;">Smartly calibrated to your height &amp; reference body mass so targets stay realistic and effective. Click a card to update your food plan below.</p>
+                </div>
               </div>
-              <div style="padding:10px; background:#f0fdf4; border-radius:8px; border:1px solid #bbf7d0;">
-                <div style="color:#15803d; font-weight:700;">Standard Cut (-1 lb/wk)</div>
-                <div style="font-size:18px; font-weight:800;" id="dispStdCut">1,950 kcal</div>
+
+              <div class="tdee-protein-grid" id="proteinTierGrid">
+                <button type="button" class="protein-tier-card" data-tier="low">
+                  <div style="font-size:12px; font-weight:700; color:#64748b;">🌱 LIGHT / LOW PROTEIN</div>
+                  <div style="font-size:24px; font-weight:800; color:#0f172a; margin:4px 0;" id="tierLowG">82g / day</div>
+                  <div style="font-size:11.5px; color:#475569; line-height:1.4;">Easy home diet minimum (~1.0g/kg ref). Good starter level to control calories gently.</div>
+                </button>
+
+                <button type="button" class="protein-tier-card active" data-tier="balanced">
+                  <span style="position:absolute; top:8px; right:8px; font-size:10px; font-weight:700; background:#2563eb; color:#fff; padding:1px 6px; border-radius:999px;">RECOMMENDED</span>
+                  <div style="font-size:12px; font-weight:700; color:#1d4ed8;">⚖️ BALANCED DAILY</div>
+                  <div style="font-size:24px; font-weight:800; color:#1e3a8a; margin:4px 0;" id="tierBalG">110g / day</div>
+                  <div style="font-size:11.5px; color:#475569; line-height:1.4;">Best everyday mix (~1.35g/kg ref). Stops hunger cravings and protects energy &amp; strength.</div>
+                </button>
+
+                <button type="button" class="protein-tier-card" data-tier="high">
+                  <div style="font-size:12px; font-weight:700; color:#b45309;">🏋️ HIGH PROTEIN PRO</div>
+                  <div style="font-size:24px; font-weight:800; color:#92400e; margin:4px 0;" id="tierHighG">145g / day</div>
+                  <div style="font-size:11.5px; color:#475569; line-height:1.4;">Max fat-loss &amp; muscle gain (~1.8g/kg ref). Keeps metabolism high &amp; muscles full.</div>
+                </button>
               </div>
-              <div style="padding:10px; background:#fef3c7; border-radius:8px; border:1px solid #fde68a;">
-                <div style="color:#b45309; font-weight:700;">Extreme Cut (-2 lb/wk)</div>
-                <div style="font-size:18px; font-weight:800;" id="dispExtCut">1,450 kcal</div>
-              </div>
-              <div style="padding:10px; background:#faf5ff; border-radius:8px; border:1px solid #e9d5ff;">
-                <div style="color:#7e22ce; font-weight:700;">Lean Bulk (+0.5 lb/wk)</div>
-                <div style="font-size:18px; font-weight:800;" id="dispBulk">2,750 kcal</div>
+
+              <!-- Selected Macro Breakdown -->
+              <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; text-align:center; font-size:12px;">
+                <div style="background:#eff6ff; padding:10px; border-radius:10px; border:1px solid #bfdbfe;">
+                  <span style="color:#1d4ed8; font-weight:700;">PROTEIN</span>
+                  <div style="font-size:18px; font-weight:800; margin-top:2px;" id="dispMacroProtein">110g</div>
+                  <div style="font-size:10.5px; color:#64748b;" id="dispMacroProteinPct">20% kcal</div>
+                </div>
+                <div style="background:#ecfdf5; padding:10px; border-radius:10px; border:1px solid #a7f3d0;">
+                  <span style="color:#047857; font-weight:700;">CARBS</span>
+                  <div style="font-size:18px; font-weight:800; margin-top:2px;" id="dispMacroCarb">275g</div>
+                  <div style="font-size:10.5px; color:#64748b;" id="dispMacroCarbPct">51% kcal</div>
+                </div>
+                <div style="background:#fef3c7; padding:10px; border-radius:10px; border:1px solid #fde68a;">
+                  <span style="color:#b45309; font-weight:700;">HEALTHY FATS</span>
+                  <div style="font-size:18px; font-weight:800; margin-top:2px;" id="dispMacroFat">68g</div>
+                  <div style="font-size:10.5px; color:#64748b;" id="dispMacroFatPct">29% kcal</div>
+                </div>
+                <div style="background:#f0f9ff; padding:10px; border-radius:10px; border:1px solid #bae6fd;">
+                  <span style="color:#0369a1; font-weight:700;">WATER TARGET</span>
+                  <div style="font-size:18px; font-weight:800; margin-top:2px;" id="dispWater">3.4 L</div>
+                  <div style="font-size:10.5px; color:#64748b;">Per day</div>
+                </div>
               </div>
             </div>
 
-            <h4 style="font-size:14px; font-weight:700; margin-bottom:8px;">🍗 Standard Cut Macro Targets (40/30/30)</h4>
-            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; text-align:center; font-size:12px;">
-              <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
-                <span style="color:#2563eb; font-weight:700;">PROTEIN (40%)</span>
-                <div style="font-size:16px; font-weight:800; margin-top:4px;" id="dispMacroProtein">195g</div>
+            <!-- 3. Practical Daily Food & Eating Guide ("Kitna Khana Hai") -->
+            <div class="tdee-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <div>
+                  <h4 style="font-size:15.5px; font-weight:700; margin:0; color:var(--navy);" id="mealPlanHeading">🍱 Sample Daily Meal Plan — Pure Veg (Balanced Protein)</h4>
+                  <p style="font-size:12px; color:#64748b; margin:3px 0 0;" id="mealPlanSummary">Practical everyday food portions matched to your daily calories &amp; protein.</p>
+                </div>
+                <button type="button" id="btnCopyPlan" class="btn btn-outline btn-sm" style="font-weight:700;">📋 Copy My Plan</button>
               </div>
-              <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
-                <span style="color:#d97706; font-weight:700;">FATS (30%)</span>
-                <div style="font-size:16px; font-weight:800; margin-top:4px;" id="dispMacroFat">65g</div>
+
+              <div class="meal-plan-list" id="mealPlanList">
+                <!-- Populated dynamically by tdee-calculator.js -->
               </div>
-              <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
-                <span style="color:#10b981; font-weight:700;">CARBS (30%)</span>
-                <div style="font-size:16px; font-weight:800; margin-top:4px;" id="dispMacroCarb">146g</div>
+
+              <div id="coachTipBox" style="background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:12px; font-size:12.5px; color:#9a3412; line-height:1.5;">
+                <!-- Personalized actionable guidance -->
               </div>
             </div>
+
           </div>
         </div>
       </div>
