@@ -12,6 +12,10 @@
   const btnLoadSampleVideo = document.getElementById('btnLoadSampleVideo');
   const videoWorkspace = document.getElementById('videoWorkspace');
   const previewPlayer = document.getElementById('previewPlayer');
+  const btnAvrPlayPause = document.getElementById('btnAvrPlayPause');
+  const avrTimelineSlider = document.getElementById('avrTimelineSlider');
+  const avrTimeDisplay = document.getElementById('avrTimeDisplay');
+  const resultVideoPreview = document.getElementById('resultVideoPreview');
 
   // Forensic Metric Display Elements
   const forensicAlertBox = document.getElementById('forensicAlertBox');
@@ -45,6 +49,13 @@
   const chkShutterBlur = document.getElementById('chkShutterBlur');
   const sliderRoomToneVol = document.getElementById('sliderRoomToneVol');
   const labelMicVolume = document.getElementById('labelMicVolume');
+  const sliderVideoSpeed = document.getElementById('sliderVideoSpeed');
+  const labelVideoSpeed = document.getElementById('labelVideoSpeed');
+  const avrVoiceFileInput = document.getElementById('avrVoiceFileInput');
+  const btnAvrRecordVoice = document.getElementById('btnAvrRecordVoice');
+  const btnAvrStopVoiceRec = document.getElementById('btnAvrStopVoiceRec');
+  const btnAvrUploadVoice = document.getElementById('btnAvrUploadVoice');
+  const avrVoiceStatus = document.getElementById('avrVoiceStatus');
 
   // Buttons & Progress
   const btnHumanizeReencode = document.getElementById('btnHumanizeReencode');
@@ -71,6 +82,12 @@
   let currentMetadataReport = null;
   let processedVideoBlob = null;
   let processedVideoUrl = null;
+  let processedVideoExt = 'mp4';
+  let customVoiceBuffer = null;
+  let isRecordingAvrVoice = false;
+  let avrRecorder = null;
+  let avrMicStream = null;
+  let avrRecChunks = [];
   let activePresetKey = 'iphone15';
   let isProcessing = false;
 
@@ -226,6 +243,133 @@
     if (btnCopyForensicReport) {
       btnCopyForensicReport.addEventListener('click', copyForensicReport);
     }
+    if (sliderVideoSpeed && labelVideoSpeed) {
+      sliderVideoSpeed.addEventListener('input', () => {
+        const spd = parseFloat(sliderVideoSpeed.value) || 1.0;
+        labelVideoSpeed.innerText = Math.abs(spd - 1.04) < 0.01 ? `${spd.toFixed(2)}x (Micro Clock Shift)` : `${spd.toFixed(2)}x (Synced)`;
+        if (previewPlayer) previewPlayer.playbackRate = spd;
+      });
+    }
+    initAvrTimelineAndVoice();
+  }
+
+  function fmtPrecise(sec) {
+    if (!sec || !isFinite(sec) || sec < 0) sec = 0;
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    const d = Math.floor((sec % 1) * 10);
+    return `${m}:${s < 10 ? '0' : ''}${s}.${d}`;
+  }
+
+  function updateAvrTimelineUI() {
+    if (!previewPlayer) return;
+    const dur = previewPlayer.duration || 0;
+    const cur = previewPlayer.currentTime || 0;
+    if (avrTimelineSlider && dur > 0) {
+      avrTimelineSlider.value = Math.round((cur / dur) * 1000);
+    }
+    if (avrTimeDisplay) avrTimeDisplay.innerText = `${fmtPrecise(cur)} / ${fmtPrecise(dur)}`;
+    if (btnAvrPlayPause) btnAvrPlayPause.innerText = previewPlayer.paused ? '▶️ Play' : '⏸️ Pause';
+  }
+
+  function initAvrTimelineAndVoice() {
+    if (previewPlayer) {
+      previewPlayer.addEventListener('timeupdate', updateAvrTimelineUI);
+      previewPlayer.addEventListener('play', () => {
+        updateAvrTimelineUI();
+        (function tick() {
+          if (!previewPlayer || previewPlayer.paused || previewPlayer.ended) return;
+          updateAvrTimelineUI();
+          requestAnimationFrame(tick);
+        })();
+      });
+      previewPlayer.addEventListener('pause', updateAvrTimelineUI);
+      previewPlayer.addEventListener('ended', updateAvrTimelineUI);
+    }
+    if (btnAvrPlayPause && previewPlayer) {
+      btnAvrPlayPause.addEventListener('click', () => {
+        if (!previewPlayer.src) return;
+        if (previewPlayer.paused) previewPlayer.play().catch(() => {});
+        else previewPlayer.pause();
+      });
+    }
+    if (avrTimelineSlider && previewPlayer) {
+      avrTimelineSlider.addEventListener('input', () => {
+        const dur = previewPlayer.duration || 0;
+        if (!dur) return;
+        previewPlayer.currentTime = (parseFloat(avrTimelineSlider.value) / 1000) * dur;
+        updateAvrTimelineUI();
+      });
+    }
+    if (btnAvrUploadVoice && avrVoiceFileInput) {
+      btnAvrUploadVoice.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); avrVoiceFileInput.click(); });
+      avrVoiceFileInput.addEventListener('change', async () => {
+        if (!avrVoiceFileInput.files || !avrVoiceFileInput.files[0]) return;
+        const vf = avrVoiceFileInput.files[0];
+        try {
+          const ab = await vf.arrayBuffer();
+          const actx = getSharedAudioContext();
+          customVoiceBuffer = await actx.decodeAudioData(ab);
+          const radio = document.querySelector('input[name="optAudioChoice"][value="custom_voice"]');
+          if (radio) radio.checked = true;
+          if (avrVoiceStatus) avrVoiceStatus.innerText = `✅ Loaded: ${vf.name} (${fmtPrecise(customVoiceBuffer.duration)})`;
+          showToast('Custom voiceover loaded! Original audio will be replaced on render.', 'success');
+        } catch (err) {
+          showToast('Could not decode voice file. Try MP3/WAV/M4A.', 'error');
+        }
+        avrVoiceFileInput.value = '';
+      });
+    }
+    if (btnAvrRecordVoice) {
+      btnAvrRecordVoice.addEventListener('click', async (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (isRecordingAvrVoice || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          showToast('Microphone unavailable here. Use Upload Voice instead.', 'error');
+          return;
+        }
+        try {
+          avrMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          avrRecChunks = [];
+          avrRecorder = new MediaRecorder(avrMicStream);
+          isRecordingAvrVoice = true;
+          avrRecorder.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) avrRecChunks.push(ev.data); };
+          avrRecorder.onstop = async () => {
+            isRecordingAvrVoice = false;
+            if (avrMicStream) { avrMicStream.getTracks().forEach(t => t.stop()); avrMicStream = null; }
+            if (previewPlayer) previewPlayer.pause();
+            btnAvrRecordVoice.style.display = 'inline-block';
+            btnAvrStopVoiceRec.style.display = 'none';
+            try {
+              const blob = new Blob(avrRecChunks, { type: avrRecorder.mimeType || 'audio/webm' });
+              customVoiceBuffer = await getSharedAudioContext().decodeAudioData(await blob.arrayBuffer());
+              const radio = document.querySelector('input[name="optAudioChoice"][value="custom_voice"]');
+              if (radio) radio.checked = true;
+              if (avrVoiceStatus) avrVoiceStatus.innerText = `✅ Recorded Voice (${fmtPrecise(customVoiceBuffer.duration)})`;
+              showToast('Voiceover recorded & ready to merge!', 'success');
+            } catch (err) {
+              showToast('Recording failed to decode. Try Upload Voice.', 'error');
+            }
+          };
+          avrRecorder.start();
+          btnAvrRecordVoice.style.display = 'none';
+          btnAvrStopVoiceRec.style.display = 'inline-block';
+          if (avrVoiceStatus) avrVoiceStatus.innerText = '🔴 Recording voice…';
+          if (previewPlayer && previewPlayer.src) {
+            previewPlayer.muted = true;
+            previewPlayer.currentTime = 0;
+            previewPlayer.play().catch(() => {});
+          }
+        } catch (err) {
+          showToast('Microphone access denied. Use Upload Voice instead.', 'error');
+        }
+      });
+    }
+    if (btnAvrStopVoiceRec) {
+      btnAvrStopVoiceRec.addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (avrRecorder && avrRecorder.state === 'recording') avrRecorder.stop();
+      });
+    }
   }
 
   // Update preset details view
@@ -276,6 +420,7 @@
     previewPlayer.onloadedmetadata = () => {
       if (valResolution) valResolution.innerText = `${previewPlayer.videoWidth} x ${previewPlayer.videoHeight}`;
       if (valDuration) valDuration.innerText = `${previewPlayer.duration.toFixed(1)}s`;
+      updateAvrTimelineUI();
     };
 
     // Analyze binary boxes in ArrayBuffer
@@ -837,11 +982,26 @@
 
     // Setup Audio Pipeline using shared AudioContext and MediaElementSource
     const audioCtx = getSharedAudioContext();
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
     const dest = audioCtx.createMediaStreamDestination();
     let audioCleanup = null;
     let hasLiveAudio = false;
+    let customVoiceSrcNode = null;
 
-    if (audioChoice === 'humanize_music') {
+    if (audioChoice === 'custom_voice' && customVoiceBuffer) {
+      if (previewPlayer._mediaSourceNode) { try { previewPlayer._mediaSourceNode.disconnect(); } catch(e){} }
+      customVoiceSrcNode = audioCtx.createBufferSource();
+      customVoiceSrcNode.buffer = customVoiceBuffer;
+      customVoiceSrcNode.playbackRate.value = 1.0;
+      const vGain = audioCtx.createGain();
+      vGain.gain.value = 1.15;
+      const room = createRoomToneNode(audioCtx, Math.max(0.015, roomToneGain * 0.4));
+      customVoiceSrcNode.connect(vGain);
+      vGain.connect(dest);
+      room.node.connect(dest);
+      hasLiveAudio = true;
+      audioCleanup = { disconnect: () => { try { customVoiceSrcNode.stop(); customVoiceSrcNode.disconnect(); vGain.disconnect(); room.node.disconnect(); room.source.stop(); } catch(e){} } };
+    } else if (audioChoice === 'humanize_music') {
       let sourceNode = previewPlayer._mediaSourceNode;
       if (!sourceNode) {
         try {
@@ -850,6 +1010,8 @@
         } catch (e) {
           console.warn('createMediaElementSource notice:', e);
         }
+      } else {
+        try { sourceNode.disconnect(); } catch (e) {}
       }
 
       if (sourceNode) {
@@ -861,9 +1023,12 @@
         audioCleanup = { disconnect: () => { try { room.node.disconnect(); room.source.stop(); } catch(e){} } };
       }
     } else if (audioChoice === 'auto_tone') {
+      if (previewPlayer._mediaSourceNode) { try { previewPlayer._mediaSourceNode.disconnect(); } catch(e){} }
       const room = createRoomToneNode(audioCtx, roomToneGain);
       room.node.connect(dest);
       audioCleanup = { disconnect: () => { try { room.node.disconnect(); room.source.stop(); } catch(e){} } };
+    } else if (previewPlayer._mediaSourceNode) {
+      try { previewPlayer._mediaSourceNode.disconnect(); } catch(e){}
     }
 
     // Canvas stream
@@ -906,14 +1071,21 @@
       previewPlayer.currentTime = 0;
 
       const rawBlob = new Blob(recordedChunks, { type: mimeType });
-      // Apply camera atoms to the final blob
-      const rawBuf = await rawBlob.arrayBuffer();
-      const udtaBoxBuf = createCameraUdtaBox(preset);
-
-      // Wrap or return blob
-      processedVideoBlob = new Blob([rawBuf, udtaBoxBuf], { type: 'video/mp4' });
+      const isMp4Out = mimeType.includes('mp4');
+      processedVideoExt = isMp4Out ? 'mp4' : 'webm';
+      if (isMp4Out) {
+        const rawBuf = await rawBlob.arrayBuffer();
+        const udtaBoxBuf = createCameraUdtaBox(preset);
+        processedVideoBlob = new Blob([rawBuf, udtaBoxBuf], { type: 'video/mp4' });
+      } else {
+        processedVideoBlob = rawBlob;
+      }
       if (processedVideoUrl) URL.revokeObjectURL(processedVideoUrl);
       processedVideoUrl = URL.createObjectURL(processedVideoBlob);
+      previewPlayer.playbackRate = sliderVideoSpeed ? (parseFloat(sliderVideoSpeed.value) || 1.0) : 1.0;
+      if (previewPlayer._mediaSourceNode) {
+        try { previewPlayer._mediaSourceNode.disconnect(); previewPlayer._mediaSourceNode.connect(audioCtx.destination); } catch (e) {}
+      }
 
       isProcessing = false;
       if (btnHumanizeReencode) btnHumanizeReencode.disabled = false;
@@ -950,10 +1122,10 @@
       noiseTiles.push(nCanvas);
     }
 
-    // Ensure video playback starts with unmute for Web Audio routing (does not leak to speakers because connected to dest)
-    previewPlayer.muted = false;
+    // Ensure video playback routes audio cleanly (mute when using custom voice replacement)
+    previewPlayer.muted = (audioChoice === 'custom_voice' || audioChoice === 'mute' || audioChoice === 'auto_tone');
     previewPlayer.volume = 1.0;
-    previewPlayer.playbackRate = 1.035; // 3.5% micro clock shift desynchronizes Google SynthID detector FFT
+    previewPlayer.playbackRate = sliderVideoSpeed ? (parseFloat(sliderVideoSpeed.value) || 1.04) : 1.035;
     previewPlayer.currentTime = 0;
 
     let isFinalizing = false;
@@ -987,6 +1159,9 @@
     }
     if (recorder.state === 'inactive') {
       recorder.start();
+    }
+    if (customVoiceSrcNode) {
+      try { customVoiceSrcNode.start(audioCtx.currentTime); } catch(e) {}
     }
 
     const startTime = Date.now();
@@ -1101,6 +1276,13 @@
   // Display Success Card
   function showSuccessDownload(summary) {
     if (downloadResultsCard) downloadResultsCard.style.display = 'block';
+    if (resultVideoPreview && processedVideoUrl) {
+      resultVideoPreview.src = processedVideoUrl;
+      resultVideoPreview.style.display = 'block';
+    }
+    if (btnDownloadProcessedVideo) {
+      btnDownloadProcessedVideo.innerText = `📥 Download Video (.${processedVideoExt})`;
+    }
     if (downloadSummaryText) downloadSummaryText.innerText = summary;
     if (badgeVideoStatus) {
       badgeVideoStatus.innerText = 'Camera Authenticated';
@@ -1134,7 +1316,7 @@
     if (!processedVideoBlob) return;
     const preset = CAMERA_PRESETS[activePresetKey] || CAMERA_PRESETS.iphone15;
     const baseName = (currentFile ? currentFile.name.replace(/\.[^/.]+$/, '') : 'camera_video');
-    const filename = `${baseName}_${preset.model.toLowerCase().replace(/[^a-z0-9]/g, '_')}.mp4`;
+    const filename = `${baseName}_${preset.model.toLowerCase().replace(/[^a-z0-9]/g, '_')}.${processedVideoExt || 'mp4'}`;
 
     const a = document.createElement('a');
     a.href = processedVideoUrl;
@@ -1200,6 +1382,20 @@ https://alltoolsinone.com/tools/ai-video-remover.html`;
     const sCtx = sampleCanvas.getContext('2d');
 
     const stream = sampleCanvas.captureStream(30);
+    let sActx = null;
+    let sOsc = null;
+    try {
+      sActx = new (window.AudioContext || window.webkitAudioContext)();
+      sOsc = sActx.createOscillator();
+      const sGain = sActx.createGain();
+      const sDest = sActx.createMediaStreamDestination();
+      sOsc.frequency.setValueAtTime(330, sActx.currentTime);
+      sGain.gain.setValueAtTime(0.18, sActx.currentTime);
+      sOsc.connect(sGain);
+      sGain.connect(sDest);
+      sOsc.start();
+      sDest.stream.getAudioTracks().forEach(t => stream.addTrack(t));
+    } catch(err) {}
     let mime = 'video/mp4';
     if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm';
 
@@ -1208,6 +1404,7 @@ https://alltoolsinone.com/tools/ai-video-remover.html`;
     sampleRec.ondataavailable = ev => { if (ev.data.size > 0) sChunks.push(ev.data); };
 
     sampleRec.onstop = () => {
+      try { if (sOsc) sOsc.stop(); if (sActx) sActx.close(); } catch(err) {}
       const sampleBlob = new Blob(sChunks, { type: mime });
       const sampleFile = new File([sampleBlob], 'sample_ai_sora_video.mp4', { type: mime });
       handleVideoFile(sampleFile);

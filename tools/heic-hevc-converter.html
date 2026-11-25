@@ -485,6 +485,11 @@
                 <div class="hevc-video-shell">
                   <video id="inputVideoPreview" controls playsinline preload="metadata"></video>
                 </div>
+                <div style="display:flex; align-items:center; gap:10px; background:#0f172a; padding:8px 12px; border-radius:8px; margin-top:10px;">
+                  <button type="button" id="btnHevcPlayPause" class="btn btn-sm" style="background:#ffffff; color:#0f172a; font-weight:700; padding:4px 10px;">▶️ Play</button>
+                  <input type="range" id="hevcTimelineSlider" min="0" max="1000" value="0" step="1" style="flex:1; accent-color:#f97316; cursor:pointer;" aria-label="Video Timeline">
+                  <span id="hevcTimeDisplay" style="font-family:monospace; font-size:12px; font-weight:700; color:#f8fafc; white-space:nowrap;">0:00.0 / 0:00.0</span>
+                </div>
                 <div class="meta-pills" id="videoMetaPills">
                   <div class="meta-pill">📁 <span id="vMetaName">video.mov</span></div>
                   <div class="meta-pill">⏱️ <span id="vMetaDuration">0:00</span></div>
@@ -523,10 +528,12 @@
                 </div>
 
                 <div class="settings-group">
-                  <label class="form-label" for="videoTranscodeSpeed">Conversion Speed</label>
+                  <label class="form-label" for="videoTranscodeSpeed">Output Playback Speed</label>
                   <select id="videoTranscodeSpeed" class="form-select">
-                    <option value="2.0" selected>⚡ Turbo 2x Speed (Fast Real-time Transcode)</option>
-                    <option value="1.0">1.0x Normal Speed (Highest Frame Accuracy)</option>
+                    <option value="1.0" selected>1.0x Normal Speed (Exact Audio &amp; Video Sync)</option>
+                    <option value="1.25">⚡ 1.25x Faster Video &amp; Audio</option>
+                    <option value="1.5">⚡ 1.5x Fast Motion Video &amp; Audio</option>
+                    <option value="2.0">⚡ 2.0x Turbo Video &amp; Audio</option>
                   </select>
                 </div>
 

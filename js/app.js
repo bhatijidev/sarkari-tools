@@ -56,14 +56,14 @@
     },
     {
       id: 'audio-remixer',
-      name: 'Shorts & Reels Audio Anti-Claim Remixer',
-      description: 'Transform music with pitch shifting, speed modulation (1.05x), bass boost, and ambient reverb for YouTube Shorts & Reels creators',
+      name: 'Copyright Remover (Video & Audio)',
+      description: 'Remove copyright claims from video & audio: mute or strip original voice, add custom voiceover, sync video speed, and download MP4 or MP3',
       category: 'video',
       categoryLabel: 'Video & Audio',
-      icon: '🎛️',
+      icon: '🛡️',
       iconBg: 'utility-tools',
       url: 'tools/audio-remixer.html',
-      keywords: ['audio remixer', 'music copyright bypass trick', 'shorts audio modifier', 'pitch shifter', 'speed modifier', 'slowed and reverb', 'nightcore maker', 'anti claim sound'],
+      keywords: ['copyright remover', 'video copyright remover', 'audio remixer', 'remove original voice', 'add voiceover to video', 'shorts audio modifier', 'pitch shifter', 'speed modifier', 'anti claim sound'],
       badge: 'Hot'
     },
     {
@@ -2175,7 +2175,7 @@
             <p style="font-size: 13px; color: var(--gray-500, #64748b); margin: 4px 0 0;">Users working with this utility also frequently use these tools</p>
           </div>
           <a href="../tools.html" style="font-size: 13px; font-weight: 600; color: #4f46e5; text-decoration: none; display: flex; align-items: center; gap: 4px;">
-            <span>Explore all 73+ tools</span> <span>&rarr;</span>
+            <span>Explore all free tools</span> <span>&rarr;</span>
           </a>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">

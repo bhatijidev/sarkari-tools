@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shorts & Reels Audio Anti-Claim Remixer | AllToolsInOne</title>
-  <meta name="description" content="Remix background audio for YouTube Shorts, Reels & TikTok. Shift pitch, modulate speed, boost bass, and add ambient reverb. 100% private in-browser utility.">
-  <meta name="keywords" content="music copyright bypass trick youtube shorts, audio pitch shifter shorts, change music speed to avoid copyright, reels audio remixer, slowed and reverb maker online, nightcore converter, audio anti claim tool, copyright free music modifier">
+  <title>Copyright Remover (Video &amp; Audio) Online | AllToolsInOne</title>
+  <meta name="description" content="Free Copyright Remover for YouTube Shorts, Reels &amp; video. Mute or remove original voice, add custom voiceover, sync video speed, and export MP4 or MP3.">
+  <meta name="keywords" content="copyright remover online, youtube shorts copyright remover, reels copyright remover video audio, remove original voice from video, add my voice to video online, video speed audio changer, copyright free music modifier, replace video voice online">
   
   <!-- Favicon & Touch Icons -->
   <link rel="shortcut icon" href="../favicon.ico">
@@ -17,16 +17,16 @@
   <link rel="canonical" href="https://alltoolsinone.com/tools/audio-remixer.html">
   
   <!-- Open Graph -->
-  <meta property="og:title" content="Shorts & Reels Audio Anti-Claim Remixer | AllToolsInOne">
-  <meta property="og:description" content="Remix background audio for YouTube Shorts, Reels & TikTok. Shift pitch, modulate speed, boost bass, and add ambient reverb. 100% private in-browser utility.">
+  <meta property="og:title" content="Copyright Remover (Video &amp; Audio) Online | AllToolsInOne">
+  <meta property="og:description" content="Free Copyright Remover for YouTube Shorts, Reels &amp; video. Mute or remove original voice, add custom voiceover, sync video speed, and export MP4 or MP3.">
   <meta property="og:url" content="https://alltoolsinone.com/tools/audio-remixer.html">
   <meta property="og:locale" content="en_US">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AllToolsInOne">
   <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Shorts & Reels Audio Anti-Claim Remixer | AllToolsInOne">
-  <meta name="twitter:description" content="Remix background audio for YouTube Shorts, Reels & TikTok. Shift pitch, modulate speed, boost bass, and add ambient reverb. 100% private in-browser utility.">
+  <meta name="twitter:title" content="Copyright Remover (Video &amp; Audio) Online | AllToolsInOne">
+  <meta name="twitter:description" content="Free Copyright Remover for YouTube Shorts, Reels &amp; video. Mute or remove original voice, add custom voiceover, sync video speed, and export MP4 or MP3.">
   <meta name="twitter:image" content="https://alltoolsinone.com/images/og-image.png">
 
   <!-- Google AdSense Verification & Script -->
@@ -52,7 +52,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
     .remixer-preset-btn {
       background: #ffffff;
@@ -115,15 +115,71 @@
     }
     .waveform-box {
       background: #0f172a;
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 16px;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
       position: relative;
+      border: 1px solid #1e293b;
     }
     .waveform-canvas {
       width: 100%;
-      height: 90px;
+      height: 104px;
       display: block;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .timeline-scrubber-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .timeline-scrubber-input {
+      flex: 1;
+      height: 6px;
+      accent-color: #f97316;
+      cursor: pointer;
+    }
+    .timeline-time-badge {
+      font-family: 'JetBrains Mono', monospace, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f8fafc;
+      background: #1e293b;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      border: 1px solid #334155;
+    }
+    .voice-mode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .voice-mode-btn {
+      background: #ffffff;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .voice-mode-btn:hover {
+      border-color: var(--saffron);
+    }
+    .voice-mode-btn.active {
+      border-color: var(--saffron);
+      background: #fff9f2;
+      box-shadow: 0 0 0 2px rgba(255, 153, 51, 0.22);
+    }
+    .dubbing-box {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 14px;
     }
     .btn-active {
       background: #ea580c !important;
@@ -175,12 +231,12 @@
     {
       "@type": "WebApplication",
       "@id": "https://alltoolsinone.com/tools/audio-remixer.html#webapp",
-      "name": "Shorts & Reels Audio Anti-Claim Remixer",
+      "name": "Copyright Remover (Video & Audio)",
       "url": "https://alltoolsinone.com/tools/audio-remixer.html",
-      "description": "Free online audio modifier for YouTube Shorts, Reels, and TikTok creators. Adjust pitch, tempo, EQ, and ambient reverb to transform background music for fair-use creator adaptations.",
+      "description": "Free online Copyright Remover for YouTube Shorts, Reels, and video creators. Mute or strip original audio, add custom voiceover dubbing, sync video speed, and export MP4 video or MP3 audio.",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "All",
-      "browserRequirements": "Requires JavaScript. Requires HTML5 Audio API.",
+      "browserRequirements": "Requires JavaScript. Requires HTML5 Audio & Video API.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -207,7 +263,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Audio Remixer",
+          "name": "Copyright Remover",
           "item": "https://alltoolsinone.com/tools/audio-remixer.html"
         }
       ]
@@ -218,26 +274,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How does the YouTube Shorts audio modification trick work?",
+          "name": "Can I remove original video voice and add my own voiceover?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Automated Content ID systems identify songs by detecting exact frequency spectrogram peaks at specific time intervals. By applying a subtle pitch shift (+1 semitone), minor speed change (+4% to +5%), and light spatial reverb, the audio acoustic fingerprint is altered while remaining pleasing and natural to human ears."
+            "text": "Yes! Upload any video, choose either Mute Original Audio or Remove Original Voice (Vocal Remover), then record from your microphone or upload your own voiceover file. The tool merges your voice with the video into one final downloadable video."
           }
         },
         {
           "@type": "Question",
-          "name": "Does this tool upload my music or audio to any server?",
+          "name": "Does speeding up the audio also speed up the exported video?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The entire audio transformation runs 100% locally in your web browser using HTML5 Web Audio API and OfflineAudioContext. Your audio files never leave your device."
+            "text": "Yes. Whenever you adjust the playback speed or preset tempo, the exported video automatically speeds up or slows down in exact frame-level sync with your audio so lips, actions, and music stay matched."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I use video files directly (MP4/WebM)?",
+          "name": "Does this Copyright Remover upload my video or audio to a server?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes! You can drop an MP4 or WebM video file directly. The tool will automatically extract the audio track, apply your chosen remix preset, and allow you to download the modified MP3."
+            "text": "No. All video rendering, vocal removal, voice recording, speed shifting, and audio mixing run 100% locally in your browser using Web Audio API and MediaRecorder. Your files stay completely private."
           }
         }
       ]
@@ -259,28 +315,31 @@
         <span class="separator">/</span>
         <a href="/tools.html">Tools</a>
         <span class="separator">/</span>
-        <span class="current">Audio Anti-Claim Remixer</span>
+        <span class="current">Copyright Remover</span>
       </div>
 
       <div class="tool-hero" style="padding-bottom: var(--space-4);">
-        <div class="tool-icon utility-tools">🎛️</div>
-        <h1>Shorts &amp; Reels Audio Anti-Claim Remixer</h1>
-        <p class="tool-description">The secret audio transformation trick used by top YouTube Shorts, Instagram Reels, and TikTok creators. Modulate pitch (+1.2 st), tempo (1.05x), bass boost, and ambient reverb to generate unique acoustic variations for fair-use creator content. 100% client-side.</p>
+        <div class="tool-icon utility-tools">🛡️</div>
+        <h1>Copyright Remover (Video &amp; Audio)</h1>
+        <p class="tool-description">Remove background music &amp; voice copyright claims on YouTube Shorts, Reels &amp; videos. Mute or strip the original voice, record or upload your own voiceover, sync video speed cleanly, and export one merged Video (MP4/WebM) or MP3. 100% client-side.</p>
       </div>
 
       <!-- Upload Zone -->
       <div class="tool-workspace" style="padding: var(--space-8); text-align: center; margin-bottom: var(--space-6);">
         <div class="upload-zone" id="remixerUploadZone" style="padding: 40px 20px; border: 2px dashed var(--gray-300); border-radius: 16px; cursor: pointer;">
-          <input type="file" id="remixerFileInput" accept="audio/*,video/mp4,video/webm" style="display: none;">
-          <div style="font-size: 42px; margin-bottom: 12px;">🎵</div>
-          <h3 style="font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px;">Select Audio or Video File</h3>
-          <p style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">Drop your MP3, WAV, M4A, AAC, or MP4 video file here (Unlimited file size)</p>
+          <input type="file" id="remixerFileInput" accept="audio/*,video/*,.mp4,.webm,.mov,.m4v,.mkv" style="display: none;">
+          <div style="font-size: 42px; margin-bottom: 12px;">🎬</div>
+          <h3 style="font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px;">Select Video or Audio File</h3>
+          <p style="font-size: 13px; color: var(--gray-500); margin-bottom: 16px;">Upload any MP4, WebM, MOV video or MP3, WAV, M4A audio file (Unlimited file size)</p>
           <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
             <button type="button" class="btn btn-primary" id="btnSelectFile">
-              📁 Choose Audio File
+              📁 Choose Video or Audio File
             </button>
             <button type="button" class="btn btn-secondary" id="btnTryDemo">
-              ⚡ Try Demo Track
+              🎬 Try Demo Video
+            </button>
+            <button type="button" class="btn btn-outline" id="btnTryAudioDemo">
+              🎵 Try Demo Audio
             </button>
           </div>
         </div>
@@ -291,91 +350,195 @@
         
         <!-- Metadata Pills -->
         <div class="meta-pills" style="margin-bottom: 20px;">
-          <span class="meta-pill">🎵 <strong id="metaFileName">-</strong></span>
+          <span class="meta-pill">🎬 <strong id="metaFileName">-</strong></span>
           <span class="meta-pill">⏱️ Duration: <strong id="metaDuration">-</strong></span>
           <span class="meta-pill">💾 Size: <strong id="metaFileSize">-</strong></span>
-          <span class="meta-pill">🎚️ Format: <strong id="metaSampleRate">-</strong></span>
+          <span class="meta-pill">🎚️ Info: <strong id="metaSampleRate">-</strong></span>
         </div>
 
-        <!-- Waveform & Real-Time Audio Preview Box -->
+        <!-- Synchronized Video Player + Waveform + Timeline Box -->
         <div class="waveform-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <span style="font-size: 12px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px;">Live Acoustic Preview</span>
-            <span style="font-size: 11px; color: #94a3b8;">Real-time WebAudio DSP chain</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px;">Live Video &amp; Timeline Preview</span>
+            <span id="previewSyncInfo" style="font-size: 11px; color: #fb923c; font-weight: 600;">Speed: 1.05x • Real-time A/V Sync</span>
           </div>
-          <canvas id="previewWaveform" class="waveform-canvas"></canvas>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-            <button type="button" class="btn btn-secondary btn-sm" id="btnPlayPreview" style="background: #ffffff; color: var(--navy); font-weight: 700;">
-              <span>▶️ Play Remixed Preview</span>
-            </button>
-            <span style="font-size: 12px; color: #94a3b8;">Hear how the mod sounds before exporting</span>
+
+          <!-- Video Stage (Shown when video uploaded) -->
+          <div id="previewVideoBox" style="display: none; margin-bottom: 12px; text-align: center; background: #020617; border-radius: 10px; overflow: hidden;">
+            <video id="previewVideoPlayer" playsinline muted style="width: 100%; max-height: 360px; display: block; margin: 0 auto;"></video>
+          </div>
+
+          <!-- Interactive Waveform Canvas with Moving Playhead -->
+          <canvas id="previewWaveform" class="waveform-canvas" title="Click or drag anywhere on the waveform to seek"></canvas>
+
+          <!-- Timeline Scrubber Slider + Live Elapsed/Total Clock -->
+          <div class="timeline-scrubber-row">
+            <input type="range" id="previewTimelineSlider" class="timeline-scrubber-input" min="0" max="1000" value="0" step="1" aria-label="Playback Timeline Scrubber">
+            <span id="previewTimeDisplay" class="timeline-time-badge">0:00.0 / 0:00.0</span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnPlayPreview" style="background: #ffffff; color: var(--navy); font-weight: 700;">
+                <span>▶️ Play Preview</span>
+              </button>
+              <button type="button" class="btn btn-outline btn-sm" id="btnRestartPreview" style="border-color: #475569; color: #e2e8f0; background: #1e293b;">
+                ⏮️ 0:00
+              </button>
+              <button type="button" class="btn btn-outline btn-sm" id="btnToggleCompare" style="border-color: #475569; color: #e2e8f0; background: #1e293b;">
+                🎧 Hearing: Mixed Output
+              </button>
+            </div>
+            <span style="font-size: 11.5px; color: #94a3b8;">Click/drag timeline or waveform to jump anywhere</span>
           </div>
         </div>
 
         <!-- Presets Grid -->
         <div class="tool-workspace" style="padding: var(--space-6); margin-bottom: var(--space-6);">
-          <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 14px;">1. Choose Creator Remix Preset</h3>
+          <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 14px;">1. Choose Copyright Remover Preset</h3>
           
           <div class="remixer-preset-grid">
             
             <!-- Preset 1: Shorts Shield -->
             <button type="button" class="remixer-preset-btn active" data-preset="shorts_shield">
               <span style="position: absolute; top: -8px; right: 8px; background: #16a34a; color: #fff; font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 999px;">RECOMMENDED</span>
-              <div class="remixer-preset-title">🛡️ Shorts Anti-Claim Shield</div>
-              <div class="remixer-preset-desc">+5% Speed, +1.2 Semitones, subtle warm EQ &amp; room ambience. Sounds 99% natural to viewers.</div>
+              <div class="remixer-preset-title">🛡️ Copyright Shield (+5%)</div>
+              <div class="remixer-preset-desc">+5% Speed (video &amp; audio synced), +1.2 Semitones, warm EQ &amp; ambience. Sounds natural while breaking matches.</div>
             </button>
 
-            <!-- Preset 2: Nightcore -->
+            <!-- Preset 2: Mute Original & Dub Voice -->
+            <button type="button" class="remixer-preset-btn" data-preset="voice_dub">
+              <div class="remixer-preset-title">🎙️ Replace Voice (1.0x Dub)</div>
+              <div class="remixer-preset-desc">Mutes original audio 100% and keeps natural speed so you can record or upload your own voiceover cleanly.</div>
+            </button>
+
+            <!-- Preset 3: Nightcore -->
             <button type="button" class="remixer-preset-btn" data-preset="nightcore">
-              <div class="remixer-preset-title">⚡ Nightcore Energy</div>
-              <div class="remixer-preset-desc">+18% Speed, +3.0 Semitones, boosted highs. Viral for gaming edits and fast TikToks.</div>
+              <div class="remixer-preset-title">⚡ Fast Energy (+18%)</div>
+              <div class="remixer-preset-desc">+18% Video &amp; Audio Speed, +3.0 Semitones, boosted highs for Shorts &amp; gaming edits.</div>
             </button>
 
-            <!-- Preset 3: Slowed + Reverb -->
+            <!-- Preset 4: Slowed + Reverb -->
             <button type="button" class="remixer-preset-btn" data-preset="slowed_reverb">
               <div class="remixer-preset-title">🌙 Slowed + Reverb (Lo-Fi)</div>
-              <div class="remixer-preset-desc">86% Speed, -2.5 Semitones, heavy sub-bass &amp; cathedral reverb. Viral for aesthetic reels.</div>
+              <div class="remixer-preset-desc">86% Speed, -2.5 Semitones, deep sub-bass &amp; cathedral reverb. Popular for aesthetic Reels.</div>
             </button>
 
-            <!-- Preset 4: 8D Audio -->
+            <!-- Preset 5: 8D Audio -->
             <button type="button" class="remixer-preset-btn" data-preset="eight_d">
               <div class="remixer-preset-title">🎧 8D Spatial Space</div>
-              <div class="remixer-preset-desc">Haas stereo delay + spatial room reverb. Creates an immersive headphone experience.</div>
+              <div class="remixer-preset-desc">Haas stereo delay + spatial room reverb for wide headphone depth.</div>
             </button>
 
-            <!-- Preset 5: Custom -->
+            <!-- Preset 6: Custom -->
             <button type="button" class="remixer-preset-btn" data-preset="custom">
               <div class="remixer-preset-title">🎛️ Custom Studio Mod</div>
-              <div class="remixer-preset-desc">Manually control exact speed, pitch, EQ, reverb, and stereo widening sliders.</div>
+              <div class="remixer-preset-desc">Manually tune exact speed, pitch, EQ, reverb, and voiceover mix levels.</div>
             </button>
 
           </div>
         </div>
 
+        <!-- Step 2: Original Voice Remover & Custom Voiceover Dubbing -->
+        <div class="tool-workspace" style="padding: var(--space-6); margin-bottom: var(--space-6);">
+          <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 6px;">2. Original Voice Remover &amp; Add Your Own Voice</h3>
+          <p style="font-size: 12.5px; color: var(--gray-500); margin-bottom: 14px;">Strip or mute original copyrighted sound or vocals, then record or upload your own voice — merged cleanly into one output video or audio file.</p>
+
+          <div class="voice-mode-grid" id="origModeGrid">
+            <button type="button" class="voice-mode-btn active" data-origmode="remix">
+              <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px;">🎵 Keep &amp; Remix Original Audio</div>
+              <div style="font-size: 11.5px; color: var(--gray-500);">Transforms original sound/music with Speed, Pitch, EQ &amp; Reverb controls.</div>
+            </button>
+            <button type="button" class="voice-mode-btn" data-origmode="vocal_remove">
+              <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px;">🎤 Remove Original Voice (Keep Music)</div>
+              <div style="font-size: 11.5px; color: var(--gray-500);">Attenuates center speech/vocals while preserving stereo background music &amp; bass.</div>
+            </button>
+            <button type="button" class="voice-mode-btn" data-origmode="mute">
+              <div style="font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px;">🔇 Remove Original Audio (100% Mute)</div>
+              <div style="font-size: 11.5px; color: var(--gray-500);">Completely removes original voice &amp; music so only your added voiceover plays.</div>
+            </button>
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <div class="slider-row">
+              <span class="slider-label">🔊 Original Audio Volume</span>
+              <span class="slider-badge" id="badgeOrigVol">100%</span>
+            </div>
+            <input type="range" class="custom-range" id="sliderOrigVol" min="0" max="150" step="5" value="100">
+          </div>
+
+          <div class="dubbing-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: var(--navy);">🗣️ Add Your Own Voice / Audio Track (Dubbing)</div>
+                <div id="voiceStatusPill" style="font-size: 12px; color: var(--gray-500); margin-top: 2px;">No custom voice added (Optional — record live mic or upload MP3/WAV)</div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <input type="file" id="voiceFileInput" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.webm" style="display: none;">
+                <button type="button" class="btn btn-primary btn-sm" id="btnRecordVoice" style="background: #dc2626; border-color: #b91c1c;">
+                  🎙️ Record My Voice
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnStopVoiceRec" style="display: none; background: #0f172a; color: #fff;">
+                  ⏹️ Stop Recording
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" id="btnUploadVoice">
+                  📁 Upload Voice File
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" id="btnClearVoice" style="display: none; color: #dc2626; border-color: #fca5a5;">
+                  ✖ Clear Voice
+                </button>
+              </div>
+            </div>
+
+            <div id="voiceControlsWrap" style="display: none; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
+              <div>
+                <div class="slider-row">
+                  <span class="slider-label">📢 My Voice Volume</span>
+                  <span class="slider-badge" id="badgeVoiceVol">125%</span>
+                </div>
+                <input type="range" class="custom-range" id="sliderVoiceVol" min="0" max="200" step="5" value="125">
+              </div>
+              <div>
+                <div class="slider-row">
+                  <span class="slider-label">⏱️ Voice Start Delay (Offset)</span>
+                  <span class="slider-badge" id="badgeVoiceOffset">0.0s</span>
+                </div>
+                <input type="range" class="custom-range" id="sliderVoiceOffset" min="0" max="60" step="0.1" value="0">
+              </div>
+              <div style="display: flex; align-items: center;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12.5px; font-weight: 600; color: var(--navy);">
+                  <input type="checkbox" id="checkVoiceEnhance" checked style="accent-color: var(--saffron); width: 16px; height: 16px;">
+                  <span>Studio Voice Clarity Boost (85Hz Filter + 3kHz Presence)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Custom Sliders Workspace -->
         <div class="tool-workspace" style="padding: var(--space-6); margin-bottom: var(--space-6);">
-          <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">2. Acoustic Fine-Tuning Controls</h3>
+          <h3 style="font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 16px;">3. Speed, Pitch &amp; Sound Fine-Tuning</h3>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
             
             <!-- Speed / Tempo -->
             <div>
               <div class="slider-row">
-                <span class="slider-label">⚡ Playback Speed / Tempo</span>
+                <span class="slider-label">⚡ Video &amp; Audio Speed</span>
                 <span class="slider-badge" id="badgeSpeed">1.05x (+5%)</span>
               </div>
               <input type="range" class="custom-range" id="sliderSpeed" min="0.75" max="1.40" step="0.01" value="1.05">
-              <span style="font-size: 11px; color: var(--gray-500);">Shifts temporal landmark hashes away from original Content ID match</span>
+              <span id="speedSyncReadout" style="font-size: 11px; color: var(--gray-500);">Speeding up applies to both video frames and audio in sync</span>
             </div>
 
             <!-- Pitch Shift -->
             <div>
               <div class="slider-row">
-                <span class="slider-label">🎹 Pitch Shift (Semitones)</span>
+                <span class="slider-label">🎹 Original Audio Pitch (Semitones)</span>
                 <span class="slider-badge" id="badgePitch">+1.2 st</span>
               </div>
               <input type="range" class="custom-range" id="sliderPitch" min="-6.0" max="6.0" step="0.1" value="1.2">
-              <span style="font-size: 11px; color: var(--gray-500);">Alters harmonic peak frequencies beyond exact fingerprint match</span>
+              <span style="font-size: 11px; color: var(--gray-500);">Alters original song pitch (never affects your custom recorded voice)</span>
             </div>
 
             <!-- Bass Boost -->
@@ -436,8 +599,9 @@
             <div style="text-align: left;">
               <label style="display: block; font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">Output Format</label>
               <select id="selectFormat" class="form-select" style="height: 40px; font-size: 13px; font-weight: 600;">
-                <option value="mp3" selected>MP3 (Universal Creator Audio)</option>
-                <option value="wav">WAV (16-bit Lossless Studio PCM)</option>
+                <option value="video" id="optFormatVideo">🎬 Merged Video (Synced MP4 / WebM)</option>
+                <option value="mp3" selected>🎵 MP3 (Universal Creator Audio)</option>
+                <option value="wav">🎹 WAV (16-bit Lossless Studio PCM)</option>
               </select>
             </div>
 
@@ -454,7 +618,7 @@
           <!-- Progress Bar -->
           <div id="progressWrap" style="display: none; max-width: 500px; margin: 0 auto 20px; text-align: left;">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">
-              <span id="progressTitle">Processing Audio…</span>
+              <span id="progressTitle">Processing Media…</span>
               <span id="progressPercent">0%</span>
             </div>
             <div style="background: #e2e8f0; border-radius: 999px; height: 8px; overflow: hidden;">
@@ -464,25 +628,26 @@
           </div>
 
           <button type="button" class="btn btn-primary btn-lg" id="btnRender" style="font-size: 16px; font-weight: 700; padding: 14px 32px;">
-            <span>🚀 Render &amp; Download Remixed Audio</span>
+            <span>🚀 Render &amp; Download Output</span>
           </button>
         </div>
 
         <!-- Result Card -->
         <div class="tool-workspace" id="resultCard" style="display: none; padding: var(--space-8); text-align: center; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 16px; margin-top: var(--space-6);">
           <div style="font-size: 36px; margin-bottom: 8px;">🎉</div>
-          <h3 style="font-size: 22px; font-weight: 800; color: #166534; margin-bottom: 6px;">Remixed Audio Ready for Download!</h3>
+          <h3 id="resultHeading" style="font-size: 22px; font-weight: 800; color: #166534; margin-bottom: 6px;">Output Ready for Download!</h3>
           <p id="resultMeta" style="font-size: 13px; color: var(--gray-600); margin-bottom: 16px;">Output generated successfully.</p>
 
-          <div style="max-width: 440px; margin: 0 auto 20px;">
+          <div style="max-width: 560px; margin: 0 auto 20px;">
+            <video id="resultVideoPlayer" controls playsinline style="display: none; width: 100%; max-height: 360px; border-radius: 12px; background: #000;"></video>
             <audio id="resultPlayer" controls style="width: 100%; border-radius: 999px;"></audio>
           </div>
 
           <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
             <button type="button" class="btn btn-primary" id="btnDownload" style="font-size: 14px; font-weight: 700; padding: 12px 28px;">
-              📥 Download Remixed Track
+              📥 Download Merged File
             </button>
-            <a href="https://api.whatsapp.com/send?text=Bhai%20YouTube%20Shorts%20aur%20Reels%20ke%20liye%20background%20music%20ka%20anti-claim%20pitch%20aur%20speed%20mod%20yahan%20free%20me%20ho%20jata%20hai%3A%20https%3A%2F%2Falltoolsinone.com%2Ftools%2Faudio-remixer.html" target="_blank" rel="noopener noreferrer" class="btn" style="background: #25D366; color: #ffffff; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; font-size: 14px;">
+            <a href="https://api.whatsapp.com/send?text=Bhai%20Copyright%20Remover%20tool%20se%20video%20aur%20audio%20dono%20edit%20karke%20apni%20voice%20add%20ho%20jati%20hai%20free%20me%3A%20https%3A%2F%2Falltoolsinone.com%2Ftools%2Faudio-remixer.html" target="_blank" rel="noopener noreferrer" class="btn" style="background: #25D366; color: #ffffff; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; font-size: 14px;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
               Share with Creator Friends
             </a>
@@ -493,25 +658,36 @@
 
       <!-- Comparison & Educational Section -->
       <section class="tool-workspace" style="margin-top: 40px; padding: var(--space-6);">
-        <h2 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 14px;">How Content ID Audio Fingerprinting &amp; Modification Works</h2>
+        <h2 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 14px;">How Video &amp; Audio Copyright Removal + Voice Replacement Works</h2>
         <div style="font-size: 13.5px; color: var(--gray-600); line-height: 1.6;">
-          <p style="margin-bottom: 10px;">Automated platforms like YouTube Content ID, Meta Rights Manager, and TikTok sound matching detect music by creating mathematical <strong>acoustic fingerprints</strong> (identifying prominent frequency peaks across time intervals).</p>
-          <p style="margin-bottom: 10px;">By applying fair-use audio transformation—such as a <strong>pitch shift (+1 semitone)</strong>, a <strong>speed change (+5%)</strong>, <strong>reverb reflections</strong>, and <strong>low/high shelf equalization</strong>—the acoustic hash is transformed into a unique audio profile while retaining musical harmony for human listeners.</p>
+          <p style="margin-bottom: 10px;">Automated platforms like YouTube Content ID, Meta Rights Manager, and TikTok detect audio clips using exact <strong>acoustic fingerprints</strong> and speech/music spectral peaks.</p>
+          <p style="margin-bottom: 10px;">With this Copyright Remover you can either <strong>remix the sound + video tempo</strong> in sync (+5% speed, pitch shift, EQ, reverb), <strong>attenuate original center vocals</strong> while keeping instrumental backing, or <strong>mute the original voice 100% and record/upload your own voiceover</strong> — automatically merging video and your new audio into one downloadable file.</p>
         </div>
       </section>
 
       <!-- FAQ Section -->
       <section class="faq-section" style="margin-top: 40px;">
-        <h2 class="faq-title">Frequently Asked Questions (Creator Audio Remixer)</h2>
+        <h2 class="faq-title">Frequently Asked Questions (Copyright Remover)</h2>
         <div class="faq-list">
           <div class="faq-item">
             <button class="faq-question" type="button">
-              <span>Which preset is best for YouTube Shorts?</span>
+              <span>How do I remove original video voice &amp; add my own voice?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                The <strong>Shorts Anti-Claim Shield</strong> preset is specifically calibrated for Shorts and Reels. It applies a subtle +5% tempo increase, +1.2 semitones pitch increase, and light room reverb. The music sounds completely natural to your viewers while transforming the automated acoustic hash.
+                Upload your MP4/WebM/MOV video, choose <strong>Remove Original Audio (100% Mute)</strong> or <strong>Remove Original Voice (Keep Music)</strong> in Step 2, and then click <strong>Record My Voice</strong> or <strong>Upload Voice File</strong>. The tool automatically merges the video + your voice into one single video download.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Does changing playback speed also speed up the downloaded video?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Yes! When you choose +5% or +18% speed (or adjust the Video &amp; Audio Speed slider), the exported MP4/WebM video is re-encoded in exact frame synchronization with the audio so video speed and sound always match cleanly.
               </div>
             </div>
           </div>
@@ -522,18 +698,7 @@
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                Yes, 100% free and unlimited. The audio processing runs entirely inside your web browser's memory using WebAudio API. No files are uploaded to our servers or stored anywhere.
-              </div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-question" type="button">
-              <span>Can I upload videos to extract and remix the music?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <div class="faq-answer-inner">
-                Yes! You can drop an MP4 or WebM video file directly. The tool will decode the audio track, allow you to preview your chosen remix preset, and export a high-quality 320kbps MP3 or lossless WAV.
+                Yes, 100% free and unlimited. Video rendering, vocal suppression, voice recording, speed shifting, and audio mixing all run locally inside your browser — zero uploads to any server.
               </div>
             </div>
           </div>

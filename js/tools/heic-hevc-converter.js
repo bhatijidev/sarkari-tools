@@ -66,6 +66,9 @@
   var btnTryVideoDemo = $('btnTryVideoDemo');
   var videoWorkspace = $('videoWorkspace');
   var inputVideoPreview = $('inputVideoPreview');
+  var btnHevcPlayPause = $('btnHevcPlayPause');
+  var hevcTimelineSlider = $('hevcTimelineSlider');
+  var hevcTimeDisplay = $('hevcTimeDisplay');
   var vMetaName = $('vMetaName');
   var vMetaDuration = $('vMetaDuration');
   var vMetaSize = $('vMetaSize');
@@ -532,6 +535,7 @@
 
       vMetaDuration.textContent = formatTime(state.videoDuration);
       vMetaRes.textContent = state.videoWidth + 'x' + state.videoHeight;
+      updateHevcTimelineUI();
 
       videoWorkspace.style.display = 'block';
       videoWorkspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -596,13 +600,22 @@
 
     var stream = canvas.captureStream(30);
 
-    // Audio capture
+    // Audio capture (reuse source node safely across repeat conversions)
+    var audioDestNode = null;
     try {
-      var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      var source = audioCtx.createMediaElementSource(videoEl);
+      var audioCtx = videoEl._hevcAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') await audioCtx.resume();
+      videoEl._hevcAudioCtx = audioCtx;
+      var source = videoEl._hevcSourceNode;
+      if (!source) {
+        source = audioCtx.createMediaElementSource(videoEl);
+        videoEl._hevcSourceNode = source;
+      } else {
+        try { source.disconnect(); } catch (e) {}
+      }
       var dest = audioCtx.createMediaStreamDestination();
+      audioDestNode = dest;
       source.connect(dest);
-      source.connect(audioCtx.destination);
       var audioTrack = dest.stream.getAudioTracks()[0];
       if (audioTrack) stream.addTrack(audioTrack);
     } catch (aErr) {
@@ -624,13 +637,16 @@
       if (e.data.size > 0) chunks.push(e.data);
     };
 
-    var transcodeSpeed = parseFloat(videoTranscodeSpeed.value) || 2.0;
+    var transcodeSpeed = parseFloat(videoTranscodeSpeed.value) || 1.0;
 
     return new Promise(function (resolve) {
       recorder.onstop = function () {
+        if (videoEl._hevcSourceNode) {
+          try { videoEl._hevcSourceNode.disconnect(); videoEl._hevcSourceNode.connect(videoEl._hevcAudioCtx.destination); } catch (e) {}
+        }
         var finalBlob = new Blob(chunks, { type: mimeType });
         var ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
-        displayVideoResult(finalBlob, ext);
+        displayVideoResult(finalBlob, ext, transcodeSpeed);
         resolve();
       };
 
@@ -669,16 +685,17 @@
     });
   }
 
-  function displayVideoResult(blob, ext) {
+  function displayVideoResult(blob, ext, speedUsed) {
     state.convertedVideoBlob = blob;
     state.convertedVideoUrl = URL.createObjectURL(blob);
 
     var baseName = state.videoFile.name.replace(/\.[^/.]+$/, '');
     var outName = baseName + '_android.' + ext;
+    var spd = speedUsed || 1.0;
 
     resVideoFileName.textContent = outName;
-    resVideoFmt.textContent = 'Universal MP4 (H.264 / AAC)';
-    resVideoDur.textContent = formatTime(state.videoDuration);
+    resVideoFmt.textContent = ext === 'mp4' ? 'Universal MP4 (H.264 / AAC)' : 'Universal WebM (VP8 / Opus)';
+    resVideoDur.textContent = formatTime(state.videoDuration / spd);
     resVideoSize.textContent = formatBytes(blob.size);
 
     resVideoPlayer.src = state.convertedVideoUrl;
@@ -696,6 +713,60 @@
     if (window.showToast) {
       window.showToast('iPhone video converted to universal Android MP4! Ready to download.', 'success');
     }
+  }
+
+  function formatPrecise(sec) {
+    if (!sec || !isFinite(sec) || sec < 0) sec = 0;
+    var m = Math.floor(sec / 60);
+    var s = Math.floor(sec % 60);
+    var d = Math.floor((sec % 1) * 10);
+    return m + ':' + (s < 10 ? '0' : '') + s + '.' + d;
+  }
+
+  function updateHevcTimelineUI() {
+    if (!inputVideoPreview) return;
+    var dur = inputVideoPreview.duration || state.videoDuration || 0;
+    var cur = inputVideoPreview.currentTime || 0;
+    if (hevcTimelineSlider && dur > 0) {
+      hevcTimelineSlider.value = Math.round((cur / dur) * 1000);
+    }
+    if (hevcTimeDisplay) {
+      hevcTimeDisplay.textContent = formatPrecise(cur) + ' / ' + formatPrecise(dur);
+    }
+    if (btnHevcPlayPause) {
+      btnHevcPlayPause.textContent = inputVideoPreview.paused ? '▶️ Play' : '⏸️ Pause';
+    }
+  }
+
+  if (inputVideoPreview) {
+    inputVideoPreview.addEventListener('timeupdate', updateHevcTimelineUI);
+    inputVideoPreview.addEventListener('play', function () {
+      updateHevcTimelineUI();
+      (function step() {
+        if (!inputVideoPreview || inputVideoPreview.paused || inputVideoPreview.ended) return;
+        updateHevcTimelineUI();
+        requestAnimationFrame(step);
+      })();
+    });
+    inputVideoPreview.addEventListener('pause', updateHevcTimelineUI);
+    inputVideoPreview.addEventListener('ended', updateHevcTimelineUI);
+  }
+
+  if (btnHevcPlayPause && inputVideoPreview) {
+    btnHevcPlayPause.addEventListener('click', function () {
+      if (!inputVideoPreview.src) return;
+      if (inputVideoPreview.paused) inputVideoPreview.play().catch(function () {});
+      else inputVideoPreview.pause();
+    });
+  }
+
+  if (hevcTimelineSlider && inputVideoPreview) {
+    hevcTimelineSlider.addEventListener('input', function () {
+      var dur = inputVideoPreview.duration || state.videoDuration || 0;
+      if (!dur) return;
+      inputVideoPreview.currentTime = (parseFloat(hevcTimelineSlider.value) / 1000) * dur;
+      updateHevcTimelineUI();
+    });
   }
 
   // Reset Video
