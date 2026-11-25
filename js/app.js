@@ -1212,10 +1212,21 @@
       const params = new URLSearchParams(window.location.search);
       const qReg = (params.get('region') || '').toLowerCase();
       if (qReg === 'in' || qReg === 'global' || qReg === 'all') return qReg;
-      const saved = localStorage.getItem('alltoolsinone_region');
+      const saved = localStorage.getItem('alltoolsinone_region_v2');
       if (saved === 'in' || saved === 'global' || saved === 'all') return saved;
     } catch (e) {}
-    return detectDefaultRegion();
+    return 'all';
+  }
+
+  function getActiveOrder() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const qOrd = (params.get('order') || '').toLowerCase();
+      if (qOrd === 'pdf-first' || qOrd === 'default') return qOrd;
+      const saved = localStorage.getItem('alltoolsinone_order');
+      if (saved === 'pdf-first' || saved === 'default') return saved;
+    } catch (e) {}
+    return 'default';
   }
 
   function isRegionMatch(itemRegion, activeRegion) {
@@ -1224,8 +1235,8 @@
   }
 
   function setActiveRegion(reg) {
-    const clean = (reg === 'in' || reg === 'global' || reg === 'all') ? reg : detectDefaultRegion();
-    try { localStorage.setItem('alltoolsinone_region', clean); } catch (e) {}
+    const clean = (reg === 'in' || reg === 'global' || reg === 'all') ? reg : 'all';
+    try { localStorage.setItem('alltoolsinone_region_v2', clean); } catch (e) {}
     try {
       const url = new URL(window.location.href);
       if (url.searchParams.has('region')) {
@@ -1237,9 +1248,17 @@
     window.dispatchEvent(new CustomEvent('alltoolsinone-region-change', { detail: { region: clean } }));
   }
 
+  function setActiveOrder(ord) {
+    const clean = ord === 'pdf-first' ? 'pdf-first' : 'default';
+    try { localStorage.setItem('alltoolsinone_order', clean); } catch (e) {}
+    applyHomepageOrder(clean);
+  }
+
   window.ALLTOOLSINONE_DETECT_REGION = detectDefaultRegion;
   window.ALLTOOLSINONE_GET_REGION = getActiveRegion;
   window.ALLTOOLSINONE_SET_REGION = setActiveRegion;
+  window.ALLTOOLSINONE_GET_ORDER = getActiveOrder;
+  window.ALLTOOLSINONE_SET_ORDER = setActiveOrder;
 
   /* ───────── PATH HELPERS FOR ROOT VS /tools/ ───────── */
   const isInsideTools = window.location.pathname.includes('/tools/') || window.location.href.includes('/tools/');
@@ -1607,23 +1626,53 @@
     });
   }
 
+  function applyHomepageOrder(orderMode) {
+    const mode = orderMode || getActiveOrder();
+    const toolsRoot = document.getElementById('tools');
+    const navScroll = document.getElementById('categoryNavScroll');
+    const orderIds = mode === 'pdf-first'
+      ? ['cat-pdf', 'cat-image', 'cat-new', 'cat-global', 'cat-india', 'cat-video', 'cat-seo', 'cat-social', 'cat-calc', 'cat-doc', 'cat-utility', 'cat-exam']
+      : ['cat-new', 'cat-global', 'cat-pdf', 'cat-image', 'cat-india', 'cat-video', 'cat-seo', 'cat-social', 'cat-calc', 'cat-doc', 'cat-utility', 'cat-exam'];
+
+    if (toolsRoot) {
+      orderIds.forEach(id => {
+        const sec = document.getElementById(id);
+        if (sec) toolsRoot.appendChild(sec);
+      });
+    }
+    if (navScroll) {
+      orderIds.forEach(id => {
+        const key = id.replace('cat-', '');
+        const pill = navScroll.querySelector(`.cat-nav-pill[data-filter="${key}"]`);
+        if (pill) navScroll.appendChild(pill);
+      });
+    }
+    document.querySelectorAll('#regionSwitcherBar [data-order-btn]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.orderBtn === mode);
+    });
+    const allBtn = document.querySelector('#regionSwitcherBar [data-region-btn="all"]');
+    if (allBtn && getActiveRegion() === 'all') {
+      allBtn.classList.toggle('active', mode !== 'pdf-first');
+    }
+  }
+
   function applyHomepageRegionFilter(region) {
     const activeReg = region || getActiveRegion();
     const sections = document.querySelectorAll('.category-section');
     const navPills = document.querySelectorAll('.cat-nav-pill');
 
     // Update Region Switcher Buttons & Label
-    document.querySelectorAll('#regionSwitcherBar .region-pill').forEach(btn => {
+    document.querySelectorAll('#regionSwitcherBar .region-pill[data-region-btn]').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.regionBtn === activeReg);
     });
     const labelEl = document.getElementById('regionDetectedLabel');
     if (labelEl) {
       if (activeReg === 'in') {
-        labelEl.innerHTML = '📍 Region: <strong>🇮🇳 India + Universal Tools</strong>';
+        labelEl.innerHTML = '📍 Showing: <strong>🇮🇳 India Focus + Universal Tools</strong>';
       } else if (activeReg === 'global') {
-        labelEl.innerHTML = '📍 Region: <strong>🌍 Global / US + Universal Tools</strong>';
+        labelEl.innerHTML = '📍 Showing: <strong>🌍 Global / US Focus + Universal Tools</strong>';
       } else {
-        labelEl.innerHTML = '📍 Region: <strong>✨ All Tools (India + Global)</strong>';
+        labelEl.innerHTML = '📍 Showing: <strong>✨ All Tools (New + Global + PDF/Photo + India)</strong>';
       }
     }
 
@@ -1690,13 +1739,23 @@
     const navPills = document.querySelectorAll('.cat-nav-pill');
     const sections = document.querySelectorAll('.category-section');
 
-    // Bind homepage region switcher pills
-    document.querySelectorAll('#regionSwitcherBar .region-pill').forEach(btn => {
+    // Bind homepage region & order switcher pills
+    document.querySelectorAll('#regionSwitcherBar .region-pill[data-region-btn]').forEach(btn => {
       btn.addEventListener('click', () => {
         setActiveRegion(btn.dataset.regionBtn);
+        if (btn.dataset.regionBtn === 'all') {
+          setActiveOrder('default');
+        }
+      });
+    });
+    document.querySelectorAll('#regionSwitcherBar .region-pill[data-order-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveRegion('all');
+        setActiveOrder(btn.dataset.orderBtn);
       });
     });
 
+    applyHomepageOrder(getActiveOrder());
     applyHomepageRegionFilter(getActiveRegion());
     if (!navPills.length) return;
 
