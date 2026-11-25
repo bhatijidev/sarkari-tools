@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tip Calculator &amp; Bill Splitter - Fast Restaurant Gratuity | AllToolsInOne</title>
-  <meta name="description" content="Free tip calculator and bill splitter. Calculate 15%, 18%, 20% restaurant tips, split checks among friends, round totals, and share receipts instantly.">
+  <title>Tip Calculator & Bill Splitter with Tax | AllToolsInOne</title>
+  <meta name="description" content="Calculate tips and split restaurant bills easily per person. Includes quick % chips, custom tax, bill rounding, and receipt copy. 100% free, no app needed.">
   <meta name="keywords" content="tip calculator, bill splitter, restaurant tip calculator, gratuity calculator, split check, tip per person, dining calculator">
   <link rel="canonical" href="https://alltoolsinone.com/tools/tip-calculator.html">
   <link rel="shortcut icon" href="../favicon.ico">
@@ -12,9 +12,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Tip Calculator &amp; Bill Splitter | AllToolsInOne">
-  <meta property="og:description" content="Calculate restaurant tips, split the bill evenly, round up totals, and share the receipt breakdown with friends.">
+  <meta property="og:title" content="Tip Calculator & Bill Splitter with Tax | AllToolsInOne">
+  <meta property="og:description" content="Calculate tips and split restaurant bills easily per person. Includes quick % chips, custom tax, bill rounding, and receipt copy. 100% free, no app needed.">
   <meta property="og:url" content="https://alltoolsinone.com/tools/tip-calculator.html">
+  <meta property="og:locale" content="en_US">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AllToolsInOne">
   <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
@@ -24,53 +25,73 @@
   <link rel="stylesheet" href="../css/tools.css">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "@id": "https://alltoolsinone.com/tools/tip-calculator.html#webapp",
-        "name": "Tip Calculator & Bill Splitter",
-        "url": "https://alltoolsinone.com/tools/tip-calculator.html",
-        "description": "Calculate restaurant tips, split checks evenly, round totals, and share receipt breakdowns.",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "All",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://alltoolsinone.com/tools/tip-calculator.html#webapp",
+      "name": "Tip Calculator & Bill Splitter",
+      "url": "https://alltoolsinone.com/tools/tip-calculator.html",
+      "description": "Calculate restaurant tips, split checks evenly, round totals, and share receipt breakdowns.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://alltoolsinone.com/tools/tip-calculator.html#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
-          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
-          { "@type": "ListItem", "position": 3, "name": "Tip Calculator", "item": "https://alltoolsinone.com/tools/tip-calculator.html" }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://alltoolsinone.com/tools/tip-calculator.html#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is the standard tipping percentage in the United States?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "In the US, 15% is standard for acceptable service, 18% to 20% is common for good to great service, and 22%+ is customary for exceptional dining experiences."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Should you tip on the pre-tax or post-tax bill amount?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Etiquette experts suggest calculating tips based on the pre-tax subtotal, although many credit card machines calculate tips on the post-tax total."
-            }
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://alltoolsinone.com/tools/tip-calculator.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://alltoolsinone.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://alltoolsinone.com/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tip Calculator",
+          "item": "https://alltoolsinone.com/tools/tip-calculator.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://alltoolsinone.com/tools/tip-calculator.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the standard tipping percentage in the United States?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In the US, 15% is standard for acceptable service, 18% to 20% is common for good to great service, and 22%+ is customary for exceptional dining experiences."
           }
-        ]
-      }
-    ]
-  }
-  </script>
+        },
+        {
+          "@type": "Question",
+          "name": "Should you tip on the pre-tax or post-tax bill amount?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Etiquette experts suggest calculating tips based on the pre-tax subtotal, although many credit card machines calculate tips on the post-tax total."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <style>
     .tip-chips-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 10px 0; }
     .tip-chip { padding: 10px 6px; text-align: center; border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; background: var(--bg-card, #ffffff); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
