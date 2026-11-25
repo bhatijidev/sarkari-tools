@@ -1,5 +1,5 @@
 # Off-Page SEO & Backlink Building Master Plan (DA 70–98)
-**Website:** `https://alltoolsinone.com/` (73+ Free Client-Side Utilities)  
+**Website:** `https://alltoolsinone.com/` (Free Free Client-Side Utilities)  
 **Target Goal:** Scale Domain Authority (DA) from 1 to 35+ in 90 days, and 50+ in 180 days via high-authority white-hat backlinks, directory listings, tool aggregators, web 2.0 syndication, and viral embed widgets.
 
 ---
@@ -92,7 +92,7 @@ Below are the curated high-authority platforms categorized by link type, with do
 | **Reddit r/webdev** | 98 | Developer tools, offline privacy tools | Share how 100% in-browser client-side WebAssembly/JS tools protect privacy |
 | **Reddit r/dropshipping** | 98 | Product research, TikTok/Meta ad spy | Share free alternative to expensive $50/mo ad spy software |
 | **Reddit r/UPSC & r/ssc** | 98 | Sarkari photo signature resizer, age cutoff | Share exact SSC/UPSC dimensions & 20-50KB compressor tool |
-| **Reddit r/IndiaSpeaks** | 98 | Free Indian utility software (UPI, GST, Biodata) | "I built 73+ free online tools for students & small businesses in India" |
+| **Reddit r/IndiaSpeaks** | 98 | Free Indian utility software (UPI, GST, Biodata) | "I built Free free online tools for students & small businesses in India" |
 | **Quora** | 93 | Questions on: "How to resize photo for SSC exam", "How to calculate GST reverse", "How to find winning dropshipping products" | Provide detailed, authoritative answers with contextual links |
 
 ---
@@ -126,13 +126,13 @@ Use these exact copy-paste templates to submit right away:
 
 ### Kit 1: Product Hunt Submission
 - **Product Name:** `AllToolsInOne`
-- **Tagline:** `73+ Free Client-Side Online Utilities, PDF, Image & Exam Tools`
+- **Tagline:** `Free Free Client-Side Online Utilities, PDF, Image & Exam Tools`
 - **Primary Category:** `Productivity`, `Developer Tools`, `Design Tools`
 - **Website URL:** `https://alltoolsinone.com/`
 - **Short Description (260 chars):**
-  > Free, privacy-first directory of 73+ web tools. Compress photos to exact KB, edit PDFs, calculate GST & EMI, generate dynamic UPI/Google Review QR codes, and spy on trending dropshipping products. Zero server uploads — 100% fast, client-side in your browser.
+  > Free, privacy-first directory of Free web tools. Compress photos to exact KB, edit PDFs, calculate GST & EMI, generate dynamic UPI/Google Review QR codes, and spy on trending dropshipping products. Zero server uploads — 100% fast, client-side in your browser.
 - **First Maker Comment:**
-  > *Hey Product Hunt community! 👋 We got tired of tools full of ads, paywalls, and slow server uploads that steal your data. We built AllToolsInOne — a collection of 73+ essential utilities that run 100% in your browser. From passport photo resizing for Indian exams to PDF editing and live Meta Ad Library spying, everything is free forever. Would love your feedback!*
+  > *Hey Product Hunt community! 👋 We got tired of tools full of ads, paywalls, and slow server uploads that steal your data. We built AllToolsInOne — a collection of Free essential utilities that run 100% in your browser. From passport photo resizing for Indian exams to PDF editing and live Meta Ad Library spying, everything is free forever. Would love your feedback!*
 
 ---
 
@@ -153,7 +153,7 @@ Use these exact copy-paste templates to submit right away:
 ---
 
 ### Kit 3: Dev.to / Hashnode Technical Article Draft
-- **Title:** `Building 73+ Free In-Browser Tools with Zero Backend Storage (Architecture & Launch)`
+- **Title:** `Building Free Free In-Browser Tools with Zero Backend Storage (Architecture & Launch)`
 - **Tags:** `#webdev #javascript #opensource #productivity`
 - **Canonical URL:** `https://alltoolsinone.com/tools.html`
 - **Body Content Snippet:**
@@ -164,7 +164,7 @@ Use these exact copy-paste templates to submit right away:
   > - **PDF Management:** Powered by PDF.js and pdf-lib directly in browser memory without sending private documents across the wire ([PDF Editor](https://alltoolsinone.com/tools/pdf-editor.html)).
   > - **Financial & Unit Calculations:** Instant mathematical engines for [GST Calculations](https://alltoolsinone.com/tools/gst-calculator.html) and [Loan EMI](https://alltoolsinone.com/tools/emi-calculator.html).
   > 
-  > You can explore the complete suite of [73+ Free Online Tools](https://alltoolsinone.com/tools.html).
+  > You can explore the complete suite of [Free Free Online Tools](https://alltoolsinone.com/tools.html).
 
 ---
 
