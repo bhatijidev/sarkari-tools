@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — Live Domain Availability Checker
+   ALLTOOLSINONE — Live Domain Availability Checker
    ═══════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {

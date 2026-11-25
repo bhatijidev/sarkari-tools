@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diff Checker - Text &amp; Code Difference Comparison Tool | AllToolsInOne</title>
+  <meta name="description" content="Free online Diff Checker. Compare two text files, documents, or code blocks side-by-side with line numbers and character-level difference highlighting. 100% private.">
+  <meta name="keywords" content="diff checker, text comparison tool, compare text online, code difference, side by side diff, diff tool, check text difference">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/diff-checker.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Diff Checker - Text &amp; Code Difference Tool | AllToolsInOne">
+  <meta property="og:description" content="Compare text or code side-by-side with real-time character-level diff highlighting. Zero server uploads.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/diff-checker.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/diff-checker.html#webapp",
+        "name": "Diff Checker & Text Compare Tool",
+        "url": "https://alltoolsinone.com/tools/diff-checker.html",
+        "description": "Compare two text files or code blocks with side-by-side visual diff highlighting.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/diff-checker.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Diff Checker", "item": "https://alltoolsinone.com/tools/diff-checker.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .diff-inputs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 768px) { .diff-inputs-grid { grid-template-columns: 1fr; } }
+    .diff-output-table { width: 100%; border-collapse: collapse; font-family: monospace; font-size: 13px; border: 1px solid var(--border-color, #e2e8f0); }
+    .diff-output-table td { padding: 4px 8px; vertical-align: top; }
+    .diff-num { width: 40px; color: #94a3b8; user-select: none; text-align: right; border-right: 1px solid #e2e8f0; }
+    .diff-del { background: #fee2e2; color: #991b1b; }
+    .diff-add { background: #dcfce7; color: #166534; }
+    .diff-same { background: #ffffff; color: #334155; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Diff Checker</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#eff6ff; color:#2563eb;">🔍</div>
+        <h1>Diff Checker: Text &amp; Code Comparison</h1>
+        <p class="tool-description">Compare two text files, code snippets, or documents side-by-side. Highlight added, deleted, and modified lines with precise character difference detection. 100% private in browser.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <!-- Actions Toolbar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <div style="display:flex; gap:8px;">
+            <button type="button" id="btnCompare" class="btn btn-primary">⚡ Compare Differences</button>
+            <button type="button" id="btnSwap" class="btn btn-outline">⇄ Swap</button>
+            <button type="button" id="btnClear" class="btn btn-outline">Clear</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:13px;">
+            <label style="display:flex; align-items:center; gap:4px; cursor:pointer;">
+              <input type="checkbox" id="chkIgnoreWhitespace"> Ignore Whitespace
+            </label>
+            <button type="button" id="btnSample" class="btn btn-sm btn-outline">Load Sample</button>
+          </div>
+        </div>
+
+        <!-- Two Text Areas -->
+        <div class="diff-inputs-grid">
+          <div>
+            <label class="form-label" for="origText"><strong>Original Text (Before)</strong></label>
+            <textarea id="origText" class="form-textarea" rows="10" placeholder="Paste original text or code here..."></textarea>
+          </div>
+          <div>
+            <label class="form-label" for="modText"><strong>Modified Text (After)</strong></label>
+            <textarea id="modText" class="form-textarea" rows="10" placeholder="Paste modified text or code here..."></textarea>
+          </div>
+        </div>
+
+        <!-- Diff Results Display -->
+        <div id="diffResultsWrap" style="display:none; margin-top:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h3 style="font-size:16px; font-weight:700; margin:0;">Comparison Output</h3>
+            <div id="diffStats" style="font-size:13px; font-weight:600;"></div>
+          </div>
+          <div style="max-height:480px; overflow:auto; border-radius:8px;">
+            <table class="diff-output-table">
+              <tbody id="diffBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/diff-checker.js" defer></script>
+</body>
+</html>

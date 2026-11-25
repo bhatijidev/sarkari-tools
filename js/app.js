@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — Main Application JS
+   ALLTOOLSINONE — Main Application JS
    ═══════════════════════════════════════════════════ */
 
 (function() {
@@ -18,6 +18,18 @@
 
   /* ───────── TOOL REGISTRY ───────── */
   const TOOLS = [
+    {
+      id: 'voice-studio',
+      name: 'Voice Studio: Noise Reducer & Vocal Enhancer',
+      description: 'Studio noise reduction for 1-hour video & audio: clean fan hum, room echo & hiss, boost vocal clarity, manage deep bass, and export in Mono or Stereo preserving 100% video quality',
+      category: 'video',
+      categoryLabel: 'Video & Audio',
+      icon: '🎙️',
+      iconBg: 'utility-tools',
+      url: 'tools/voice-studio.html',
+      keywords: ['voice studio', 'audio noise reduction', 'remove background noise from video', 'clean voice recording', 'vocal clarity booster', 'bass booster audio', '1 hour video noise reduction', 'clear voice studio', 'mono or stereo audio', 'video audio cleaner'],
+      badge: 'New'
+    },
     {
       id: 'heic-hevc-converter',
       name: 'iPhone HEIC & HEVC to Android Converter',
@@ -1000,11 +1012,156 @@
       url: 'tools/policy-generator.html',
       keywords: ['privacy policy generator', 'terms and conditions generator', 'terms of service', 'adsense privacy policy', 'gdpr policy maker'],
       badge: 'New'
+    },
+    {
+      id: 'mortgage-calculator',
+      name: 'US Mortgage Calculator',
+      description: 'Calculate monthly mortgage payments, property taxes, home insurance, PMI, and full amortization schedule',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🏡',
+      iconBg: 'calc-tools',
+      url: 'tools/mortgage-calculator.html',
+      keywords: ['mortgage calculator', 'us mortgage', 'home loan calculator', 'pmi calculator', 'property tax', 'amortization schedule'],
+      badge: 'Global Top'
+    },
+    {
+      id: 'tip-calculator',
+      name: 'Tip Calculator & Bill Splitter',
+      description: 'Quickly calculate restaurant tips (15%, 18%, 20%), split bills among friends, and round totals easily',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '💵',
+      iconBg: 'calc-tools',
+      url: 'tools/tip-calculator.html',
+      keywords: ['tip calculator', 'bill splitter', 'restaurant tip', 'gratuity calculator', 'split check', 'dining tip'],
+      badge: 'Popular'
+    },
+    {
+      id: 'paycheck-calculator',
+      name: 'Hourly to Salary Paycheck Calculator',
+      description: 'Convert hourly wage to annual salary, calculate overtime, and estimate weekly, bi-weekly, and take-home pay',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '💼',
+      iconBg: 'calc-tools',
+      url: 'tools/paycheck-calculator.html',
+      keywords: ['hourly to salary', 'paycheck calculator', 'salary calculator', 'wage calculator', 'overtime pay', 'take home pay'],
+      badge: 'High CPC'
+    },
+    {
+      id: 'wheel-of-names',
+      name: 'Wheel of Names & Random Picker',
+      description: 'Customizable spinning wheel for random name picking, classroom giveaways, raffles, and team decisions',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🎡',
+      iconBg: 'social-tools',
+      url: 'tools/wheel-of-names.html',
+      keywords: ['wheel of names', 'random picker', 'spin the wheel', 'random name generator', 'decision wheel', 'giveaway picker'],
+      badge: 'Viral'
+    },
+    {
+      id: 'gpa-calculator',
+      name: 'High School & College GPA Calculator (4.0 Scale)',
+      description: 'Calculate cumulative semester GPA, weighted vs unweighted 4.0 scale, and future target grade planning',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🎓',
+      iconBg: 'exam-tools',
+      url: 'tools/gpa-calculator.html',
+      keywords: ['gpa calculator', 'college gpa', 'high school gpa', 'weighted gpa', '4.0 scale', 'grade point average'],
+      badge: 'Trending'
+    },
+    {
+      id: 'time-zone-converter',
+      name: 'World Time Zone Converter & Meeting Planner',
+      description: 'Compare time zones across EST, PST, GMT, CET, and IST with interactive 24-hr slider and overlap detector',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🌍',
+      iconBg: 'utility-tools',
+      url: 'tools/time-zone-converter.html',
+      keywords: ['time zone converter', 'meeting planner', 'est to pst', 'world clock', 'gmt converter', 'remote meeting time'],
+      badge: 'Essential'
+    },
+    {
+      id: 'tdee-calculator',
+      name: 'TDEE & Calorie Deficit Macro Calculator',
+      description: 'Calculate Total Daily Energy Expenditure, BMR, cutting/bulking calories, and daily protein/carb/fat macros',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🥗',
+      iconBg: 'calc-tools',
+      url: 'tools/tdee-calculator.html',
+      keywords: ['tdee calculator', 'calorie deficit calculator', 'bmr calculator', 'macro calculator', 'weight loss calories', 'mifflin st jeor'],
+      badge: 'Health'
+    },
+    {
+      id: 'sleep-calculator',
+      name: '90-Min REM Sleep Cycle Calculator',
+      description: 'Find the optimal time to wake up or fall asleep based on natural 90-minute REM sleep cycles and circadian rhythm',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🌙',
+      iconBg: 'utility-tools',
+      url: 'tools/sleep-calculator.html',
+      keywords: ['sleep calculator', 'sleep cycle calculator', 'rem sleep', 'wake up time', 'bedtime calculator', 'circadian rhythm'],
+      badge: 'Viral'
+    },
+    {
+      id: 'diff-checker',
+      name: 'Diff Checker: Text & Code Comparison Tool',
+      description: 'Compare two text files or code snippets side-by-side with character and word-level diff highlighting',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🔍',
+      iconBg: 'doc-tools',
+      url: 'tools/diff-checker.html',
+      keywords: ['diff checker', 'text compare', 'code difference', 'file comparison', 'side by side diff', 'merge text'],
+      badge: 'Developer'
+    },
+    {
+      id: 'aspect-ratio-calculator',
+      name: 'Aspect Ratio Calculator & Dimension Scaler',
+      description: 'Calculate and resize width and height for 16:9, 9:16, 4:3, 1:1, and 21:9 with live preview and CSS generator',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '📐',
+      iconBg: 'image-tools',
+      url: 'tools/aspect-ratio-calculator.html',
+      keywords: ['aspect ratio calculator', '16:9 ratio', 'dimension scaler', 'video aspect ratio', 'resolution calculator', 'pixel scaler'],
+      badge: 'Design'
+    },
+    {
+      id: 'pet-age-calculator',
+      name: 'Dog & Cat Age Calculator (To Human Years)',
+      description: 'Convert dog and cat years to human age based on breed size, weight, and AVMA veterinary life stages',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🐾',
+      iconBg: 'calc-tools',
+      url: 'tools/pet-age-calculator.html',
+      keywords: ['dog age calculator', 'cat age calculator', 'dog years to human years', 'pet age in human years', 'dog life expectancy'],
+      badge: 'Fun'
+    },
+    {
+      id: 'fake-data-generator',
+      name: 'Mock & Fake Data Generator (US/UK/Global)',
+      description: 'Generate realistic test names, addresses, phone numbers, dummy cards, and company profiles for QA testing',
+      category: 'global',
+      categoryLabel: 'US & Global Tools',
+      icon: '🎲',
+      iconBg: 'doc-tools',
+      url: 'tools/fake-data-generator.html',
+      keywords: ['fake data generator', 'mock data', 'dummy address generator', 'test data generator', 'dummy credit card for testing', 'qa test data'],
+      badge: 'Developer'
     }
   ];
 
   const CATEGORIES = [
     { id: 'all', label: 'All Tools', count: TOOLS.length },
+    { id: 'global', label: 'US & Global Tools', count: TOOLS.filter(t => t.category === 'global').length },
     { id: 'image', label: 'Image Tools', count: TOOLS.filter(t => t.category === 'image').length },
     { id: 'pdf', label: 'PDF Tools', count: TOOLS.filter(t => t.category === 'pdf').length },
     { id: 'calculator', label: 'Calculators', count: TOOLS.filter(t => t.category === 'calculator').length },
@@ -1114,6 +1271,12 @@
             <h4>Documents & PDF</h4>
             <ul>
               ${TOOLS.filter(t => ['pdf','document'].includes(t.category)).map(t => `<li><a href="${getToolUrl(t)}">${t.name}</a></li>`).join('')}
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>US &amp; Global Tools</h4>
+            <ul>
+              ${TOOLS.filter(t => t.category === 'global').slice(0, 6).map(t => `<li><a href="${getToolUrl(t)}">${t.name}</a></li>`).join('')}
             </ul>
           </div>
           <div class="footer-col">
@@ -1863,7 +2026,11 @@
   }
 
   // Expose TOOLS for other scripts
+  window.ALLTOOLSINONE_TOOLS = TOOLS;
+  window.ALL_TOOLS = TOOLS;
   window.SARKARI_TOOLS = TOOLS;
+  window.ALLTOOLSINONE_CATEGORIES = CATEGORIES;
+  window.ALL_CATEGORIES = CATEGORIES;
   window.SARKARI_CATEGORIES = CATEGORIES;
 
 

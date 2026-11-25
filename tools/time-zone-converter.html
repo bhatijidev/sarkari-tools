@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Time Zone Converter &amp; Meeting Planner - EST, PST, GMT | AllToolsInOne</title>
+  <meta name="description" content="Free world time zone converter and meeting planner. Compare EST, PST, GMT, CET, and IST with an interactive 24-hour visual timeline and overlap finder.">
+  <meta name="keywords" content="time zone converter, meeting planner, est to pst, world clock converter, gmt converter, remote team meeting time, time difference">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/time-zone-converter.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="World Time Zone Converter &amp; Meeting Planner | AllToolsInOne">
+  <meta property="og:description" content="Interactive 24-hr visual timeline slider to find overlapping working hours between global cities.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/time-zone-converter.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/time-zone-converter.html#webapp",
+        "name": "World Time Zone Converter & Meeting Planner",
+        "url": "https://alltoolsinone.com/tools/time-zone-converter.html",
+        "description": "Compare global time zones with an interactive 24-hour timeline and find optimal meeting overlap times.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/time-zone-converter.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Time Zone Converter", "item": "https://alltoolsinone.com/tools/time-zone-converter.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .tz-card { background: var(--bg-card, #ffffff); border: 1px solid var(--border-color, #e2e8f0); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .tz-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .tz-timeline { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; }
+    .tz-hour-cell { height: 32px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; border-radius: 4px; cursor: pointer; user-select: none; transition: transform 0.1s; }
+    .tz-hour-cell:hover { transform: scale(1.08); z-index: 2; }
+    .hour-work { background: #dcfce7; color: #166534; } /* 9am - 5pm */
+    .hour-social { background: #fef3c7; color: #92400e; } /* 7-9am, 5-10pm */
+    .hour-sleep { background: #f1f5f9; color: #94a3b8; } /* 10pm - 7am */
+    .hour-selected { outline: 2px solid #2563eb; outline-offset: 1px; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Time Zone Converter</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#f0fdf4; color:#16a34a;">🌍</div>
+        <h1>World Time Zone Converter &amp; Meeting Planner</h1>
+        <p class="tool-description">Coordinate cross-border meetings across New York (EST), California (PST), London (GMT), Berlin (CET), and Tokyo (JST). Drag the visual timeline to identify overlapping business hours.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <!-- Controls bar -->
+        <div style="background:var(--bg-card, #ffffff); border:1px solid var(--border-color, #e2e8f0); border-radius:12px; padding:16px; margin-bottom:20px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <label for="addCitySelect" style="font-size:13px; font-weight:700;">+ Add City:</label>
+            <select id="addCitySelect" class="form-select" style="width:200px;">
+              <option value="">Select city...</option>
+              <option value="New York">New York (EST/EDT, UTC-5)</option>
+              <option value="San Francisco">San Francisco (PST/PDT, UTC-8)</option>
+              <option value="Chicago">Chicago (CST/CDT, UTC-6)</option>
+              <option value="London">London (GMT/BST, UTC+0)</option>
+              <option value="Berlin">Berlin (CET/CEST, UTC+1)</option>
+              <option value="Dubai">Dubai (GST, UTC+4)</option>
+              <option value="Mumbai">Mumbai / Delhi (IST, UTC+5:30)</option>
+              <option value="Singapore">Singapore (SGT, UTC+8)</option>
+              <option value="Tokyo">Tokyo (JST, UTC+9)</option>
+              <option value="Sydney">Sydney (AEST/AEDT, UTC+11)</option>
+            </select>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="display:flex; align-items:center; gap:8px; font-size:12px;">
+              <span style="display:inline-block; width:12px; height:12px; background:#dcfce7; border-radius:2px;"></span> Work (9am-5pm)
+              <span style="display:inline-block; width:12px; height:12px; background:#fef3c7; border-radius:2px;"></span> Awake
+              <span style="display:inline-block; width:12px; height:12px; background:#f1f5f9; border-radius:2px;"></span> Sleep
+            </div>
+            <button type="button" id="btnCopyInvite" class="btn btn-sm btn-primary">📋 Copy Meeting Invite</button>
+          </div>
+        </div>
+
+        <!-- City Timelines Container -->
+        <div id="citiesContainer"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/time-zone-converter.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tip Calculator &amp; Bill Splitter - Fast Restaurant Gratuity | AllToolsInOne</title>
+  <meta name="description" content="Free tip calculator and bill splitter. Calculate 15%, 18%, 20% restaurant tips, split checks among friends, round totals, and share receipts instantly.">
+  <meta name="keywords" content="tip calculator, bill splitter, restaurant tip calculator, gratuity calculator, split check, tip per person, dining calculator">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/tip-calculator.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tip Calculator &amp; Bill Splitter | AllToolsInOne">
+  <meta property="og:description" content="Calculate restaurant tips, split the bill evenly, round up totals, and share the receipt breakdown with friends.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/tip-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/tip-calculator.html#webapp",
+        "name": "Tip Calculator & Bill Splitter",
+        "url": "https://alltoolsinone.com/tools/tip-calculator.html",
+        "description": "Calculate restaurant tips, split checks evenly, round totals, and share receipt breakdowns.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/tip-calculator.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Tip Calculator", "item": "https://alltoolsinone.com/tools/tip-calculator.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://alltoolsinone.com/tools/tip-calculator.html#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the standard tipping percentage in the United States?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In the US, 15% is standard for acceptable service, 18% to 20% is common for good to great service, and 22%+ is customary for exceptional dining experiences."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should you tip on the pre-tax or post-tax bill amount?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Etiquette experts suggest calculating tips based on the pre-tax subtotal, although many credit card machines calculate tips on the post-tax total."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .tip-chips-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 10px 0; }
+    .tip-chip { padding: 10px 6px; text-align: center; border: 1px solid var(--border-color, #cbd5e1); border-radius: 8px; background: var(--bg-card, #ffffff); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .tip-chip:hover { border-color: #2563eb; color: #2563eb; }
+    .tip-chip.active { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .people-stepper { display: flex; align-items: center; gap: 8px; }
+    .stepper-btn { width: 44px; height: 44px; border: 1px solid var(--border-color, #cbd5e1); background: var(--bg-hover, #f1f5f9); border-radius: 8px; font-size: 20px; font-weight: bold; cursor: pointer; }
+    .stepper-btn:hover { background: #e2e8f0; }
+    .receipt-card { background: #fafafa; border: 1px dashed #94a3b8; border-radius: 12px; padding: 24px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Tip Calculator</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#f0fdf4; color:#16a34a;">💵</div>
+        <h1>Tip Calculator &amp; Bill Splitter</h1>
+        <p class="tool-description">Quickly calculate restaurant gratuity, customize tip percentages, split checks evenly across your group, and round totals to clean dollar amounts.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <!-- Controls -->
+          <div class="settings-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <label class="form-label" for="billAmount" style="margin:0; font-size:16px; font-weight:700;">Bill Amount</label>
+              <select id="currencySelect" class="form-select" style="width: auto; padding: 4px 8px; font-size: 13px;">
+                <option value="$" selected>USD ($)</option>
+                <option value="€">EUR (€)</option>
+                <option value="£">GBP (£)</option>
+                <option value="C$">CAD (C$)</option>
+                <option value="A$">AUD (A$)</option>
+                <option value="₹">INR (₹)</option>
+              </select>
+            </div>
+            <div class="settings-group">
+              <input type="number" id="billAmount" class="form-input" style="font-size:24px; font-weight:700; height:52px;" value="85.50" min="0" step="0.5">
+            </div>
+
+            <div class="settings-group">
+              <label class="form-label">Select Tip Percentage</label>
+              <div class="tip-chips-grid">
+                <button type="button" class="tip-chip" data-tip="10">10%</button>
+                <button type="button" class="tip-chip" data-tip="15">15%</button>
+                <button type="button" class="tip-chip active" data-tip="18">18%</button>
+                <button type="button" class="tip-chip" data-tip="20">20%</button>
+                <button type="button" class="tip-chip" data-tip="25">25%</button>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+                <label for="customTip" style="font-size:12px; color:#64748b;">Custom Tip %:</label>
+                <input type="number" id="customTip" class="form-input" style="width:80px; padding:6px 10px;" value="18" min="0" max="100">
+              </div>
+            </div>
+
+            <div class="settings-group" style="margin-top:20px;">
+              <label class="form-label">Split Between People</label>
+              <div class="people-stepper">
+                <button type="button" id="btnPersonMinus" class="stepper-btn">-</button>
+                <input type="number" id="numPeople" class="form-input" style="text-align:center; font-size:18px; font-weight:700;" value="3" min="1" max="100">
+                <button type="button" id="btnPersonPlus" class="stepper-btn">+</button>
+              </div>
+            </div>
+
+            <div class="settings-group" style="margin-top:20px;">
+              <label class="form-label">Rounding Options</label>
+              <div style="display:flex; gap:10px;">
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="rounding" value="none" checked> No Rounding
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="rounding" value="tip"> Round Tip Up
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="rounding" value="total"> Round Total Up
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Output Receipt Card -->
+          <div>
+            <div class="receipt-card">
+              <div style="text-align:center; border-bottom:1px dashed #cbd5e1; padding-bottom:12px; margin-bottom:16px;">
+                <div style="font-size:16px; font-weight:800; letter-spacing:1px;">ALLTOOLSINONE DINING</div>
+                <div style="font-size:11px; color:#64748b;">Gratuity &amp; Split Breakdown</div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span>Original Subtotal:</span>
+                <strong id="dispBillSubtotal">$85.50</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span>Tip Rate:</span>
+                <strong id="dispTipPercent">18%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px; color:#2563eb;">
+                <span>Total Tip Amount:</span>
+                <strong id="dispTotalTip">$15.39</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin:14px 0; padding:10px 0; border-top:2px solid #0f172a; border-bottom:2px solid #0f172a; font-size:16px;">
+                <span>TOTAL BILL:</span>
+                <strong id="dispGrandTotal">$100.89</strong>
+              </div>
+
+              <div style="background:#f1f5f9; padding:14px; border-radius:8px; margin-top:16px;">
+                <div style="font-size:12px; color:#475569; text-transform:uppercase; font-weight:600; margin-bottom:8px;">Split for <span id="dispPeopleCount">3</span> People:</div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                  <span>Tip per person:</span>
+                  <strong id="dispTipPerPerson">$5.13</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:18px; color:#16a34a; font-weight:800;">
+                  <span>EACH PAYS:</span>
+                  <strong id="dispTotalPerPerson">$33.63</strong>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:10px; margin-top:20px;">
+                <button type="button" id="btnCopyReceipt" class="btn btn-outline" style="flex:1;">📋 Copy</button>
+                <button type="button" id="btnShareWa" class="btn" style="flex:1; background:#25D366; color:#fff;">💬 WhatsApp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Educational Content -->
+      <section class="tool-content" style="margin-top:50px;">
+        <h2>How to Tip in the US and Canada</h2>
+        <p>In North America, restaurant waitstaff often earn a "tipped minimum wage" that is significantly lower than standard state minimum wage. Tips make up the majority of their income. Here is the general tipping standard:</p>
+        <ul>
+          <li><strong>15%:</strong> Average / fair service.</li>
+          <li><strong>18%:</strong> Good standard service at casual and sit-down restaurants.</li>
+          <li><strong>20%:</strong> Great service, attentive staff, fine dining.</li>
+          <li><strong>22% - 25%:</strong> Exceptional experience, large party service.</li>
+          <li><strong>Bartenders:</strong> $1 to $2 per drink or 20% of the bar tab.</li>
+          <li><strong>Food Delivery Drivers:</strong> $3 to $5 minimum, or 15% - 20% on larger orders.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/tip-calculator.js" defer></script>
+</body>
+</html>

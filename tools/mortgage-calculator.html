@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>US Mortgage Calculator - Home Loan with PMI, Taxes &amp; Insurance | AllToolsInOne</title>
+  <meta name="description" content="Free US mortgage calculator. Calculate accurate monthly payments with principal, interest, property taxes, home insurance, PMI, and full amortization schedule.">
+  <meta name="keywords" content="mortgage calculator, us mortgage calculator, home loan payment, pmi calculator, property tax calculator, amortization schedule, fixed rate mortgage">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/mortgage-calculator.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="US Mortgage Calculator - Home Loan with PMI, Taxes &amp; Insurance | AllToolsInOne">
+  <meta property="og:description" content="Calculate accurate monthly mortgage payments including principal, interest, property taxes, homeowners insurance, and PMI with interactive charts.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/mortgage-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="US Mortgage Calculator - Monthly Payment &amp; PMI | AllToolsInOne">
+  <meta name="twitter:description" content="Free online US mortgage calculator with taxes, insurance, PMI, and year-by-year amortization schedule.">
+  <meta name="twitter:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/mortgage-calculator.html#webapp",
+        "name": "US Mortgage Calculator with Taxes & PMI",
+        "url": "https://alltoolsinone.com/tools/mortgage-calculator.html",
+        "description": "Calculate monthly mortgage payments, property taxes, home insurance, PMI, and full amortization schedule.",
+        "applicationCategory": "FinancialApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/mortgage-calculator.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "US Mortgage Calculator", "item": "https://alltoolsinone.com/tools/mortgage-calculator.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://alltoolsinone.com/tools/mortgage-calculator.html#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How is a US mortgage payment calculated?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Total monthly housing payment is commonly referred to as PITI: Principal, Interest, Taxes, and Insurance, plus any PMI (Private Mortgage Insurance) and HOA fees."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is PMI and when do I need to pay it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Private Mortgage Insurance (PMI) is required by lenders when your down payment is less than 20% of the home purchase price. Once your loan balance falls below 80% of home value, PMI can be canceled."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does extra monthly payment shorten loan tenure?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every extra dollar paid goes directly toward the loan principal, drastically reducing compounding interest and shaving years off a 30-year mortgage."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .mortgage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 900px) { .mortgage-grid { grid-template-columns: 1fr; } }
+    .breakdown-donut-wrap { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 20px 0; }
+    .donut-legend { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+    .stat-badge-big { font-size: 32px; font-weight: 800; color: #1e3a8a; }
+    .table-container-scroll { max-height: 380px; overflow-y: auto; border: 1px solid var(--border-color, #e2e8f0); border-radius: 8px; margin-top: 15px; }
+    .piti-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .piti-table th, .piti-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-color, #e2e8f0); text-align: right; }
+    .piti-table th:first-child, .piti-table td:first-child { text-align: left; }
+    .piti-table th { background: var(--bg-hover, #f8fafc); position: sticky; top: 0; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">US Mortgage Calculator</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#eff6ff; color:#2563eb;">🏡</div>
+        <h1>US Mortgage Calculator with Taxes, Insurance &amp; PMI</h1>
+        <p class="tool-description">Accurately calculate your total monthly mortgage payment (PITI: Principal, Interest, Property Taxes, Homeowners Insurance, PMI, and HOA fees). View complete amortization breakdown and discover how extra payments save thousands.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div class="mortgage-grid">
+          <!-- Inputs Column -->
+          <div class="settings-panel">
+            <h2 style="font-size: 18px; margin-bottom: 16px; font-weight: 700;">🏠 Loan Details</h2>
+            
+            <div class="settings-group">
+              <label class="form-label" for="homePrice">Home Purchase Price ($)</label>
+              <input type="number" id="homePrice" class="form-input" value="450000" min="10000" step="5000">
+            </div>
+
+            <div style="display:grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+              <div class="settings-group">
+                <label class="form-label" for="downPaymentAmt">Down Payment ($)</label>
+                <input type="number" id="downPaymentAmt" class="form-input" value="90000" min="0" step="1000">
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="downPaymentPct">Down (%)</label>
+                <input type="number" id="downPaymentPct" class="form-input" value="20" min="0" max="100" step="0.5">
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="settings-group">
+                <label class="form-label" for="loanTerm">Loan Term (Years)</label>
+                <select id="loanTerm" class="form-select">
+                  <option value="30" selected>30-Year Fixed</option>
+                  <option value="20">20-Year Fixed</option>
+                  <option value="15">15-Year Fixed</option>
+                  <option value="10">10-Year Fixed</option>
+                </select>
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="interestRate">Interest Rate (APR %)</label>
+                <input type="number" id="interestRate" class="form-input" value="6.75" min="0.1" max="25" step="0.05">
+              </div>
+            </div>
+
+            <h3 style="font-size: 15px; margin: 20px 0 10px; font-weight: 600; color: #475569;">📑 Taxes, Insurance &amp; Fees</h3>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="settings-group">
+                <label class="form-label" for="propertyTaxRate">Property Tax Rate (%)</label>
+                <input type="number" id="propertyTaxRate" class="form-input" value="1.2" min="0" max="10" step="0.1">
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="homeInsurance">Home Insurance ($/yr)</label>
+                <input type="number" id="homeInsurance" class="form-input" value="1400" min="0" step="50">
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="settings-group">
+                <label class="form-label" for="pmiRate">PMI Rate (%/yr)</label>
+                <input type="number" id="pmiRate" class="form-input" value="0.75" min="0" max="5" step="0.05">
+                <small style="color:#64748b; font-size:11px;">Auto-applied if down payment &lt; 20%</small>
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="hoaFee">HOA Fees ($/month)</label>
+                <input type="number" id="hoaFee" class="form-input" value="0" min="0" step="25">
+              </div>
+            </div>
+
+            <div class="settings-group" style="margin-top: 15px;">
+              <label class="form-label" for="extraPayment">Extra Monthly Principal Payment ($/month)</label>
+              <input type="number" id="extraPayment" class="form-input" value="0" min="0" step="50">
+            </div>
+          </div>
+
+          <!-- Results Column -->
+          <div class="result-panel" style="padding: 24px; background: var(--bg-card, #ffffff); border: 1px solid var(--border-color, #e2e8f0); border-radius: 12px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+              <div style="font-size: 14px; color: #64748b; font-weight: 500;">ESTIMATED TOTAL MONTHLY PAYMENT</div>
+              <div id="dispTotalMonthly" class="stat-badge-big">$2,795</div>
+              <div style="font-size: 12px; color: #16a34a; font-weight: 600;" id="dispPmiStatus">✅ No PMI required (20% Down)</div>
+            </div>
+
+            <div class="breakdown-donut-wrap">
+              <svg id="donutSvg" width="140" height="140" viewBox="0 0 140 140" style="transform: rotate(-90deg);"></svg>
+              <div class="donut-legend">
+                <div class="legend-item"><span class="legend-dot" style="background:#2563eb;"></span> Principal &amp; Interest: <strong id="dispPI">$2,335</strong></div>
+                <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span> Property Taxes: <strong id="dispTax">$450</strong></div>
+                <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> Home Insurance: <strong id="dispIns">$117</strong></div>
+                <div class="legend-item"><span class="legend-dot" style="background:#ef4444;"></span> PMI: <strong id="dispPmi">$0</strong></div>
+                <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6;"></span> HOA Dues: <strong id="dispHoa">$0</strong></div>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color, #e2e8f0); font-size: 13px;">
+              <div>Loan Amount: <strong id="dispLoanAmt">$360,000</strong></div>
+              <div>Total Interest: <strong id="dispTotalInterest">$480,523</strong></div>
+              <div>Total Cost of Loan: <strong id="dispTotalCost">$840,523</strong></div>
+              <div>Payoff Date: <strong id="dispPayoffDate">Nov 2056</strong></div>
+            </div>
+
+            <div id="extraSavingsBox" style="display:none; margin-top:15px; padding:12px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; font-size:12px; color:#166534;">
+              🎉 <strong>Extra Payment Savings:</strong> You will save <span id="dispInterestSaved">$0</span> in interest and pay off your mortgage <span id="dispYearsSaved">0 years</span> early!
+            </div>
+
+            <div style="display:flex; gap:10px; margin-top: 20px;">
+              <button id="btnCopyMortgage" class="btn btn-outline" style="flex:1;">📋 Copy Summary</button>
+              <button id="btnPrintSchedule" class="btn btn-outline" style="flex:1;">🖨️ Print Report</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Amortization Schedule Table -->
+        <div style="margin-top: 30px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 18px; font-weight: 700;">📅 Amortization Repayment Schedule</h3>
+            <div style="display:flex; gap:8px;">
+              <button id="btnScheduleYearly" class="btn btn-sm btn-primary">Annual</button>
+              <button id="btnScheduleMonthly" class="btn btn-sm btn-outline">Monthly</button>
+            </div>
+          </div>
+          <div class="table-container-scroll">
+            <table class="piti-table">
+              <thead>
+                <tr>
+                  <th>Period</th>
+                  <th>Payment</th>
+                  <th>Principal</th>
+                  <th>Interest</th>
+                  <th>Ending Balance</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Educational Section -->
+      <section class="tool-content" style="margin-top: 50px;">
+        <h2>Understanding US Mortgage Payments (PITI)</h2>
+        <p>When buying a home in the United States, your monthly housing expense consists of more than just principal and interest. Lenders calculate your total monthly obligation using <strong>PITI</strong>:</p>
+        <ul>
+          <li><strong>Principal:</strong> The portion of your payment that directly reduces your outstanding loan balance.</li>
+          <li><strong>Interest:</strong> The lender's charge for borrowing money, calculated based on your annual percentage rate (APR).</li>
+          <li><strong>Taxes:</strong> Annual municipal and county property taxes, typically escrowed by your lender and paid in monthly installments.</li>
+          <li><strong>Insurance:</strong> Homeowners property and hazard insurance covering damage, fire, or natural disasters.</li>
+          <li><strong>PMI (Private Mortgage Insurance):</strong> Required on conventional loans with down payments less than 20% to protect the lender against default.</li>
+        </ul>
+
+        <h2>Standard US Mortgage Loan Types</h2>
+        <ul>
+          <li><strong>30-Year Fixed Mortgage:</strong> The most popular loan in America. It offers the lowest monthly payments with predictable, locked-in interest rates for 360 months.</li>
+          <li><strong>15-Year Fixed Mortgage:</strong> Offers lower interest rates than 30-year loans and allows you to pay off your home in half the time, saving tens of thousands in interest at the expense of a higher monthly payment.</li>
+          <li><strong>FHA Loans:</strong> Federal Housing Administration backed loans allowing down payments as low as 3.5%, though requiring upfront and annual Mortgage Insurance Premiums (MIP).</li>
+          <li><strong>VA Loans:</strong> Guaranteed by the Department of Veterans Affairs for eligible US military service members with 0% down payment and zero monthly PMI.</li>
+        </ul>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq-section" style="margin-top: 40px;">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">What is the 28/36 rule in US mortgage qualification?</div>
+            <div class="faq-answer">The 28/36 rule is a standard debt-to-income benchmark used by US mortgage underwriters. It states that your total monthly housing expenses (PITI) should not exceed 28% of your gross monthly income, and total debt payments (mortgage, auto loans, student loans, credit cards) should not exceed 36%.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How can I cancel PMI on my mortgage?</div>
+            <div class="faq-answer">Under the federal Homeowners Protection Act, you have the right to request PMI cancellation once your loan principal balance reaches 80% of your home's original appraised value. Lenders are legally required to automatically terminate PMI when your balance reaches 78%.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Does making bi-weekly payments pay off the loan faster?</div>
+            <div class="faq-answer">Yes! By paying half your mortgage payment every two weeks instead of once a month, you make 26 half-payments a year — equivalent to 13 full monthly payments. This extra annual payment can shave 4 to 6 years off a 30-year mortgage without stressing your monthly budget.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/mortgage-calculator.js" defer></script>
+</body>
+</html>

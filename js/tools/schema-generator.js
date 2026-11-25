@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — Schema Markup Generator
+   ALLTOOLSINONE — Schema Markup Generator
    ═══════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {

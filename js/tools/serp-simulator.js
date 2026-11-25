@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — SERP Snippet Simulator
+   ALLTOOLSINONE — SERP Snippet Simulator
    ═══════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {

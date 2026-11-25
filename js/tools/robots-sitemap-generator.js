@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — Robots.txt & XML Sitemap Generator
+   ALLTOOLSINONE — Robots.txt & XML Sitemap Generator
    ═══════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {

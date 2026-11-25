@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDEE Calculator - Total Daily Energy Expenditure &amp; Macros | AllToolsInOne</title>
+  <meta name="description" content="Calculate your Total Daily Energy Expenditure (TDEE), BMR, calorie deficit for weight loss, and daily macronutrient targets (protein, carbs, fats). Free online tool.">
+  <meta name="keywords" content="tdee calculator, calorie deficit calculator, bmr calculator, macro calculator, maintenance calories, weight loss calories, mifflin st jeor">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/tdee-calculator.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="TDEE Calculator - Total Daily Energy Expenditure &amp; Macros | AllToolsInOne">
+  <meta property="og:description" content="Calculate maintenance calories, fat loss deficit, and exact protein, carb, and fat gram targets.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/tdee-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/tdee-calculator.html#webapp",
+        "name": "TDEE & Calorie Deficit Macro Calculator",
+        "url": "https://alltoolsinone.com/tools/tdee-calculator.html",
+        "description": "Calculate Total Daily Energy Expenditure, BMR, weight loss calorie targets, and macro breakdown.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/tdee-calculator.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "TDEE Calculator", "item": "https://alltoolsinone.com/tools/tdee-calculator.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">TDEE Calculator</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#ecfdf5; color:#059669;">🥗</div>
+        <h1>TDEE &amp; Calorie Deficit Macro Calculator</h1>
+        <p class="tool-description">Learn exactly how many calories your body burns every day using the scientifically validated Mifflin-St Jeor formula. Get tailored calorie and macronutrient targets for cutting, maintenance, or muscle gain.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <!-- Left: User Metrics -->
+          <div class="settings-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <h3 style="font-size:16px; font-weight:700; margin:0;">📋 Personal Stats</h3>
+              <div style="display:flex; gap:6px;">
+                <button type="button" id="btnUnitUS" class="btn btn-sm btn-primary">US Units (lbs/ft)</button>
+                <button type="button" id="btnUnitMetric" class="btn btn-sm btn-outline">Metric (kg/cm)</button>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="settings-group">
+                <label class="form-label" for="gender">Biological Sex</label>
+                <select id="gender" class="form-select">
+                  <option value="male" selected>Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="age">Age</label>
+                <input type="number" id="age" class="form-input" value="28" min="14" max="100">
+              </div>
+            </div>
+
+            <!-- US Height Inputs -->
+            <div id="usHeightWrap" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="settings-group">
+                <label class="form-label" for="heightFt">Height (Feet)</label>
+                <input type="number" id="heightFt" class="form-input" value="5" min="3" max="8">
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="heightIn">Height (Inches)</label>
+                <input type="number" id="heightIn" class="form-input" value="10" min="0" max="11">
+              </div>
+            </div>
+
+            <!-- Metric Height Input -->
+            <div id="metricHeightWrap" style="display:none;" class="settings-group">
+              <label class="form-label" for="heightCm">Height (Centimeters)</label>
+              <input type="number" id="heightCm" class="form-input" value="178" min="90" max="250">
+            </div>
+
+            <div class="settings-group">
+              <label class="form-label" id="lblWeight" for="weight">Weight (lbs)</label>
+              <input type="number" id="weight" class="form-input" value="175" min="50" max="600" step="0.5">
+            </div>
+
+            <div class="settings-group">
+              <label class="form-label" for="activity">Daily Activity Level</label>
+              <select id="activity" class="form-select">
+                <option value="1.2">Sedentary (Desk job, little to no exercise)</option>
+                <option value="1.375" selected>Lightly Active (Exercise 1-3 days/week)</option>
+                <option value="1.55">Moderately Active (Exercise 3-5 days/week)</option>
+                <option value="1.725">Very Active (Heavy exercise 6-7 days/week)</option>
+                <option value="1.9">Athlete / Physical Job (2x per day)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Right: TDEE Output -->
+          <div class="result-panel" style="padding:24px; background:var(--bg-card, #ffffff); border:1px solid var(--border-color, #e2e8f0); border-radius:12px;">
+            <div style="text-align:center; margin-bottom:20px;">
+              <div style="font-size:13px; color:#64748b; font-weight:600;">DAILY MAINTENANCE CALORIES (TDEE)</div>
+              <div id="dispTdee" style="font-size:42px; font-weight:800; color:#059669; margin:4px 0;">2,450</div>
+              <div style="font-size:12px; color:#64748b;">Basal Metabolic Rate (BMR): <strong id="dispBmr">1,780</strong> kcal/day</div>
+            </div>
+
+            <h4 style="font-size:14px; font-weight:700; margin-bottom:10px;">🎯 Calorie Targets by Goal</h4>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:13px; margin-bottom:16px;">
+              <div style="padding:10px; background:#eff6ff; border-radius:8px; border:1px solid #bfdbfe;">
+                <div style="color:#1d4ed8; font-weight:700;">Mild Cut (-0.5 lb/wk)</div>
+                <div style="font-size:18px; font-weight:800;" id="dispMildCut">2,200 kcal</div>
+              </div>
+              <div style="padding:10px; background:#f0fdf4; border-radius:8px; border:1px solid #bbf7d0;">
+                <div style="color:#15803d; font-weight:700;">Standard Cut (-1 lb/wk)</div>
+                <div style="font-size:18px; font-weight:800;" id="dispStdCut">1,950 kcal</div>
+              </div>
+              <div style="padding:10px; background:#fef3c7; border-radius:8px; border:1px solid #fde68a;">
+                <div style="color:#b45309; font-weight:700;">Extreme Cut (-2 lb/wk)</div>
+                <div style="font-size:18px; font-weight:800;" id="dispExtCut">1,450 kcal</div>
+              </div>
+              <div style="padding:10px; background:#faf5ff; border-radius:8px; border:1px solid #e9d5ff;">
+                <div style="color:#7e22ce; font-weight:700;">Lean Bulk (+0.5 lb/wk)</div>
+                <div style="font-size:18px; font-weight:800;" id="dispBulk">2,750 kcal</div>
+              </div>
+            </div>
+
+            <h4 style="font-size:14px; font-weight:700; margin-bottom:8px;">🍗 Standard Cut Macro Targets (40/30/30)</h4>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; text-align:center; font-size:12px;">
+              <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                <span style="color:#2563eb; font-weight:700;">PROTEIN (40%)</span>
+                <div style="font-size:16px; font-weight:800; margin-top:4px;" id="dispMacroProtein">195g</div>
+              </div>
+              <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                <span style="color:#d97706; font-weight:700;">FATS (30%)</span>
+                <div style="font-size:16px; font-weight:800; margin-top:4px;" id="dispMacroFat">65g</div>
+              </div>
+              <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                <span style="color:#10b981; font-weight:700;">CARBS (30%)</span>
+                <div style="font-size:16px; font-weight:800; margin-top:4px;" id="dispMacroCarb">146g</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/tdee-calculator.js" defer></script>
+</body>
+</html>

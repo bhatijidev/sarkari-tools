@@ -65,12 +65,13 @@
   }
 
   function getTools() {
-    return window.SARKARI_TOOLS || [];
+    return window.ALLTOOLSINONE_TOOLS || window.ALL_TOOLS || window.SARKARI_TOOLS || [];
   }
 
   function getCategories() {
-    return window.SARKARI_CATEGORIES || [
+    return window.ALLTOOLSINONE_CATEGORIES || window.ALL_CATEGORIES || window.SARKARI_CATEGORIES || [
       { id: 'all', label: 'All Tools' },
+      { id: 'global', label: 'US & Global Tools' },
       { id: 'image', label: 'Image Tools' },
       { id: 'pdf', label: 'PDF Tools' },
       { id: 'calculator', label: 'Calculators' },
@@ -93,7 +94,7 @@
     // Also support hash like #image or #seo
     if (window.location.hash) {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      const validCats = ['image', 'pdf', 'calculator', 'exam', 'document', 'utility', 'video', 'seo'];
+      const validCats = ['global', 'image', 'pdf', 'calculator', 'exam', 'document', 'utility', 'video', 'seo'];
       if (validCats.includes(hash)) {
         state.category = hash;
       }

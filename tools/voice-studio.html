@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Studio: Speech Noise Reduction &amp; Vocal Equalizer | AllToolsInOne</title>
+  <meta name="description" content="Client-side speech enhancement and noise reduction for recordings up to 60 minutes. Clean fan drone, room resonance, and mains hum. Shape vocal presence and low-shelf warmth in mono or stereo.">
+  <meta name="keywords" content="voice studio, audio noise reduction online, clean audio from video, remove background noise from video, 1 hour video noise reduction, enhance voice recording, vocal clarity booster, bass booster audio, mono to stereo voice, video audio cleaner free">
+  
+  <!-- Favicon & Touch Icons -->
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/voice-studio.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Voice Studio: Speech Noise Reduction &amp; Vocal Equalizer | AllToolsInOne">
+  <meta property="og:description" content="Speech enhancement and noise reduction for up to 60-minute video and audio recordings. Fine-tune vocal presence, warmth, and export in mono, stereo, or video.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/voice-studio.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Voice Studio: Speech Noise Reduction &amp; Vocal Equalizer">
+  <meta name="twitter:description" content="Speech enhancement and noise reduction for up to 60-minute recordings.">
+  <meta name="twitter:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Google AdSense Verification & Script -->
+  <meta name="google-adsense-account" content="ca-pub-9560707690666988">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9560707690666988" crossorigin="anonymous"></script>
+
+  <!-- Preconnects & DNS Prefetch -->
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"></noscript>
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       VOICE STUDIO — Precision Mastering Console Styles
+       Follows unslop guidelines: 4px spacing rhythm, quiet chrome,
+       one warm amber accent (#f59e0b), and tabular telemetry.
+       ═══════════════════════════════════════════════════════ */
+    :root {
+      --vs-bg-deep: #0b0f17;
+      --vs-bg-panel: #111622;
+      --vs-bg-raised: #182030;
+      --vs-border: rgba(255, 255, 255, 0.08);
+      --vs-accent: #f59e0b;
+      --vs-accent-dark: #d97706;
+      --vs-text-primary: #f8fafc;
+      --vs-text-secondary: #94a3b8;
+      --vs-text-muted: #64748b;
+    }
+
+    .tool-hero .tool-icon.studio-mark {
+      background: #111622;
+      border: 1px solid var(--vs-border);
+      color: var(--vs-accent);
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+    }
+    .tool-hero h1 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .tool-hero .tool-description {
+      font-size: 15px;
+      color: var(--gray-600);
+      max-width: 620px;
+      line-height: 1.5;
+    }
+
+    /* Upload Drop Zone */
+    .vs-upload-zone {
+      border: 1px dashed var(--gray-300);
+      border-radius: 14px;
+      padding: 40px 24px;
+      text-align: center;
+      background: #ffffff;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+      margin-bottom: 24px;
+    }
+    .vs-upload-zone:hover, .vs-upload-zone.dragover {
+      border-color: var(--vs-accent);
+      background: #fffdfa;
+    }
+    .vs-upload-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 12px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+    }
+    .vs-upload-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .vs-upload-subtitle {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 20px;
+    }
+    .vs-upload-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Telemetry Metadata Strip */
+    .vs-telemetry-bar {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+    }
+    .vs-telemetry-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vs-telemetry-label {
+      color: var(--gray-400);
+    }
+    .vs-telemetry-val {
+      color: var(--navy);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+    .vs-live-indicator {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    /* Console Grid */
+    .vs-console-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 960px) {
+      .vs-console-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .vs-panel {
+      background: #ffffff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .vs-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .vs-panel-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Calibrated Visualizer Canvas */
+    .vs-visualizer-wrap {
+      position: relative;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+    }
+    .vs-visualizer-canvas {
+      width: 100%;
+      height: 148px;
+      background: var(--vs-bg-deep);
+      display: block;
+    }
+    .vs-video-preview {
+      width: 100%;
+      max-height: 260px;
+      border-radius: 8px;
+      background: #000000;
+      object-fit: contain;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    /* Physical Rack A/B Switcher */
+    .vs-ab-switcher {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f1f5f9;
+      padding: 3px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      gap: 3px;
+    }
+    .vs-ab-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      background: transparent;
+      color: var(--gray-600);
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .vs-ab-btn.active {
+      background: #ffffff;
+      color: var(--navy);
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .vs-listening-badge {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid transparent;
+    }
+    .vs-badge-processed {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fde68a;
+    }
+    .vs-badge-bypass {
+      background: #f1f5f9;
+      color: #475569;
+      border-color: #e2e8f0;
+    }
+    .vs-dot-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .vs-dot-active {
+      background: #f59e0b;
+    }
+    .vs-dot-bypass {
+      background: #94a3b8;
+    }
+
+    /* Presets Selector */
+    .vs-presets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .vs-preset-btn {
+      background: #f8fafc;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      padding: 8px 6px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--navy);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .vs-preset-btn:hover {
+      border-color: var(--vs-accent);
+      background: #fffdfa;
+    }
+    .vs-preset-btn.active {
+      border-color: var(--vs-accent);
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+    }
+
+    /* Sliders and Faders */
+    .vs-fader-group {
+      margin-bottom: 12px;
+    }
+    .vs-fader-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .vs-fader-name {
+      font-weight: 500;
+    }
+    .vs-fader-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 6px;
+      background: #f1f5f9;
+      color: var(--gray-700);
+      border-radius: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .vs-slider-input {
+      width: 100%;
+      height: 4px;
+      accent-color: var(--vs-accent);
+      cursor: pointer;
+    }
+
+    /* Hardware Toggle Switches */
+    .vs-toggles-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--gray-200);
+    }
+    @media (max-width: 600px) {
+      .vs-toggles-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .vs-toggle-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--navy);
+      cursor: pointer;
+    }
+    .vs-toggle-item input[type="checkbox"] {
+      accent-color: var(--vs-accent);
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+
+    /* Channel Selector (Mono / Stereo) */
+    .vs-channel-segmented {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      background: #f8fafc;
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid var(--gray-200);
+      margin: 16px 0;
+    }
+    .vs-channel-opt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--navy);
+      padding: 7px 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.15s ease;
+    }
+    .vs-channel-opt input[type="radio"] {
+      accent-color: var(--vs-accent);
+    }
+
+    /* Action Buttons */
+    .vs-btn-primary {
+      background: var(--navy);
+      color: #ffffff;
+      border: 1px solid var(--navy);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.15s ease;
+    }
+    .vs-btn-primary:hover {
+      opacity: 0.92;
+    }
+    .vs-btn-secondary {
+      background: #ffffff;
+      color: var(--navy);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .vs-btn-secondary:hover {
+      border-color: var(--gray-400);
+    }
+
+    /* Progress Section */
+    .vs-progress-wrap {
+      display: none;
+      background: #ffffff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+    .vs-progress-track {
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 8px 0 6px;
+    }
+    .vs-progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--vs-accent);
+      transition: width 0.15s ease;
+    }
+
+    /* Result Card */
+    .vs-result-panel {
+      display: none;
+      background: #ffffff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 22px;
+      margin-top: 24px;
+    }
+    .vs-export-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    @media (max-width: 800px) {
+      .vs-export-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .vs-export-btn {
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .vs-export-video {
+      background: var(--navy);
+      color: #ffffff;
+      border: 1px solid var(--navy);
+    }
+    .vs-export-mp3 {
+      background: #ffffff;
+      color: var(--navy);
+      border: 1px solid var(--gray-200);
+    }
+    .vs-export-wav {
+      background: #ffffff;
+      color: var(--navy);
+      border: 1px solid var(--gray-200);
+    }
+
+    /* Recording Modal */
+    .vs-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .vs-modal-card {
+      background: #ffffff;
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .vs-mic-meter {
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+    .vs-mic-meter-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--vs-accent);
+      transition: width 0.08s ease;
+    }
+
+    /* Dark Mode Overrides */
+    body.dark .tool-hero .tool-icon.studio-mark { background: #111622; border-color: rgba(255,255,255,0.08); }
+    body.dark .tool-hero h1 { color: #f8fafc; }
+    body.dark .tool-hero .tool-description { color: #94a3b8; }
+    body.dark .vs-upload-zone { background: #111622; border-color: rgba(255,255,255,0.1); }
+    body.dark .vs-upload-zone:hover { background: #161e2e; border-color: var(--vs-accent); }
+    body.dark .vs-upload-icon { background: #182030; border-color: rgba(255,255,255,0.08); color: #f8fafc; }
+    body.dark .vs-upload-title { color: #f8fafc; }
+    body.dark .vs-telemetry-bar { background: #111622; border-color: rgba(255,255,255,0.08); color: #94a3b8; }
+    body.dark .vs-telemetry-val { color: #f8fafc; }
+    body.dark .vs-panel { background: #111622; border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-panel-header { border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-panel-title { color: #f8fafc; }
+    body.dark .vs-ab-switcher { background: #182030; }
+    body.dark .vs-ab-btn { color: #94a3b8; }
+    body.dark .vs-ab-btn.active { background: #111622; color: #f8fafc; }
+    body.dark .vs-badge-bypass { background: #182030; color: #94a3b8; border-color: rgba(255,255,255,0.06); }
+    body.dark .vs-presets-grid .vs-preset-btn { background: #182030; border-color: rgba(255,255,255,0.08); color: #e2e8f0; }
+    body.dark .vs-preset-btn.active { background: #2a1f0d; border-color: var(--vs-accent); color: #fcd34d; }
+    body.dark .vs-fader-head { color: #f8fafc; }
+    body.dark .vs-fader-badge { background: #182030; color: #e2e8f0; }
+    body.dark .vs-toggles-row { border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-toggle-item { color: #f8fafc; }
+    body.dark .vs-channel-segmented { background: #111622; border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-channel-opt { color: #f8fafc; }
+    body.dark .vs-btn-primary { background: #f8fafc; color: #0b0f17; border-color: #f8fafc; }
+    body.dark .vs-btn-secondary { background: #182030; color: #f8fafc; border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-progress-wrap { background: #111622; border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-progress-track { background: #1e293b; }
+    body.dark .vs-result-panel { background: #111622; border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-export-video { background: #f8fafc; color: #0b0f17; }
+    body.dark .vs-export-mp3, body.dark .vs-export-wav { background: #182030; color: #f8fafc; border-color: rgba(255,255,255,0.08); }
+    body.dark .vs-modal-card { background: #111622; border-color: rgba(255,255,255,0.08); color: #f8fafc; }
+    body.dark #vsVideoExportSection > div:first-child { background: #182030 !important; border-color: rgba(255,255,255,0.08) !important; }
+    body.dark #vsVideoExportSection > div:last-child { background: #111622 !important; border-color: rgba(255,255,255,0.08) !important; }
+    body.dark #vsResultHeading { color: #f8fafc !important; }
+    body.dark #vsResultPeakBadge { background: #182030 !important; border-color: rgba(255,255,255,0.08) !important; color: #f8fafc !important; }
+  </style>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Voice Studio: Speech Noise Reduction & Vocal Equalizer",
+    "url": "https://alltoolsinone.com/tools/voice-studio.html",
+    "description": "Client-side speech enhancement and noise reduction for up to 60-minute video and audio recordings. Fine-tune vocal presence, warmth, and export in mono, stereo, or video.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2ZZ2MP6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container" style="max-width: 1160px;">
+
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Voice Studio</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon studio-mark">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+          </svg>
+        </div>
+        <h1>Voice Studio</h1>
+        <p class="tool-description">Speech enhancement and stationary noise reduction for recordings up to 60 minutes. Fine-tune vocal presence, low-shelf warmth, and export in mono, stereo, or lossless video.</p>
+      </div>
+
+      <!-- Upload Zone -->
+      <div class="vs-upload-zone" id="vsUploadZone" role="button" tabindex="0" aria-label="Upload video or audio file">
+        <div class="vs-upload-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div class="vs-upload-title">Drop audio or video file here, or browse</div>
+        <div class="vs-upload-subtitle">Supports MP4, MOV, WebM, MKV, MP3, WAV, M4A, AAC up to 60 minutes</div>
+        
+        <div class="vs-upload-actions">
+          <button type="button" class="vs-btn-primary" id="btnSelectFile" style="pointer-events: auto;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>Select file</span>
+          </button>
+          <button type="button" class="vs-btn-secondary" id="btnRecordMic" style="pointer-events: auto;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+            </svg>
+            <span>Record microphone</span>
+          </button>
+          <button type="button" class="vs-btn-secondary" id="btnTryDemo" style="pointer-events: auto;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span>Sample speech</span>
+          </button>
+        </div>
+        <input type="file" id="vsFileInput" accept="video/*,audio/*,.mp4,.mkv,.webm,.mov,.avi,.flv,.wmv,.3gp,.ts,.m4v,.mp3,.wav,.m4a,.aac,.flac,.ogg,.opus" hidden>
+      </div>
+
+      <!-- Progress Section -->
+      <div class="vs-progress-wrap" id="vsProgressWrap">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+          <span id="vsProgressStatus" style="font-weight: 500; color: var(--navy);">Processing speech stream…</span>
+          <span id="vsProgressPct" style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--vs-accent);">0%</span>
+        </div>
+        <div class="vs-progress-track">
+          <div class="vs-progress-bar-fill" id="vsProgressFill"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray-500);">
+          <span id="vsProgressDetail">Analyzing spectrum…</span>
+          <span id="vsProgressEta">ETA: Calculating</span>
+        </div>
+      </div>
+
+      <!-- Studio Console Workspace -->
+      <div id="vsWorkspace" style="display: none;">
+        <!-- Telemetry Strip -->
+        <div class="vs-telemetry-bar">
+          <div class="vs-telemetry-item">
+            <span class="vs-telemetry-label">FILE:</span>
+            <span class="vs-telemetry-val" id="vsMetaName">-</span>
+          </div>
+          <div class="vs-telemetry-item">
+            <span class="vs-telemetry-label">DURATION:</span>
+            <span class="vs-telemetry-val" id="vsMetaDuration">00:00</span>
+          </div>
+          <div class="vs-telemetry-item">
+            <span class="vs-telemetry-label">SIZE:</span>
+            <span class="vs-telemetry-val" id="vsMetaSize">0 MB</span>
+          </div>
+          <div class="vs-telemetry-item">
+            <span class="vs-telemetry-label">CONTAINER:</span>
+            <span class="vs-telemetry-val" id="vsMetaType">VIDEO</span>
+          </div>
+          <div class="vs-telemetry-item" style="margin-left: auto;">
+            <span class="vs-live-indicator"></span>
+            <span style="color: #047857; font-weight: 500;">Client DSP Active</span>
+          </div>
+        </div>
+
+        <div class="vs-console-grid">
+          <!-- Left Column: Mastering Spectrum & A/B Audition -->
+          <div class="vs-panel">
+            <div class="vs-panel-header">
+              <span class="vs-panel-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/>
+                </svg>
+                <span>Audition &amp; Spectrum</span>
+              </span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray-400);">FFT 2048</span>
+            </div>
+
+            <!-- Video Player (When video loaded) -->
+            <div id="vsVideoPreviewContainer" style="display: none;">
+              <video id="vsVideoPlayer" class="vs-video-preview" controls playsinline></video>
+            </div>
+
+            <!-- Audio Spectrum Analyzer -->
+            <div class="vs-visualizer-wrap">
+              <canvas id="vsVisualizerCanvas" class="vs-visualizer-canvas" width="600" height="148"></canvas>
+            </div>
+
+            <!-- A/B Hardware Rack Toggle -->
+            <div class="vs-ab-switcher">
+              <button type="button" class="vs-ab-btn active" id="vsBtnToggleCleaned">
+                <span>Processed</span>
+              </button>
+              <button type="button" class="vs-ab-btn" id="vsBtnToggleOriginal">
+                <span>Bypass (Input)</span>
+              </button>
+            </div>
+
+            <div class="vs-listening-badge vs-badge-processed" id="vsActiveListeningBadge">
+              <span class="vs-dot-indicator vs-dot-active"></span>
+              <span>Auditioning: Processed speech</span>
+            </div>
+
+            <!-- Transport Row -->
+            <div style="display: flex; align-items: center; gap: 12px; margin-top: 14px;">
+              <button type="button" class="vs-btn-primary" id="vsBtnPlayPause" style="flex: 1; height: 38px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <span>Audition</span>
+              </button>
+              <span id="vsTimeDisplay" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: var(--navy); min-width: 90px; text-align: right;">00:00 / 00:00</span>
+            </div>
+
+            <!-- Timeline Scrubber -->
+            <div style="margin-top: 10px;">
+              <input type="range" id="vsTimelineSlider" class="vs-slider-input" min="0" max="100" value="0" step="0.1">
+            </div>
+          </div>
+
+          <!-- Right Column: Equalizer & Filter Sliders -->
+          <div class="vs-panel">
+            <div class="vs-panel-header">
+              <span class="vs-panel-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+                  <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+                  <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+                  <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+                </svg>
+                <span>Rack Parameters</span>
+              </span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray-400);">32-bit Float</span>
+            </div>
+
+            <!-- Presets -->
+            <div class="vs-presets-grid">
+              <button type="button" class="vs-preset-btn active" data-preset="podcaster">Podcast</button>
+              <button type="button" class="vs-preset-btn" data-preset="clearSpeech">Speech Clarity</button>
+              <button type="button" class="vs-preset-btn" data-preset="broadcast">Broadcast</button>
+              <button type="button" class="vs-preset-btn" data-preset="fanKiller">Denoise Max</button>
+              <button type="button" class="vs-preset-btn" data-preset="natural">Natural</button>
+            </div>
+
+            <!-- Faders -->
+            <div class="vs-fader-group">
+              <div class="vs-fader-head">
+                <span class="vs-fader-name">Spectral attenuation</span>
+                <span class="vs-fader-badge" id="vsValNoiseReduction">80%</span>
+              </div>
+              <input type="range" id="vsSliderNoiseReduction" class="vs-slider-input" min="0" max="100" value="80" step="1">
+            </div>
+
+            <div class="vs-fader-group">
+              <div class="vs-fader-head">
+                <span class="vs-fader-name">Downward expansion (pause gate)</span>
+                <span class="vs-fader-badge" id="vsValNoiseGate">45%</span>
+              </div>
+              <input type="range" id="vsSliderNoiseGate" class="vs-slider-input" min="0" max="100" value="45" step="1">
+            </div>
+
+            <!-- EQ Sliders -->
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gray-200);">
+              <div class="vs-fader-group">
+                <div class="vs-fader-head">
+                  <span class="vs-fader-name">Low shelf warmth (150 Hz)</span>
+                  <span class="vs-fader-badge" id="vsValBass">+4.0 dB</span>
+                </div>
+                <input type="range" id="vsSliderBass" class="vs-slider-input" min="-12" max="12" value="4" step="0.5">
+              </div>
+
+              <div class="vs-fader-group">
+                <div class="vs-fader-head">
+                  <span class="vs-fader-name">Vocal presence (3.2 kHz)</span>
+                  <span class="vs-fader-badge" id="vsValClarity">+4.0 dB</span>
+                </div>
+                <input type="range" id="vsSliderClarity" class="vs-slider-input" min="-12" max="12" value="4" step="0.5">
+              </div>
+
+              <div class="vs-fader-group">
+                <div class="vs-fader-head">
+                  <span class="vs-fader-name">High shelf air (9.0 kHz)</span>
+                  <span class="vs-fader-badge" id="vsValTreble">+2.0 dB</span>
+                </div>
+                <input type="range" id="vsSliderTreble" class="vs-slider-input" min="-12" max="12" value="2" step="0.5">
+              </div>
+
+              <div class="vs-fader-group">
+                <div class="vs-fader-head">
+                  <span class="vs-fader-name">Master gain</span>
+                  <span class="vs-fader-badge" id="vsValVolume">110%</span>
+                </div>
+                <input type="range" id="vsSliderVolume" class="vs-slider-input" min="50" max="200" value="110" step="5">
+              </div>
+            </div>
+
+            <!-- Filter Toggles -->
+            <div class="vs-toggles-row">
+              <label class="vs-toggle-item">
+                <input type="checkbox" id="vsToggleHum" checked>
+                <span>50/60 Hz notch</span>
+              </label>
+              <label class="vs-toggle-item">
+                <input type="checkbox" id="vsToggleRumble" checked>
+                <span>75 Hz high-pass</span>
+              </label>
+              <label class="vs-toggle-item">
+                <input type="checkbox" id="vsToggleCompressor" checked>
+                <span>Compressor</span>
+              </label>
+            </div>
+
+            <!-- Channel Segmented Selector -->
+            <div class="vs-channel-segmented">
+              <label class="vs-channel-opt">
+                <input type="radio" name="vsChannelChoice" id="vsRadioMono" value="mono" checked>
+                <span>Mono (Centered)</span>
+              </label>
+              <label class="vs-channel-opt">
+                <input type="radio" name="vsChannelChoice" id="vsRadioStereo" value="stereo">
+                <span>Stereo (Dual)</span>
+              </label>
+            </div>
+
+            <!-- Action Button -->
+            <button type="button" class="vs-btn-primary" id="vsBtnReprocess" style="width: 100%; height: 42px;">
+              <span>Apply parameters</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result / Export Panel -->
+        <div class="vs-result-panel" id="vsResultCard">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--gray-200);">
+            <div>
+              <div style="font-size: 15px; font-weight: 600; color: var(--navy);" id="vsResultHeading">Enhancement complete</div>
+              <div style="font-size: 12px; color: var(--gray-500); margin-top: 2px;" id="vsResultSubheading">Stationary noise floor attenuated &bull; Formants equalized</div>
+            </div>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: #f8fafc; color: var(--navy); border: 1px solid var(--gray-200); padding: 4px 8px; border-radius: 6px;">
+              -1.0 dBTP Peak
+            </span>
+          </div>
+
+          <!-- 1. VIDEO EXPORT MODE (Auto-shown when input is Video) -->
+          <div id="vsVideoExportSection" style="display: none; margin-top: 16px;">
+            <div style="background: #f8fafc; border: 1px solid var(--gray-200); border-radius: 10px; padding: 18px; margin-bottom: 14px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--navy);">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                    <line x1="7" y1="2" x2="7" y2="22"/>
+                    <line x1="17" y1="2" x2="17" y2="22"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                  </svg>
+                  <span>Video with Replaced Studio Audio</span>
+                </div>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 4px; font-weight: 600;">
+                  100% Lossless Video
+                </span>
+              </div>
+              <p style="font-size: 12px; color: var(--gray-500); line-height: 1.5; margin: 0 0 14px 0;">
+                The video bitstream is stream-copied directly without re-encoding, preserving exact frame resolution and FPS. The edited and noise-reduced studio audio track is multiplexed directly into the container.
+              </p>
+              
+              <button type="button" class="vs-export-btn vs-export-video" id="vsBtnDownloadVideo" style="width: 100%; height: 46px; font-size: 14px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Download Enhanced Video (.mp4)</span>
+              </button>
+            </div>
+
+            <!-- Optional Isolated Audio Track Extraction for Video -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #ffffff; border: 1px solid var(--gray-200); border-radius: 8px;">
+              <span style="font-size: 12px; color: var(--gray-600);">Also need the isolated audio track?</span>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="vs-btn-secondary" id="vsBtnExtractMp3" style="font-size: 11.5px; padding: 5px 12px;">
+                  <span>MP3 (320 kbps)</span>
+                </button>
+                <button type="button" class="vs-btn-secondary" id="vsBtnExtractWav" style="font-size: 11.5px; padding: 5px 12px;">
+                  <span>WAV (24-bit)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. AUDIO EXPORT MODE (Auto-shown when input is Audio) -->
+          <div id="vsAudioExportSection" style="display: none; margin-top: 16px;">
+            <div class="vs-export-grid" style="grid-template-columns: 1fr 1fr; margin-top: 0;">
+              <button type="button" class="vs-export-btn vs-export-video" id="vsBtnDownloadMp3" style="height: 46px; font-size: 14px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Download Studio MP3 (320 kbps)</span>
+              </button>
+              <button type="button" class="vs-export-btn vs-export-wav" id="vsBtnDownloadWav" style="height: 46px; font-size: 14px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Download Lossless WAV (24-bit)</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px; text-align: center;">
+            <button type="button" class="vs-btn-secondary" id="vsBtnResetStudio" style="font-size: 12px; padding: 6px 14px;">
+              <span>Clear session and load another file</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Microphone Recording Modal -->
+      <div class="vs-modal-backdrop" id="vsMicModal">
+        <div class="vs-modal-card">
+          <div style="font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 6px;">Microphone input</div>
+          <p style="font-size: 12.5px; color: var(--gray-500); margin-bottom: 14px;">Speak clearly. Processing will begin immediately after stopping.</p>
+          
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 600; color: var(--navy);" id="vsMicTimer">00:00</div>
+          
+          <div class="vs-mic-meter">
+            <div class="vs-mic-meter-fill" id="vsMicMeterFill"></div>
+          </div>
+
+          <div style="display: flex; gap: 8px; justify-content: center; margin-top: 16px;">
+            <button type="button" class="vs-btn-primary" id="vsMicRecordBtn">
+              <span>Start recording</span>
+            </button>
+            <button type="button" class="vs-btn-primary" id="vsMicStopBtn" style="display: none; background: #dc2626; border-color: #dc2626;">
+              <span>Stop &amp; enhance</span>
+            </button>
+            <button type="button" class="vs-btn-secondary" id="vsMicCloseBtn">
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical & Architectural Documentation -->
+      <section class="tool-content" style="margin-top: 56px;">
+        <h2>Processing pipeline</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0 32px 0;">
+          <div style="padding: 20px; background: #ffffff; border-radius: 10px; border: 1px solid var(--gray-200);">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--vs-accent); font-weight: 600; margin-bottom: 6px;">01</div>
+            <h3 style="font-size: 15px; margin: 0 0 6px 0; color: var(--navy);">Frequency decomposition</h3>
+            <p style="font-size: 13px; color: var(--gray-600); margin: 0; line-height: 1.5;">Audio tracks are framed into 2048-point windows with 75% overlap. The lowest-energy bins are sampled to construct a baseline noise profile.</p>
+          </div>
+          <div style="padding: 20px; background: #ffffff; border-radius: 10px; border: 1px solid var(--gray-200);">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--vs-accent); font-weight: 600; margin-bottom: 6px;">02</div>
+            <h3 style="font-size: 15px; margin: 0 0 6px 0; color: var(--navy);">Spectral gating &amp; EQ</h3>
+            <p style="font-size: 13px; color: var(--gray-600); margin: 0; line-height: 1.5;">Stationary hum and hiss are subtracted with smoothed gain curves. A 150 Hz low shelf and 3.2 kHz peaking filter shape speech intelligibility.</p>
+          </div>
+          <div style="padding: 20px; background: #ffffff; border-radius: 10px; border: 1px solid var(--gray-200);">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--vs-accent); font-weight: 600; margin-bottom: 6px;">03</div>
+            <h3 style="font-size: 15px; margin: 0 0 6px 0; color: var(--navy);">Lossless stream remux</h3>
+            <p style="font-size: 13px; color: var(--gray-600); margin: 0; line-height: 1.5;">When video files are processed, the video stream is copied bit-for-bit without recompression, keeping original visual resolution and frame rates.</p>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <h2>Frequently asked questions</h2>
+        <div class="faq-accordion" style="margin-top: 16px;">
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Can Voice Studio process 60-minute recordings without crashing?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Yes. The DSP engine processes audio in asynchronous 100,000-sample batches with periodic event-loop yielding. Memory allocation is reclaimed sequentially, preventing browser thread lockups on hour-long lectures and podcast recordings.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Does video export re-encode or compress visual frames?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                No. Video container export operates via stream copying (-c:v copy). The video bitstream remains bit-for-bit identical to the source container, swapping only the audio track.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>When should Mono be selected over Stereo?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Mono is recommended for podcasts, interviews, and dialogue because speech centered equally across both channels prevents phase cancellation issues. Stereo should be retained when environmental spatial panning is required.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Are media files uploaded to an external server?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                No. All audio analysis, filtering, and video multiplexing run in-memory inside the client browser session. Data does not leave the local device.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Tools -->
+      <section id="dynamicRelatedTools" class="related-tools-section" style="margin-top: 48px; margin-bottom: 32px; padding-top: 32px; border-top: 1px solid var(--gray-200);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h3 style="font-size: 17px; font-weight: 600; color: var(--navy); margin: 0;">Related media utilities</h3>
+            <p style="font-size: 13px; color: var(--gray-500); margin: 4px 0 0;">Additional tools for audio and video processing</p>
+          </div>
+          <a href="/tools.html" style="font-size: 13px; font-weight: 500; color: var(--navy); text-decoration: none;">View all tools &rarr;</a>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+          <a href="/tools/video-to-audio-converter.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid var(--gray-200); border-radius: 10px; text-decoration: none; color: inherit;">
+            <div style="font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px;">Any Video to Audio Converter</div>
+            <div style="font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 12px;">Extract studio MP3, WAV, AAC &amp; M4A from any video format with custom bitrates.</div>
+            <div style="margin-top: auto; font-size: 11px; font-weight: 500; color: var(--navy);">Open tool &rarr;</div>
+          </a>
+
+          <a href="/tools/audio-remixer.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid var(--gray-200); border-radius: 10px; text-decoration: none; color: inherit;">
+            <div style="font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px;">Shorts &amp; Reels Audio Remixer</div>
+            <div style="font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 12px;">Modify music with pitch shifting, tempo modulation, and ambient reverb.</div>
+            <div style="margin-top: auto; font-size: 11px; font-weight: 500; color: var(--navy);">Open tool &rarr;</div>
+          </a>
+
+          <a href="/tools/video-subtitle-maker.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid var(--gray-200); border-radius: 10px; text-decoration: none; color: inherit;">
+            <div style="font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px;">AI Video Subtitle Maker</div>
+            <div style="font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 12px;">Generate timed subtitles from video with on-device speech models.</div>
+            <div style="margin-top: auto; font-size: 11px; font-weight: 500; color: var(--navy);">Open tool &rarr;</div>
+          </a>
+
+          <a href="/tools/webcam-mic-tester.html" class="related-tool-card" style="display: flex; flex-direction: column; padding: 16px; background: #ffffff; border: 1px solid var(--gray-200); border-radius: 10px; text-decoration: none; color: inherit;">
+            <div style="font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px;">Webcam &amp; Mic Tester</div>
+            <div style="font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 12px;">Test microphone input levels, stereo balance, and webcam video quality.</div>
+            <div style="margin-top: auto; font-size: 11px; font-weight: 500; color: var(--navy);">Open tool &rarr;</div>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Local lamejs with CDN fallback for high-bitrate MP3 encoding -->
+  <script src="../js/libs/lame.min.js"></script>
+  <script>
+    if (typeof lamejs === 'undefined') {
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js';
+      document.head.appendChild(s);
+    }
+  </script>
+
+  <!-- FFmpeg.wasm (Single-threaded 0.11.x) for lossless stream copy -->
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+
+  <!-- Anti-Theft, Anti-Right Click & Keyboard Inspect Blocker -->
+  <script>
+    (function() {
+      // 1. Disable Right Click Context Menu
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+      }, { passive: false });
+
+      // 2. Block Inspect Keyboard Shortcuts (F12, Ctrl+U, Ctrl+Shift+I/J/C)
+      document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 123) { e.preventDefault(); e.stopPropagation(); return false; } // F12
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { // Ctrl+Shift+I/J/C
+          e.preventDefault(); e.stopPropagation(); return false;
+        }
+        if (e.ctrlKey && e.keyCode === 85) { // Ctrl+U (View Source)
+          e.preventDefault(); e.stopPropagation(); return false;
+        }
+        if (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 85)) { // Mac shortcuts
+          e.preventDefault(); e.stopPropagation(); return false;
+        }
+      }, { passive: false });
+    })();
+  </script>
+
+  <!-- Main App Scripts -->
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/voice-studio.js?v=2.0" defer></script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 # AllToolsInOne 🇮🇳 🌍
 
 [![Website](https://img.shields.io/badge/Website-alltoolsinone.com-4f46e5?style=flat&logo=google-chrome)](https://alltoolsinone.com/)
-[![Tools Count](https://img.shields.io/badge/Tools-78%2B%20Utilities-16a34a?style=flat)](https://alltoolsinone.com/tools.html)
+[![Tools Count](https://img.shields.io/badge/Tools-96%2B%20Utilities-16a34a?style=flat)](https://alltoolsinone.com/tools.html)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-blue?style=flat)](https://alltoolsinone.com/)
 [![License](https://img.shields.io/badge/License-MIT-orange?style=flat)](LICENSE)
 
-> **A high-speed, mobile-first, privacy-first web utility suite featuring 78+ free online tools** designed for Indian government exam applicants (SSC, UPSC, Railway, State PSC, Banking), students, freelancers, cyber cafes, digital creators, and global developers.
+> **A high-speed, mobile-first, privacy-first web utility suite featuring 96+ free online tools** designed for Indian government exam applicants (SSC, UPSC, Railway, State PSC, Banking), students, freelancers, cyber cafes, digital creators, and global developers.
 
 ---
 
@@ -14,7 +14,7 @@ Unlike standard utility websites that upload your private documents, sensitive p
 
 ---
 
-## ⚡ Complete Catalog of 73+ Online Tools
+## ⚡ Complete Catalog of 96+ Online Tools
 
 ### Sarkari & Student Tools (10 Tools)
 

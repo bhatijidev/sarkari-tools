@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wheel of Names - Random Picker &amp; Decision Wheel | AllToolsInOne</title>
+  <meta name="description" content="Free online Wheel of Names and random picker. Spin the customizable wheel for classroom raffles, giveaway winners, team selections, and games with confetti celebration.">
+  <meta name="keywords" content="wheel of names, random picker, spin the wheel, random name picker, raffle wheel, giveaway picker, classroom spinner">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/wheel-of-names.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Wheel of Names - Random Picker &amp; Decision Wheel | AllToolsInOne">
+  <meta property="og:description" content="Customizable spinning wheel with realistic tick sounds, smooth physics, and winner celebration confetti.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/wheel-of-names.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/wheel-of-names.html#webapp",
+        "name": "Wheel of Names & Random Picker",
+        "url": "https://alltoolsinone.com/tools/wheel-of-names.html",
+        "description": "Spin the customizable wheel for classroom raffles, giveaway winners, team selections, and games.",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/wheel-of-names.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Wheel of Names", "item": "https://alltoolsinone.com/tools/wheel-of-names.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .wheel-layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    @media (max-width: 900px) { .wheel-layout { grid-template-columns: 1fr; } }
+    .wheel-canvas-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-card, #ffffff); border: 1px solid var(--border-color, #e2e8f0); border-radius: 16px; padding: 24px; min-height: 480px; }
+    .wheel-pointer { position: absolute; right: calc(50% - 240px); top: 50%; transform: translateY(-50%); width: 0; height: 0; border-top: 18px solid transparent; border-bottom: 18px solid transparent; border-right: 32px solid #ef4444; z-index: 10; filter: drop-shadow(-2px 2px 4px rgba(0,0,0,0.3)); }
+    @media (max-width: 600px) { .wheel-pointer { right: calc(50% - 160px); border-right-width: 24px; } }
+    .winner-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); display: none; align-items: center; justify-content: center; z-index: 10000; backdrop-filter: blur(4px); }
+    .winner-card { background: #ffffff; border-radius: 20px; padding: 40px; text-align: center; max-width: 440px; width: 90%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes popIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Wheel of Names</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#fef3c7; color:#d97706;">🎡</div>
+        <h1>Wheel of Names &amp; Random Picker</h1>
+        <p class="tool-description">Enter names, prizes, or decisions and click spin. Features ultra-smooth canvas animation, realistic sound effects, and celebration confetti for classrooms and giveaways.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div class="wheel-layout">
+          <!-- Canvas Column -->
+          <div class="wheel-canvas-container">
+            <div class="wheel-pointer"></div>
+            <canvas id="wheelCanvas" width="460" height="460" style="max-width:100%; height:auto; cursor:pointer;"></canvas>
+            
+            <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+              <button type="button" id="btnSpin" class="btn btn-primary" style="font-size:18px; font-weight:700; padding:12px 36px; border-radius:50px; box-shadow:0 10px 15px -3px rgba(37,99,235,0.3);">🎲 Click to Spin!</button>
+              <button type="button" id="btnFullscreen" class="btn btn-outline" style="border-radius:50px;">⛶ Fullscreen</button>
+            </div>
+          </div>
+
+          <!-- Controls Column -->
+          <div class="settings-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <h3 style="font-size:16px; font-weight:700; margin:0;">📝 Entries (<span id="dispCount">8</span>)</h3>
+              <div style="display:flex; gap:6px;">
+                <button type="button" id="btnShuffle" class="btn btn-sm btn-outline" title="Shuffle order">🔀</button>
+                <button type="button" id="btnSort" class="btn btn-sm btn-outline" title="Alphabetical sort">🔤</button>
+              </div>
+            </div>
+
+            <textarea id="namesInput" class="form-textarea" rows="10" style="font-size:14px; font-family:sans-serif;" placeholder="Enter one name per line...">Emma
+Liam
+Olivia
+Noah
+Sophia
+James
+Ava
+William</textarea>
+
+            <div style="margin-top:16px;">
+              <label class="form-label">Quick Presets</label>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button type="button" class="btn btn-sm btn-outline preset-btn" data-preset="numbers">1 - 10</button>
+                <button type="button" class="btn btn-sm btn-outline preset-btn" data-preset="yesno">Yes / No</button>
+                <button type="button" class="btn btn-sm btn-outline preset-btn" data-preset="dice">Dice 1-6</button>
+                <button type="button" class="btn btn-sm btn-outline preset-btn" data-preset="weekdays">Days</button>
+              </div>
+            </div>
+
+            <div style="margin-top:16px; border-top:1px solid var(--border-color, #e2e8f0); padding-top:14px;">
+              <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                <input type="checkbox" id="chkRemoveWinner" checked>
+                <span>Ask to remove winner after spin</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-top:8px; cursor:pointer;">
+                <input type="checkbox" id="chkSound" checked>
+                <span>Enable ticking sound effects</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Winner Modal -->
+  <div id="winnerModal" class="winner-overlay">
+    <div class="winner-card">
+      <div style="font-size:48px; margin-bottom:10px;">🎉</div>
+      <div style="font-size:14px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:1px;">WE HAVE A WINNER!</div>
+      <div id="winnerName" style="font-size:32px; font-weight:800; color:#1e3a8a; margin:14px 0 24px;">Liam</div>
+      <div style="display:flex; gap:10px; justify-content:center;">
+        <button type="button" id="btnRemoveWinner" class="btn btn-outline" style="border-color:#ef4444; color:#ef4444;">Remove Winner</button>
+        <button type="button" id="btnCloseWinner" class="btn btn-primary">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confettiCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10001; display:none;"></canvas>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/wheel-of-names.js" defer></script>
+</body>
+</html>

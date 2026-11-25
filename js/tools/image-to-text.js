@@ -348,7 +348,7 @@
 
       ctx1.fillStyle = '#64748b';
       ctx1.font = 'italic 16px sans-serif';
-      ctx1.fillText('For official syllabus and exam centers visit: https://sarkaritools.in', 50, 440);
+      ctx1.fillText('For official syllabus and exam centers visit: https://alltoolsinone.com', 50, 440);
 
       c1.toBlob(blob1 => {
         const file1 = new File([blob1], 'Sample_English_Notice.png', { type: 'image/png' });

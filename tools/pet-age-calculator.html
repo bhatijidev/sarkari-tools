@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog &amp; Cat Age Calculator - Convert to Human Years | AllToolsInOne</title>
+  <meta name="description" content="Calculate your dog or cat age in human years using scientific veterinary guidelines (AVMA) based on breed size and weight. Debunks the 7-year myth. Free tool.">
+  <meta name="keywords" content="dog age calculator, cat age calculator, pet age calculator, dog years to human years, cat years in human years, dog life stages">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/pet-age-calculator.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dog &amp; Cat Age Calculator | AllToolsInOne">
+  <meta property="og:description" content="Convert your dog or cat's age into human years based on American Veterinary Medical Association (AVMA) standards.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/pet-age-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/pet-age-calculator.html#webapp",
+        "name": "Dog & Cat Age Calculator",
+        "url": "https://alltoolsinone.com/tools/pet-age-calculator.html",
+        "description": "Convert dog and cat years to human age based on weight and life stages.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/pet-age-calculator.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Pet Age Calculator", "item": "https://alltoolsinone.com/tools/pet-age-calculator.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Pet Age Calculator</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#fef2f2; color:#ef4444;">🐾</div>
+        <h1>Dog &amp; Cat Age Calculator (To Human Years)</h1>
+        <p class="tool-description">The popular rule that "1 dog year equals 7 human years" is a myth! Dogs and cats age much faster in their first two years, and large breeds age faster than small dogs. Discover your pet's true human age.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <!-- Controls -->
+          <div class="settings-panel">
+            <h3 style="font-size:16px; font-weight:700; margin-bottom:14px;">🐕 Pet Information</h3>
+
+            <div class="settings-group">
+              <label class="form-label">Select Pet Type</label>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <button type="button" id="btnPetDog" class="btn btn-primary">🐶 Dog</button>
+                <button type="button" id="btnPetCat" class="btn btn-outline">🐱 Cat</button>
+              </div>
+            </div>
+
+            <div id="dogSizeWrap" class="settings-group">
+              <label class="form-label" for="dogSize">Dog Breed Size / Weight Category</label>
+              <select id="dogSize" class="form-select">
+                <option value="small" selected>Small Breed (Under 20 lbs / 9 kg - e.g. Chihuahua, Pomeranian)</option>
+                <option value="medium">Medium Breed (21 to 50 lbs / 9-23 kg - e.g. Beagle, Bulldog)</option>
+                <option value="large">Large Breed (51 to 100 lbs / 23-45 kg - e.g. Golden Retriever, German Shepherd)</option>
+                <option value="giant">Giant Breed (Over 100 lbs / 45+ kg - e.g. Great Dane, Mastiff)</option>
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="settings-group">
+                <label class="form-label" for="petYears">Pet Age (Years)</label>
+                <input type="number" id="petYears" class="form-input" value="4" min="0" max="30">
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="petMonths">Pet Age (Months)</label>
+                <input type="number" id="petMonths" class="form-input" value="0" min="0" max="11">
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label class="form-label" for="petName">Pet's Name (Optional)</label>
+              <input type="text" id="petName" class="form-input" placeholder="e.g. Buddy, Bella">
+            </div>
+          </div>
+
+          <!-- Output Card -->
+          <div>
+            <div class="result-panel" style="padding:24px; background:var(--bg-card, #ffffff); border:1px solid var(--border-color, #e2e8f0); border-radius:12px; text-align:center;">
+              <div style="font-size:13px; color:#64748b; font-weight:600;" id="dispPetTitle">BUDDY'S EQUIVALENT HUMAN AGE</div>
+              <div id="dispHumanAge" style="font-size:48px; font-weight:800; color:#ef4444; margin:8px 0;">32</div>
+              <div style="font-size:14px; font-weight:700; color:#475569;">Human Years Old</div>
+
+              <div id="dispLifeStageBadge" style="display:inline-block; margin-top:14px; padding:6px 14px; background:#eff6ff; color:#2563eb; border-radius:50px; font-size:13px; font-weight:700;">
+                Life Stage: Adult
+              </div>
+
+              <div style="margin-top:16px; padding:12px; background:#f8fafc; border-radius:8px; text-align:left; font-size:13px;" id="dispStageGuidance">
+                <strong>Health &amp; Care Guidance:</strong> Your pet is in their prime adult years! Maintain an active exercise routine, balanced nutrition, and schedule annual wellness visits with your veterinarian.
+              </div>
+
+              <button type="button" id="btnShareCertificate" class="btn btn-outline" style="width:100%; margin-top:16px;">📋 Copy Pet Age Result</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/pet-age-calculator.js" defer></script>
+</body>
+</html>

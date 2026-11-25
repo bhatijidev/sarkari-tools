@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aspect Ratio Calculator &amp; Dimension Scaler - 16:9, 9:16, 4:3 | AllToolsInOne</title>
+  <meta name="description" content="Calculate and scale aspect ratios for video editing, YouTube (16:9), TikTok &amp; Shorts (9:16), photography, and web design. Includes live preview and CSS code.">
+  <meta name="keywords" content="aspect ratio calculator, 16:9 ratio, 9:16 ratio, dimension scaler, video aspect ratio, resolution calculator, image aspect ratio, css aspect ratio">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/aspect-ratio-calculator.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Aspect Ratio Calculator &amp; Dimension Scaler | AllToolsInOne">
+  <meta property="og:description" content="Calculate locked aspect ratios and resize widths and heights with instant visual box preview and CSS snippet generator.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/aspect-ratio-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/aspect-ratio-calculator.html#webapp",
+        "name": "Aspect Ratio Calculator & Dimension Scaler",
+        "url": "https://alltoolsinone.com/tools/aspect-ratio-calculator.html",
+        "description": "Calculate and resize image and video dimensions maintaining locked aspect ratio.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/aspect-ratio-calculator.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Aspect Ratio Calculator", "item": "https://alltoolsinone.com/tools/aspect-ratio-calculator.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .preset-chips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+    .ratio-chip { padding: 8px 6px; text-align: center; border: 1px solid var(--border-color, #e2e8f0); border-radius: 8px; background: var(--bg-card, #ffffff); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .ratio-chip.active { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .ratio-preview-box { width: 100%; height: 260px; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    .ratio-shape { background: #3b82f6; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #ffffff; font-weight: 800; font-size: 14px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); transition: all 0.2s ease; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Aspect Ratio Calculator</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#eff6ff; color:#2563eb;">📐</div>
+        <h1>Aspect Ratio Calculator &amp; Dimension Scaler</h1>
+        <p class="tool-description">Easily scale and resize pixel dimensions (width &amp; height) while preserving proportions for YouTube videos, TikToks, Instagram reels, displays, and web layouts.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <!-- Controls -->
+          <div class="settings-panel">
+            <h3 style="font-size:16px; font-weight:700; margin-bottom:10px;">Select Standard Preset</h3>
+            <div class="preset-chips-grid">
+              <button type="button" class="ratio-chip active" data-w="16" data-h="9">16:9 (YouTube)</button>
+              <button type="button" class="ratio-chip" data-w="9" data-h="16">9:16 (TikTok/Shorts)</button>
+              <button type="button" class="ratio-chip" data-w="4" data-h="3">4:3 (Classic TV)</button>
+              <button type="button" class="ratio-chip" data-w="1" data-h="1">1:1 (Square/Insta)</button>
+              <button type="button" class="ratio-chip" data-w="4" data-h="5">4:5 (Insta Feed)</button>
+              <button type="button" class="ratio-chip" data-w="21" data-h="9">21:9 (Ultrawide)</button>
+            </div>
+
+            <div style="margin:20px 0 10px; font-weight:700; font-size:14px;">1. Fixed Ratio (W : H)</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+              <div class="settings-group">
+                <label class="form-label" for="ratioW">Ratio Width</label>
+                <input type="number" id="ratioW" class="form-input" value="16" min="1">
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="ratioH">Ratio Height</label>
+                <input type="number" id="ratioH" class="form-input" value="9" min="1">
+              </div>
+            </div>
+
+            <div style="margin:20px 0 10px; font-weight:700; font-size:14px;">2. Pixel Dimensions</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+              <div class="settings-group">
+                <label class="form-label" for="pixelW">Width (px)</label>
+                <input type="number" id="pixelW" class="form-input" value="1920" min="1" step="1">
+              </div>
+              <div class="settings-group">
+                <label class="form-label" for="pixelH">Height (px)</label>
+                <input type="number" id="pixelH" class="form-input" value="1080" min="1" step="1">
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview & CSS -->
+          <div>
+            <div class="result-panel" style="padding:20px; background:var(--bg-card, #ffffff); border:1px solid var(--border-color, #e2e8f0); border-radius:12px;">
+              <div style="font-size:13px; font-weight:600; color:#64748b; margin-bottom:10px;">LIVE SHAPE PREVIEW</div>
+              <div class="ratio-preview-box">
+                <div id="ratioShape" class="ratio-shape" style="width:200px; height:112px;">16 : 9</div>
+              </div>
+
+              <div style="margin-top:20px;">
+                <label class="form-label">CSS Code Snippet</label>
+                <div style="position:relative;">
+                  <pre id="cssSnippet" style="background:#0f172a; color:#38bdf8; padding:12px; border-radius:8px; font-size:12px; margin:0; font-family:monospace;">aspect-ratio: 16 / 9;</pre>
+                  <button type="button" id="btnCopyCss" class="btn btn-sm btn-outline" style="position:absolute; right:8px; top:8px; background:#1e293b; color:#fff; border-color:#334155;">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/aspect-ratio-calculator.js" defer></script>
+</body>
+</html>

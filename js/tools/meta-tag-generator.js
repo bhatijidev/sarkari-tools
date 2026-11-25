@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — SEO Meta Tag & Social Generator
+   ALLTOOLSINONE — SEO Meta Tag & Social Generator
    ═══════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — Keyword Density & Content Optimizer
+   ALLTOOLSINONE — Keyword Density & Content Optimizer
    ═══════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPA Calculator - High School &amp; College 4.0 Scale | AllToolsInOne</title>
+  <meta name="description" content="Calculate weighted and unweighted High School &amp; College GPA on the 4.0 scale. Includes AP, IB, and Honors weights, cumulative target GPA planner, and instant print report.">
+  <meta name="keywords" content="gpa calculator, college gpa calculator, high school gpa, weighted gpa calculator, unweighted gpa, 4.0 scale gpa, calculate gpa">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/gpa-calculator.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="GPA Calculator - 4.0 Scale Weighted &amp; Unweighted | AllToolsInOne">
+  <meta property="og:description" content="Calculate semester and cumulative college/high school GPA with Honors and AP weights.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/gpa-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/gpa-calculator.html#webapp",
+        "name": "High School & College GPA Calculator",
+        "url": "https://alltoolsinone.com/tools/gpa-calculator.html",
+        "description": "Calculate semester and cumulative GPA on 4.0 scale with AP, IB, and Honors weights.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/gpa-calculator.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "GPA Calculator", "item": "https://alltoolsinone.com/tools/gpa-calculator.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .course-row { display: grid; grid-template-columns: 2fr 1.2fr 1fr 1.2fr 36px; gap: 8px; align-items: center; margin-bottom: 8px; }
+    @media (max-width: 600px) { .course-row { grid-template-columns: 1fr 1fr; } }
+    .btn-del-course { background: #fee2e2; color: #dc2626; border: none; border-radius: 6px; width: 34px; height: 34px; cursor: pointer; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">GPA Calculator</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#eff6ff; color:#2563eb;">🎓</div>
+        <h1>High School &amp; College GPA Calculator (4.0 Scale)</h1>
+        <p class="tool-description">Easily compute your semester and cumulative Grade Point Average (GPA). Supports standard unweighted 4.0 scale as well as weighted Honors (+0.5) and AP / IB / College (+1.0) credit scales.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div style="display:grid; grid-template-columns: 1.8fr 1.2fr; gap: 24px;">
+          <!-- Left: Course List -->
+          <div class="settings-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <h3 style="font-size:16px; font-weight:700; margin:0;">📚 Current Semester Courses</h3>
+              <button type="button" id="btnAddCourse" class="btn btn-sm btn-primary">+ Add Course</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 2fr 1.2fr 1fr 1.2fr 36px; gap:8px; font-size:12px; font-weight:600; color:#64748b; margin-bottom:6px;">
+              <span>Course Name</span>
+              <span>Grade</span>
+              <span>Credits</span>
+              <span>Course Weight</span>
+              <span></span>
+            </div>
+
+            <div id="courseList"></div>
+
+            <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border-color, #e2e8f0);">
+              <h4 style="font-size:14px; font-weight:700; margin-bottom:10px;">🎯 Prior Cumulative GPA (Optional)</h4>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <div class="settings-group">
+                  <label class="form-label" for="priorGpa">Current Cumulative GPA</label>
+                  <input type="number" id="priorGpa" class="form-input" placeholder="e.g. 3.45" min="0" max="5" step="0.01">
+                </div>
+                <div class="settings-group">
+                  <label class="form-label" for="priorCredits">Prior Completed Credits</label>
+                  <input type="number" id="priorCredits" class="form-input" placeholder="e.g. 45" min="0" step="1">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Result & Grade Scale -->
+          <div>
+            <div class="result-panel" style="padding:24px; background:var(--bg-card, #ffffff); border:1px solid var(--border-color, #e2e8f0); border-radius:12px; text-align:center;">
+              <div style="font-size:13px; color:#64748b; font-weight:600;">SEMESTER UNWEIGHTED GPA</div>
+              <div id="dispUnweightedGpa" style="font-size:42px; font-weight:800; color:#2563eb; margin:6px 0;">3.80</div>
+
+              <div style="background:#f8fafc; padding:12px; border-radius:8px; margin:16px 0; display:grid; grid-template-columns:1fr 1fr; gap:8px; text-align:left; font-size:13px;">
+                <div>Weighted GPA: <strong id="dispWeightedGpa">3.95</strong></div>
+                <div>Total Credits: <strong id="dispTotalCredits">15</strong></div>
+                <div>Grade Points: <strong id="dispTotalPoints">57.0</strong></div>
+                <div>Honor Roll: <strong id="dispHonorStatus" style="color:#16a34a;">Dean's List</strong></div>
+              </div>
+
+              <div id="cumGpaBox" style="display:none; background:#eff6ff; padding:12px; border-radius:8px; margin-bottom:16px; font-size:13px; color:#1e3a8a; text-align:left;">
+                📈 <strong>New Cumulative GPA:</strong> <span id="dispNewCumGpa" style="font-size:18px; font-weight:800;">3.55</span>
+              </div>
+
+              <button type="button" id="btnPrintGpa" class="btn btn-outline" style="width:100%;">🖨️ Print / Save GPA Report</button>
+            </div>
+
+            <!-- Grade scale reference -->
+            <div style="margin-top:16px; padding:16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:12px;">
+              <strong>Standard US 4.0 Scale:</strong>
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:4px; margin-top:8px;">
+                <span>A+ / A = 4.0</span>
+                <span>A- = 3.7</span>
+                <span>B+ = 3.3</span>
+                <span>B = 3.0</span>
+                <span>B- = 2.7</span>
+                <span>C+ = 2.3</span>
+                <span>C = 2.0</span>
+                <span>D = 1.0</span>
+                <span>F = 0.0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/gpa-calculator.js" defer></script>
+</body>
+</html>

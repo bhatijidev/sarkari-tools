@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock &amp; Fake Data Generator - US, UK &amp; Global Test Data | AllToolsInOne</title>
+  <meta name="description" content="Generate realistic fake test data for software development and QA testing: US &amp; UK addresses, names, emails, phone numbers, dummy cards, and JSON/CSV export.">
+  <meta name="keywords" content="fake data generator, mock data, dummy address generator, test data generator, fake name generator, test credit card numbers, dummy data json">
+  <link rel="canonical" href="https://alltoolsinone.com/tools/fake-data-generator.html">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mock &amp; Fake Data Generator | AllToolsInOne">
+  <meta property="og:description" content="Generate realistic fake names, addresses, emails, phone numbers, and company profiles with JSON and CSV export.">
+  <meta property="og:url" content="https://alltoolsinone.com/tools/fake-data-generator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AllToolsInOne">
+  <meta property="og:image" content="https://alltoolsinone.com/images/og-image.png">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://alltoolsinone.com/tools/fake-data-generator.html#webapp",
+        "name": "Mock & Fake Data Generator",
+        "url": "https://alltoolsinone.com/tools/fake-data-generator.html",
+        "description": "Generate mock test records for software QA and database seeding.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://alltoolsinone.com/tools/fake-data-generator.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alltoolsinone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://alltoolsinone.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Fake Data Generator", "item": "https://alltoolsinone.com/tools/fake-data-generator.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="tool-page">
+    <div class="tool-container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/tools.html">Tools</a>
+        <span class="separator">/</span>
+        <span class="current">Fake Data Generator</span>
+      </div>
+
+      <div class="tool-hero">
+        <div class="tool-icon" style="background:#f1f5f9; color:#475569;">🎲</div>
+        <h1>Mock &amp; Fake Data Generator (US/UK/Global)</h1>
+        <p class="tool-description">Generate realistic test data for application testing, database seeding, and QA mockups. Generates valid-format addresses, phone numbers, dummy cards, and exportable JSON/CSV files.</p>
+      </div>
+
+      <div class="tool-workspace">
+        <div style="display:grid; grid-template-columns: 280px 1fr; gap: 24px;">
+          <!-- Left: Settings -->
+          <div class="settings-panel">
+            <h3 style="font-size:16px; font-weight:700; margin-bottom:14px;">⚙️ Generation Options</h3>
+
+            <div class="settings-group">
+              <label class="form-label" for="localeSelect">Target Country Locale</label>
+              <select id="localeSelect" class="form-select">
+                <option value="us" selected>🇺🇸 United States</option>
+                <option value="uk">🇬🇧 United Kingdom</option>
+                <option value="ca">🇨🇦 Canada</option>
+                <option value="au">🇦🇺 Australia</option>
+              </select>
+            </div>
+
+            <div class="settings-group">
+              <label class="form-label" for="recordCount">Number of Records</label>
+              <select id="recordCount" class="form-select">
+                <option value="5">5 Records</option>
+                <option value="10" selected>10 Records</option>
+                <option value="25">25 Records</option>
+                <option value="50">50 Records</option>
+              </select>
+            </div>
+
+            <div class="settings-group">
+              <label class="form-label">Include Fields</label>
+              <div style="display:flex; flex-direction:column; gap:6px; font-size:13px;">
+                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <input type="checkbox" id="chkAddress" checked> Street Address &amp; ZIP
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <input type="checkbox" id="chkPhone" checked> Phone Number
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <input type="checkbox" id="chkCompany" checked> Company &amp; Job Title
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <input type="checkbox" id="chkCard" checked> Dummy Card (Test Only)
+                </label>
+              </div>
+            </div>
+
+            <button type="button" id="btnGenerate" class="btn btn-primary" style="width:100%; margin-top:14px;">⚡ Generate Data</button>
+          </div>
+
+          <!-- Right: Output View -->
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="display:flex; gap:6px;">
+                <button type="button" id="tabTable" class="btn btn-sm btn-primary">Table View</button>
+                <button type="button" id="tabJson" class="btn btn-sm btn-outline">JSON</button>
+                <button type="button" id="tabCsv" class="btn btn-sm btn-outline">CSV</button>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" id="btnCopyData" class="btn btn-sm btn-outline">📋 Copy</button>
+                <button type="button" id="btnDownloadData" class="btn btn-sm btn-outline">💾 Download</button>
+              </div>
+            </div>
+
+            <div id="tableViewWrap" style="max-height:450px; overflow:auto; border:1px solid var(--border-color, #e2e8f0); border-radius:8px;">
+              <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                <thead style="background:#f8fafc; position:sticky; top:0;">
+                  <tr id="tableHeadRow"></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+
+            <textarea id="codeViewArea" class="form-textarea" rows="18" style="display:none; font-family:monospace; font-size:12px;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/app.js" defer></script>
+  <script src="../js/tools/fake-data-generator.js" defer></script>
+</body>
+</html>

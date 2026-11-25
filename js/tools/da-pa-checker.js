@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   SARKARI RESULT TOOLS — Domain Authority (DA) & PA Checker
+   ALLTOOLSINONE — Domain Authority (DA) & PA Checker
    ═══════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
