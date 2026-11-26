@@ -252,13 +252,23 @@
         var isHeic = file.name.match(/\.(heic|heif|livp)$/i) || file.type.includes('heic') || file.type.includes('heif');
 
         if (isHeic && typeof heic2any !== 'undefined') {
-          // Use libheif WASM to decode HEIC directly
-          var converted = await heic2any({
-            blob: file,
-            toType: state.photoFormat,
-            quality: state.photoQuality
-          });
-          resultBlob = Array.isArray(converted) ? converted[0] : converted;
+          try {
+            // Use libheif WASM to decode HEIC directly
+            var converted = await heic2any({
+              blob: file,
+              toType: state.photoFormat,
+              quality: state.photoQuality
+            });
+            resultBlob = Array.isArray(converted) ? converted[0] : converted;
+          } catch (heicErr) {
+            // If file has .heic extension but is already browser-readable (JPEG/PNG/WebP), decode natively
+            var msg = (heicErr && heicErr.message) ? String(heicErr.message) : '';
+            if (heicErr && (heicErr.code === 1 || msg.indexOf('already browser readable') !== -1)) {
+              resultBlob = await convertStandardImage(file, state.photoFormat, state.photoQuality);
+            } else {
+              throw heicErr;
+            }
+          }
         } else {
           // Standard image or canvas fallback
           resultBlob = await convertStandardImage(file, state.photoFormat, state.photoQuality);

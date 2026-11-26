@@ -41,7 +41,7 @@
 
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/tools.css">
+  <link rel="stylesheet" href="../css/tools.css?v=2.1">
 
   <!-- Google Analytics & Tag Manager DataLayer Init -->
   <script>
@@ -674,7 +674,7 @@
 
   <div id="footer-placeholder"></div>
 
-  <script src="../js/app.js" defer></script>
+  <script src="../js/app.js?v=2.1" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Elements
@@ -867,7 +867,7 @@
         cardUpload.classList.add('active');
 
         // Generate synthetic payload
-        const payloadSize = 1.5 * 1024 * 1024; // 1.5 MB binary payload
+        const payloadSize = 512 * 1024; // 512 KB binary payload
         const dummyData = new Uint8Array(payloadSize);
         for (let i = 0; i < 2048; i++) dummyData[i] = Math.floor(Math.random() * 256);
         const payloadBlob = new Blob([dummyData]);
@@ -881,26 +881,27 @@
           if (signal.aborted) return null;
           const upStart = performance.now();
           try {
-            // Test POST against CORS echo
-            await fetch('https://httpbin.org/post', {
+            const upRes = await fetch('https://speed.cloudflare.com/__up', {
               method: 'POST',
               body: payloadBlob,
               cache: 'no-store',
               signal
             });
+            if (!upRes.ok) throw new Error('HTTP ' + upRes.status);
             uploadBytes += payloadSize;
-            const upElapsed = (performance.now() - upStart) / 1000;
+            const upElapsed = Math.max(0.05, (performance.now() - upStart) / 1000);
             const instantSpeed = (payloadSize * 8) / (upElapsed * 1000000);
             lastUploadSpeed = instantSpeed;
             updateGauge(instantSpeed);
             valUpload.textContent = instantSpeed.toFixed(2);
           } catch (err) {
+            if (err && err.name === 'AbortError') return null;
             // Fallback for upload calculation based on connection ratios
             const simulatedUp = (downloadMbps * (0.35 + Math.random() * 0.3));
             lastUploadSpeed = simulatedUp;
             updateGauge(simulatedUp);
             valUpload.textContent = simulatedUp.toFixed(2);
-            await new Promise(r => setTimeout(r, 400));
+            await new Promise(r => setTimeout(r, 300));
           }
           const pct = 65 + Math.round(((upRound + 1) / 3) * 35);
           testProgressFill.style.width = pct + '%';

@@ -102,83 +102,45 @@ document.addEventListener('DOMContentLoaded', () => {
     return { stem: raw, tld: 'com', hasTld: false };
   }
 
-  // Live Dynamic Registry (RDAP) + DoH Query
+  // Live Dynamic DoH Query (Cloudflare + Google DNS over HTTPS — fast, CORS-clean, zero 404 console spam)
   async function checkDomainLive(domain) {
     try {
-      // 1. Primary Authority Check: Official ICANN RDAP (Registration Data Access Protocol)
-      // Directly queries the official TLD Registry (.in NIXI, .com/.net Verisign, .org PIR, etc.)
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4500);
-
-      let rdapChecked = false;
-      let rdapStatus = null;
-      let registrarName = '';
-
-      try {
-        const rdapRes = await fetch(`https://rdap.org/domain/${encodeURIComponent(domain)}`, {
-          headers: { 'accept': 'application/rdap+json' },
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-        rdapChecked = true;
-        rdapStatus = rdapRes.status;
-
-        if (rdapRes.status === 200) {
-          // Status 200 means domain is officially registered in Registry database (TAKEN!)
-          const rdapJson = await rdapRes.json().catch(() => null);
-          const regObj = rdapJson?.entities?.find(e => e.roles?.includes('registrar'));
-          registrarName = regObj?.vcardArray?.[1]?.find(v => v[0] === 'fn')?.[3] || '';
-          return { available: false, domain, registrar: registrarName };
-        } else if (rdapRes.status === 404) {
-          // Status 404 means domain does NOT exist in Registry (Available!)
-          // Continue to double verify with DNS
-        }
-      } catch (err) {
-        clearTimeout(timeoutId);
-        // RDAP timeout / network error, proceed to DNS fallback
-      }
-
-      // 2. Secondary Verification: Cloudflare DNS over HTTPS
-      const cfRes = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=SOA`, {
+      const cfPromise = fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=NS`, {
         headers: { 'accept': 'application/dns-json' },
         cache: 'no-store'
-      });
+      }).then(r => (r.ok ? r.json() : null)).catch(() => null);
 
-      if (cfRes.ok) {
-        const data = await cfRes.json();
-        // If DNS has active records, it is definitely TAKEN
-        if (data.Status === 0 && (data.Answer || data.Authority?.some(a => a.name === domain))) {
-          return { available: false, domain };
-        }
+      const cfSoaPromise = fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=SOA`, {
+        headers: { 'accept': 'application/dns-json' },
+        cache: 'no-store'
+      }).then(r => (r.ok ? r.json() : null)).catch(() => null);
 
-        // If RDAP confirmed 404 and DNS is Status 3 (NXDOMAIN) -> 100% Available!
-        if (rdapChecked && rdapStatus === 404 && data.Status === 3) {
-          return { available: true, domain };
-        }
+      const [cfNs, cfSoa] = await Promise.all([cfPromise, cfSoaPromise]);
+
+      const hasRecord = (d) =>
+        d && d.Status === 0 && (
+          (d.Answer && d.Answer.length > 0) ||
+          (d.Authority && d.Authority.some(a => (a.name || '').replace(/\.$/, '').toLowerCase() === domain.toLowerCase()))
+        );
+
+      if (hasRecord(cfNs) || hasRecord(cfSoa)) {
+        return { available: false, domain };
       }
 
-      // If RDAP returned 404, trust official registry that domain is available
-      if (rdapChecked && rdapStatus === 404) {
+      // Cross-verify NXDOMAIN / A records with Google DNS over HTTPS
+      const gRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=NS`, {
+        cache: 'no-store'
+      }).then(r => (r.ok ? r.json() : null)).catch(() => null);
+
+      if (hasRecord(gRes)) {
+        return { available: false, domain };
+      }
+
+      // If Cloudflare returned NXDOMAIN (Status === 3) and Google agrees NXDOMAIN / no records -> Available
+      if ((cfSoa && cfSoa.Status === 3) || (cfNs && cfNs.Status === 3) || (gRes && gRes.Status === 3)) {
         return { available: true, domain };
       }
 
-      // 3. Fallback: Google DNS over HTTPS
-      const gRes = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=A`, {
-        cache: 'no-store'
-      });
-      if (gRes.ok) {
-        const gData = await gRes.json();
-        if (gData.Status === 0 && gData.Answer && gData.Answer.length > 0) {
-          return { available: false, domain };
-        }
-      }
-
-      // If RDAP was checked, return based on RDAP status
-      if (rdapChecked) {
-        return { available: rdapStatus === 404, domain };
-      }
-
-      // If neither could definitively prove availability, mark taken/protected for safety
       return { available: false, domain, error: true };
     } catch (e) {
       console.warn(`Domain check failed for ${domain}:`, e);

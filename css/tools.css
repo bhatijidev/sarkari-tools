@@ -228,6 +228,16 @@
   gap: var(--space-4);
 }
 
+/* Vertical form panels using .settings-panel must stack vertically instead of auto-fitting headings/buttons/rows side-by-side */
+.settings-panel:has(> h2, > h3, > h4, > label, > button, > textarea, > hr, > .preset-chips-grid, > .loan-type-selector, > .tdee-unit-row, > div > h2, > div > h3, > div:not(.settings-group) > label.form-label),
+.tool-split-inputs > .settings-panel,
+.mortgage-grid > .settings-panel,
+.wheel-layout > .settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 .settings-group {
   display: flex;
   flex-direction: column;
@@ -3948,12 +3958,34 @@ body.dark .ocr-pane-label {
   }
 }
 
+/* Collapse multi-column top-level workspace splits on tablets and phones */
+@media (max-width: 900px) {
+  .tool-workspace > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-5, 20px) !important;
+  }
+}
+
 /* Responsive Grid Form Controls (1fr 1fr or 1fr 1fr 1fr to 1 column on mobile) */
 @media (max-width: 680px) {
   .tool-workspace [style*="grid-template-columns: 1fr 1fr 1fr"],
+  .tool-workspace [style*="grid-template-columns:1fr 1fr 1fr"],
   .tool-workspace [style*="grid-template-columns: 1fr 1fr"],
+  .tool-workspace [style*="grid-template-columns:1fr 1fr"],
+  .tool-workspace [style*="grid-template-columns: 2fr 1fr"],
+  .tool-workspace [style*="grid-template-columns:2fr 1fr"],
+  .tool-workspace [style*="grid-template-columns: 1.2fr 1fr"],
+  .tool-workspace [style*="grid-template-columns:1.2fr 1fr"],
+  .tool-workspace [style*="grid-template-columns: 1.8fr 1.2fr"],
+  .tool-workspace [style*="grid-template-columns:1.8fr 1.2fr"],
+  .tool-workspace [style*="grid-template-columns: 280px 1fr"],
+  .tool-workspace [style*="grid-template-columns:280px 1fr"],
+  .tool-workspace [style*="grid-template-columns: 140px 1fr"],
+  .tool-workspace [style*="grid-template-columns:140px 1fr"],
   .tool-workspace [style*="grid-template-columns: repeat(3,"],
-  .tool-workspace [style*="grid-template-columns: repeat(2,"] {
+  .tool-workspace [style*="grid-template-columns:repeat(3,"],
+  .tool-workspace [style*="grid-template-columns: repeat(2,"],
+  .tool-workspace [style*="grid-template-columns:repeat(2,"] {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
   }

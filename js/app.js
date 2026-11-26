@@ -1270,6 +1270,9 @@
   const termsUrl = '/terms.html';
   const disclaimerUrl = '/disclaimer.html';
   function getToolUrl(tool) {
+    if (tool && tool.url) {
+      return '/' + String(tool.url).replace(/^\/+/, '');
+    }
     return `/tools/${tool.id}.html`;
   }
 

@@ -521,12 +521,13 @@
   /* ───────── Demo Video Generator ───────── */
   async function loadDemoSample() {
     status('⏳ Generating instant demo video with audio…');
+    progressShow('Generating instant demo clip…', 5);
     var canvas = document.createElement('canvas');
     canvas.width = 1280;
     canvas.height = 720;
     var ctx = canvas.getContext('2d');
 
-    // Create synthetic 10-second audio track
+    // Create synthetic 3.5-second audio track for snappy demo preview
     var actx = new (window.AudioContext || window.webkitAudioContext)();
     var dest = actx.createMediaStreamDestination();
     var osc = actx.createOscillator();
@@ -551,12 +552,13 @@
     rec.ondataavailable = function (e) { chunks.push(e.data); };
 
     var startTime = performance.now();
-    var totalMs = 10000;
+    var totalMs = 3500;
     rec.start();
 
     var drawTimer = setInterval(function () {
       var elapsed = performance.now() - startTime;
       var p = elapsed / totalMs;
+      progressShow('Generating instant demo clip…', Math.min(95, Math.round(p * 100)));
       if (p >= 1) {
         clearInterval(drawTimer);
         rec.stop();
@@ -600,19 +602,20 @@
 
       ctx.fillStyle = '#facc15';
       ctx.font = 'bold 24px JetBrains Mono, monospace';
-      ctx.fillText((10 - elapsed / 1000).toFixed(1) + 's', 640, 448);
+      ctx.fillText(Math.max(0, 3.5 - elapsed / 1000).toFixed(1) + 's', 640, 448);
     }, 33);
 
     await new Promise(function (resolve) {
       rec.onstop = function () {
+        progressHide();
         var blob = new Blob(chunks, { type: mimeType });
         var file = new File([blob], 'alltoolsinone_demo.webm', { type: mimeType });
         loadMedia(file).then(function () {
-          // Pre-populate sample cues
+          // Pre-populate sample cues synced to 3.5s clip
           state.cues = [
-            { id: state.uid++, start: 0.5, end: 3.5, text: 'Welcome to AllToolsInOne AI Subtitle Studio! 🎬' },
-            { id: state.uid++, start: 3.8, end: 6.8, text: 'Drag and retime cues directly on the visual timeline ⏱️' },
-            { id: state.uid++, start: 7.0, end: 9.8, text: 'Viral Reels Styles, Transitions & Burn-in Export! ⚡' }
+            { id: state.uid++, start: 0.2, end: 1.3, text: 'Welcome to AllToolsInOne AI Subtitle Studio! 🎬' },
+            { id: state.uid++, start: 1.4, end: 2.4, text: 'Drag and retime cues directly on the visual timeline ⏱️' },
+            { id: state.uid++, start: 2.5, end: 3.4, text: 'Viral Reels Styles, Transitions & Burn-in Export! ⚡' }
           ];
           sortCues();
           renderCueList();

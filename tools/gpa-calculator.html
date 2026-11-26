@@ -22,7 +22,7 @@
 
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/tools.css">
+  <link rel="stylesheet" href="../css/tools.css?v=2.1">
 
   <script type="application/ld+json">
 {
@@ -71,7 +71,8 @@
 }
 </script>
   <style>
-    .course-row { display: grid; grid-template-columns: 2fr 1.2fr 1fr 1.2fr 36px; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .course-row { display: grid; grid-template-columns: 1.8fr 1fr 0.9fr 1.2fr 36px; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .course-row input, .course-row select { min-width: 0; }
     @media (max-width: 600px) { .course-row { grid-template-columns: 1fr 1fr; } }
     .btn-del-course { background: #fee2e2; color: #dc2626; border: none; border-radius: 6px; width: 34px; height: 34px; cursor: pointer; font-weight: bold; }
   </style>
@@ -104,7 +105,7 @@
               <button type="button" id="btnAddCourse" class="btn btn-sm btn-primary">+ Add Course</button>
             </div>
 
-            <div style="display:grid; grid-template-columns: 2fr 1.2fr 1fr 1.2fr 36px; gap:8px; font-size:12px; font-weight:600; color:#64748b; margin-bottom:6px;">
+            <div style="display:grid; grid-template-columns: 1.8fr 1fr 0.9fr 1.2fr 36px; gap:8px; font-size:12px; font-weight:600; color:#64748b; margin-bottom:6px;">
               <span>Course Name</span>
               <span>Grade</span>
               <span>Credits</span>
@@ -171,7 +172,7 @@
   </main>
 
   <div id="footer-placeholder"></div>
-  <script src="../js/app.js" defer></script>
+  <script src="../js/app.js?v=2.1" defer></script>
   <script src="../js/tools/gpa-calculator.js" defer></script>
 </body>
 </html>

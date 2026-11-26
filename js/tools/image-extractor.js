@@ -799,7 +799,7 @@
           </div>
 
           <!-- Thumbnail Image -->
-          <img src="${item.url}" alt="${item.filename}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'100\\' height=\\'100\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%2394a3b8\\' stroke-width=\\'2\\'><rect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'2\\'/><circle cx=\\'8.5\\' cy=\\'8.5\\' r=\\'1.5\\'/><polyline points=\\'21 15 16 10 5 21\\'/></svg>';">
+          <img src="${item.url}" alt="${item.filename}" class="extracted-thumb-img" loading="lazy">
           
           <!-- Dimensions Bottom-Right inside Preview -->
           <span class="img-dim-badge" id="dim_${item.id}">${dimText}</span>
@@ -822,6 +822,17 @@
           </div>
         </div>
       `;
+
+      // Fallback SVG if remote hotlink image fails to load
+      const thumbImg = card.querySelector('.extracted-thumb-img');
+      if (thumbImg) {
+        thumbImg.addEventListener('error', function onImgErr() {
+          thumbImg.removeEventListener('error', onImgErr);
+          thumbImg.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
+          );
+        });
+      }
 
       // Checkbox event
       const chk = card.querySelector('.img-card-checkbox');

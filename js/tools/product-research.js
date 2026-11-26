@@ -1331,7 +1331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div>
           <!-- High-Impact Product Thumbnail with Floating Badges -->
           <div class="product-thumb-wrap">
-            <img src="${imgUrl}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'><rect fill=\'%23f8fafc\' width=\'300\' height=\'200\'/><text fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'14\' dy=\'10.5\' font-weight=\'bold\' x=\'50%\' y=\'50%\' text-anchor=\'middle\'>Physical Product Photo</text></svg>';">
+            <img src="${imgUrl}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" referrerpolicy="no-referrer">
             <div class="product-thumb-overlay"></div>
             <div class="product-thumb-badge-top-left">
               <span class="product-tag product-tag-trend">#${idx + 1} Trending</span>
@@ -1423,6 +1423,17 @@ document.addEventListener('DOMContentLoaded', () => {
           </button>
         </div>
       `;
+
+      // Safe SVG fallback on image load failure
+      const thumbImg = card.querySelector('.product-thumb-img');
+      if (thumbImg) {
+        thumbImg.addEventListener('error', function onThumbErr() {
+          thumbImg.removeEventListener('error', onThumbErr);
+          thumbImg.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"><rect fill="#f8fafc" width="300" height="200"/><text fill="#94a3b8" font-family="sans-serif" font-size="14" dy="10.5" font-weight="bold" x="50%" y="50%" text-anchor="middle">Physical Product Photo</text></svg>'
+          );
+        });
+      }
 
       // Connect button to populate unit calculator
       const calcBtn = card.querySelector('.btn-load-calc');
